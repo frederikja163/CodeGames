@@ -6,7 +6,7 @@ var velY = 25;
 var x = 10;
 var y = 20;
 
-/*
+
 //Jeg kunne ikke lave objekt fra anden fil, så tester her
 class Button
 {
@@ -25,7 +25,6 @@ class Button
         rect(this.posX, this.posY, this.sizeX, this.sizeY)
     }
 }
-*/
 
 function setup()
 {
