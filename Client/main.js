@@ -13,10 +13,10 @@ function setup()
 function draw()
 {
     background(0);
-
+    
     x += velX;
     y += velY;
-
+    
     if (x < 0 || x > width)
     {
         velX *= -1;
