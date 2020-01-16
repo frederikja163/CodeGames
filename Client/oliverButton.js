@@ -1,6 +1,4 @@
-///<reference path="p5.global-mode.d.ts" />
-button1 = new Button(createVector(100, 100), createVector(269, 89), "test hello world", color(169, 50, 100), print("hover test"), print("click test"));
-class Button
+class _Button
 {
     constructor(position, size, text, color, onHover, onClick, textColor)
     {
