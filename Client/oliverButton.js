@@ -12,6 +12,7 @@ class Button
         this.textColour = [0, 0, 100]
         this.textSize = this.sizeY / 4
         this.colour = colour
+        this.onClick = onClick
     }
 
     setup()
@@ -19,6 +20,24 @@ class Button
         if (this.colour[2] >= 50)
         {
             this.textColour = [0, 0, 0]
+        }
+    }
+
+    move()
+    {
+
+    }
+
+    onHover()
+    {
+        
+    }
+
+    onClickF()
+    {
+        if (mouseX >= this.posX && mouseX <= this.posX + this.sizeX && mouseY >= this.posY && mouseY <= this.posY + this.sizeY)
+        {
+            this.onClick();
         }
     }
 
@@ -32,6 +51,5 @@ class Button
         fill(this.textColour)
         textSize(this.textSize)
         text(this.text, this.posX + this.sizeX / 2 - textWidth(this.text) / 2, this.posY + this.sizeY / 2 - this.textSize / 2, this.sizeX, this.sizeY)
-
     }
 }
