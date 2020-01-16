@@ -1,41 +1,29 @@
 ///<reference path="p5.global-mode.d.ts" />
-
+button1 = new Button(createVector(100, 100), createVector(269, 89), "test hello world", color(169, 50, 100), print("hover test"), print("click test"));
 class Button
 {
-    constructor(pos, size, text, colour, onHover, onClick)
+    constructor(position, size, text, color, onHover, onClick, textColor)
     {
-        this.posX = pos[0]
-        this.posY = pos[1]
-        this.sizeX = size[0]
-        this.sizeY = size[1]
+        this.position = position
+        this.size = size
         this.text = text
-        this.textColour = [0, 0, 100]
+        this.textcolor = (0, 0, 100)
         this.textSize = this.sizeY / 4
-        this.colour = colour
+        this.color = color
         this.onClick = onClick
     }
 
-    setup()
+    update()
     {
-        if (this.colour[2] >= 50)
+        if (this.color[2] >= 50)
         {
-            this.textColour = [0, 0, 0]
+            this.textcolor = [0, 0, 0]
         }
-    }
-
-    move()
-    {
-
-    }
-
-    onHover()
-    {
-        
     }
 
     onClickF()
     {
-        if (mouseX >= this.posX && mouseX <= this.posX + this.sizeX && mouseY >= this.posY && mouseY <= this.posY + this.sizeY)
+        if (mouseX >= this.position.x && mouseX <= this.position.x + this.size.x && mouseY >= this.position.y && mouseY <= this.position.y + this.size.y)
         {
             this.onClick();
         }
@@ -45,10 +33,10 @@ class Button
     {
         colorMode(HSB);
 
-        fill(this.colour)
+        fill(this.color)
         rect(this.posX, this.posY, this.sizeX, this.sizeY)
         
-        fill(this.textColour)
+        fill(this.textcolor)
         textSize(this.textSize)
         text(this.text, this.posX + this.sizeX / 2 - textWidth(this.text) / 2, this.posY + this.sizeY / 2 - this.textSize / 2, this.sizeX, this.sizeY)
     }

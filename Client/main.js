@@ -9,7 +9,7 @@ function setup()
 {
     createCanvas(1069, 420);
 
-    button1 = new Button([100, 100], [269, 80], "test hello world", [169, 50, 100], 0, testFunc);
+    button1 = new Button(createVector(100, 100), createVector(269, 89), "test hello world", [169, 50, 100], print("hover test"), print("click test"));
 }
 
 function draw()
@@ -23,6 +23,17 @@ function mousePressed()
 {
     button1.onClickF();
 }
+
+
+
+
+
+
+
+
+
+
+
 
 var testFunc = function testfunc()
 {
