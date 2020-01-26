@@ -7,7 +7,7 @@ class Menu
 
     update()
     {
-        print(Input.mouse.position);
+        
     }
 
     draw()
