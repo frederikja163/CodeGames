@@ -17,8 +17,8 @@ class Button
 
     update()
     {
-        var min = p5.Vector.sub(this.position, this.size);
-        var max = p5.Vector.add(this.position, this.size);
+        var min = p5.Vector.sub(this.position, p5.Vector.mult(this.size, 0.5));
+        var max = p5.Vector.add(this.position, p5.Vector.mult(this.size, 0.5));
 
         if (min.x <= mouseX && mouseX <= max.x &&
             min.y <= mouseY && mouseY <= max.y)

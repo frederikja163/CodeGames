@@ -10,7 +10,14 @@ function setup()
 
     resize();
 
-    button1 = new Button
+    testButton = new Button(createVector(width / 2, height / 2), createVector(250, 50), color(0.15),
+            "test button", color(0.95),
+            (button) => button.size = p5.Vector.mult(button.size, 1.2),
+            (button) => button.size = createVector(250, 50),
+            (button) => button.size = p5.Vector.mult(createVector(250, 50), 0.8),
+            (button) => button.size = p5.Vector.mult(createVector(250, 50), 1.2));
+
+    button1 = new _Button
     (
         createVector(200, 100), 
         createVector(269, 89), 
@@ -23,7 +30,7 @@ function setup()
         (button) => print("onRelease")
     );
 
-    button2 = new Button
+    button2 = new _Button
     (
         createVector(400, 700), 
         createVector(269, 500), 
@@ -39,24 +46,18 @@ function setup()
 
 function draw()
 {
-<<<<<<< HEAD
+    testButton.update();
     button1.update();
     button2.update();
 
     background(0);
-=======
-    testButton.update();
-
-    background(0);
     testButton.draw();
+    button1.draw();
+    button2.draw();
 }
 
 function mousePressed()
 {
-    Input.onMousePressed(mouseButton);
-}
->>>>>>> d113fb2982f3cf204fba826585bed6c959c6c0c1
-
     button1.draw();
     button2.draw();
 }
