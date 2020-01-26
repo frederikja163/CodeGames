@@ -1,5 +1,7 @@
 ///<reference path="p5.global-mode.d.ts" />
 
+var testButton;
+
 function setup()
 {
     createCanvas();
@@ -37,10 +39,23 @@ function setup()
 
 function draw()
 {
+<<<<<<< HEAD
     button1.update();
     button2.update();
 
     background(0);
+=======
+    testButton.update();
+
+    background(0);
+    testButton.draw();
+}
+
+function mousePressed()
+{
+    Input.onMousePressed(mouseButton);
+}
+>>>>>>> d113fb2982f3cf204fba826585bed6c959c6c0c1
 
     button1.draw();
     button2.draw();

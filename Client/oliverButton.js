@@ -1,4 +1,4 @@
-class Button
+class _Button
 {
     constructor(position, size, color, text, textColor, onEnter, onLeave, onPress, onRelease)
     {
