@@ -1,12 +1,11 @@
 class Button
 {
-    constructor(position, size, color, text, textColor, onEnter, onLeave, onPress, onRelease)
+    constructor(position, size, color, radius, onEnter, onLeave, onPress, onRelease)
     {
         this.position = position;
         this.size = size;
         this.color = color;
-        this.text = text;
-        this.textColor = textColor;
+        this.radius = radius;
         this.onEnter = onEnter;
         this.onLeave = onLeave;
         this.onPress = onPress;
@@ -20,20 +19,20 @@ class Button
         var min = p5.Vector.sub(this.position, p5.Vector.mult(this.size, 0.5));
         var max = p5.Vector.add(this.position, p5.Vector.mult(this.size, 0.5));
 
-        if (min.x <= mouseX && mouseX <= max.x &&
-            min.y <= mouseY && mouseY <= max.y)
+        if (min.x <= Input.mouse.position.x && Input.mouse.position.x <= max.x &&
+            min.y <= Input.mouse.position.y && Input.mouse.position.y <= max.y)
         {
-            if (!mouseIsPressed && !this.isMouseOver)
+            if (!Input.mouse.button[LEFT] && !this.isMouseOver)
             {
                 this.isMouseOver = true;
                 this.onEnter(this);
             }
-            else if (mouseIsPressed && this.isMouseOver && !this.isPressed)
+            else if (Input.mouse.button[LEFT] && this.isMouseOver && !this.isPressed)
             {
                 this.isPressed = true;
                 this.onPress(this);
             }
-            else if (!mouseIsPressed && this.isPressed && this.isMouseOver)
+            else if (!Input.mouse.button[LEFT] && this.isPressed && this.isMouseOver)
             {   
                 this.isPressed = false;
                 this.onRelease(this);
@@ -50,11 +49,6 @@ class Button
     draw()
     {
         fill(this.color);
-        rect(this.position.x, this.position.y, this.size.x, this.size.y);
-
-        textAlign(CENTER, CENTER);
-        fill(this.textColor);
-        textSize(this.size.y);
-        text(this.text, this.position.x, this.position.y);
+        rect(this.position.x, this.position.y, this.size.x, this.size.y, this.radius);
     }
 }
