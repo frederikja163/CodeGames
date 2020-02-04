@@ -1,6 +1,8 @@
 ///<reference path="p5.global-mode.d.ts" />
 
 var app;
+var room;
+var socket = io("https://95.217.87.22:50464");
 
 function setup()
 {
@@ -42,4 +44,5 @@ window.onresize += resize;
 function resize()
 {
     resizeCanvas(document.documentElement.clientWidth, document.documentElement.clientHeight);
+    app.resize(createVector(document.documentElement.clientWidth, document.documentElement.clientHeight));
 }

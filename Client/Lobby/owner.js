@@ -1,11 +1,11 @@
-class Guest
+class Owner extends Guest
 {
     constructor()
     {
 
     }
 
-    onResize()
+    onResize(size)
     {
         
     }

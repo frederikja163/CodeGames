@@ -5,6 +5,11 @@ class Application
         this.state = new Lobby();
     }
 
+    onResize(size)
+    {
+        this.state.onResize(size);
+    }
+
     update()
     {
         this.state.update();
