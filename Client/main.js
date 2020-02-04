@@ -10,12 +10,13 @@ function setup()
     rectMode(CENTER);
     colorMode(HSB, 1);
     
+
     Input.inititalize();
     mouseMoved();
 
-    resize();
-
     app = new Application();
+
+    resize();
 }
 
 function draw()
@@ -44,5 +45,5 @@ window.onresize += resize;
 function resize()
 {
     resizeCanvas(document.documentElement.clientWidth, document.documentElement.clientHeight);
-    app.resize(createVector(document.documentElement.clientWidth, document.documentElement.clientHeight));
+    app.onResize(createVector(document.documentElement.clientWidth, document.documentElement.clientHeight));
 }

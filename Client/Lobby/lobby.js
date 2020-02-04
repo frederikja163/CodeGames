@@ -23,7 +23,7 @@ class Lobby
 
     onResize(size)
     {
-        this.onResize(size);
+        this.state.onResize(size);
     }
 
     update()
