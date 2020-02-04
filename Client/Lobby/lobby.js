@@ -19,7 +19,7 @@ class Lobby
             }
             if (socket.id == room.players[0].id)
             {
-                this.state = new Owner();
+                this.state = new Guest();
             }
             else
             {
@@ -30,16 +30,25 @@ class Lobby
 
     onResize(size)
     {
-        this.state.onResize(size);
+        if (this.state != null)
+        {
+            this.state.onResize(size);
+        }
     }
 
     update()
     {
-        this.state.update();
+        if (this.state != null)
+        {
+            this.state.update();
+        }
     }
 
     draw()
     {
-        this.state.draw();
+        if (this.state != null)
+        {
+            this.state.draw();
+        }
     }
 }
