@@ -26,7 +26,6 @@ io.on("connection", (socket) =>
 					socket.emit("RoomJoined", rooms[i]);
 				}
 			}
-			socket.emit("RoomJoined", new Room(id, new Player(socket.id, "player" + 1)));
 		}
 	});
 });
