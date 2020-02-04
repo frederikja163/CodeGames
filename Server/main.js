@@ -8,7 +8,9 @@ io.on("connection", (socket) =>
 	{
 		if(id === "")
 		{
-			socket.emit("RoomJoined", new Room(generateID(Random(3, 5)), new Player(socket.id, "player1")));
+			var r = new Room(generateID(Random(3, 5)), new Player(socket.id, "player1"));
+			rooms.push(r)
+			socket.emit("RoomJoined", r);
 		}
 		else
 		{
