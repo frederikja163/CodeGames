@@ -6,10 +6,10 @@ class Guest
 
         for(var i = room.players.length; i < room.players.length; i++)
         {
-            this.playerText.push(new Text(room.players[i], createVector(20, i * 20 + 20), 10, color(1, 1, 1), LEFT, CENTER));
+            this.playerText.push(new Text(room.players[i].name, createVector(20, i * 20 + 20), 10, color(1, 1, 1), LEFT, CENTER));
         }
 
-        
+
     }
 
     onResize()
