@@ -8,25 +8,30 @@ io.on("connection", (socket) =>
 	{
 		if(id === "")
 		{
-			socket.emit("RoomJoined", new Room(generateID(Random(3, 5)), new Player(socket.id, "player1")));
+			var r = new Room(generateID(Random(3, 5)), new Player(socket.id, "player1"));
+			rooms.push(r)
+			socket.emit("RoomJoined", r);
 		}
 		else
 		{
 			for (var i = 0; i < rooms.length; i++)
 			{
-				if (rooms[i].id == id)
+				if (rooms[i].id === id)
 				{
-					var player = new Player(socket.id, "player" + rooms.players.length)
-					for(var j = 0; i < rooms.length; j++)
+					var player = new Player(socket.id, "player" + rooms[i].players.length)
+					for(var j = 0; i < rooms[i].players.length; j++)
 					{
 						io.to(rooms[i].players[j]).emit("PlayerJoined", player);
 					}
 
-					rooms[i].players.push(player)
+					rooms[i].players.push(player);
 					socket.emit("RoomJoined", rooms[i]);
+					return;
 				}
 			}
-			socket.emit("RoomJoined", new Room(id, new Player(socket.id, "player" + 1)));
+			var r = new Room(id, new Player(socket.id, "player1"));
+			rooms.push(r);
+			socket.emit("RoomJoined", r);
 		}
 	});
 });
