@@ -30,7 +30,7 @@ io.on("connection", (socket) =>
 				}
 			}
 			var r = new Room(id, new Player(socket.id, "player1"));
-			room.push(r);
+			rooms.push(r);
 			socket.emit("RoomJoined", r);
 		}
 	});
