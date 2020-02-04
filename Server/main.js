@@ -1,4 +1,6 @@
 const io = require("socket.io").listen(50464);
+const {Room, Player, Options} = require('./room');
+var rooms = [];
 
 io.on("connection", (socket) =>
 {
@@ -6,11 +8,25 @@ io.on("connection", (socket) =>
 	{
 		if(id === "")
 		{
-			socket.emit('RoomJoined', new Room(generateID(Random(3, 5)), new Player(socket.id, "player" + 1)));
+			socket.emit("RoomJoined", new Room(generateID(Random(3, 5)), new Player(socket.id, "player1")));
 		}
 		else
 		{
-			socket.emit('RoomJoined', new Room(id, new Player(socket.id, "player" + 1)));
+			for (var i = 0; i < rooms.length; i++)
+			{
+				if (rooms[i].id == id)
+				{
+					var player = new Player(socket.id, "player" + rooms.players.length)
+					for(var j = 0; i < rooms.length; j++)
+					{
+						io.to(rooms[i].players[j]).emit("PlayerJoined", player);
+					}
+
+					rooms[i].players.push(player)
+					socket.emit("RoomJoined", rooms[i]);
+				}
+			}
+			socket.emit("RoomJoined", new Room(id, new Player(socket.id, "player" + 1)));
 		}
 	});
 });

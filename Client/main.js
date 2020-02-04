@@ -2,14 +2,13 @@
 
 var app;
 var room;
-var socket = io("https://95.217.87.22:50464");
+var socket = io("http://95.217.87.22:50464");
 
 function setup()
 {
     createCanvas();
     rectMode(CENTER);
     colorMode(HSB, 1);
-    
 
     Input.inititalize();
     mouseMoved();
