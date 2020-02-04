@@ -15,6 +15,7 @@ class Lobby
             {
                 window.location.href = window.location.href.replace("id", "") + "#" + room.id;
             }
+            console.log(room);
             if (socket.id == room.players[0].id)
             {
                 this.state = new Guest();

@@ -26,8 +26,12 @@ io.on("connection", (socket) =>
 
 					rooms[i].players.push(player);
 					socket.emit("RoomJoined", rooms[i]);
+					return;
 				}
 			}
+			var r = new Room(id, new Player(socket.id, "player1"));
+			room.push(r);
+			socket.emit("RoomJoined", r);
 		}
 	});
 });
