@@ -2,8 +2,6 @@ class Lobby
 {
     constructor()
     {
-        this.state = new Guest();
-
         var url = window.location.href;
         var idx = url.indexOf('#');
         var id = (idx != -1) ? url.substring(idx) : "";

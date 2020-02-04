@@ -14,7 +14,7 @@ io.on("connection", (socket) =>
 		{
 			for (var i = 0; i < rooms.length; i++)
 			{
-				if (rooms[i].id == id)
+				if (rooms[i].id === id)
 				{
 					var player = new Player(socket.id, "player" + rooms.players.length)
 					for(var j = 0; i < rooms.length; j++)
@@ -22,7 +22,7 @@ io.on("connection", (socket) =>
 						io.to(rooms[i].players[j]).emit("PlayerJoined", player);
 					}
 
-					rooms[i].players.push(player)
+					rooms[i].players.push(player);
 					socket.emit("RoomJoined", rooms[i]);
 				}
 			}
