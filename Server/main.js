@@ -41,7 +41,7 @@ io.on("connection", (socket) =>
 		{
 			for(var j = 0; j < rooms[i].players.length; j++)
 			{
-				if (rooms[i].players[j].id == id)
+				if (rooms[i].players[j].id == socket.id)
 				{
 					rooms[i].players.removeAt(j);
 					for (var k = 0; k < rooms[i].players.length; k--)
