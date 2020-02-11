@@ -18,7 +18,7 @@ io.on("connection", (socket) =>
 			{
 				if (rooms[i].id === id)
 				{
-					var player = new Player(socket.id, "player" + rooms[i].players.length)
+					var player = new Player(socket.id, "player" + rooms[i].players.length + 1)
 					for(var j = 0; j < rooms[i].players.length; j++)
 					{
 						io.to(rooms[i].players[j].id).emit("PlayerJoined", player);
@@ -44,7 +44,7 @@ io.on("connection", (socket) =>
 				if (rooms[i].players[j].id == socket.id)
 				{
 					rooms[i].players.splice(j, 1);
-					for (var k = 0; k < rooms[i].players.length; k--)
+					for (var k = 0; k < rooms[i].players.length; k++)
 					{
 						io.to(rooms[i].players[j].id).emit("PlayerLeft", socket.id);
 					}
