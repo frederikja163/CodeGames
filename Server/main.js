@@ -43,7 +43,7 @@ io.on("connection", (socket) =>
 			{
 				if (rooms[i].players[j].id == socket.id)
 				{
-					rooms[i].players.removeAt(j);
+					rooms[i].players.splice(j, 1);
 					for (var k = 0; k < rooms[i].players.length; k--)
 					{
 						io.to(rooms[i].players[j].id).emit("PlayerLeft", socket.id);
