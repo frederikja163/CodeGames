@@ -21,7 +21,7 @@ io.on("connection", (socket) =>
 					var player = new Player(socket.id, "player" + rooms[i].players.length)
 					for(var j = 0; j < rooms[i].players.length; j++)
 					{
-						//io.to(rooms[i].players[j]).emit("PlayerJoined", player);
+						io.to(rooms[i].players[j]).emit("PlayerJoined", player);
 					}
 
 					rooms[i].players.push(player);
@@ -32,6 +32,25 @@ io.on("connection", (socket) =>
 			var r = new Room(id, new Player(socket.id, "player1"));
 			rooms.push(r);
 			socket.emit("RoomJoined", r);
+		}
+	});
+
+	socket.on("disconnect", () =>
+	{
+		for (var i = 0; i < rooms.length; i++)
+		{
+			for(var j = 0; j < rooms[i].players.length; j++)
+			{
+				if (rooms[i].players[j].id == id)
+				{
+					rooms[i].players.removeAt(j);
+					for (var k = 0; k < rooms[i].players.length; k--)
+					{
+						io.to(rooms[i].players[j]).emit("PlayerLeft", socket.id);
+					}
+					return;
+				}
+			}
 		}
 	});
 });
