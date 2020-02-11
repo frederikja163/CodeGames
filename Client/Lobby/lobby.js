@@ -24,6 +24,8 @@ class Lobby
                 this.state = new Guest();
             }
         });
+        socket.on("PlayerJoined", (player) => console.log("player joined! " + player.id + " " + player.name));
+        socket.on("PlayerLeft", (id) => console.log("Player " + id + " left the room"));
     }
 
     onResize(size)
