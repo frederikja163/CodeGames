@@ -38,9 +38,12 @@ class Lobby
 
     updateName(name)
     {
-        var player = this.room.players.find(p => p.pid === this.socket.id);
-        player.name = name;
-        client.updatedName(this.room, name);
+        if (name.length <= 20)
+        {   
+            var player = this.room.players.find(p => p.pid === this.socket.id);
+            player.name = name;
+            client.updatedName(this.room, name);
+        }
     }
 
     disconnect()
