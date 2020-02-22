@@ -9,19 +9,28 @@ class Input
             LEFT: false,
             MIDDLE: false
         };
+        Input.onKeyTyped = [];
     }
 
-    static onMousePress(button)
+    static mousePress(button)
     {
         Input.mouse.button[button] = true;
     }
 
-    static onMouseRelease(button)
+    static mouseRelease(button)
     {
         Input.mouse.button[button] = false;
     }
 
-    static onMouseMove(mousePosition)
+    static keyTyped(keyCode)
+    {
+        for (var i = 0; i < Input.onKeyTyped.length; i++)
+        {
+            Input.onKeyTyped[i](keyCode);
+        }
+    }
+
+    static mouseMove(mousePosition)
     {
         Input.mouse.position = mousePosition;
     }

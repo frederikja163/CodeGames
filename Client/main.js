@@ -27,17 +27,22 @@ function draw()
 
 function mousePressed()
 {
-    Input.onMousePress(mouseButton);
+    Input.mousePress(mouseButton);
 }
 
 function mouseReleased()
 {
-    Input.onMouseRelease(mouseButton);
+    Input.mouseRelease(mouseButton);
 }
 
 function mouseMoved()
 {
-    Input.onMouseMove(createVector(mouseX, mouseY));
+    Input.mouseMove(createVector(mouseX, mouseY));
+}
+
+function keyTyped()
+{
+    Input.keyTyped(keyCode);
 }
 
 window.onresize += resize;

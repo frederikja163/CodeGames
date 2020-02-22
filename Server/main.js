@@ -19,12 +19,12 @@ io.on("connection", (socket) =>
 				if (rooms[i].id === id)
 				{
 					var player = new Player(socket.id, "player" + (rooms[i].players.length + 1))
-					for(var j = 0; j < rooms[i].players.length; j++)
+					rooms[i].players.push(player);
+					for(var j = 0; j < rooms[i].players.length - 1; j++)
 					{
 						io.to(rooms[i].players[j].id).emit("PlayerJoined", rooms[i], socket.id);
 					}
 
-					rooms[i].players.push(player);
 					socket.emit("RoomJoined", rooms[i]);
 					return;
 				}

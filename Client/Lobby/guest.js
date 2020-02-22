@@ -11,6 +11,8 @@ class Guest
         {
             room = r;
         });
+
+        Input.onKeyTyped.push((keyCode) => print(keyCode));
     }
 
     onResize()
