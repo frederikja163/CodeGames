@@ -13,9 +13,7 @@ class Lobby
     {
         if(rid === "")
         {
-            var r = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "PLAYER1"));
-            rooms.push(r)
-            client.roomJoined(this.socket.id, r);
+            this.room = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "PLAYER1"));
         }
         else
         {
@@ -23,40 +21,32 @@ class Lobby
             {
                 if (rooms[i].id === rid)
                 {
-                    var player = new Player(this.socket.id, "PLAYER" + (rooms[i].players.length + 1))
-                    rooms[i].players.push(player);
+                    this.room = rooms[i].id;
+                    var player = new Player(this.socket.id, "PLAYER" + (this.room.players.length + 1))
+                    this.room.players.push(player);
 
-                    client.playerJoined(rooms[i], this.socket.id);
-                    client.roomJoined(this.socket.id, rooms[i]);
+                    client.playerJoined(this.room, this.socket.id);
+                    client.roomJoined(this.socket.id, this.room);
                     return;
                 }
             }
-            var r = new Room(rid, new Player(this.socket.id, "PLAYER1"));
-            rooms.push(r);
-            client.roomJoined(this.socket.id, r);
+            this.room = new Room(rid, new Player(this.socket.id, "PLAYER1"));
         }
+        rooms.push(r);
+        client.roomJoined(this.socket.id, r);
     }
 
     disconnect()
     {
-        for (var i = 0; i < rooms.length; i++)
-        {
-            for(var j = 0; j < rooms[i].players.length; j++)
-            {
-                if (rooms[i].players[j].id == this.socket.id)
-                {
-                    rooms[i].players.splice(j, 1);
+        this.room.players.splice(j, 1);
 
-                    client.playerLeft(rooms[i], this.socket.id);
-                    
-                    if (rooms[i].players.length == 0)
-                    {
-                        rooms.splice(i, 1);
-                    }
-                    return;
-                }
-            }
+        client.playerLeft(this.room, this.socket.id);
+        
+        if (this.room.players.length == 0)
+        {
+            rooms.splice(i, 1);
         }
+        return;
     }
     
 }
