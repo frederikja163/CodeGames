@@ -1,4 +1,4 @@
-const io = require("socket.io").listen(50464);
+const io = require(".\io");
 const server = require("./server");
 
 io.on("connection", server.OnConnected);
