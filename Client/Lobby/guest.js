@@ -2,6 +2,17 @@ class Guest
 {
     constructor()
     {
+        function playerIndex()
+        {
+            for (var i = 0; i < room.players.length; i++)
+            {
+                if (socket.id == room.players[i].id)
+                {
+                    return i;
+                }
+            }
+        }
+
         socket.on("PlayerJoined", (r, id) => 
         {
             room = r;
@@ -12,7 +23,19 @@ class Guest
             room = r;
         });
 
-        Input.onKeyTyped.push((keyCode) => print(keyCode));
+        Input.onKeyTyped.push((keyCode) => 
+        {
+            var name = room.players[playerIndex()].name;
+            if (keyCode == 8)
+            {
+                name = name.slice(0, -1);
+            }
+            else if ((keyCode > 47 && keyCode < 58) || (keyCode > 64 && keyCode < 91) || keyCode == 32)
+            {
+                name += char(keyCode);
+            }
+            room.players[playerIndex()].name = name;
+        });
     }
 
     onResize()
@@ -22,7 +45,7 @@ class Guest
 
     update()
     {
-        
+
     }
 
     draw()

@@ -40,7 +40,7 @@ function mouseMoved()
     Input.mouseMove(createVector(mouseX, mouseY));
 }
 
-function keyTyped()
+function keyPressed()
 {
     Input.keyTyped(keyCode);
 }
