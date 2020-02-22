@@ -1,4 +1,4 @@
-const io = require("socket.io")(50464);
+const io = require("socket.io").listen(50464);
 
 function roomJoined(sid, room)
 {
@@ -21,9 +21,15 @@ function playerLeft(room, pid)
     }
 }
 
+function on(str, callbck)
+{
+    io.on(str, callbck);
+}
+
 module.exports =
 {
     roomJoined,
     playerJoined,
-    playerLeft
+    playerLeft,
+    on
 }
