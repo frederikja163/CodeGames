@@ -1,4 +1,4 @@
-function button(x, y, width, height)
+function isMouseWithin(x, y, width, height)
 {
     var hWidth = width / 2;
     var hHeight = height / 2;
@@ -6,12 +6,9 @@ function button(x, y, width, height)
     var minY = y - hHeight;
     var maxX = x + hWidth;
     var maxY = y + hHeight;
-    var mouseX = Input.mouse.position.X;
-    var mouseY = Input.mouse.position.Y;
+    var mouseX = Input.mouse.position.x;
+    var mouseY = Input.mouse.position.y;
 
-    rect(x, y, width, height);
-
-    return Input.mouse[LEFT] &&
-            minX <= mouseX && mouseX <= maxX &&
+    return minX <= mouseX && mouseX <= maxX &&
             minY <= mouseY && mouseY <= maxY
 }
