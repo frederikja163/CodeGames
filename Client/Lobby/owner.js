@@ -17,24 +17,41 @@ class Owner extends Guest
 
     draw()
     {
-        super.draw();
-        
-        var txtSize = 40;
+        this.txtSize = 40;
 
         fill(1);
         text("jeg er owner", 1, 40);
 
+        fill(color(0, .6, 1));
+        textSize(this.txtSize);
+        text("Players in room", this.txtSize * 2, this.txtSize * 2);
+
         for (var i = 0; i < room.players.length; i++)
         {
-            if (isMouseWithin(2 * txtSize, i * txtSize * 2 + txtSize * 4, 800, txtSize))
+            this.color = 1;
+            var playerNamePos = createVector(this.txtSize * 2, i * this.txtSize * 2 + this.txtSize * 4);
+            var playerNameSize = createVector(textWidth(room.players[i].name), this.txtSize);
+            
+            if (isMouseWithin(playerNamePos.x, playerNamePos.y - this.txtSize, playerNameSize.x, playerNameSize.y))
             {
-                console.log("pressed");
-                text("X", txtSize, i * txtSize * 2 + txtSize * 4);
+                this.color = .6;
 
-                if (true)
+                if (Input.mouse.button[LEFT])
                 {
-
+                    //kick player
                 }
+            }
+
+            fill(color(this.color));
+            textSize(this.txtSize);
+            text(room.players[i].name, playerNamePos.x, playerNamePos.y);
+
+            if (isMouseWithin(playerNamePos.x, playerNamePos.y - this.txtSize, playerNameSize.x, playerNameSize.y))
+            {
+                strokeWeight(4);
+                stroke(1, .8, 1);
+                line(playerNamePos.x, playerNamePos.y - this.txtSize * .4, playerNamePos.x + playerNameSize.x, playerNamePos.y - this.txtSize * .4);
+                strokeWeight(0);
             }
         }
     }
