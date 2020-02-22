@@ -13,7 +13,7 @@ class Lobby
     {
         if(rid === "")
         {
-            var r = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "player1"));
+            var r = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "PLAYER1"));
             rooms.push(r)
             client.roomJoined(this.socket.id, r);
         }
@@ -23,7 +23,7 @@ class Lobby
             {
                 if (rooms[i].id === rid)
                 {
-                    var player = new Player(this.socket.id, "player" + (rooms[i].players.length + 1))
+                    var player = new Player(this.socket.id, "PLAYER" + (rooms[i].players.length + 1))
                     rooms[i].players.push(player);
 
                     client.playerJoined(rooms[i], this.socket.id);
@@ -31,7 +31,7 @@ class Lobby
                     return;
                 }
             }
-            var r = new Room(rid, new Player(this.socket.id, "player1"));
+            var r = new Room(rid, new Player(this.socket.id, "PLAYER1"));
             rooms.push(r);
             client.roomJoined(this.socket.id, r);
         }
