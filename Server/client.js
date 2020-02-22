@@ -39,5 +39,6 @@ module.exports =
     roomJoined,
     playerJoined,
     playerLeft,
+    updatedName,
     on
 }
