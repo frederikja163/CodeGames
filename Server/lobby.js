@@ -48,7 +48,7 @@ class Lobby
             }
         }
     }
-
+    
     disconnect()
     {
         this.room.players.splice(j, 1);
