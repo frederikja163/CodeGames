@@ -33,7 +33,7 @@ class Lobby
             }
             var r = new Room(rid, new Player(this.socket.id, "player1"));
             rooms.push(r);
-            client.roomJoined(this.socket.id, room);
+            client.roomJoined(this.socket.id, r);
         }
     }
 
