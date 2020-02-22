@@ -13,9 +13,9 @@ class Lobby
     {
         if(rid === "")
         {
-            var r = new Room(generateID(Random(3, 5)), new Player(socket.id, "player1"));
+            var r = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "player1"));
             rooms.push(r)
-            client.roomJoined(socket.id, room);
+            client.roomJoined(this.socket.id, room);
         }
         else
         {
@@ -23,17 +23,17 @@ class Lobby
             {
                 if (rooms[i].id === rid)
                 {
-                    var player = new Player(socket.id, "player" + (rooms[i].players.length + 1))
+                    var player = new Player(this.socket.id, "player" + (rooms[i].players.length + 1))
                     rooms[i].players.push(player);
 
-                    client.playerJoined(rooms[i], socket.id);
-                    client.roomJoined(socket.id, room);
+                    client.playerJoined(rooms[i], this.socket.id);
+                    client.roomJoined(this.socket.id, room);
                     return;
                 }
             }
-            var r = new Room(rid, new Player(socket.id, "player1"));
+            var r = new Room(rid, new Player(this.socket.id, "player1"));
             rooms.push(r);
-            client.roomJoined(socket.id, room);
+            client.roomJoined(this.socket.id, room);
         }
     }
 
@@ -43,11 +43,11 @@ class Lobby
         {
             for(var j = 0; j < rooms[i].players.length; j++)
             {
-                if (rooms[i].players[j].id == socket.id)
+                if (rooms[i].players[j].id == this.socket.id)
                 {
                     rooms[i].players.splice(j, 1);
 
-                    client.playerLeft(rooms[i], socket.id);
+                    client.playerLeft(rooms[i], this.socket.id);
                     
                     if (rooms[i].players.length == 0)
                     {
