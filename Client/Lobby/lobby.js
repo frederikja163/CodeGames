@@ -4,18 +4,18 @@ class Lobby
     {
         var url = window.location.href;
         var idx = url.indexOf('#');
-        var id = (idx != -1) ? url.substring(idx) : "";
-        id = id.replace("#", "");
+        var rid = (idx != -1) ? url.substring(idx) : "";
+        rid = rid.replace("#", "");
 
-        socket.emit("joinRoom", id)
+        socket.emit("joinRoom", rid)
         socket.on("roomJoined", (r) => 
         {
             room = r;
-            if (id != room.id)
+            if (rid != room.rid)
             {
-                window.location.href = window.location.href.replace("id", "") + "#" + room.id;
+                window.location.href = window.location.href.replace("id", "") + "#" + room.rid;
             }
-            if (socket.id == room.players[0].id)
+            if (socket.id == room.players[0].pid)
             {
                 this.state = new Owner();
             }
