@@ -9,7 +9,7 @@ function playerJoined(room, pid)
 {
     for (var i = 0; i < room.players.length; i++)
     {
-        io.to(room.players[i].id).emit("playerJoined", room, pid);
+        io.to(room.players[i].pid).emit("playerJoined", room, pid);
     }
 }
 
@@ -17,7 +17,7 @@ function updatedName(room, name)
 {
     for (var i = 0; i < room.players.length; i++)
     {
-        io.to(room.players[i].id).emit("updatedName", room, name);
+        io.to(room.players[i].pid).emit("updatedName", room, name);
     }
 }
 
@@ -25,7 +25,7 @@ function playerLeft(room, pid)
 {
     for (var i = 0; i < room.players.length; i++)
     {
-        io.to(room.players[i].id).emit("playerLeft", room, pid);
+        io.to(room.players[i].pid).emit("playerLeft", room, pid);
     }
 }
 

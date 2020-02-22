@@ -6,7 +6,7 @@ class Guest
         {
             for (var i = 0; i < room.players.length; i++)
             {
-                if (socket.id == room.players[i].id)
+                if (socket.id == room.players[i].pid)
                 {
                     return i;
                 }
@@ -14,7 +14,7 @@ class Guest
         }
         this.playerIndex = getPlayerIndex();
 
-        socket.on("playerJoined", (r, id) => 
+        socket.on("playerJoined", (r, pid) => 
         {
             room = r;
             this.playerIndex = getPlayerIndex();
@@ -25,7 +25,7 @@ class Guest
             room = r;
         });
 
-        socket.on("playerLeft", (r, id) =>
+        socket.on("playerLeft", (r, pid) =>
         {
             room = r;
             this.playerIndex = getPlayerIndex();

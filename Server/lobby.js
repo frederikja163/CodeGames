@@ -20,7 +20,7 @@ class Lobby
         {
             for (var i = 0; i < rooms.length; i++)
             {
-                if (rooms[i].id === rid)
+                if (rooms[i].rid === rid)
                 {
                     this.room = rooms[i];
                     var player = new Player(this.socket.id, "PLAYER" + (this.room.players.length + 1))
@@ -39,14 +39,14 @@ class Lobby
 
     updateName(name)
     {
-        var player = this.room.players.find(p => p.id === this.socket.id);
+        var player = this.room.players.find(p => p.pid === this.socket.id);
         player.name = name;
         client.updatedName(this.room, name);
     }
 
     disconnect()
     {
-        this.room.players.filter(p => p.id == this.socket.id);
+        this.room.players.filter(p => p.pid === this.socket.id);
 
         client.playerLeft(this.room, this.socket.id);
         

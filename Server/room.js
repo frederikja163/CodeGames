@@ -2,7 +2,7 @@ class Room
 {
     constructor(id, player)
     {
-        this.id = id;
+        this.rid = id;
         this.players = [];
         this.players.push(player);
         this.options = new Options();
@@ -13,7 +13,7 @@ class Player
 {
     constructor(id, name)
     {
-        this.id = id;
+        this.pid = id;
         this.name = name;
     }
 }
