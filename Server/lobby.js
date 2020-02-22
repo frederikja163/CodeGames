@@ -27,7 +27,7 @@ class Lobby
                     rooms[i].players.push(player);
 
                     client.playerJoined(rooms[i], this.socket.id);
-                    client.roomJoined(this.socket.id, room);
+                    client.roomJoined(this.socket.id, rooms[i]);
                     return;
                 }
             }
