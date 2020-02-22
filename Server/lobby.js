@@ -7,6 +7,7 @@ class Lobby
     constructor(socket)
     {
         this.socket = socket;
+        this.room = new Room();
     }
 
     joinRoom(rid)
@@ -21,7 +22,7 @@ class Lobby
             {
                 if (rooms[i].id === rid)
                 {
-                    this.room = rooms[i].id;
+                    this.room = rooms[i];
                     var player = new Player(this.socket.id, "PLAYER" + (this.room.players.length + 1))
                     this.room.players.push(player);
 
