@@ -4,6 +4,9 @@ var app;
 var room;
 var socket = io("http://95.217.87.22:50464");
 
+var width;
+var height;
+
 function setup()
 {
     createCanvas();
@@ -20,6 +23,11 @@ function setup()
 
 function draw()
 {
+    if (width != document.documentElement.clientWidth || height != document.documentElement.clientHeight)
+    {
+        resize();
+    }
+
     app.update();
     background(0);
     app.draw();
@@ -45,7 +53,6 @@ function keyPressed()
     Input.keyTyped(keyCode);
 }
 
-window.onresize += resize;
 function resize()
 {
     resizeCanvas(document.documentElement.clientWidth, document.documentElement.clientHeight);

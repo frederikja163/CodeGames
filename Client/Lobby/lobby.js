@@ -24,6 +24,13 @@ class Lobby
                 this.state = new Guest();
             }
         });
+        socket.on("playerLeft", (r, pid) =>
+        {
+            if (socket.id == r.players[0].pid)
+            {
+                this.state = new Owner();
+            }
+        });
     }
 
     onResize(size)
