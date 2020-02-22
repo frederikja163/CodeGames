@@ -45,7 +45,7 @@ class Lobby
 
     disconnect()
     {
-        this.room.filter(p => p.id == this.socket.id);
+        this.room.players.filter(p => p.id == this.socket.id);
 
         client.playerLeft(this.room, this.socket.id);
         
