@@ -28,6 +28,7 @@ class Lobby
         {
             if (socket.id == r.players[0].pid)
             {
+                delete this.state;
                 this.state = new Owner();
             }
         });

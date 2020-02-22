@@ -17,38 +17,47 @@ class Owner extends Guest
 
     draw()
     {
-        this.txtSize = 40;
+        var txtSize = 40;
+        var nameX = txtSize * 2;
+        var yMargin = txtSize * 2;
         
+        textAlign(LEFT, CENTER);
         fill(color(0, .6, 1));
-        textSize(this.txtSize);
-        text("Players in room", this.txtSize * 2, this.txtSize * 2);
+        textSize(txtSize);
+        text("Players in room", nameX, yMargin);
 
         for (var i = 0; i < room.players.length; i++)
         {
-            this.color = 1;
-            var playerNamePos = createVector(this.txtSize * 2, i * this.txtSize * 2 + this.txtSize * 4);
-            var playerNameSize = createVector(textWidth(room.players[i].name), this.txtSize);
+            document.body.style.cursor = 'pointer';
+
+            var nameY = (2 + i) * yMargin;
+            var nameWidth = textWidth(room.players[i].name);
             
-            if (isMouseWithin(playerNamePos.x, playerNamePos.y - this.txtSize, playerNameSize.x, playerNameSize.y))
+            if (isMouseWithin(nameX, nameY - txtSize * 0.58, max(nameWidth, 25), txtSize))
             {
-                this.color = .6;
+                textSize(txtSize * 1.1);
+                var xChange = (nameWidth - nameWidth * 1.1) / 2;
+                fill(color(1, 0, 1, 0.8));
+                text(room.players[i].name, nameX + xChange, nameY);
+
+                var lineWidth = 5;
+                strokeWeight(lineWidth);
+                stroke(1, .8, 1, 0.8);
+                line(nameX + xChange, nameY - lineWidth, nameX + max(nameWidth, 25) - xChange, nameY - lineWidth);
+                strokeWeight(0);
 
                 if (Input.mouse.button[LEFT])
                 {
                     //kick player
                 }
             }
-
-            fill(color(this.color));
-            textSize(this.txtSize);
-            text(room.players[i].name, playerNamePos.x, playerNamePos.y);
-
-            if (isMouseWithin(playerNamePos.x, playerNamePos.y - this.txtSize, playerNameSize.x, playerNameSize.y))
+            else
             {
-                strokeWeight(4);
-                stroke(1, .8, 1);
-                line(playerNamePos.x - 5, playerNamePos.y - this.txtSize * .4, playerNamePos.x + playerNameSize.x + 5, playerNamePos.y - this.txtSize * .4);
-                strokeWeight(0);
+                document.body.style.cursor = 'default';
+
+                textSize(txtSize);
+                fill(color(1));
+                text(room.players[i].name, nameX, nameY);
             }
         }
     }

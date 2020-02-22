@@ -33,7 +33,7 @@ class Guest
             this.playerIndex = getPlayerIndex();
         });
 
-        Input.onKeyTyped.push((keyCode) => 
+        Input.onKeyTyped = (keyCode) => 
         {
             var name = room.players[this.playerIndex].name;
             if (keyCode == 8)
@@ -49,7 +49,7 @@ class Guest
             }
             room.players[this.playerIndex].name = name;
             socket.emit("updateName", name);
-        });
+        };
     }
 
     onResize()
