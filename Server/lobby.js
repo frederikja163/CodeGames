@@ -15,7 +15,7 @@ class Lobby
         {
             var r = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "player1"));
             rooms.push(r)
-            client.roomJoined(this.socket.id, room);
+            client.roomJoined(this.socket.id, r);
         }
         else
         {
