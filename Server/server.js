@@ -4,7 +4,7 @@ function OnConnected(socket)
 {
     var lobby = new Lobby(socket);
 
-    socket.on("JoinRoom", (roomId) => lobby.joinRoom(roomId));
+    socket.on("joinRoom", (roomId) => lobby.joinRoom(roomId));
 
 	socket.on("disconnect", () => lobby.disconnect());
 }

@@ -2,7 +2,7 @@ class Guest
 {
     constructor()
     {
-        function playerIndex()
+        function getPlayerIndex()
         {
             for (var i = 0; i < room.players.length; i++)
             {
@@ -12,29 +12,34 @@ class Guest
                 }
             }
         }
+        this.playerIndex = getPlayerIndex();
 
-        socket.on("PlayerJoined", (r, id) => 
+        socket.on("playerJoined", (r, id) => 
         {
             room = r;
+            this.playerIndex = getPlayerIndex();
         });
 
-        socket.on("PlayerLeft", (r, id) =>
+        socket.on("playerLeft", (r, id) =>
         {
             room = r;
+            this.playerIndex = getPlayerIndex();
         });
 
         Input.onKeyTyped.push((keyCode) => 
         {
-            var name = room.players[playerIndex()].name;
+            var name = room.players[this.playerIndex].name;
             if (keyCode == 8)
             {
                 name = name.slice(0, -1);
             }
-            else if ((keyCode > 47 && keyCode < 58) || (keyCode > 64 && keyCode < 91) || keyCode == 32)
+            else if ((65 <= keyCode && keyCode <= 90)||
+                    (48 <= keyCode && keyCode <= 57) ||
+                    keyCode == 32)
             {
                 name += char(keyCode);
             }
-            room.players[playerIndex()].name = name;
+            room.players[this.playerIndex].name = name;
         });
     }
 
@@ -58,7 +63,6 @@ class Guest
 
         for(var i = 0; i < room.players.length; i++)
         {
-            //this.playerList[i].draw();
             fill(color(1));
             text(room.players[i].name, txtSize * 2, i * txtSize * 2 + txtSize * 4);
         }

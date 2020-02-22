@@ -7,8 +7,8 @@ class Lobby
         var id = (idx != -1) ? url.substring(idx) : "";
         id = id.replace("#", "");
 
-        socket.emit("JoinRoom", id)
-        socket.on("RoomJoined", (r) => 
+        socket.emit("joinRoom", id)
+        socket.on("roomJoined", (r) => 
         {
             room = r;
             if (id != room.id)
