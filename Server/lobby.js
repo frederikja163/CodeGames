@@ -32,8 +32,8 @@ class Lobby
             }
             this.room = new Room(rid, new Player(this.socket.id, "PLAYER1"));
         }
-        rooms.push(r);
-        client.roomJoined(this.socket.id, r);
+        rooms.push(this.room);
+        client.roomJoined(this.socket.id, this.room);
     }
 
     disconnect()
