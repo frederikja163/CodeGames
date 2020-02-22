@@ -7,7 +7,6 @@ class Lobby
     constructor(socket)
     {
         this.socket = socket;
-        this.room = new Room();
     }
 
     joinRoom(rid)
