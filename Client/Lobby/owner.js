@@ -18,10 +18,7 @@ class Owner extends Guest
     draw()
     {
         this.txtSize = 40;
-
-        fill(1);
-        text("jeg er owner", 1, 40);
-
+        
         fill(color(0, .6, 1));
         textSize(this.txtSize);
         text("Players in room", this.txtSize * 2, this.txtSize * 2);
@@ -50,7 +47,7 @@ class Owner extends Guest
             {
                 strokeWeight(4);
                 stroke(1, .8, 1);
-                line(playerNamePos.x, playerNamePos.y - this.txtSize * .4, playerNamePos.x + playerNameSize.x, playerNamePos.y - this.txtSize * .4);
+                line(playerNamePos.x - 5, playerNamePos.y - this.txtSize * .4, playerNamePos.x + playerNameSize.x + 5, playerNamePos.y - this.txtSize * .4);
                 strokeWeight(0);
             }
         }
