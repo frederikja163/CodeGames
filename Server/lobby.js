@@ -36,6 +36,19 @@ class Lobby
         client.roomJoined(this.socket.id, r);
     }
 
+    updateName(name)
+    {
+        for (var i = 0; i < this.room.players.length; i++)
+        {
+            if (this.socket.id === this.room.players[i].id)
+            {
+                this.room.players[i].name = name;
+
+                client.updatedName(this.room, name);
+            }
+        }
+    }
+
     disconnect()
     {
         this.room.players.splice(j, 1);

@@ -13,6 +13,14 @@ function playerJoined(room, pid)
     }
 }
 
+function updatedName(room, name)
+{
+    for (var i = 0; i < room.players.length; i++)
+    {
+        io.to(room.players[i].id).emit("updatedName", room, name);
+    }
+}
+
 function playerLeft(room, pid)
 {
     for (var i = 0; i < room.players.length; i++)
