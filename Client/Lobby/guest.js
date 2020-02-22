@@ -38,7 +38,8 @@ class Guest
             {
                 name = name.slice(0, -1);
             }
-            else if ((65 <= keyCode && keyCode <= 90)||
+            else if (name.length < 15 ||
+                    (65 <= keyCode && keyCode <= 90) ||
                     (48 <= keyCode && keyCode <= 57) ||
                     keyCode == 32)
             {

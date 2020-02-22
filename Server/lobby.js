@@ -38,7 +38,7 @@ class Lobby
 
     updateName(name)
     {
-        if (name.length <= 20)
+        if (name.length <= 15)
         {   
             var player = this.room.players.find(p => p.pid === this.socket.id);
             player.name = name;
