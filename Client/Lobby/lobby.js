@@ -17,15 +17,13 @@ class Lobby
             }
             if (socket.id == room.players[0].id)
             {
-                this.state = new Guest();
+                this.state = new Owner();
             }
             else
             {
                 this.state = new Guest();
             }
         });
-        socket.on("PlayerJoined", (player) => console.log("player joined! " + player.id + " " + player.name));
-        socket.on("PlayerLeft", (id) => console.log("Player " + id + " left the room"));
     }
 
     onResize(size)

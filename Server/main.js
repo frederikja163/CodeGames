@@ -48,6 +48,10 @@ io.on("connection", (socket) =>
 					{
 						io.to(rooms[i].players[k].id).emit("PlayerLeft", socket.id);
 					}
+					if (rooms[i].players.length == 0)
+					{
+						rooms.splice(i, 1);
+					}
 					return;
 				}
 			}
