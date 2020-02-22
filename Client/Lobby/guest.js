@@ -20,6 +20,11 @@ class Guest
             this.playerIndex = getPlayerIndex();
         });
 
+        socket.on("updatedName", (r, name) =>
+        {
+            room = r;
+        });
+
         socket.on("playerLeft", (r, id) =>
         {
             room = r;
@@ -40,6 +45,7 @@ class Guest
                 name += char(keyCode);
             }
             room.players[this.playerIndex].name = name;
+            socket.emit("updateName", name)
         });
     }
 
