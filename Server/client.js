@@ -1,4 +1,4 @@
-const io = require("./io");
+const io = require("socket.io")(50464);
 
 function roomJoined(sid, room)
 {
