@@ -1,8 +1,8 @@
-const io = require("socket.io");
+const socketio = require("socket.io");
 
-var server = io.listen(50464);
+var io = socketio.listen(50464);
 
 module.exports =
 {
-    server
+    io
 }
