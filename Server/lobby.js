@@ -52,7 +52,7 @@ class Lobby
         
         if (this.room.players.length == 0)
         {
-            rooms.splice(i, 1);
+            rooms = rooms.filter(r => r.rid != this.room.rid);
         }
         return;
     }
