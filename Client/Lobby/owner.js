@@ -3,6 +3,7 @@ class Owner extends Guest
     constructor()
     {
         super();
+        this.leftAvailable = true;
     }
 
     onResize(size)
@@ -20,6 +21,7 @@ class Owner extends Guest
         var txtSize = 40;
         var nameX = txtSize * 2;
         var yMargin = txtSize * 2;
+        var startSize = createVector(300, 100);
         
         textAlign(LEFT, CENTER);
         fill(color(0, .6, 1));
@@ -59,5 +61,33 @@ class Owner extends Guest
                 text(room.players[i].name, nameX, nameY);
             }
         }
+
+        textSize(txtSize);
+
+        if (isMouseWithin(width / 2 - startSize.x / 2, height - startSize.y - 100, startSize.x, startSize.y))
+        {
+            document.body.style.cursor = 'pointer';
+            textSize(txtSize * 1.1);
+
+            if (Input.mouse.button[LEFT])
+            {
+                //start game (skriv i konsol ved alle i rum)
+                if (this.leftAvailable)
+                {
+                    console.log("start")
+                }
+                this.leftAvailable = false;
+            }
+            else
+            {
+                this.leftAvailable = true;
+            }
+        }
+
+        fill(1);
+        rect(windowWidth / 2 - startSize.x / 2, windowHeight - startSize.y - 100, startSize.x, startSize.y, 4);
+        fill(0);
+        textAlign(CENTER, CENTER);
+        text("Start", windowWidth / 2, windowHeight - startSize.y / 2 - 100);
     }
 }
