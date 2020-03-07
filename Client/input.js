@@ -9,7 +9,7 @@ class Input
             LEFT: false,
             MIDDLE: false
         };
-        Input.onKeyTyped = [];
+        Input.onKeyTyped= () => {};
     }
 
     static mousePress(button)
@@ -24,10 +24,7 @@ class Input
 
     static keyTyped(keyCode)
     {
-        for (var i = 0; i < Input.onKeyTyped.length; i++)
-        {
-            Input.onKeyTyped[i](keyCode);
-        }
+        Input.onKeyTyped(keyCode);
     }
 
     static mouseMove(mousePosition)

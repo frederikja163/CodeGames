@@ -13,7 +13,14 @@ class Lobby
     {
         if(rid === "")
         {
-            this.room = new Room(generateID(Random(3, 5)), new Player(this.socket.id, "PLAYER1"));
+            var num = 3;
+            var rid = generateID(num);
+            while (rooms.find(r => r.rid = rid) != null)
+            {
+                num++;
+                rid = generateID(num);
+            }
+            this.room = new Room(rid, new Player(this.socket.id, "PLAYER1"));
         }
         else
         {
@@ -39,7 +46,7 @@ class Lobby
     updateName(name)
     {
         if (name.length <= 15)
-        {   
+        {
             var player = this.room.players.find(p => p.pid === this.socket.id);
             player.name = name;
             client.updatedName(this.room, name);
@@ -61,10 +68,6 @@ class Lobby
     
 }
 
-module.exports =
-{
-    Lobby
-};
 
 function Random(min, max)
 {
@@ -81,4 +84,8 @@ function generateID(number)
 		str += char;
 	}
 	return str;
+}
+
+module.exports = {
+    Lobby
 }

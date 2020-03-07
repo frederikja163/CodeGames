@@ -7,15 +7,16 @@ class Lobby
         var rid = (idx != -1) ? url.substring(idx) : "";
         rid = rid.replace("#", "");
 
-        socket.emit("joinRoom", rid)
-        socket.on("roomJoined", (r) => 
+        Socket.joinRoom(rid);
+        Socket.roomJoined = (r) =>
         {
+            console.log("hej");
             room = r;
             if (rid != room.rid)
             {
-                window.location.href = window.location.href.replace("id", "") + "#" + room.rid;
+                window.location.href = window.location.href.replace(rid, "") + "#" + room.rid;
             }
-            if (socket.id == room.players[0].pid)
+            if (Socket.id() == room.players[0].pid)
             {
                 this.state = new Owner();
             }
@@ -23,14 +24,14 @@ class Lobby
             {
                 this.state = new Guest();
             }
-        });
-        socket.on("playerLeft", (r, pid) =>
+        };
+        Socket.playerLeft = (r, pid) =>
         {
-            if (socket.id == r.players[0].pid)
+            if (Socket.id() == r.players[0].pid)
             {
                 this.state = new Owner();
             }
-        });
+        };
     }
 
     onResize(size)
@@ -54,6 +55,13 @@ class Lobby
         if (this.state != null)
         {
             this.state.draw();
+        }
+        else if (millis() >= 1000)
+        {
+            textSize(100);
+            fill(1);
+            textAlign(CENTER, CENTER);
+            text("No connection!", width / 2, height / 2);
         }
     }
 }
