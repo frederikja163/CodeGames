@@ -10,11 +10,6 @@ class Application
         this.state.onResize(size);
     }
 
-    update()
-    {
-        this.state.update();
-    }
-
     draw()
     {
         this.state.draw();
