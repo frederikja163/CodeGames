@@ -50,6 +50,7 @@ class Owner extends Guest
                     //kick player
                 }
             }
+            else
             {
                 document.body.style.cursor = 'default';
 

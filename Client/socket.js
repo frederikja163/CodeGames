@@ -2,7 +2,7 @@ class Socket
 {
     static initialiaze()
     {
-        Socket.socket = io("http://95.217.87.22:50463");
+        Socket.socket = io("http://95.217.87.22:50464");
         Socket.id = () => Socket.socket.id;
 
         var empty = () => {};
