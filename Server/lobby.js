@@ -13,7 +13,7 @@ class Lobby
     {
         if(rid === "")
         {
-            var num;
+            var num = 3;
             var rid = generateID(num);
             while (rooms.find(r => r.rid = rid) != null)
             {
@@ -68,10 +68,6 @@ class Lobby
     
 }
 
-module.exports =
-{
-    Lobby
-};
 
 function Random(min, max)
 {
@@ -88,4 +84,8 @@ function generateID(number)
 		str += char;
 	}
 	return str;
+}
+
+module.exports = {
+    Lobby
 }

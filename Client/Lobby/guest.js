@@ -6,7 +6,7 @@ class Guest
         {
             for (var i = 0; i < room.players.length; i++)
             {
-                if (socket.id == room.players[i].pid)
+                if (Socket.id() == room.players[i].pid)
                 {
                     return i;
                 }
@@ -16,22 +16,22 @@ class Guest
 
         this.color = 1;
 
-        socket.on("playerJoined", (r, pid) => 
+        Socket.playerJoined = (r, pid) => 
         {
             room = r;
             this.playerIndex = getPlayerIndex();
-        });
+        };
 
-        socket.on("updatedName", (r, name) =>
+        Socket.updatedName = (r, name) =>
         {
             room = r;
-        });
+        };
 
-        socket.on("playerLeft", (r, pid) =>
+        Socket.playerLeft = (r, pid) =>
         {
             room = r;
             this.playerIndex = getPlayerIndex();
-        });
+        };
 
         Input.onKeyTyped = (keyCode) => 
         {
@@ -48,7 +48,7 @@ class Guest
                 name += char(keyCode);
             }
             room.players[this.playerIndex].name = name;
-            socket.emit("updateName", name);
+            Socket.updateName(name);
         };
     }
 

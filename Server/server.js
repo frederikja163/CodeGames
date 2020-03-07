@@ -1,6 +1,6 @@
 const {Lobby} = require("./lobby");
 
-function OnConnected(socket)
+exports.OnConnected = (socket) =>
 {
     var lobby = new Lobby(socket);
 
@@ -11,9 +11,4 @@ function OnConnected(socket)
     
         socket.on("disconnect", () => lobby.disconnect());
     });
-}
-
-module.exports =
-{
-    OnConnected
 }

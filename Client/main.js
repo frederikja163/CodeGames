@@ -1,8 +1,6 @@
 ///<reference path="p5.global-mode.d.ts" />
-
 var app;
 var room;
-var socket = io("http://95.217.87.22:50464");
 
 var width;
 var height;
@@ -13,6 +11,7 @@ function setup()
     colorMode(HSB, 1);
 
     Input.inititalize();
+    Socket.initialiaze();
     mouseMoved();
 
     app = new Application();
@@ -28,7 +27,7 @@ function draw()
     }
 
     app.update();
-    background(0);
+    background(.1);
     app.draw();
 }
 

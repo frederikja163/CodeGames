@@ -28,13 +28,12 @@ class Owner extends Guest
 
         for (var i = 0; i < room.players.length; i++)
         {
-            document.body.style.cursor = 'pointer';
-
             var nameY = (2 + i) * yMargin;
             var nameWidth = textWidth(room.players[i].name);
             
             if (isMouseWithin(nameX, nameY - txtSize * 0.58, max(nameWidth, 25), txtSize))
             {
+                document.body.style.cursor = 'pointer';
                 textSize(txtSize * 1.1);
                 var xChange = (nameWidth - nameWidth * 1.1) / 2;
                 fill(color(1, 0, 1, 0.8));
