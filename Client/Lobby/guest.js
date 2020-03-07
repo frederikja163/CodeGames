@@ -16,23 +16,6 @@ class Guest
 
         this.color = 1;
 
-        Socket.playerJoined = (r, pid) => 
-        {
-            room = r;
-            this.playerIndex = getPlayerIndex();
-        };
-
-        Socket.updatedName = (r, name) =>
-        {
-            room = r;
-        };
-
-        Socket.playerLeft = (r, pid) =>
-        {
-            room = r;
-            this.playerIndex = getPlayerIndex();
-        };
-
         Input.onKeyTyped = (keyCode) => 
         {
             var name = room.players[this.playerIndex].name;

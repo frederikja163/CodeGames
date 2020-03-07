@@ -27,10 +27,19 @@ class Lobby
         };
         Socket.playerLeft = (r, pid) =>
         {
+            room = r;
             if (Socket.id() == r.players[0].pid)
             {
                 this.state = new Owner();
             }
+        };
+        Socket.playerJoined = (r, pid) => 
+        {
+            room = r;
+        };
+        Socket.updatedName = (r, name) =>
+        {
+            room = r;
         };
     }
 
