@@ -11,11 +11,6 @@ class Owner extends Guest
         super.onResize();
     }
 
-    update()
-    {
-        super.update();
-    }
-
     draw()
     {
         var txtSize = 40;
@@ -35,7 +30,7 @@ class Owner extends Guest
             
             if (isMouseWithin(nameX, nameY - txtSize * 0.58, max(nameWidth, 25), txtSize))
             {
-                document.body.style.cursor = 'pointer';
+                Input.mouse.setStyle('pointer');
                 textSize(txtSize * 1.1);
                 var xChange = (nameWidth - nameWidth * 1.1) / 2;
                 fill(color(1, 0, 1, 0.8));
@@ -54,8 +49,6 @@ class Owner extends Guest
             }
             else
             {
-                document.body.style.cursor = 'default';
-
                 textSize(txtSize);
                 fill(color(1));
                 text(room.players[i].name, nameX, nameY);

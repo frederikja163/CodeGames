@@ -51,14 +51,6 @@ class Lobby
         }
     }
 
-    update()
-    {
-        if (this.state != null)
-        {
-            this.state.update();
-        }
-    }
-
     draw()
     {
         if (this.state != null)

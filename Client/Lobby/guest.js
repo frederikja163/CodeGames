@@ -40,11 +40,6 @@ class Guest
         
     }
 
-    update()
-    {
-
-    }
-
     draw()
     {
         this.txtSize = 40;

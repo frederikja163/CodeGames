@@ -26,7 +26,7 @@ function draw()
         resize();
     }
 
-    app.update();
+    Input.mouse.setStyle('default');
     background(.1);
     app.draw();
 }

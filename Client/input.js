@@ -9,6 +9,7 @@ class Input
             LEFT: false,
             MIDDLE: false
         };
+        Input.mouse.setStyle = (style) => document.body.style.cursor = style;
         Input.onKeyTyped= () => {};
     }
 
