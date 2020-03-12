@@ -21,7 +21,7 @@ class Socket
         Socket.socket.on("startedGame", () => Socket.startedGame());
 
         Socket.kickedPlayer = empty;
-        Socket.socket.on("kickedPlayer", () => Socked.kickedPlayer());
+        Socket.socket.on("kickedPlayer", () => Socket.kickedPlayer());
 
         Socket.playerLeft = empty;
         Socket.socket.on("playerLeft", (room, pid) => Socket.playerLeft(room, pid));
