@@ -29,12 +29,9 @@ exports.startedGame = (room) =>
     }
 }
 
-exports.kickedPlayer = (room) =>
+exports.kickedPlayer = (sid) =>
 {
-    for (var i = 0; i < room.players.length; i++)
-    {
-        io.to(room.players[i].pid).emit("kickedPlayer");
-    }
+    io.to(sid).emit("kickedPlayer");
 }
 
 exports.playerLeft = (room, pid) =>
