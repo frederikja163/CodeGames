@@ -63,7 +63,7 @@ class Lobby
 
     kickPlayer(pid)
     {
-        var player = this.room.players.find(p => p.pid === this.socket.id);
+        var player = this.room.players.find(p => p.pid === pid);
         client.kickedPlayer(player.pid);
         this.disconnect();
     }
