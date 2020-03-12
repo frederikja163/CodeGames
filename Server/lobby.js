@@ -55,7 +55,10 @@ class Lobby
 
     startGame()
     {
-        client.startedGame(this.room);
+        if (this.room.players[0].pid === this.socket.id)
+        {
+            client.startedGame(this.room);
+        }
     }
 
     disconnect()

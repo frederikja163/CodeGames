@@ -69,7 +69,6 @@ class Owner extends Guest
                 if (this.leftAvailable)
                 {
                     Socket.startGame();
-                    console.log("knappen virker");
                 }
                 this.leftAvailable = false;
             }
