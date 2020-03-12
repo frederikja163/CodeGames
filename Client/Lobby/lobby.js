@@ -41,6 +41,10 @@ class Lobby
         {
             room = r;
         };
+        Socket.startedGame = (r) =>
+        {
+            console.log("start game");
+        }
     }
 
     onResize(size)

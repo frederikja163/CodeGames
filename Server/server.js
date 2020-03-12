@@ -9,6 +9,8 @@ exports.OnConnected = (socket) =>
     
         socket.on("updateName", (name) => lobby.updateName(name));
     
+        socket.on("startGame", () => lobby.startGame());
+
         socket.on("disconnect", () => lobby.disconnect());
     });
 }

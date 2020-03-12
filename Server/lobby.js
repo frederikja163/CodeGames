@@ -53,6 +53,11 @@ class Lobby
         }
     }
 
+    startGame()
+    {
+        client.startedGame(this.room);
+    }
+
     disconnect()
     {
         this.room.players = this.room.players.filter(p => p.pid != this.socket.id);
@@ -64,8 +69,7 @@ class Lobby
             rooms = rooms.filter(r => r.rid != this.room.rid);
         }
         return;
-    }
-    
+    }    
 }
 
 

@@ -16,7 +16,7 @@ class Owner extends Guest
         var txtSize = 40;
         var nameX = txtSize * 2;
         var yMargin = txtSize * 2;
-        var startSize = createVector(300, 100);
+        var startButtonSize = createVector(300, 100);
         
         textAlign(LEFT, CENTER);
         fill(color(0, .6, 1));
@@ -57,17 +57,19 @@ class Owner extends Guest
 
         textSize(txtSize);
 
-        if (isMouseWithin(width / 2 - startSize.x / 2, height - startSize.y - 100, startSize.x, startSize.y))
+        if (isMouseWithin(windowWidth / 2 - startButtonSize.x / 2, windowHeight * .9 - startButtonSize.y / 2, startButtonSize.x, startButtonSize.y))
         {
-            document.body.style.cursor = 'pointer';
+            Input.mouse.setStyle('pointer');
             textSize(txtSize * 1.1);
-
+            startButtonSize = p5.Vector.mult(startButtonSize, 1.1);
+        
             if (Input.mouse.button[LEFT])
             {
                 //start game (skriv i konsol ved alle i rum)
                 if (this.leftAvailable)
                 {
-                    console.log("start")
+                    Socket.startGame();
+                    console.log("knappen virker");
                 }
                 this.leftAvailable = false;
             }
@@ -78,9 +80,9 @@ class Owner extends Guest
         }
 
         fill(1);
-        rect(windowWidth / 2 - startSize.x / 2, windowHeight - startSize.y - 100, startSize.x, startSize.y, 4);
+        rect(windowWidth / 2 - startButtonSize.x / 2, windowHeight * .9 - startButtonSize.y / 2, startButtonSize.x, startButtonSize.y, 4);
         fill(0);
         textAlign(CENTER, CENTER);
-        text("Start", windowWidth / 2, windowHeight - startSize.y / 2 - 100);
+        text("Start", windowWidth / 2, windowHeight * .9);
     }
 }

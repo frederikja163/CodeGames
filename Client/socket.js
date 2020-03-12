@@ -17,11 +17,15 @@ class Socket
         Socket.updatedName = empty;
         Socket.socket.on("updatedName", (room, name) => Socket.updatedName(room, name));
 
+        Socket.startedGame = empty;
+        Socket.socket.on("startedGame", () => Socket.startedGame());
+
         Socket.playerLeft = empty;
         Socket.socket.on("playerLeft", (room, pid) => Socket.playerLeft(room, pid));
 
         //Sending
-        Socket.joinRoom = (rid) => Socket.socket.emit('joinRoom', rid);
+        Socket.joinRoom = (rid) => Socket.socket.emit("joinRoom", rid);
         Socket.updateName = (name) => Socket.socket.emit("updateName", name);
+        Socket.startGame = () => Socket.socket.emit("startGame");
     }
 }

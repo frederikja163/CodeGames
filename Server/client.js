@@ -21,6 +21,14 @@ exports.updatedName = (room, name) =>
     }
 }
 
+exports.startedGame = (room) =>
+{
+    for (var i = 0; i < room.players.length; i++)
+    {
+        io.to(room.players[i].pid).emit("startedGame");
+    }
+}
+
 exports.playerLeft = (room, pid) =>
 {
     for (var i = 0; i < room.players.length; i++)
