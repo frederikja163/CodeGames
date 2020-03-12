@@ -20,6 +20,9 @@ class Socket
         Socket.startedGame = empty;
         Socket.socket.on("startedGame", () => Socket.startedGame());
 
+        Socket.kickedPlayer = empty;
+        Socket.socket.on("kickedPlayer", () => Socked.kickedPlayer());
+
         Socket.playerLeft = empty;
         Socket.socket.on("playerLeft", (room, pid) => Socket.playerLeft(room, pid));
 
@@ -27,5 +30,6 @@ class Socket
         Socket.joinRoom = (rid) => Socket.socket.emit("joinRoom", rid);
         Socket.updateName = (name) => Socket.socket.emit("updateName", name);
         Socket.startGame = () => Socket.socket.emit("startGame");
+        Socket.kickPlayer = (pid) => Socket.socket.emit("kickPlayer");
     }
 }

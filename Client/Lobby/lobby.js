@@ -41,9 +41,13 @@ class Lobby
         {
             room = r;
         };
-        Socket.startedGame = (r) =>
+        Socket.startedGame = () =>
         {
             console.log("start game");
+        }
+        Socket.kickedPlayer = () =>
+        {
+            window.location.replace(url.replace("#" + rid, ""));
         }
     }
 

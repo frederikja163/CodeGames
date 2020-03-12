@@ -61,6 +61,13 @@ class Lobby
         }
     }
 
+    kickPlayer(pid)
+    {
+        var player = this.room.players.find(p => p.pid === this.socket.id);
+        client.kickedPlayer(player.pid);
+        this.disconnect();
+    }
+
     disconnect()
     {
         this.room.players = this.room.players.filter(p => p.pid != this.socket.id);
@@ -72,7 +79,7 @@ class Lobby
             rooms = rooms.filter(r => r.rid != this.room.rid);
         }
         return;
-    }    
+    }
 }
 
 

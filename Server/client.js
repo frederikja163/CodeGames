@@ -29,6 +29,14 @@ exports.startedGame = (room) =>
     }
 }
 
+exports.kickedPlayer = (room) =>
+{
+    for (var i = 0; i < room.players.length; i++)
+    {
+        io.to(room.players[i].pid).emit("kickedPlayer");
+    }
+}
+
 exports.playerLeft = (room, pid) =>
 {
     for (var i = 0; i < room.players.length; i++)

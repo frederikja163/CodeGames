@@ -44,7 +44,7 @@ class Owner extends Guest
 
                 if (Input.mouse.button[LEFT])
                 {
-                    //kick player
+                    Socket.kickPlayer();
                 }
             }
             else
