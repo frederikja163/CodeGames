@@ -11,7 +11,7 @@ exports.OnConnected = (socket) =>
     
         socket.on("startGame", () => lobby.startGame());
 
-        socket.on("kickPlayer", () => lobby.kickPlayer());
+        socket.on("kickPlayer", (pid) => lobby.kickPlayer(pid));
 
         socket.on("disconnect", () => lobby.disconnect());
     });
