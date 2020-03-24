@@ -26,6 +26,7 @@ class Lobby
         };
         Socket.playerLeft = (r, pid) =>
         {
+            print("test");
             room = r;
             if (Socket.id() == room.players[0].pid)
             {
