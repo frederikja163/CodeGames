@@ -33,11 +33,11 @@ class Client
         this.socket.on("disconnect", () => this.disconnect());
 
         //Sending
-        this.roomJoined = (room) => this.sendToClient("roomJoined", room);
+        this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);
         this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
         this.updatedName = (room, name) => this.sendToRoom("updatedName", room, name);
         this.startedGame = (room) => this.sendToRoom("startedGame", room);
-        this.kickedPlayer = () => this.sendToClient("kickedPlayer");
+        this.kickedPlayer = (sid) => this.sendToClient(sid, "kickedPlayer");
         this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
     }
 
@@ -46,7 +46,7 @@ class Client
         room.players.forEach(p => io.emit(p.pid, protocol, room, param1));
     }
 
-    sendToClient(protocol, param1)
+    sendToClient(sid, protocol, param1)
     {
         io.emit(this.id(), protocol, param1);
     }
