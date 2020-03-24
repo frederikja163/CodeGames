@@ -46,6 +46,7 @@ class Lobby
         }
         Socket.kickedPlayer = () =>
         {
+            print("test");
             window.location.replace(url.replace("#" + rid, ""));
         }
     }

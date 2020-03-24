@@ -80,7 +80,7 @@ class Lobby
             if (player != undefined)
             {   
                 this.socket.kickedPlayer(pid);
-                this.room.players = this.room.filter(p => p.pid == pid);
+                this.room.players = this.room.players.filter(p => p.pid == pid);
                 this.socket.playerLeft(this.room, pid);
             }
         }
