@@ -1,18 +1,53 @@
 const {Lobby} = require("./lobby");
+const io = require("./io");
 
 exports.OnConnected = (socket) =>
 {
-    var lobby = new Lobby(socket);
+    var client = new Client(socket);
+    var lobby = new Lobby(client);
+}
 
-    socket.on("joinRoom", (roomId) => {
-        lobby.joinRoom(roomId)
-    
-        socket.on("updateName", (name) => lobby.updateName(name));
-    
-        socket.on("startGame", () => lobby.startGame());
+class Client
+{
+    constructor(socket)
+    {
+        this.socket = socket;
+        this.id = () => this.socket.id;
 
-        socket.on("kickPlayer", (pid) => lobby.kickPlayer(pid));
+        var empty = () => {};
 
-        socket.on("disconnect", () => lobby.disconnect());
-    });
+        //Recieving
+        this.joinRoom = empty;
+        this.socket.on("joinRoom", (rid) => this.joinRoom(rid));
+
+        this.updateName = empty;
+        this.socket.on("updateName", (name) => this.updateName(name));
+
+        this.startGame = empty;
+        this.socket.on("startGame", () => this.startGame());
+
+        this.kickPlayer = empty;
+        this.socket.on("kickPlayer", (pid) => this.kickPlayer(pid));
+
+        this.disconnect = empty;
+        this.socket.on("disconnect", () => this.disconnect());
+
+        //Sending
+        this.roomJoined = (room) => this.sendToClient("roomJoined", room);
+        this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
+        this.updatedName = (room, name) => this.sendToRoom("updatedName", room, name);
+        this.startedGame = (room) => this.sendToRoom("startedGame", room);
+        this.kickedPlayer = () => this.sendToClient("kickedPlayer");
+        this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
+    }
+
+    sendToRoom(protocol, room, param1)
+    {
+        room.players.forEach(p => io.emit(p.pid, protocol, room, param1));
+    }
+
+    sendToClient(protocol, param1)
+    {
+        io.emit(this.id(), protocol, param1);
+    }
 }

@@ -1,8 +1,5 @@
-const socketio = require("socket.io");
+const io = require("socket.io").listen(50464);
 
-var io = socketio.listen(50464);
+exports.on = (protocol, callbck) => io.on(protocol, callbck);
 
-module.exports =
-{
-    io
-}
+exports.emit = (sid, protocol, param1, param2) => io.to(sid).emit(protocol, param1, param2);

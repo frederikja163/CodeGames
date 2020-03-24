@@ -1,5 +1,4 @@
 const {Room, Player, Options} = require('./room');
-const client = require('./client');
 var rooms = [];
 
 class Lobby
@@ -7,6 +6,18 @@ class Lobby
     constructor(socket)
     {
         this.socket = socket;
+        
+        this.socket.joinRoom = (rid) =>
+        {
+            this.joinRoom(rid);
+            this.socket.updateName = (name) => this.updateName(name);
+            
+            this.socket.startGame = () => this.startGame();
+            
+            this.socket.kickPlayer = (pid) => this.kickPlayer(pid);
+            
+            this.socket.disconnect = () => this.disconnect();
+        }
     }
 
     joinRoom(rid)
@@ -20,7 +31,7 @@ class Lobby
                 num++;
                 rid = generateID(num);
             }
-            this.room = new Room(rid, new Player(this.socket.id, "PLAYER1"));
+            this.room = new Room(rid, new Player(this.socket.id(), "PLAYER1"));
         }
         else
         {
@@ -29,50 +40,50 @@ class Lobby
                 if (rooms[i].rid === rid)
                 {
                     this.room = rooms[i];
-                    var player = new Player(this.socket.id, "PLAYER" + (this.room.players.length + 1))
+                    var player = new Player(this.socket.id(), "PLAYER" + (this.room.players.length + 1))
                     this.room.players.push(player);
 
-                    client.playerJoined(this.room, this.socket.id);
-                    client.roomJoined(this.socket.id, this.room);
+                    this.socket.playerJoined(this.room, this.socket.id());
+                    this.socket.roomJoined(this.room);
                     return;
                 }
             }
-            this.room = new Room(rid, new Player(this.socket.id, "PLAYER1"));
+            this.room = new Room(rid, new Player(this.socket.id(), "PLAYER1"));
         }
         rooms.push(this.room);
-        client.roomJoined(this.socket.id, this.room);
+        this.socket.roomJoined(this.room);
     }
 
     updateName(name)
     {
         if (name.length <= 15)
         {
-            var player = this.room.players.find(p => p.pid === this.socket.id);
+            var player = this.room.players.find(p => p.pid === this.socket.id());
             player.name = name;
-            client.updatedName(this.room, name);
+            this.socket.updatedName(this.room, name);
         }
     }
 
     startGame()
     {
-        if (this.room.players[0].pid === this.socket.id)
+        if (this.room.players[0].pid === this.socket.id())
         {
-            client.startedGame(this.room);
+            this.socket.startedGame(this.room);
         }
     }
 
     kickPlayer(pid)
     {
         var player = this.room.players.find(p => p.pid === pid);
-        client.kickedPlayer(player.pid);
+        this.socket.kickedPlayer();
         this.disconnect();
     }
 
     disconnect()
     {
-        this.room.players = this.room.players.filter(p => p.pid != this.socket.id);
+        this.room.players = this.room.players.filter(p => p.pid != this.socket.id());
 
-        client.playerLeft(this.room, this.socket.id);
+        this.socket.playerLeft(this.room, this.socket.id());
         
         if (this.room.players.length == 0)
         {

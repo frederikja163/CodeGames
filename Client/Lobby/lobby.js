@@ -10,7 +10,6 @@ class Lobby
         Socket.joinRoom(rid);
         Socket.roomJoined = (r) =>
         {
-            console.log("hej");
             room = r;
             if (rid != room.rid)
             {
@@ -28,7 +27,7 @@ class Lobby
         Socket.playerLeft = (r, pid) =>
         {
             room = r;
-            if (Socket.id() == r.players[0].pid)
+            if (Socket.id() == room.players[0].pid)
             {
                 this.state = new Owner();
             }
