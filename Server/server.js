@@ -48,6 +48,6 @@ class Client
 
     sendToClient(sid, protocol, param1)
     {
-        io.emit(this.id(), protocol, param1);
+        io.emit(sid, protocol, param1);
     }
 }
