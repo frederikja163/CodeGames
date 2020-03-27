@@ -4,7 +4,7 @@ const io = require("./io");
 exports.OnConnected = (s) =>
 {
     var socket = new Socket(s);
-    socket.joinRoom = Party.joinRoom;
+    socket.joinRoom = (rid) => Party.joinRoom(socket, rid);
 }
 
 class Socket
