@@ -9,6 +9,11 @@ class Game
         
         this.socket.startedGame(this.room);
     }
+
+    addPlayer(socket)
+    {
+        
+    }
 }
 
 module.exports = {
