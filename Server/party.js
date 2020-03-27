@@ -27,7 +27,7 @@ class Party
 
     startGame(socket)
     {
-        if (this.socket.id() === this.room.players[0].pid)
+        if (socket.id() === this.room.players[0].pid)
         {
             this.state = new Game(socket, room);
         }
