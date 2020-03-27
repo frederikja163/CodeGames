@@ -21,11 +21,11 @@ class Party
         socket.roomJoined(this.room);
 
         this.state.addPlayer(socket);
-        socket.startedGame = () => this.startedGame(socket);
+        socket.startGame = () => this.startGame(socket);
         socket.disconnected = () => this.disconnected(socket);
     }
 
-    startedGame(socket)
+    startGame(socket)
     {
         if (this.socket.id() === this.room.players[0].pid)
         {

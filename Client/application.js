@@ -5,7 +5,7 @@ class Application
         this.state = new Lobby();
         Socket.startedGame = () =>
         {
-            this.state.resetLobby();
+            Socket.resetLobby();
             this.state = new Game();
         }
     }

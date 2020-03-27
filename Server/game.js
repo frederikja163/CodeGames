@@ -4,10 +4,9 @@ class Game
 {
     constructor(socket, room)
     {
-        this.socket = socket;
         this.room = room;
         
-        this.socket.startedGame(this.room);
+        socket.startedGame(this.room);
     }
 
     addPlayer(socket)
