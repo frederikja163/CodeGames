@@ -1,4 +1,5 @@
 const {Lobby} = require("./lobby");
+const {Game} = require("./game");
 const {Room, Player, Options} = require("./room");
 
 var parties = [];
