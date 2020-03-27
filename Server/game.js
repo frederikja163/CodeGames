@@ -12,7 +12,6 @@ class Game
 
     addPlayer(socket)
     {
-        
     }
 }
 

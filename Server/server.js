@@ -22,19 +22,19 @@ class Socket
         var empty = () => {};
         //Recieving
         this.joinRoom = empty;
-        this.socket.on("joinRoom", (rid) => this.joinRoom(this, rid));
+        this.socket.on("joinRoom", (rid) => this.joinRoom(rid));
 
         this.updateName = empty;
-        this.socket.on("updateName", (name) => this.updateName(this, name));
+        this.socket.on("updateName", (name) => this.updateName(name));
 
         this.startGame = empty;
-        this.socket.on("startGame", () => this.startGame(this));
+        this.socket.on("startGame", () => this.startGame());
 
         this.kickPlayer = empty;
-        this.socket.on("kickPlayer", (pid) => this.kickPlayer(this, pid));
+        this.socket.on("kickPlayer", (pid) => this.kickPlayer(pid));
 
         this.disconnected = empty;
-        this.socket.on("disconnect", () => this.disconnected(this));
+        this.socket.on("disconnect", () => this.disconnected());
 
         //Sending
         this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);

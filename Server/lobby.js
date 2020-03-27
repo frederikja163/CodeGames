@@ -10,9 +10,9 @@ class Lobby
 
     addPlayer(socket)
     {
-        socket.updateName = (socket, name) => this.updateName(socket, name);
+        socket.updateName = (name) => this.updateName(socket, name);
         
-        socket.kickPlayer = (socket, pid) => this.kickPlayer(socket, pid);
+        socket.kickPlayer = (pid) => this.kickPlayer(socket, pid);
     }
 
     updateName(socket, name)
