@@ -15,12 +15,21 @@ class Input
 
     static mousePress(button)
     {
-        Input.mouse.button[button] = true;
+        //Input.mouse.button[button] = true;
+    }
+
+    static update()
+    {
+        Input.mouse.button = {
+            RIGHT: false,
+            LEFT: false,
+            MIDDLE: false
+        };
     }
 
     static mouseRelease(button)
     {
-        Input.mouse.button[button] = false;
+        Input.mouse.button[button] = true;
     }
 
     static keyTyped(keyCode)

@@ -1,4 +1,4 @@
-class Guest
+﻿class Guest
 {
     constructor()
     {
@@ -13,8 +13,6 @@ class Guest
             }
         }
         this.playerIndex = getPlayerIndex();
-
-        this.color = 1;
 
         Input.onKeyTyped = (keyCode) => 
         {
@@ -35,6 +33,11 @@ class Guest
         };
     }
 
+    ownerColor(i, a = 1)
+    {
+        return color(43/360, i === 0 ? 76/100 : 0, 1, a);
+    }
+
     onResize()
     {
         
@@ -50,8 +53,9 @@ class Guest
 
         for(var i = 0; i < room.players.length; i++)
         {
-            fill(color(this.color));
-            text(room.players[i].name, this.txtSize * 2, i * this.txtSize * 2 + this.txtSize * 4);
+            var ownerTag = (i === 0 ? "👑 " : "");
+            fill(this.ownerColor(i));
+            text(ownerTag + room.players[i].name, this.txtSize * 2, i * this.txtSize * 2 + this.txtSize * 4);
         }
     }
 }

@@ -1,43 +1,49 @@
 const {Lobby} = require("./lobby");
+const {Game} = require("./game");
+const {Party} = require("./party");
 const io = require("./io");
 
-exports.OnConnected = (socket) =>
+exports.OnConnected = (s) =>
 {
-    var client = new Client(socket);
-    var lobby = new Lobby(client);
+    var socket = new Socket(s);
+    socket.joinRoom = joinRoom;
 }
 
-class Client
+class Socket
 {
     constructor(socket)
     {
         this.socket = socket;
         this.id = () => this.socket.id;
 
-        var empty = () => {};
+        this.resetLobby();
+    }
 
+    resetLobby()
+    {
+        var empty = () => {};
         //Recieving
         this.joinRoom = empty;
-        this.socket.on("joinRoom", (rid) => this.joinRoom(rid));
+        this.socket.on("joinRoom", (rid) => this.joinRoom(this, rid));
 
         this.updateName = empty;
-        this.socket.on("updateName", (name) => this.updateName(name));
+        this.socket.on("updateName", (name) => this.updateName(this, name));
 
         this.startGame = empty;
-        this.socket.on("startGame", () => this.startGame());
+        this.socket.on("startGame", () => this.startGame(this));
 
         this.kickPlayer = empty;
-        this.socket.on("kickPlayer", (pid) => this.kickPlayer(pid));
+        this.socket.on("kickPlayer", (pid) => this.kickPlayer(this, pid));
 
-        this.disconnect = empty;
-        this.socket.on("disconnect", () => this.disconnect());
+        this.disconnected = empty;
+        this.socket.on("disconnect", () => this.disconnected(this));
 
         //Sending
         this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);
         this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
         this.updatedName = (room, name) => this.sendToRoom("updatedName", room, name);
         this.startedGame = (room) => this.sendToRoom("startedGame", room);
-        this.kickedPlayer = (sid) => this.sendToClient(sid, "kickedPlayer");
+        this.disconnect = (sid) => io.disconnect(sid);
         this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
     }
 

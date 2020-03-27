@@ -26,7 +26,6 @@ class Lobby
         };
         Socket.playerLeft = (r, pid) =>
         {
-            print("test");
             room = r;
             if (Socket.id() == room.players[0].pid)
             {
@@ -41,13 +40,8 @@ class Lobby
         {
             room = r;
         };
-        Socket.startedGame = () =>
+        Socket.disconnect = () =>
         {
-            console.log("start game");
-        }
-        Socket.kickedPlayer = () =>
-        {
-            print("test");
             window.location.replace(url.replace("#" + rid, ""));
         }
     }

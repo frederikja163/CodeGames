@@ -29,6 +29,7 @@ function draw()
     Input.mouse.setStyle('default');
     background(.1);
     app.draw();
+    Input.update();
 }
 
 function mousePressed()

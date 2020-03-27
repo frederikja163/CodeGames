@@ -1,10 +1,9 @@
 class Room
 {
-    constructor(id, player)
+    constructor(id)
     {
         this.rid = id;
         this.players = [];
-        this.players.push(player);
         this.options = new Options();
     }
 }
