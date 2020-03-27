@@ -8,5 +8,6 @@
  - [] Responsive design **Maybe**
 
 ## Server
- - [f] Add Game state
+ - [f] ~~Add Game state~~
  - [f] Fix join multiple rooms error
+ - [f] Reset socket callbacks

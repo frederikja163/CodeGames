@@ -33,6 +33,7 @@ class Lobby
             if (player != undefined)
             {
                 socket.disconnect(player.pid);
+                socket.playerLeft(this.room, player.pid);
             }
         }
     }
