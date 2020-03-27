@@ -36,7 +36,7 @@ class Party
         }
     }
 
-    static joinRoom = (socket, rid) =>
+    static joinRoom(socket, rid)
     {
         if(rid === "")
         {
