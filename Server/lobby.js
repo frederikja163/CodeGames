@@ -1,4 +1,4 @@
-const {Room, Player, Options} = require('./room');
+const {Room, Player, Options, Word} = require('./room');
 
 class Lobby
 {

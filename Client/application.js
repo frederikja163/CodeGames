@@ -3,8 +3,9 @@ class Application
     constructor()
     {
         this.state = new Lobby();
-        Socket.startedGame = () =>
+        Socket.startedGame = (r) =>
         {
+            room = r;
             Socket.resetLobby();
             this.state = new Game();
         }

@@ -5,7 +5,7 @@
         Socket.socket = io("http://95.217.87.22:50464");
         Socket.id = () => Socket.socket.id;
 
-        Socket.resetLobby();        
+        Socket.resetLobby();
     }
 
     static resetLobby()
@@ -22,7 +22,7 @@
         Socket.socket.on("updatedName", (room, name) => Socket.updatedName(room, name));
 
         Socket.startedGame = empty;
-        Socket.socket.on("startedGame", () => Socket.startedGame());
+        Socket.socket.on("startedGame", (room) => Socket.startedGame(room));
 
         Socket.disconnect = empty;
         Socket.socket.on("disconnect", () => Socket.disconnect());
