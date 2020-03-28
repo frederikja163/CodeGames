@@ -30,6 +30,7 @@ class Party
     {
         if (socket.id() === this.room.players[0].pid)
         {
+            socket.resetLobby();
             this.state = new Game(socket, this.room);
         }
     }

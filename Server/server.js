@@ -4,7 +4,11 @@ const io = require("./io");
 exports.OnConnected = (s) =>
 {
     var socket = new Socket(s);
-    socket.joinRoom = (rid) => Party.joinRoom(socket, rid);
+    socket.joinRoom = (rid) => 
+    {
+        Party.joinRoom(socket, rid);
+        socket.joinRoom = () => { };
+    }
 }
 
 class Socket
@@ -14,35 +18,55 @@ class Socket
         this.socket = socket;
         this.id = () => this.socket.id;
 
+        this.resetAll();
+    }
+
+    resetAll()
+    {
         this.resetLobby();
+        this.resetGame();
+
+        var empty = () => {};
+
+        //Recieving
+        this.startGame = empty;
+        this.socket.on("startGame", () => this.startGame());
+
+        this.joinRoom = empty;
+        this.socket.on("joinRoom", (rid) => this.joinRoom(rid));
+
+        this.disconnected = empty;
+        this.socket.on("disconnect", () => this.disconnected());
+        
+        //Sending
+        this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);
+        this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
+        this.startedGame = (room) => this.sendToRoom("startedGame", room);
+        this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
     }
 
     resetLobby()
     {
         var empty = () => {};
-        //Recieving
-        this.joinRoom = empty;
-        this.socket.on("joinRoom", (rid) => this.joinRoom(rid));
 
+        //Recieving
         this.updateName = empty;
         this.socket.on("updateName", (name) => this.updateName(name));
-
-        this.startGame = empty;
-        this.socket.on("startGame", () => this.startGame());
 
         this.kickPlayer = empty;
         this.socket.on("kickPlayer", (pid) => this.kickPlayer(pid));
 
-        this.disconnected = empty;
-        this.socket.on("disconnect", () => this.disconnected());
-
         //Sending
-        this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);
-        this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
         this.updatedName = (room, name) => this.sendToRoom("updatedName", room, name);
-        this.startedGame = (room) => this.sendToRoom("startedGame", room);
         this.disconnect = (sid) => io.disconnect(sid);
-        this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
+    }
+
+    resetGame()
+    {
+        var empty = () => {};
+
+        //Recieving
+        //Sending
     }
 
     sendToRoom(protocol, room, param1)
