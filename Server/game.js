@@ -126,7 +126,7 @@ class Game
                 do
                 {
                     txt[x * width + y] = Random.randomWord(words);
-                } while(txt.findIndex(txt[x * width + y]) != x * width + y);
+                } while(txt.findIndex(t => t === txt[x * width + y]) != x * width + y);
 
                 var word = new Word(txt[x * width + y]);
                 this.room.board[x][y] = word;
