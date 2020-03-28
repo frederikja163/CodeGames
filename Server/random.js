@@ -15,8 +15,15 @@ exports.generateID = (length) =>
 	return str;
 }
 
-//Tage en list af ord, retunere et tilfældigt ord.
 exports.randomWord = (words) =>
 {
     return words[random(0, words.length - 1)];
+}
+
+exports.randomPosition = (width, height) =>
+{
+	var pos;
+	pos.x = random(0, width - 1);
+	pos.y = random(0, height - 1);
+	return pos;
 }
