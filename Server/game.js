@@ -1,5 +1,5 @@
 const {Room, Player, Options, Word} = require('./room');
-const {Random} = require("./random");
+const Random = require("./random");
 
 const words = ["bunny", "rabbit", "england", "london"];
 

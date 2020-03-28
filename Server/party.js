@@ -1,7 +1,7 @@
 const {Lobby} = require("./lobby");
 const {Game} = require("./game");
 const {Room, Player, Options, Word} = require("./room");
-const {Random} = require("./random");
+const Random = require("./random");
 
 var parties = [];
 

@@ -1,4 +1,4 @@
-exports.Random = (min, max) =>
+exports.random = (min, max) =>
 {
   	return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -18,5 +18,5 @@ exports.generateID = (length) =>
 //Tage en list af ord, retunere et tilfældigt ord.
 exports.randomWord = (words) =>
 {
-    return words[Random(0, words.length - 1)];
+    return words[random(0, words.length - 1)];
 }
