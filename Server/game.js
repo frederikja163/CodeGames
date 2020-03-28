@@ -141,6 +141,7 @@ class Game
                 do
                 {
                     pos = Random.randomPosition(width, height);
+                    console.warn(pos.x + " : " + pos.y);
                 } while(board[pos.x][pos.y] != "white");
                 board[pos.x][pos.y] = type;
             }
