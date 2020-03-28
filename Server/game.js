@@ -133,7 +133,7 @@ class Game
             }
         }
 
-        function generateType(type, count)
+        function generateType(board, type, count)
         {
             for(var i = 0; i < count; i++)
             {
@@ -141,14 +141,14 @@ class Game
                 do
                 {
                     pos = Random.randomPosition(width, height);
-                } while(this.room.board[pos.x, pos.y] != "white");
-                this.room.board[pos.x, pos.y] = type;
+                } while(board[pos.x, pos.y] != "white");
+                board[pos.x, pos.y] = type;
             }
         }
 
-        this.generateType("killer", 1);
-        this.generateType("blue", 9);
-        this.generateType("red", 8);
+        generateType(this.room.board, "killer", 1);
+        generateType(this.room.board, "blue", 9);
+        generateType(this.room.board, "red", 8);
 
         socket.startedGame(this.room);
     }
