@@ -13,3 +13,4 @@
  - [F] ~~Fix join multiple rooms~~
  - [F] ~~Reset socket callbacks~~
  - [] Sometimes players cant edit their names if there are multiple guests in a room.
+ 
