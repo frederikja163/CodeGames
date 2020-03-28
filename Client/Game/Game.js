@@ -2,6 +2,7 @@ class Game
 {
     constructor()
     {
+        console.log(room);
     }
 
     onResize(size)
@@ -10,6 +11,5 @@ class Game
 
     draw()
     {
-        Console.log(room);
     }
 }
