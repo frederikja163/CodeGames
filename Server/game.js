@@ -18,7 +18,7 @@ class Game
             {
                 var txt = Random.randomWord(words);
                 new Word(txt);
-                this.room.boardd[x][y] = word;
+                this.room.board[x][y] = word;
             }
         }
 
