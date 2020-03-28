@@ -1,6 +1,7 @@
 # TODO - list
 
 ## Client
+ - [o] Move draw to drawHelper
  - [o] Visually owner is kickable
  - [o] Players in room title is not alligned properly Owner -> Guest
  - [o] Look into options menu implementation
