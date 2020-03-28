@@ -1,13 +1,13 @@
 # TODO - list
 
 ## Client
- - [o] Visually owner is kickable
- - [o] Players in room title is not alligned properly Owner -> Guest
- - [o] Look into options menu implementation
- - [o] Title, parody between owner and guest. + fix title text
+ - [O] Visually owner is kickable
+ - [O] Players in room title is not alligned properly Owner -> Guest
+ - [O] Look into options menu implementation
+ - [O] Title, parody between owner and guest. + fix title text
  - [] Responsive design **Maybe**
 
 ## Server
- - [f] ~~Add Game state~~
- - [f] Fix join multiple rooms error
- - [f] Reset socket callbacks
+ - [F] ~~Add Game state~~
+ - [F] ~~Fix join multiple rooms~~
+ - [F] ~~Reset socket callbacks~~
