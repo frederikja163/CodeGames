@@ -9,7 +9,7 @@ exports.generateID = (length) =>
 	var str = "";
 	for (var i = 0; i < length; i++)
 	{
-		var char = validChars.charAt(Random(0, validChars.length - 1));
+		var char = validChars.charAt(random(0, validChars.length - 1));
 		str += char;
 	}
 	return str;
