@@ -146,9 +146,9 @@ class Game
             }
         }
 
-        generateType("killer", 1);
-        generateType("blue", 9);
-        generateType("red", 8);
+        this.generateType("killer", 1);
+        this.generateType("blue", 9);
+        this.generateType("red", 8);
 
         socket.startedGame(this.room);
     }
