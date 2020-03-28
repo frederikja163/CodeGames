@@ -22,7 +22,7 @@ exports.randomWord = (words) =>
 
 exports.randomPosition = (width, height) =>
 {
-	var pos;
+	var pos = new Object();
 	pos.x = random(0, width - 1);
 	pos.y = random(0, height - 1);
 	return pos;
