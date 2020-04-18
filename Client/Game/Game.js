@@ -20,12 +20,5 @@ class Game
         {
             this.state.draw();
         }
-        else if (millis() >= 1000)
-        {
-            textSize(100);
-            fill(1);
-            textAlign(CENTER, CENTER);
-            text("No connection!", width / 2, height / 2);
-        }
     }
 }

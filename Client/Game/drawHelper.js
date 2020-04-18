@@ -1,5 +1,3 @@
-new p5();
-
 var txtSize;
 
 function drawTopPanel(state)

@@ -1,6 +1,4 @@
-﻿new p5();
-
-var txtSize;
+﻿var txtSize;
 
 function drawLeftPanel(isOwner)
 {
