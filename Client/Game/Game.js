@@ -2,7 +2,6 @@ class Game
 {
     constructor()
     {
-        console.log(room);
         this.state = new Presenter();
     }
 

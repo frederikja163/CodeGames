@@ -27,7 +27,7 @@ function draw()
     }
 
     Input.mouse.setStyle('default');
-    background(.1);
+    background(.2);
     app.draw();
     Input.update();
 }

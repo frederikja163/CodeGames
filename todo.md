@@ -13,4 +13,11 @@
  - [F] ~~Fix join multiple rooms~~
  - [F] ~~Reset socket callbacks~~
  - [] Sometimes players cant edit their names if there are multiple guests in a room.
+
+
+
+ ## General todo
+ - [F] Implement game roles
+ - [O] Implement type feature for presenter
+ - [O] Draw for different game roles
  

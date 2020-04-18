@@ -2,7 +2,6 @@ class Presenter
 {
     constructor()
     {
-        console.log(room);
     }
 
     onResize(size)
@@ -11,6 +10,6 @@ class Presenter
 
     draw()
     {
-        //drawTopPanel("presenter");
+        drawTopPanel("presenter");
     }
 }
