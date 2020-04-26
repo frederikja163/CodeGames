@@ -8,7 +8,7 @@ var txtSize;
 
 function drawLeftPanel(state)
 {
-    var size = createVector(width / 3 - txtSize * 4, height - txtSize * 4);
+    var size = createVector(width * .4 - txtSize * 4, height - txtSize * 4);
     var position = createVector(txtSize, txtSize);
     
     function ownerColor(i, a = 1)
@@ -49,7 +49,7 @@ function drawLeftPanel(state)
             var lineWidth = txtSize / 10;
             strokeWeight(lineWidth);
             stroke(1, .8, 1, 0.8);
-            line(position.x + txtSize * 3 + xChange, nameY - lineWidth, position.x + txtSize + max(nameWidth, 25) - xChange, nameY - lineWidth);
+            line(position.x + txtSize * 3 + xChange, nameY - lineWidth, position.x + txtSize * 3 + max(nameWidth, 25) - xChange, nameY - lineWidth);
             strokeWeight(0);
 
             if (Input.mouse.button[LEFT])
@@ -63,7 +63,7 @@ function drawLeftPanel(state)
             //Normal text
             textSize(txtSize);
             fill(color(43/360, saturation, 1));
-            text(ownerTag + room.players[i].name, position.x  + txtSize, nameY);
+            text(ownerTag + room.players[i].name, position.x  + txtSize * 3, nameY);
         }
 
         if (state == LState.Owner && isMouseWithin(position.x + txtSize, nameY - txtSize * .5, txtSize, txtSize))
@@ -141,7 +141,7 @@ function drawBottomPanel(state)
 
 function drawRightPanel(state)
 {
-    var size = createVector(width / 3 - txtSize * 4, height - txtSize * 4);
+    var size = createVector(width * .4 - txtSize * 4, height - txtSize * 4);
     var position = createVector(width - size.x - txtSize, txtSize);
 
     //Background
