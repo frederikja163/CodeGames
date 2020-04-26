@@ -1,3 +1,9 @@
+const GState = {
+    Presenter : "presenter",
+    Guesser : "guesser",
+    Spectator : "spectator"
+}
+
 function drawTopPanel(state)
 {
     var hoverScale = 1.1;
@@ -13,7 +19,7 @@ function drawTopPanel(state)
         {
             var wordSize = startWordSize;
             var wordPos = createVector(wordSize.x * x + marginSize.x * (x + 0.5), wordSize.y * y + marginSize.y * (y + 0.5));
-            if (isMouseWithin(wordPos.x, wordPos.y, wordSize.x, wordSize.y) && state == "guesser")
+            if (isMouseWithin(wordPos.x, wordPos.y, wordSize.x, wordSize.y) && state == GState.Guesser)
             {
                 Input.mouse.setStyle('pointer');
                 textSize(txtSize * hoverScale);
@@ -48,6 +54,30 @@ function drawTopPanel(state)
             textSize(txtSize);
             textAlign(CENTER);
             text(room.board[x][y].text, wordPos.x + wordSize.x / 2, wordPos.y + wordSize.y / 2);
+        }
+    }
+}
+
+class Game
+{
+    constructor()
+    {
+        this.state = GState.Presenter;
+    }
+
+    onResize(size)
+    {
+        if (this.state != null)
+        {
+            
+        }
+    }
+
+    draw()
+    {
+        if (this.state != null)
+        {
+            drawTopPanel(this.state);
         }
     }
 }
