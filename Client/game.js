@@ -58,11 +58,30 @@ function drawTopPanel(state)
     }
 }
 
+function drawWordPanel(state)
+{
+    if (state == GState.Presenter)
+    {
+        var wordSize = createVector(width * .5, txtSize * 2);
+        var wordPos = createVector(width * .5 - wordSize.x * .5, height - txtSize * 3);
+
+        stroke(0);
+        strokeWeight(2);
+        fill(1);
+        rect(wordPos.x, wordPos.y, wordSize.x, wordSize.y);
+    }
+}
+
 class Game
 {
     constructor()
     {
         this.state = GState.Presenter;
+
+        Input.onKeyTyped = (keyCode) => 
+        {
+            
+        }
     }
 
     onResize(size)
@@ -78,6 +97,7 @@ class Game
         if (this.state != null)
         {
             drawTopPanel(this.state);
+            drawWordPanel(this.state);
         }
     }
 }

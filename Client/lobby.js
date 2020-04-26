@@ -65,39 +65,6 @@ function drawLeftPanel(state)
             fill(color(43/360, saturation, 1));
             text(ownerTag + room.players[i].name, position.x  + txtSize * 3, nameY);
         }
-
-        if (state == LState.Owner && isMouseWithin(position.x + txtSize, nameY - txtSize * .5, txtSize, txtSize))
-        {
-            if (Input.mouse.button[LEFT])
-            {
-                
-            }
-
-            //Role selector
-            rect(position.x + txtSize - txtSize * .05, nameY - txtSize * .5 - txtSize * .05, txtSize * 1.1, txtSize * 1.1, 4);
-
-            if (GState == GState.Presenter)
-            {
-
-            }
-            if (GState == GState.Guesser)
-            {
-                
-            }
-            if (GState == GState.Spectator)
-            {
-                
-            }
-        }
-        else
-        {
-            //Role selector
-            stroke(1);
-            strokeWeight(2);
-            fill(1, 1, 1);
-            rect(position.x + txtSize, nameY - txtSize * .5, txtSize, txtSize);
-            strokeWeight(0);
-        }
     }
 }
 
