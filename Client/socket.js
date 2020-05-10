@@ -21,9 +21,6 @@
         Socket.updatedName = empty;
         Socket.socket.on("updatedName", (room, name) => Socket.updatedName(room, name));
 
-        Socket.startedGame = empty;
-        Socket.socket.on("startedGame", (room) => Socket.startedGame(room));
-
         Socket.disconnect = empty;
         Socket.socket.on("disconnect", () => Socket.disconnect());
 
@@ -35,5 +32,14 @@
         Socket.updateName = (name) => Socket.socket.emit("updateName", name);
         Socket.startGame = () => Socket.socket.emit("startGame");
         Socket.kickPlayer = (pid) => Socket.socket.emit("kickPlayer", pid);
+    }
+
+    static resetGame()
+    {
+        var empty = () => {};
+        //Recieving
+        Socket.startedGame = empty;
+        Socket.socket.on("startedGame", (room, board) => Socket.startedGame(room, board));
+        //Sending
     }
 }

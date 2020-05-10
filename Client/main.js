@@ -1,6 +1,7 @@
 ///<reference path="p5.global-mode.d.ts" />
 var app;
 var room;
+var board;
 
 var width;
 var height;
