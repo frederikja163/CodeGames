@@ -41,7 +41,6 @@ class Socket
         //Sending
         this.roomJoined = (room) => this.sendToClient(this.id(), "roomJoined", room);
         this.playerJoined = (room, pid) => this.sendToRoom("playerJoined", room, pid);
-        this.startedGame = (room) => this.sendToRoom("startedGame", room);
         this.playerLeft = (room, pid) => this.sendToRoom("playerLeft", room, pid);
     }
 
@@ -67,6 +66,7 @@ class Socket
 
         //Recieving
         //Sending
+        this.startedGame = (room) => this.sendToRoom("startedGame", room);
     }
 
     sendToRoom(protocol, room, param1)
