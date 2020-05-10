@@ -65,6 +65,40 @@ function drawLeftPanel(state)
             fill(color(43/360, saturation, 1));
             text(ownerTag + room.players[i].name, position.x  + txtSize * 3, nameY);
         }
+
+        //temp
+        room.players[i].role = "Red-Spectator";
+
+        //Set role icon
+        if(room.players[i].role.endsWith("Presenter"))
+        {
+            var roleIcon = ImageLoader.RoleIcons.PRESENTER;
+        }
+        else if(room.players[i].role.endsWith("Guesser"))
+        {
+            var roleIcon = ImageLoader.RoleIcons.GUESSER;
+        }
+        else if(room.players[i].role.endsWith("Spectator"))
+        {
+            var roleIcon = ImageLoader.RoleIcons.SPECTATOR;
+        }
+
+        //Owner hover icon change
+        if (state == LState.Owner && i != 0 && isMouseWithin(position.x + txtSize, nameY - txtSize * 0.58, position.x + txtSize * 3, txtSize))
+        {
+            //Change size
+            
+
+            if (Input.mouse.button[LEFT])
+            {
+                Socket.kickPlayer(room.players[i].pid);
+            }
+        }
+        //Normal icon
+        else
+        {
+            image(roleIcon, position.x + txtSize, nameY - txtSize * 0.58, txtSize, txtSize);
+        }
     }
 }
 
