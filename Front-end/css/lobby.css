@@ -1,11 +1,29 @@
+*
+{
+    --colCount: 3;
+    --colSize: calc(100% / var(--colCount) - var(--space) * ((var(--colCount) - 1) / var(--colCount)));
+}
+
 body
 {
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
+    grid-template-rows: auto auto auto;
 }
 
 .wall
 {
     background-color: hsla(0, 0%, 100%, .1);
+    grid-row: 1 / 4;
+}
+
+.wall h2
+{
+    text-align: center;
+}
+
+.wall ul
+{
+    list-style-type: none;
 }
 
 #players
@@ -18,7 +36,42 @@ body
     grid-column: 3 / 4;
 }
 
+#logo
+{
+    width: 100%;
+}
+
 #start
 {
     grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    width: 75%;
+    height: 4vw;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    font-size: 2vw;
+    transition: width var(--transTime), height var(--transTime), top var(--transTime);
+}
+
+#start:hover
+{
+    box-shadow: var(--shadowHover);
+    cursor: pointer;
+}
+
+#start:focus
+{
+    outline: none;
+}
+
+#start:active
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
 }
