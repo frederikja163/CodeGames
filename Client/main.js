@@ -13,6 +13,7 @@ function setup()
 
     Input.inititalize();
     Socket.initialiaze();
+    ImageLoader.load();
     mouseMoved();
 
     app = new Application();
