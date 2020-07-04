@@ -50,13 +50,17 @@ class Socket
 
         //Recieving
         this.updateName = empty;
-        this.socket.on("updateName", (name) => this.updateName(name));
+        this.socket.on("updateName", (pid) => this.updateName(pid));
+
+        this.updateRole = empty;
+        this.socket.on("updateRole", (pid, role) => this.updateRole(pid, role));
 
         this.kickPlayer = empty;
         this.socket.on("kickPlayer", (pid) => this.kickPlayer(pid));
 
         //Sending
         this.updatedName = (room, name) => this.sendToRoom("updatedName", room, name);
+        this.updatedRole = (room, pid) => this.sendToRoom("updatedRole", room, pid);
         this.disconnect = (sid) => io.disconnect(sid);
     }
 

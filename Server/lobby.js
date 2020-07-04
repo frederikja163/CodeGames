@@ -11,6 +11,8 @@ class Lobby
     addPlayer(socket)
     {
         socket.updateName = (name) => this.updateName(socket, name);
+
+        socket.updateRole = (pid, role) => this.updateRole(socket, pid, role);
         
         socket.kickPlayer = (pid) => this.kickPlayer(socket, pid);
     }
@@ -21,8 +23,13 @@ class Lobby
         {
             var player = this.room.players.find(p => p.pid === socket.id());
             player.name = name;
-            socket.updatedName(this.room, name);
+            socket.updatedName(this.room, player.pid);
         }
+    }
+
+    updateRole(socket, pid, role)
+    {
+        
     }
 
     kickPlayer(socket, pid)

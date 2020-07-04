@@ -1,4 +1,4 @@
-const LState = 
+﻿const LState = 
 {
     Owner : "owner",
     Guest : "guest"

@@ -16,7 +16,32 @@ class Party
 
     addPlayer(socket)
     {
-        var player = new Player(socket.id(), "PLAYER" + (this.room.players.length + 1));
+        if (this.room.players.filter(p => p.role.endsWith("Presenter")).length < 2)
+        {
+            var role = "Presenter";
+        }
+        else if (this.room.players.filter(p => p.role.endsWith("Guesser")).length < 2)
+        {
+            var role = "Guesser";
+        }
+        else
+        {
+            var role = "Spectator";
+        }
+
+        if (role != "Spectator")
+        {
+            if (this.room.players.filter(p => p.role.startsWith("Red")).length < 2)
+            {
+                var role = "Red-" + role;
+            }
+            else
+            {
+                var role = "Blue-" + role;
+            }
+        }
+
+        var player = new Player(socket.id(), "PLAYER" + (this.room.players.length + 1), role);
         this.room.players.push(player);
 
         socket.playerJoined(this.room, socket.id());

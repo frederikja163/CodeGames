@@ -18,7 +18,8 @@ class Game
         
         this.state = "game";
         this.pBoard = [];
-        this.board = [];
+        this.gBoard = [];
+        this.sBoard = [];
         var txt = [];
 
         //Generate word list.
@@ -51,12 +52,15 @@ class Game
             }
         }
 
-        this.board = this.pBoard;
+        this.gBoard = this.pBoard;
         generateType(this.pBoard, "killer", 1);
         generateType(this.pBoard, "blue", 9);
         generateType(this.pBoard, "red", 8);
+        this.sBoard = this.pBoard;
 
-        socket.startedGame(this.room, this.board, this.pBoard);
+        socket.startedGamePresenter(this.room, this.pBoard);
+        socket.startedGameSpectator(this.room, this.sBoard);
+        socket.startedGameGuesser(this.room, this.gBoard);
     }
 
     addPlayer(socket)

@@ -11,10 +11,11 @@ class Room
 
 class Player
 {
-    constructor(id, name)
+    constructor(id, name, role)
     {
         this.pid = id;
         this.name = name;
+        this.role = role;
     }
 }
 

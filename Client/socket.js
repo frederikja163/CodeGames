@@ -19,8 +19,11 @@
         Socket.socket.on("playerJoined", (room, pid) => Socket.playerJoined(room, pid));
 
         Socket.updatedName = empty;
-        Socket.socket.on("updatedName", (room, name) => Socket.updatedName(room, name));
-
+        Socket.socket.on("updatedName", (room, pid) => Socket.updatedName(room, pid));
+        
+        Socket.updatedRole = empty;
+        Socket.socket.on("updatedRole", (room, pid) => Socket.roleChanged(room, pid))
+        
         Socket.disconnect = empty;
         Socket.socket.on("disconnect", () => Socket.disconnect());
 
@@ -30,6 +33,7 @@
         //Sending
         Socket.joinRoom = (rid) => Socket.socket.emit("joinRoom", rid);
         Socket.updateName = (name) => Socket.socket.emit("updateName", name);
+        Socket.updateRole = (pid, role) => Socket.socket.emit("updateRole", pid, role);
         Socket.startGame = () => Socket.socket.emit("startGame");
         Socket.kickPlayer = (pid) => Socket.socket.emit("kickPlayer", pid);
     }
