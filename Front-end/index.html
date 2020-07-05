@@ -7,24 +7,8 @@
         <script src="main.js"></script>
 
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/welcome.css">
     </head>
     <body>
-        <!-- Logo / title -->
-        <img id="logo" src="https://i.imgur.com/zQRNL0g.png">
-
-        <!-- Join box-->
-        <div id="join">
-            <h2>Welcome to Code Games!</h2>
-            <form>
-                <h3>Name</h3>
-                <p>Enter the nickname you would like to be recognized as in the game</p>
-                <input class="inputTxt" id="welcomeInputName" type="text" name="name" placeholder="Name">
-                <h3>Room ID</h3>
-                <p>Enter the ID of the room you want to join, or leave blank to join a random room</p>
-                <input class="inputTxt" id="welcomeInputRID" type="text" name="rid" placeholder="Room ID">
-                <input id="joinBtn" class="btn" type="button" onclick="server.joinRoom()" value="Join">
-            </form>
-        </div>
+        <iframe src="welcome.html"></iframe>
     </body>
 </html>

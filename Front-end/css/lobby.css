@@ -8,6 +8,7 @@ body
 {
     grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
     grid-template-rows: auto auto 10vh;
+    margin: var(--space);
 }
 
 .wall

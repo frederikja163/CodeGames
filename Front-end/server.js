@@ -14,6 +14,7 @@ class Server
         socket.on("nameChanged", (room, player, name) => this.onNameChanged(room, player, name));
 
         //======[Server protocol]======
+        this.room = null;
         this.rid = null;
 
         //Incoming
