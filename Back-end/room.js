@@ -22,17 +22,38 @@ class Room
     constructor(rid)
     {
         this.data = new RoomData(rid);
+        this.players = [];
     }
 
     AddClient(client)
     {
-        this.data.players.push(new PlayerData(client.pid));
+        let player = new PlayerData(client.pid);
+        this.data.players.push(player);
+        for (let i = 0; i < this.players.length; i++)
+        {
+            this.players[i].playerJoined(this.data, player);
+        }
+        this.players.push(client);
         client.roomJoined(this.data, this.data.rid);
+
+        client.onDisconnected = () => this.onDisconnected(client);
+    }
+
+    onDisconnected(client)
+    {
+        let playerIdx = this.players.findIndex(p => p.pid === client.pid);
+        let player = this.data.players[playerIdx];
+        this.players.slice(playerIdx);
+        this.data.players.slice(playerIdx);
+        for (let i = 0; i < this.players.length; i++)
+        {
+            this.players[i].playerLeft(this.data, player);
+        }
     }
 
     static OnConnected(client)
     {
-        client.onJoinRoom = Room.JoinRoom;
+        client.onJoinRoom = (rid) => Room.JoinRoom(client, rid);
     }
 
     static JoinRoom(client, rid)
