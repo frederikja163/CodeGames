@@ -15,13 +15,14 @@ class Server
         //======[Server protocol]======
         this.rid = null;
 
-        //Outgoing
-        this.joinRoom = (rid) => send("joinRoom", rid);
-        
         //Incoming
         this.onRoomJoined = (room, rid) => {};
         this.onPlayerJoined = (room, player) => {};
         this.onPlayerLeft = (room, player) => {};
+
+        //Outgoing
+        this.joinRoom = (rid) => send("joinRoom", rid);
+        this.changeName = (name) => send("changeName", name);
     }
 }
 

@@ -6,14 +6,16 @@ class Client{
         };
         socket.on("joinRoom", (rid) => this.onJoinRoom(rid));
         socket.on("disconnect", () => this.onDisconnected());
+        socket.on("changeName", (name) => this.onChangeName(name));
 
         //======[Server protocol]======
         this.pid = socket.id;
         this.room = null;
 
         //Incoming
-        this.onJoinRoom = (client, rid) => {};
-        this.onDisconnected = (client) => {};
+        this.onJoinRoom = (rid) => {};
+        this.onDisconnected = () => {};
+        this.onChangeName = (name) => {};
 
         //Outgoing
         this.roomJoined = (room, rid) => send("roomJoined", room, rid);
