@@ -2,7 +2,7 @@
 {
     --space: 10px;
     --shadow: 5px 5px 5px 0 hsla(0,0%,0%,0.2);
-    --transTime: 1s;
+    --transTime: .1s;
 }
 
 body
