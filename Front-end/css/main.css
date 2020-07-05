@@ -1,0 +1,22 @@
+*
+{
+    --space: 10px;
+    --shadow: 5px 5px 5px 0 hsla(0,0%,0%,0.2);
+    --transTime: .1s;
+}
+
+body
+{
+    color: white;
+    background-color: #1e1e1e;
+    margin: var(--space);
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-gap: var(--space);
+}
+
+div
+{
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+}
