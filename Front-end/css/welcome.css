@@ -27,15 +27,63 @@ body
 #join h3
 {
     text-align: left;
+    margin-left: var(--space);
+}
+
+#join p
+{
+    text-align: left;
+    margin-left: var(--space);
+    font-size: .7vw;
 }
 
 .inputTxt
 {
     width: calc(100% - 4 * var(--space));
+    height: 4vh;
+    font-size: 3vh;
     margin: var(--space);
+    margin-top: calc(2 * var(--space));
+    margin-bottom: calc(2 * var(--space));
+    padding: var(--space);
+    border: none;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    transition: height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
+}
+
+.inputTxt:focus
+{
+    height: calc(4vh + var(--space));
+    outline: none;
+    margin-top: calc(1.5 * var(--space));
+    margin-bottom: calc(1.5 * var(--space));
 }
 
 #joinBtn
 {
+    --width: 50%;
+    --height: 4vh;
+
+    width: var(--width);
+    height: var(--height);
+    margin: calc(4 * var(--space));
+    font-size: 1.5vw;
     align-items: center;
+}
+
+#joinBtn:hover
+{
+    width: calc(var(--width) + .2vw);
+    height: calc(var(--height) + .2vh);
+    margin-top: calc(4 * var(--space) - .1vh);
+    margin-bottom: calc(4 * var(--space) - .1vh);
+}
+
+#joinBtn:active
+{
+    width: calc(var(--width) - .2vw);
+    height: calc(var(--height) - .2vh);
+    margin-top: calc(4 * var(--space) + .1vh);
+    margin-bottom: calc(4 * var(--space) + .1vh);
 }
