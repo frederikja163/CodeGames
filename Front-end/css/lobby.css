@@ -12,7 +12,7 @@ body
 
 .wall
 {
-    background-color: hsla(0, 0%, 100%, .1);
+    background-color: var(--l1Color);
     grid-row: 1 / 4;
 }
 

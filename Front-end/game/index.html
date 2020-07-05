@@ -3,27 +3,13 @@
     <head>
         <title>Codegames version2.0 featuring html and css</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
-        <script src="server.js"></script>
+        <script src="../server.js"></script>
+        <script src="../main.js"></script>
 
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/welcome.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/game.css">
     </head>
     <body>
-        <!-- Logo / title -->
-        <img id="logo" src="https://i.imgur.com/zQRNL0g.png">
-
-        <!-- Join box-->
-        <div id="join">
-            <h2>Welcome to Code Games!</h2>
-            <form>
-                <h3>Name</h3>
-                <p>Enter the nickname you would like to be recognized as in the game</p>
-                <input class="inputTxt" type="text" name="Name">
-                <h3>Room ID</h3>
-                <p>Enter the ID of the room you want to join, or leave blank to join a random room</p>
-                <input class="inputTxt" type="text" name="Room ID">
-                <input id="joinBtn" class="btn" type="button" onclick="myFunction()" value="Join">
-            </form>
-        </div>
+        
     </body>
 </html>
