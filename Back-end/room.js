@@ -37,6 +37,17 @@ class Room
         client.roomJoined(this.data, this.data.rid);
 
         client.onDisconnected = () => this.onDisconnected(client);
+        client.onNameChange = (name) => this.onNameChange(client, name);
+    }
+
+    onNameChange(client, name)
+    {
+        let player = this.data.players.find(p => p.pid == client.pid);
+        player.name = name;
+        for (let i = 0; i < this.players.length; i++)
+        {
+            this.players[i].nameChanged(this.data, player, name);
+        }
     }
 
     onDisconnected(client)
