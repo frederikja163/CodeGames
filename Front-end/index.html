@@ -19,11 +19,11 @@
             <form>
                 <h3>Name</h3>
                 <p>Enter the nickname you would like to be recognized as in the game</p>
-                <input class="inputTxt" type="text" name="Name">
+                <input class="inputTxt" id="welcomeInputName" type="text" name="name" placeholder="Name">
                 <h3>Room ID</h3>
                 <p>Enter the ID of the room you want to join, or leave blank to join a random room</p>
-                <input class="inputTxt" type="text" name="Room ID">
-                <input id="joinBtn" class="btn" type="button" onclick="server.joinRoom('c')" value="Join">
+                <input class="inputTxt" id="welcomeInputRID" type="text" name="rid" placeholder="Room ID">
+                <input id="joinBtn" class="btn" type="button" onclick="server.joinRoom()" value="Join">
             </form>
         </div>
     </body>
