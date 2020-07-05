@@ -27,11 +27,3 @@ class Server
         this.nameChange = (name) => send("nameChange", name);
     }
 }
-
-const server = new Server("http://localhost", 9999);
-
-server.roomJoin();
-server.onRoomJoined = (room, rid) => {
-    server.room = room;
-    server.rid = rid;
-};

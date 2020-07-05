@@ -19,7 +19,7 @@ body
 #join
 {
     grid-column: 2 /3;
-    background-color: hsla(0, 0%, 100%, .1);
+    background-color: var(--l1Color);
     padding: var(--space);
     text-align: center;
 }
