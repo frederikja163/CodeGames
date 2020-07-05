@@ -18,7 +18,7 @@ class Server
         this.joinRoom = (rid) => send("joinRoom", rid);
         
         //Incoming
-        this.onRoomJoined = (room, rid);
+        this.onRoomJoined = (room, rid) => {};
     }
 }
 
