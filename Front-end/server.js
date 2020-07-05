@@ -18,12 +18,14 @@ class Server
         this.joinRoom = (rid) => send("joinRoom", rid);
         
         //Incoming
-        this.onRoomJoined = (room, rid) => 
-        {
-            this.room = room;
-            this.rid = rid;
-        };
+        this.onRoomJoined = (room, rid);
     }
 }
 
 const server = new Server("http://localhost", 9999);
+
+server.joinRoom();
+server.onRoomJoined = (room, rid) => {
+    server.room = room;
+    server.rid = rid;
+};
