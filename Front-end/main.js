@@ -8,12 +8,30 @@ let lobby;
 
 window.onload = () => {
     welcome = document.querySelector("#welcome");
-    lobby = document.querySelector("#lobby"); 
+    lobby = document.querySelector("#lobby");
+
+    let url = String(window.location);
+    let ridStart = url.indexOf("#");
+    if (ridStart != -1)
+    {
+        let rid = url.substring(ridStart + 1);
+        SERVER.joinRoom(rid);
+    }
 }
 
 SERVER.onRoomJoined = (room, rid) => {
     SERVER.room = room;
     SERVER.rid = rid;
+
+    welcome.style.display = HIDDEN;
+    lobby.style.display = VISIBLE;
+
+    let url = String(window.location);
+    let ridStart = url.indexOf("#");
+    if (ridStart == -1)
+    {
+        window.location += "#" + SERVER.rid;
+    }
     // TODO: update link, change iframe src to lobby html
 };
 
@@ -39,7 +57,4 @@ function joinBtnOnClick()
     
     SERVER.joinRoom(rid);
     SERVER.setName(name);
-
-    welcome.style.display = HIDDEN;
-    lobby.style.display = VISIBLE;
 }
