@@ -1,3 +1,5 @@
+const { Lobby } = require("./lobby");
+
 class RoomData
 {
     constructor(rid)
@@ -22,54 +24,52 @@ class Room
     constructor(rid)
     {
         this.data = new RoomData(rid);
-        this.players = [];
+        this.clients = [];
+        this.state = new Lobby(this.data, this.clients);
+    }
+
+    static OnConnected(client)
+    {
+        client.onJoinRoom = (rid) => Room.JoinRoom(client, rid);
     }
 
     AddClient(client)
     {
         let player = new PlayerData(client.pid);
         this.data.players.push(player);
-        for (let i = 0; i < this.players.length; i++)
+        for (let i = 0; i < this.clients.length; i++)
         {
-            this.players[i].playerJoined(this.data, player);
+            this.clients[i].playerJoined(this.data, player);
         }
-        this.players.push(client);
+        this.clients.push(client);
         client.roomJoined(this.data, this.data.rid);
 
         client.onDisconnected = () => this.onDisconnected(client);
-        client.onSetName = (name) => this.onSetName(client, name);
+        client.onJoinRoom = (rid) => this.onJoinRoom(client, rid);
+        this.state.AddClient(client);
     }
 
-    onSetName(client, name)
+    onJoinRoom(client, rid)
     {
-        let player = this.data.players.find(p => p.pid == client.pid);
-        player.name = name;
-        for (let i = 0; i < this.players.length; i++)
-        {
-            this.players[i].nameChanged(this.data, player, name);
-        }
+        this.onDisconnected(client);
+        Room.JoinRoom(client, rid);
     }
 
     onDisconnected(client)
     {
-        let playerIdx = this.players.findIndex(p => p.pid === client.pid);
-        let player = this.data.players[playerIdx];
-        this.players.slice(playerIdx);
-        this.data.players.slice(playerIdx);
+        let playerInd = this.players.findIndex(p => p.pid === client.pid);
+        let player = this.data.players[playerInd];
+        this.clients.splice(playerInd, 1);
+        this.data.players.splice(playerInd, 1);
         for (let i = 0; i < this.players.length; i++)
         {
-            this.players[i].playerLeft(this.data, player);
+            this.clients[i].playerLeft(this.data, player);
         }
 
-        if (this.players.length <= 0)
+        if (this.clients.length <= 0)
         {
             Room.rooms = Room.rooms.filter(r => r.rid != this.data.rid);
         }
-    }
-
-    static OnConnected(client)
-    {
-        client.onJoinRoom = (rid) => Room.JoinRoom(client, rid);
     }
 
     static JoinRoom(client, rid)
