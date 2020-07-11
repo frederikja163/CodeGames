@@ -86,15 +86,16 @@ class Room
             Room.rooms = [];
         }
 
-        if (rid === null || rid === undefined)
+        if (rid === null || rid === undefined || rid === "")
         {
             const ridChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6' ,'7', '8', '9', '0'];
             rid = "";
+            let minCount = 3;
             do
             {
                 let i = Math.floor(Math.random() * ridChars.length);
                 rid = rid + ridChars[i];
-            } while(Room.rooms[rid] != undefined)
+            } while(Room.rooms[rid] != undefined || --minCount > 0)
         }
 
         if (Room.rooms[rid] === undefined)
