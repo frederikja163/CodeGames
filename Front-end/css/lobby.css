@@ -1,11 +1,9 @@
-*
+#lobby
 {
     --colCount: 3;
     --colSize: calc(100% / var(--colCount) - var(--space) * ((var(--colCount) - 1) / var(--colCount)));
-}
 
-body
-{
+    display: none;
     grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
     grid-template-rows: auto auto 10vh;
     margin: var(--space);
@@ -37,7 +35,7 @@ body
     grid-column: 3 / 4;
 }
 
-#logo
+#lobby #logo
 {
     width: 100%;
 }
