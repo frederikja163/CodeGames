@@ -1,23 +1,20 @@
-*
+#welcome
 {
     --colCount: 3;
     --colSize: calc(100% / var(--colCount) - var(--space) * ((var(--colCount) - 1) / var(--colCount)));
-}
 
-body
-{
     grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
     margin: var(--space);
 }
 
-#logo
+#welcome #logo
 {
     grid-column: 2 / 3;
     width: 50%;
     margin: auto;
 }
 
-#join
+#welcome #join
 {
     grid-column: 2 /3;
     background-color: var(--l1Color);
@@ -25,20 +22,20 @@ body
     text-align: center;
 }
 
-#join h3
+#welcome #join h3
 {
     text-align: left;
     margin-left: var(--space);
 }
 
-#join p
+#welcome #join p
 {
     text-align: left;
     margin-left: var(--space);
     font-size: .7vw;
 }
 
-.inputTxt
+#welcome .inputTxt
 {
     width: calc(100% - 4 * var(--space));
     height: 4vh;
@@ -53,7 +50,7 @@ body
     transition: height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
 }
 
-.inputTxt:focus
+#welcome .inputTxt:focus
 {
     height: calc(4vh + var(--space));
     outline: none;
@@ -61,7 +58,7 @@ body
     margin-bottom: calc(1.5 * var(--space));
 }
 
-#joinBtn
+#welcome #joinBtn
 {
     --width: 50%;
     --height: 4vh;
@@ -73,7 +70,7 @@ body
     align-items: center;
 }
 
-#joinBtn:hover
+#welcome #joinBtn:hover
 {
     width: calc(var(--width) + .2vw);
     height: calc(var(--height) + .2vh);
@@ -81,7 +78,7 @@ body
     margin-bottom: calc(4 * var(--space) - .1vh);
 }
 
-#joinBtn:active
+#welcome #joinBtn:active
 {
     width: calc(var(--width) - .2vw);
     height: calc(var(--height) - .2vh);
