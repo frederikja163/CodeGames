@@ -39,13 +39,14 @@ class Room
         this.data.players.push(player);
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].playerJoined(this.data, player);
+            this.clients[i].playerJoined(this.data, player.pid);
         }
         this.clients.push(client);
         client.roomJoined(this.data, this.data.rid);
 
         client.onDisconnected = () => this.onDisconnected(client);
         client.onJoinRoom = (rid) => this.onJoinRoom(client, rid);
+        client.onLeaveRoom = () => this.onLeaveRoom(client);
         this.state.AddClient(client);
     }
 
@@ -53,6 +54,12 @@ class Room
     {
         this.onDisconnected(client);
         Room.JoinRoom(client, rid);
+    }
+
+    onLeaveRoom(client){
+        this.onDisconnected(client);
+        client.roomLeft();
+        Room.OnConnected(client);
     }
 
     onDisconnected(client)
@@ -63,7 +70,7 @@ class Room
         this.data.players.splice(playerInd, 1);
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].playerLeft(this.data, player);
+            this.clients[i].playerLeft(this.data, player.pid);
         }
 
         if (this.clients.length <= 0)
@@ -79,15 +86,16 @@ class Room
             Room.rooms = [];
         }
 
-        if (rid === null || rid === undefined)
+        if (rid === null || rid === undefined || rid === "")
         {
             const ridChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6' ,'7', '8', '9', '0'];
             rid = "";
+            let minCount = 3;
             do
             {
                 let i = Math.floor(Math.random() * ridChars.length);
                 rid = rid + ridChars[i];
-            } while(Room.rooms[rid] != undefined)
+            } while(Room.rooms[rid] != undefined || --minCount > 0)
         }
 
         if (Room.rooms[rid] === undefined)
