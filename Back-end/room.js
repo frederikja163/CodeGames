@@ -39,7 +39,7 @@ class Room
         this.data.players.push(player);
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].playerJoined(this.data, player);
+            this.clients[i].playerJoined(this.data, player.pid);
         }
         this.clients.push(client);
         client.roomJoined(this.data, this.data.rid);
@@ -70,7 +70,7 @@ class Room
         this.data.players.splice(playerInd, 1);
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].playerLeft(this.data, player);
+            this.clients[i].playerLeft(this.data, player.pid);
         }
 
         if (this.clients.length <= 0)
