@@ -33,21 +33,26 @@ SERVER.onRoomJoined = (room, rid) => {
         window.location += "#" + SERVER.rid;
     }
     // TODO: update link, change iframe src to lobby html
+
+    createPlayerList();
 };
 
-SERVER.onPlayerJoined = (room, player) => {
+SERVER.onPlayerJoined = (room, pid) => {
     SERVER.room = room;
-    console.log(player.pid, player.name, "joined");
+
+    createPlayerList();
 }
 
-SERVER.onPlayerLeft = (room, player) => {
+SERVER.onPlayerLeft = (room, pid) => {
     SERVER.room = room;
-    console.log(player.pid, player.name, "left");
+
+    createPlayerList();
 }
 
-SERVER.onNameChanged = (room, player, name) => {
+SERVER.onNameChanged = (room, pid, name) => {
     SERVER.room = room;
-    console.log(player.pid, name, "changed");
+
+    createPlayerList();
 }
 
 function joinBtnOnClick()
@@ -57,4 +62,30 @@ function joinBtnOnClick()
     
     SERVER.joinRoom(rid);
     SERVER.setName(name);
+}
+
+function createPlayerList()
+{
+    let playerList = document.querySelector("#lobby #players ul");
+    let liList = [];
+
+    if (SERVER.room.players.length != playerList.children.length)
+    {
+        document.querySelector("#lobby #players ul").children = undefined;
+    }
+    
+    for (let i = 0; i < SERVER.room.players.length; i++)
+    {
+        if (playerList.children[i] == undefined)
+        {
+            liList[i] = document.createElement("LI");
+            liList[i].innerHTML = SERVER.room.players[i].name;
+            playerList.appendChild(liList[i]);
+        }
+        else
+        {
+            playerList.children[i].tagName = "LI";
+            playerList.children[i].innerHTML = SERVER.room.players[i].name;
+        }
+    }
 }
