@@ -26,6 +26,6 @@ function joinBtnOnClick()
     let name = document.getElementById("welcomeInputName").value;
     let rid = document.getElementById("welcomeInputRid").value;
     
-    server.roomJoin(rid);
-    server.nameChange(name);
+    server.joinRoom(rid);
+    server.setName(name);
 }

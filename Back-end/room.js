@@ -37,10 +37,10 @@ class Room
         client.roomJoined(this.data, this.data.rid);
 
         client.onDisconnected = () => this.onDisconnected(client);
-        client.onNameChange = (name) => this.onNameChange(client, name);
+        client.onSetName = (name) => this.onSetName(client, name);
     }
 
-    onNameChange(client, name)
+    onSetName(client, name)
     {
         let player = this.data.players.find(p => p.pid == client.pid);
         player.name = name;
@@ -59,6 +59,11 @@ class Room
         for (let i = 0; i < this.players.length; i++)
         {
             this.players[i].playerLeft(this.data, player);
+        }
+
+        if (this.players.length <= 0)
+        {
+            Room.rooms = Room.rooms.filter(r => r.rid != this.data.rid);
         }
     }
 

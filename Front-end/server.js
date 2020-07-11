@@ -24,7 +24,7 @@ class Server
         this.onNameChanged = (room, player, name) => {};
 
         //Outgoing
-        this.roomJoin = (rid) => send("roomJoin", rid);
-        this.nameChange = (name) => send("nameChange", name);
+        this.joinRoom = (rid) => send("joinRoom", rid);
+        this.setName = (name) => send("setName", name);
     }
 }

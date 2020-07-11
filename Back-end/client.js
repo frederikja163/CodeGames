@@ -4,18 +4,18 @@ class Client{
         let send = (message, arg1, arg2, arg3) =>{
             socket.emit(message, arg1, arg2, arg3);
         };
-        socket.on("roomJoin", (rid) => this.onJoinRoom(rid));
+        socket.on("joinRoom", (rid) => this.onJoinRoom(rid));
         socket.on("disconnect", () => this.onDisconnected());
-        socket.on("nameChange", (name) => this.onNameChange(name));
+        socket.on("setName", (name) => this.onSetName(name));
 
         //======[Server protocol]======
         this.pid = socket.id;
         this.room = null;
 
         //Incoming
-        this.onRoomJoin = (rid) => {};
+        this.onJoinRoom = (rid) => {};
         this.onDisconnected = () => {};
-        this.onNameChange = (name) => {};
+        this.onSetName = (name) => {};
 
         //Outgoing
         this.roomJoined = (room, rid) => send("roomJoined", room, rid);
