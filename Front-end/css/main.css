@@ -36,7 +36,7 @@ div
     border: none;
     border-radius: 5px;
     box-shadow: var(--shadow);
-    transition: width var(--transTime), height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
+    transition: width var(--transTime), height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime), box-shadow var(--transTime);
 }
 
 .btn:hover
@@ -46,6 +46,28 @@ div
 }
 
 .btn:focus
+{
+    outline: none;
+}
+
+.btn2
+{
+    width: 40px;
+    height: 40px;
+    background-color: var(--topColor);
+    border: none;
+    border-radius: 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000px;
+    box-shadow: var(--shadow);
+    transition: width var(--transTime), height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime), box-shadow var(--transTime);
+}
+
+.btn2:hover
+{
+    box-shadow: var(--shadowHover);
+    cursor: pointer;
+}
+
+.btn2:focus
 {
     outline: none;
 }
