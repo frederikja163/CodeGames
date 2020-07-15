@@ -6,6 +6,7 @@ class RoomData
     {
         this.rid = rid;
         this.players = [];
+        this.words = [];
     }
 }
 
