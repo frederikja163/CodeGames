@@ -15,6 +15,7 @@ class Lobby
         client.onRemoveWords = (words) => this.onRemoveWords(client, words);
         client.onSetTeam = (pid, team) => this.onSetTeam(client, pid, team);
         client.onSetTeamCount = (count) => this.onSetTeamCount(client, count);
+        client.onSetSpymaster = (team, pid) => this.onSetSpymaster(client, team, pid);
     }
 
     
@@ -76,6 +77,9 @@ class Lobby
         if (!this.isOwner(client) || player === undefined || team < 0 || team > this.data.options.teamCount){
             return;
         }
+        if (this.findSpymaster(team) === undefined){
+            player.spymaster = true;
+        }
         player.team = team;
         for (let i = 0; i < this.clients.length; i++)
         {
@@ -88,10 +92,32 @@ class Lobby
         if (!this.isOwner(client) || count < 1){
             return;
         }
+        for (let i = 0; i < this.data.players.length; i++)
+        {
+            let player = this.data.players[i];
+            if (player.team > count){
+                player.team = 0;
+            }
+        }
         this.data.options.teamCount = count;
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamCountChanged(this.data);
+        }
+    }
+
+    onSetSpymaster(client, team, pid)
+    {
+        let player = this.data.players.find(p => p.pid === pid);
+        let curSpymaster = this.findSpymaster(team);
+        if (!this.isOwner(client) || player === undefined  || curSpymaster === undefined || player.team != team || team > 0  || team > this.data.options.teamCount){
+            return;
+        }
+        curSpymaster.spymaster = false,
+        player.spymaster = true;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].spymasterChanged(this.data)
         }
     }
 
@@ -104,6 +130,11 @@ class Lobby
 
     isOwner(client){
         return this.data.players[0].pid == client.pid;
+    }
+
+    findSpymaster(team)
+    {
+        return this.data.players.find(p => p.spymaster && p.team == team);
     }
 }
 

@@ -17,6 +17,7 @@ class PlayerData
         this.pid = pid;
         this.name = "Player";
         this.team = -1;
+        this.spymaster = false;
     }
 }
 
