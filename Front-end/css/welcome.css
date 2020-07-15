@@ -40,20 +40,11 @@
     width: calc(100% - 4 * var(--space));
     height: 4vh;
     font-size: 3vh;
-    margin: var(--space);
-    margin-top: calc(2 * var(--space));
-    margin-bottom: calc(2 * var(--space));
-    padding: var(--space);
-    border: none;
-    border-radius: 5px;
-    box-shadow: var(--shadow);
-    transition: height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
 }
 
 #welcome .inputTxt:focus
 {
     height: calc(4vh + var(--space));
-    outline: none;
     margin-top: calc(1.5 * var(--space));
     margin-bottom: calc(1.5 * var(--space));
 }

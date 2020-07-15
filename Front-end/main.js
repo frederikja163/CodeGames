@@ -34,6 +34,8 @@ SERVER.onRoomJoined = (room, rid) => {
     }
     // TODO: update link, change iframe src to lobby html
 
+    document.querySelector("#lobby #name").innerHTML = SERVER.room.players.find(p => p.pid === SERVER.pid).name;
+
     updatePlayerList();
 };
 

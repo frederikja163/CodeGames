@@ -9,28 +9,28 @@
     margin: var(--space);
 }
 
-.wall
+#lobby .wall
 {
     background-color: var(--l1Color);
     grid-row: 1 / 4;
 }
 
-.wall h2
+#lobby .wall h2
 {
     text-align: center;
 }
 
-.wall ul
+#lobby .wall ul
 {
     list-style-type: none;
 }
 
-#players
+#lobby #players
 {
     grid-column: 1 / 2;
 }
 
-#options
+#lobby #options
 {
     grid-column: 3 / 4;
 }
@@ -40,13 +40,13 @@
     width: 100%;
 }
 
-#start
+#lobby #start
 {
     --width: 75%;
     --height: 6vh;
 
     grid-column: 2 / 3;
-    grid-row: 3 / 4;
+    grid-row: 2 / 3;
     width: var(--width);
     height: var(--height);
     margin: auto;
@@ -58,7 +58,7 @@
     transition: width var(--transTime), height var(--transTime), margin-top var(--transTime);
 }
 
-#start:hover
+#lobby #start:hover
 {
     width: calc(var(--width) + 1vw);
     height: calc(var(--height) + 1vh);
@@ -67,14 +67,34 @@
     cursor: pointer;
 }
 
-#start:active
+#lobby #start:active
 {
     width: calc(var(--width) - 1vw);
     height: calc(var(--height) - 1vh);
     margin-top: .5vh;
 }
 
-#start:focus
+#lobby #start:focus
 {
     outline: none;
+}
+
+#lobby .inputTxt
+{
+    height: 2vh;
+    font-size: 1.5vh;
+}
+
+#lobby .inputTxt:focus
+{
+    height: calc(2vh + var(--space));
+    margin-top: calc(1.5 * var(--space));
+    margin-bottom: calc(1.5 * var(--space));
+}
+
+#lobby #nameEdit
+{
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    margin: auto;
 }
