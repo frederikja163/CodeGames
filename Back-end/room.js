@@ -56,7 +56,7 @@ class Room
             this.clients[i].playerJoined(this.data, player.pid);
         }
         this.clients.push(client);
-        client.roomJoined(this.data, this.data.rid);
+        client.roomJoined(this.data, this.data.rid, client.pid);
 
         client.onDisconnected = () => this.onDisconnected(client);
         client.onJoinRoom = (rid) => this.onJoinRoom(client, rid);

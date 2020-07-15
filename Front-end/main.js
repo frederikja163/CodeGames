@@ -19,9 +19,10 @@ window.onload = () => {
     }
 }
 
-SERVER.onRoomJoined = (room, rid) => {
+SERVER.onRoomJoined = (room, rid, pid) => {
     SERVER.room = room;
     SERVER.rid = rid;
+    SERVER.pid = pid;
 
     welcome.style.display = HIDDEN;
     lobby.style.display = VISIBLE;
