@@ -10,7 +10,7 @@ class Client{
 
         socket.on("setName", (name) => this.onSetName(name));
         socket.on("kickPlayer", (pid, reason) => this.onKickPlayer(pid, reason));
-        socket.on("setWords", (words) => this.onSetWords(words)); //TODO: implement these functions.
+        socket.on("setWords", (words) => this.onSetWords(words));
         socket.on("addWords", (words) => this.onAddWords(words));
         socket.on("removeWords", (words) => this.onRemoveWords(words));
         socket.on("setTeam", (pid, team) => this.onSetTeam(pid, team));
