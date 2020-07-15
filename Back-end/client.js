@@ -14,6 +14,7 @@ class Client{
         socket.on("addWords", (words) => this.onAddWords(words));
         socket.on("removeWords", (words) => this.onRemoveWords(words));
         socket.on("setTeam", (pid, team) => this.onSetTeam(pid, team));
+        socket.on("setTeamCount", (count) => this.onSetTeamCount(count));
 
         //======[Server protocol]======
         this.socket = socket;
@@ -39,11 +40,13 @@ class Client{
         this.onAddWords =       (words) => {}; //Requires owner permissions.
         this.onRemoveWords =    (words) => {}; //Requires owner permissions.
         this.onSetTeam =        (pid, team) => {}; //Requires owner permissions.
+        this.onSetTeamCount =   (count) => {}; //Requires owner permissions.
         //To-Client
         this.nameChanged =      (room, pid) => send("nameChanged", room, pid);
         this.playerKicked =     (room, pid, reason) => send("playerKicked", room, pid, reason);
         this.wordsChanged =     (room) => send("wordsChanged", room);
         this.teamChanged =      (room, pid) => send("teamChanged", room, pid);
+        this.teamCountChanged = (room) => send("teamCountChanged", room);
 
         //===[Game]===
         //From-Client

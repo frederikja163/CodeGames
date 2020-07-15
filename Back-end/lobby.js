@@ -14,6 +14,7 @@ class Lobby
         client.onAddWords = (words) => this.onAddWords(client, words);
         client.onRemoveWords = (words) => this.onRemoveWords(client, words);
         client.onSetTeam = (pid, team) => this.onSetTeam(client, pid, team);
+        client.onSetTeamCount = (count) => this.onSetTeamCount(client, count);
     }
 
     
@@ -79,6 +80,18 @@ class Lobby
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamChanged(this.data, pid);
+        }
+    }
+
+    onSetTeamCount(client, count)
+    {
+        if (!this.isOwner(client) || count >= 1){
+            return;
+        }
+        this.data.options.teamCount = count;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].teamCountChanged(this.data);
         }
     }
 
