@@ -1,5 +1,3 @@
-const { connect } = require("http2");
-
 class Server
 {
     constructor(ip, port)
