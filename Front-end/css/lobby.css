@@ -32,7 +32,7 @@
 
 #lobby #players div
 {
-    background-color: red;
+    background-color: #FF0000;
     margin: var(--space);
 }
 
@@ -42,10 +42,16 @@
     padding: var(--space);
 }
 
-#lobby #players div ul
+#lobby #players ul li
 {
     display: grid;
     grid-template-columns: auto auto;
+    margin: var(--space);
+}
+
+#lobby #players ul li div:nth-child(2)
+{
+    grid-column: 2 / 3;
 }
 
 #lobby #options
