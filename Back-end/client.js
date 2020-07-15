@@ -27,7 +27,7 @@ class Client{
         this.onLeaveRoom =      () => {};
         this.onDisconnected =   () => {};
         //To-Client
-        this.roomJoined =       (room, rid) => send("roomJoined", room, rid);
+        this.roomJoined =       (room, rid, pid) => send("roomJoined", room, rid, pid);
         this.roomLeft =         () => send("roomLeft");
         this.playerJoined =     (room, pid) => send("playerJoined", room, pid);
         this.playerLeft =       (room, pid) => send("playerLeft", room, pid);
