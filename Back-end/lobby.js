@@ -13,42 +13,10 @@ class Lobby
         client.onSetWords = (words) => this.onSetWords(client, words);
         client.onAddWords = (words) => this.onAddWords(client, words);
         client.onRemoveWords = (words) => this.onRemoveWords(client, words);
+        client.onSetTeam = (pid, team) => this.onSetTeam(client, pid, team);
     }
 
-    onSetWords(client, words)
-    {
-        if (!this.isOwner(client)){
-            return;
-        }
-        this.data.words = words;
-        this.wordsChanged();
-    }
-
-    onAddWords(client, words)
-    {
-        if (!this.isOwner(client)){
-            return;
-        }
-        this.data.words = this.data.words.concat(words);
-        this.wordsChanged();
-    }
-
-    onRemoveWords(client, words)
-    {
-        if (!this.isOwner(client)){
-            return;
-        }
-        this.data.words = this.data.words.filter(w => !words.includes(w));
-        this.wordsChanged();
-    }
-
-    wordsChanged(){
-        for (let i = 0; i < this.clients.length; i++)
-        {
-            this.clients[i].wordsChanged(this.data);
-        }
-    }
-
+    
     onSetName(client, name)
     {
         let player = this.data.players.find(p => p.pid == client.pid);
@@ -61,14 +29,8 @@ class Lobby
 
     onKickPlayer(client, pid, reason)
     {
-        if (!this.isOwner(client))
-        {
-            return;
-        }
-        console.log(pid, reason);
-
         let playerInd = this.data.players.findIndex(p => p.pid == pid);
-        if (playerInd == -1)
+        if (!this.isOwner(client) || playerInd == -1)
         {
             return;
         }
@@ -78,6 +40,53 @@ class Lobby
             this.clients[i].playerKicked(this.data, pid, reason);
         }
         this.clients.splice(playerInd, 1);
+    }
+    
+    onSetWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.options.words = words;
+        this.wordsChanged();
+    }
+
+    onAddWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.options.words = this.data.options.words.concat(words);
+        this.wordsChanged();
+    }
+
+    onRemoveWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.options.words = this.data.options.words.filter(w => !words.includes(w));
+        this.wordsChanged();
+    }
+
+    onSetTeam(client, pid, team)
+    {
+        let player = this.data.players.find(p => p.pid === pid);
+        if (!this.isOwner(client) || player === undefined || team < 0 || team > this.data.options.teamCount){
+            return;
+        }
+        player.team = team;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].teamChanged(this.data, pid);
+        }
+    }
+
+    wordsChanged(){
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].wordsChanged(this.data);
+        }
     }
 
     isOwner(client){

@@ -6,7 +6,7 @@ class RoomData
     {
         this.rid = rid;
         this.players = [];
-        this.words = [];
+        this.options = new Options();
     }
 }
 
@@ -16,7 +16,16 @@ class PlayerData
     {
         this.pid = pid;
         this.name = "Player";
-        this.role = 'G';
+        this.team = -1;
+    }
+}
+
+class Options
+{
+    constructor()
+    {
+        this.words = [];
+        this.teamCount = 2;
     }
 }
 
@@ -37,6 +46,10 @@ class Room
     AddClient(client)
     {
         let player = new PlayerData(client.pid);
+        if (this.state instanceof Lobby)
+        {
+            player.team = 0;
+        }
         this.data.players.push(player);
         for (let i = 0; i < this.clients.length; i++)
         {
