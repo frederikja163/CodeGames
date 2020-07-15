@@ -22,7 +22,7 @@ class Server
         //======[Server protocol]======
         this.room = null;
         this.rid = null;
-        this.pid = socket.pid;
+        this.pid = socket.id;
 
         //===[Global]===
         //From-Server
