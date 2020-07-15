@@ -8,7 +8,7 @@ class Server
         {
             socket.emit(message, arg1, arg2, arg3);
         };
-        socket.on("roomJoined", (room, rid) => this.onRoomJoined(room, rid));
+        socket.on("roomJoined", (room, rid, pid) => this.onRoomJoined(room, rid, pid));
         socket.on("roomLeft", () => this.onRoomLeft());
         socket.on("playerJoined", (room, pid) => this.onPlayerJoined(room, pid));
         socket.on("playerLeft", (room, pid) => this.onPlayerLeft(room, pid));
@@ -22,7 +22,7 @@ class Server
         //======[Server protocol]======
         this.room = null;
         this.rid = null;
-        this.pid = socket.id;
+        this.pid = null;
 
         //===[Global]===
         //From-Server
