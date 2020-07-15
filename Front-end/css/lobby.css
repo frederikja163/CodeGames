@@ -35,6 +35,13 @@
     grid-column: 3 / 4;
 }
 
+#lobby ul
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+}
+
 #lobby #logo
 {
     width: 100%;
@@ -79,22 +86,38 @@
     outline: none;
 }
 
-#lobby .inputTxt
-{
-    height: 2vh;
-    font-size: 1.5vh;
-}
-
-#lobby .inputTxt:focus
-{
-    height: calc(2vh + var(--space));
-    margin-top: calc(1.5 * var(--space));
-    margin-bottom: calc(1.5 * var(--space));
-}
-
-#lobby #nameEdit
+#lobby #name
 {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     margin: auto;
+}
+
+#lobby #nameEditField
+{
+    display: inline-block;
+    height: 2vh;
+    font-size: 1.5vh;
+    background-color: transparent;
+    color: var(--topColor);
+    box-shadow: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#lobby #nameEditField:active
+{
+    height: 0;
+}
+
+#lobby #nameEditField:focus
+{
+    height: calc(2vh + var(--space));
+    margin-top: calc(1.5 * var(--space));
+    margin-bottom: calc(1.5 * var(--space));
+    box-shadow: var(--shadow);
+    background-color: var(--topColor);
+    color: black;
 }
