@@ -22,7 +22,7 @@ page
     grid-gap: var(--space);
 }
 
-div
+box
 {
     border-radius: 5px;
     box-shadow: var(--shadow);

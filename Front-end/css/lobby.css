@@ -30,12 +30,30 @@
     grid-column: 1 / 2;
 }
 
+#lobby #players div
+{
+    background-color: red;
+    margin: var(--space);
+}
+
+#lobby #players div h3
+{
+    text-align: center;
+    padding: var(--space);
+}
+
+#lobby #players div ul
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
 #lobby #options
 {
     grid-column: 3 / 4;
 }
 
-#lobby ul
+#lobby #options ul
 {
     display: grid;
     grid-template-columns: auto auto;

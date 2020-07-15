@@ -81,3 +81,15 @@ function updatePlayerList()
         playerList.appendChild(liList[i]);
     }
 }
+
+// Todo: button to move player to another team (drag and drop), kick, and activate spymaster
+
+function addTeam()
+{
+
+}
+
+function removeTeam()
+{
+
+}
