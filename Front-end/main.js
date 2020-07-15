@@ -49,7 +49,7 @@ SERVER.onPlayerLeft = (room, pid) => {
     createPlayerList();
 }
 
-SERVER.onNameChanged = (room, pid, name) => {
+SERVER.onNameChanged = (room, pid) => {
     SERVER.room = room;
 
     createPlayerList();
