@@ -85,7 +85,7 @@ class Lobby
 
     onSetTeamCount(client, count)
     {
-        if (!this.isOwner(client) || count >= 1){
+        if (!this.isOwner(client) || count < 1){
             return;
         }
         this.data.options.teamCount = count;
