@@ -10,6 +10,43 @@ class Lobby
     {
         client.onSetName = (name) => this.onSetName(client, name);
         client.onKickPlayer = (pid, reason) => this.onKickPlayer(client, pid, reason);
+        client.onSetWords = (words) => this.onSetWords(client, words);
+        client.onAddWords = (words) => this.onAddWords(client, words);
+        client.onRemoveWords = (words) => this.onRemoveWords(client, words);
+    }
+
+    onSetWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.words = words;
+        this.wordsChanged();
+    }
+
+    onAddWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.words = this.data.words.concat(words);
+        this.wordsChanged();
+    }
+
+    onRemoveWords(client, words)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        this.data.words = this.data.words.filter(w => !words.includes(w));
+        this.wordsChanged();
+    }
+
+    wordsChanged(){
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].wordsChanged(this.data);
+        }
     }
 
     onSetName(client, name)
@@ -24,7 +61,7 @@ class Lobby
 
     onKickPlayer(client, pid, reason)
     {
-        if (this.data.players[0].pid != client.pid)
+        if (!this.isOwner(client))
         {
             return;
         }
@@ -41,6 +78,10 @@ class Lobby
             this.clients[i].playerKicked(this.data, pid, reason);
         }
         this.clients.splice(playerInd, 1);
+    }
+
+    isOwner(client){
+        return this.data.players[0].pid == client.pid;
     }
 }
 

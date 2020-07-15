@@ -10,6 +10,9 @@ class Client{
 
         socket.on("setName", (name) => this.onSetName(name));
         socket.on("kickPlayer", (pid, reason) => this.onKickPlayer(pid, reason));
+        socket.on("setWords", (words) => this.onSetWords(words)); //TODO: implement these functions.
+        socket.on("addWords", (words) => this.onAddWords(words));
+        socket.on("removeWords", (words) => this.onRemoveWords(words));
 
         //======[Server protocol]======
         this.socket = socket;
@@ -30,10 +33,14 @@ class Client{
         //===[Lobby]===
         //From-Client
         this.onSetName =        (name) => {};
-        this.onKickPlayer =     (pid, reason) => {}; //Requires owner perms.
+        this.onKickPlayer =     (pid, reason) => {}; //Requires owner permissions.
+        this.onSetWords =       (words) => {}; //Requires owner permissions.
+        this.onAddWords =       (words) => {}; //Requires owner permissions.
+        this.onRemoveWords =    (words) => {}; //Requires owner permissions.
         //To-Client
-        this.nameChanged =      (room, pid, name) => send("nameChanged", room, pid, name);
+        this.nameChanged =      (room, pid) => send("nameChanged", room, pid);
         this.playerKicked =     (room, pid, reason) => send("playerKicked", room, pid, reason);
+        this.wordsChanged =     (room) => send("wordsChanged", room);
 
         //===[Game]===
         //From-Client

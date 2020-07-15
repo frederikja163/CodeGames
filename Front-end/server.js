@@ -15,6 +15,7 @@ class Server
 
         socket.on("nameChanged", (room, pid, name) => this.onNameChanged(room, pid, name));
         socket.on("playerKicked", (room, pid, reason) => this.onPlayerKicked(room, pid, reason));
+        socket.on("wordsChanged", (room) => this.onWordsChanged(room));
 
         //======[Server protocol]======
         this.room = null;
@@ -29,14 +30,18 @@ class Server
         //To-Server
         this.joinRoom =         (rid) => send("joinRoom", rid);
         this.leaveRoom =        () => send("leaveRoom");
-        
+
         //===[Lobby]===
         //From-Server
-        this.onNameChanged =    (room, pid, name) => {};
-        this.onPlayerKicked =   (room, pid, reason) => {}; //Requires owner perms.
+        this.onNameChanged =    (room, pid) => {};
+        this.onPlayerKicked =   (room, pid, reason) => {};
+        this.onWordsChanged =   (room) => {};
         //To-Server
         this.setName =          (name) => send("setName", name);
-        this.kickPlayer =       (pid, reason) => send("kickPlayer", pid, reason);
+        this.kickPlayer =       (pid, reason) => send("kickPlayer", pid, reason); //Requires owner permissions.
+        this.setWords =         (words) => send("setWords", words); //Requires owner permissions.
+        this.addWords =         (words) => send("addWords", words); //Requires owner permissions.
+        this.removeWords =      (words) => send("removeWords", words); //Requires owner permissions.
 
         //===[Game]==
         //From-Server
