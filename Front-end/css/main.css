@@ -68,3 +68,10 @@ div
     margin-top: calc(1.5 * var(--space));
     margin-bottom: calc(1.5 * var(--space));
 }
+
+#debugWarning{
+    background-color:var(--l1Color);
+    font-size: 40px;
+    color: red;
+    display:none;
+}

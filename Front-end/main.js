@@ -5,6 +5,15 @@ const VISIBLE = "grid";
 
 let welcome;
 let lobby;
+let debugmode = false;
+
+document.addEventListener('keyup', (event) => {
+    if(event.keyCode == 113){
+        debugmode = !debugmode;
+        document.querySelector("#debugWarning").style.display = debugmode? VISIBLE : HIDDEN;
+        this.updatePlayerList();
+    }
+});
 
 window.onload = () => {
     welcome = document.querySelector("#welcome");
@@ -77,7 +86,7 @@ function updatePlayerList()
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
         liList[i] = document.createElement("LI");
-        liList[i].innerHTML = SERVER.room.players[i].name;
+        liList[i].innerHTML = SERVER.room.players[i].name + "\t" + (debugmode ? SERVER.room.players[i].pid : "");
         playerList.appendChild(liList[i]);
     }
 }
