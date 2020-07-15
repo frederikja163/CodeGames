@@ -34,25 +34,25 @@ SERVER.onRoomJoined = (room, rid) => {
     }
     // TODO: update link, change iframe src to lobby html
 
-    createPlayerList();
+    updatePlayerList();
 };
 
 SERVER.onPlayerJoined = (room, pid) => {
     SERVER.room = room;
 
-    createPlayerList();
+    updatePlayerList();
 }
 
 SERVER.onPlayerLeft = (room, pid) => {
     SERVER.room = room;
 
-    createPlayerList();
+    updatePlayerList();
 }
 
 SERVER.onNameChanged = (room, pid, name) => {
     SERVER.room = room;
 
-    createPlayerList();
+    updatePlayerList();
 }
 
 function joinBtnOnClick()
@@ -64,28 +64,17 @@ function joinBtnOnClick()
     SERVER.setName(name);
 }
 
-function createPlayerList()
+function updatePlayerList()
 {
+    document.querySelector("#lobby #players ul").innerHTML = "";
+
     let playerList = document.querySelector("#lobby #players ul");
     let liList = [];
 
-    if (SERVER.room.players.length != playerList.children.length)
-    {
-        document.querySelector("#lobby #players ul").children = undefined;
-    }
-    
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
-        if (playerList.children[i] == undefined)
-        {
-            liList[i] = document.createElement("LI");
-            liList[i].innerHTML = SERVER.room.players[i].name;
-            playerList.appendChild(liList[i]);
-        }
-        else
-        {
-            playerList.children[i].tagName = "LI";
-            playerList.children[i].innerHTML = SERVER.room.players[i].name;
-        }
+        liList[i] = document.createElement("LI");
+        liList[i].innerHTML = SERVER.room.players[i].name;
+        playerList.appendChild(liList[i]);
     }
 }
