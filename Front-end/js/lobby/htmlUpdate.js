@@ -1,3 +1,11 @@
+/*TODO:
+    - Fix team removal
+    - Fix css on player list
+    - Fix name change
+    - Add spymaster
+    - Owner view
+*/
+
 function activateLobby()
 {
     welcome.style.display = HIDDEN;
@@ -123,13 +131,17 @@ function createPlayer(player)
 
 function addTeam()
 {
+    let teamList = document.querySelector("#lobby #players #teams");
+    let teamName = teamNames[teamList.children.length - 1];
+
     // Create team box
     let team = document.createElement("LI");
     team.className = "box";
+    team.style.backgroundColor = teamName;
 
     // Create team title
     let title = document.createElement("H3");
-    title.innerHTML = "Team";
+    title.innerHTML = teamName + " team";
     
     // Create team list
     let list = document.createElement("UL");
@@ -138,10 +150,17 @@ function addTeam()
     team.appendChild(list);
 
     // Add team to player list
-    document.querySelector("#lobby #players #teams").appendChild(team);
+    teamList.appendChild(team);
 }
 
 function removeTeam()
 {
+    let pidElements = Array.from(document.querySelectorAll(".pid"));
+
+    for (let i = 0; i < pidElements.length; i++)
+    {
+        teamChanged(pidElements[i].innerText)
+    }
+
     document.querySelector("#lobby #players #teams").lastChild.remove();
 }

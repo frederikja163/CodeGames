@@ -32,7 +32,7 @@
 
 #lobby #players #teams
 {
-    background-color: #FF0000;
+    /* background-color: #FF0000; */
     margin: var(--space);
 }
 
