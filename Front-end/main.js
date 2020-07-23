@@ -72,6 +72,32 @@ SERVER.onNameChanged = (room, pid) => {
     updatePlayerList();
 }
 
+SERVER.onTeamCountChanged = (room) => {
+    let teamCountDiff = room.options.teamCount - SERVER.room.options.teamCount;
+    
+    SERVER.room = room;
+
+    let playerList = document.querySelector("#lobby #players");
+
+    if ()
+
+    for (let i = 2; i < playerList.childNodes.length; i++)
+    {
+        playerList.childNodes[i].remove()
+    }
+
+    console.log(document.querySelector("#lobby #players:nth-child(n+3)"));
+    if (document.querySelector("#lobby #players:nth-child(n+3)") != null)
+    {
+        document.querySelector("#lobby #players:nth-child(n+3)").remove();
+    }
+
+    for (let i = 1; i < SERVER.room.options.teamCount; i++)
+    {
+
+    }
+};
+
 function joinBtnOnClick()
 {
     let name = document.getElementById("welcomeInputName").value;
@@ -156,9 +182,17 @@ function addTeam()
     document.querySelector("#lobby #players").appendChild(team);
 
     updatePlayerList();
+    SERVER.setTeamCount(SERVER.room.options.teamCount++);
 }
 
 function removeTeam()
 {
     document.querySelector("#lobby #players").removeChild(document.querySelector("#lobby #players").lastChild);
+
+    SERVER.setTeamCount(SERVER.room.options.teamCount--);
+}
+
+function updateTeams()
+{
+
 }
