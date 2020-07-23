@@ -27,10 +27,6 @@ window.onload = () => {
         let rid = url.substring(ridStart + 1);
         SERVER.joinRoom(rid);
     }
-
-
-
-    console.log(SERVER);
 }
 
 SERVER.onRoomJoined = (room, rid, pid) => {
@@ -46,6 +42,11 @@ SERVER.onRoomJoined = (room, rid, pid) => {
     if (ridStart == -1)
     {
         window.location += "#" + SERVER.rid;
+    }
+
+    
+    for (let i = 0; i < room.options.teamCount; i++){
+        addTeam();
     }
     // TODO: update link, change iframe src to lobby html
 
@@ -73,28 +74,18 @@ SERVER.onNameChanged = (room, pid) => {
 }
 
 SERVER.onTeamCountChanged = (room) => {
-    let teamCountDiff = room.options.teamCount - SERVER.room.options.teamCount;
+    let oldTeamCount = SERVER.room.options.teamCount;
+    let newTeamCount = room.options.teamCount;
     
     SERVER.room = room;
 
-    let playerList = document.querySelector("#lobby #players");
-
-    if ()
-
-    for (let i = 2; i < playerList.childNodes.length; i++)
+    for (let i = oldTeamCount; i < newTeamCount; i++)
     {
-        playerList.childNodes[i].remove()
+        addTeam();
     }
-
-    console.log(document.querySelector("#lobby #players:nth-child(n+3)"));
-    if (document.querySelector("#lobby #players:nth-child(n+3)") != null)
+    for (let i = newTeamCount; i < oldTeamCount; i++)
     {
-        document.querySelector("#lobby #players:nth-child(n+3)").remove();
-    }
-
-    for (let i = 1; i < SERVER.room.options.teamCount; i++)
-    {
-
+        removeTeam();
     }
 };
 
@@ -109,12 +100,13 @@ function joinBtnOnClick()
 
 function updatePlayerList()
 {
-    document.querySelector("#lobby #players ul").innerHTML = "";
+    document.querySelectorAll("#lobby #players #teams ul").forEach(e => e.innerHTML = "");
 
-    let playerList = document.querySelector("#lobby #players ul");
+    let playerList = document.querySelector("#lobby #players #teams");
 
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
+        let team = playerList.children[SERVER.room.players[i].team];
         // Create list item
         let li = document.createElement("LI");
 
@@ -143,21 +135,21 @@ function updatePlayerList()
         let btnUp = document.createElement("BUTTON");      
         btnUp.className = "btn2";
         btnUp.innerText = "^";
-        btnUp.setAttribute("onclick", "SERVER.setTeam('" + SERVER.room.players[i].pid + "', '" + String(SERVER.room.players[i].team - 1) + "')");
+        btnUp.setAttribute("onclick", "SERVER.setTeam('" + SERVER.room.players[i].pid + "', " + String(SERVER.room.players[i].team - 1) + ")");
         divBtn.appendChild(btnUp);
 
         // Create move down team button
         let btnDown = document.createElement("BUTTON");
         btnDown.className = "btn2";
         btnDown.innerText = "V";
-        btnDown.setAttribute("onclick", "SERVER.setTeam('" + SERVER.room.players[i].pid + "', '" + String(SERVER.room.players[i].team + 1) + "')");
+        btnDown.setAttribute("onclick", "SERVER.setTeam('" + SERVER.room.players[i].pid + "', " + String(SERVER.room.players[i].team + 1) + ")");
         divBtn.appendChild(btnDown);
 
         // Add button div to list item
         li.appendChild(divBtn);
 
         // Add list item to player list
-        playerList.appendChild(li);
+        team.children[1].appendChild(li);
     }
 }
 
@@ -180,19 +172,9 @@ function addTeam()
 
     // Add team to player list
     document.querySelector("#lobby #players").appendChild(team);
-
-    updatePlayerList();
-    SERVER.setTeamCount(SERVER.room.options.teamCount++);
 }
 
 function removeTeam()
 {
     document.querySelector("#lobby #players").removeChild(document.querySelector("#lobby #players").lastChild);
-
-    SERVER.setTeamCount(SERVER.room.options.teamCount--);
-}
-
-function updateTeams()
-{
-
 }

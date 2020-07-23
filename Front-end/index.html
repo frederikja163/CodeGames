@@ -3,8 +3,8 @@
     <head>
         <title>Codegames version2.0 featuring html and css</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
-        <script src="server.js"></script>
-        <script src="main.js"></script>
+        <script src="js/server.js"></script>
+        <script src="js/main.js"></script>
 
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/welcome.css">
@@ -36,11 +36,14 @@
             <!-- Player list -->
             <div class="box wall" id="players">
                 <h2>Players in Room</h2>
-                <div class="box">
-                    <h3>Spectators</h3>
-                    <ul>
-                    </ul>
-                </div>
+                <ul id="teams">
+                    <li class="box">
+                        <h3>Spectators</h3>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+                
                 <!-- Example team
                 <div class="box">
                     <h3>Team Red</h3>
@@ -65,8 +68,8 @@
                 <ul>
                     <li>Add / remove team: </li>
                     <li>
-                        <button class="btn2" onclick="addTeam()">+</button>
-                        <button class="btn2" onclick="removeTeam()">-</button>
+                        <button class="btn2" onclick="SERVER.setTeamCount(SERVER.room.options.teamCount + 1)">+</button>
+                        <button class="btn2" onclick="SERVER.setTeamCount(SERVER.room.options.teamCount - 1)">-</button>
                     </li>
                 </ul>
             </div>
