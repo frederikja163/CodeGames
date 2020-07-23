@@ -110,7 +110,7 @@ class Lobby
     {
         let player = this.data.players.find(p => p.pid === pid);
         let curSpymaster = this.findSpymaster(team);
-        if (!this.isOwner(client) || player === undefined  || curSpymaster === undefined || player.team != team || team > 0  || team > this.data.options.teamCount){
+        if (!this.isOwner(client) || player === undefined  || curSpymaster === undefined || player.team != team || team <= 0 || team > this.data.options.teamCount){
             return;
         }
         curSpymaster.spymaster = false,
