@@ -4,8 +4,8 @@ class Client{
         let send = (message, arg1, arg2, arg3) => {
             socket.emit(message, arg1, arg2, arg3);
         };
-        let call = (method, bool, arg1, arg2, arg3) => {
-            if (bool){
+        let call = (method, bool) => {
+            if (bool || bool === undefined){
                 method();
             }
         }
