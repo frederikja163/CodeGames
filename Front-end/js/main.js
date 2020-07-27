@@ -5,7 +5,7 @@ const VISIBLE = "grid";
 
 let welcome;
 let lobby;
-let teamNames = ["Red", "Blue", "Green", "Yellow", "Pink"];
+let teamNames = [["Red", "light"], ["Blue", "light"], ["Green", "light"], ["Yellow", "dark"], ["Pink", "dark"]];
 let debugMode = false;
 
 document.addEventListener('keyup', (event) =>
