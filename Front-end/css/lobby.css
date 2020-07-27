@@ -5,7 +5,7 @@
 
     display: none;
     grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
-    grid-template-rows: auto auto 10vh;
+    grid-template-rows: auto auto 15vh;
     margin: var(--space);
 }
 
@@ -101,13 +101,56 @@
     width: 100%;
 }
 
+#lobby #name
+{
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    margin: auto;
+}
+
+#lobby #name p
+{
+    font-size: 24px;
+    text-align: center;
+}
+
+#lobby #nameField
+{
+    display: inline-block;
+    height: 2vh;
+    font-size: 18px;
+    background-color: transparent;
+    color: var(--topColor);
+    box-shadow: none;
+    margin-left: calc(var(--btn2Size) + 2 * var(--space));
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+#lobby #nameField:active
+{
+    height: 0;
+}
+
+#lobby #nameField:focus
+{
+    height: calc(2vh + var(--space));
+    margin-top: calc(1.5 * var(--space));
+    margin-bottom: calc(1.5 * var(--space));
+    box-shadow: var(--shadow);
+    background-color: var(--topColor);
+    color: black;
+}
+
 #lobby #start
 {
     --width: 75%;
     --height: 6vh;
 
     grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     width: var(--width);
     height: var(--height);
     margin: auto;
@@ -138,40 +181,4 @@
 #lobby #start:focus
 {
     outline: none;
-}
-
-#lobby #name
-{
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
-    margin: auto;
-}
-
-#lobby #nameEditField
-{
-    display: inline-block;
-    height: 2vh;
-    font-size: 1.5vh;
-    background-color: transparent;
-    color: var(--topColor);
-    box-shadow: none;
-    margin-left: 0;
-    padding-left: 0;
-    margin-right: 0;
-    padding-right: 0;
-}
-
-#lobby #nameEditField:active
-{
-    height: 0;
-}
-
-#lobby #nameEditField:focus
-{
-    height: calc(2vh + var(--space));
-    margin-top: calc(1.5 * var(--space));
-    margin-bottom: calc(1.5 * var(--space));
-    box-shadow: var(--shadow);
-    background-color: var(--topColor);
-    color: black;
 }

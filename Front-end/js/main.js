@@ -14,6 +14,15 @@ document.addEventListener('keyup', (event) =>
     {
         setDebugMode(!debugmode);
     }
+    else if(event.keyCode == 13) //Enter
+    {
+        let nameField = document.querySelector("#nameField");
+        if(nameField == document.activeElement)
+        {
+            nameSubmit();
+            SERVER.setName(nameField.value);
+        }
+    }
 });
 
 window.onload = () => {
