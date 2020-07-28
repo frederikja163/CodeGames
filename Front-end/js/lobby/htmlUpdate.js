@@ -1,10 +1,10 @@
 ﻿/*TODO:
     - Fix team removal ✅
     - Fix css on player list ✅
-    - Fix name change ✅
+    - Fix name change (✅ undtagen når man joiner med navn)
     - Add spymaster
     - Owner view ✅
-    - Fix css on start button hover
+    - Fix css on start button hover ✅
 */
 
 function activateLobby()
@@ -62,6 +62,20 @@ function nameChanged(pid)
     let playerElement = getPlayerElement(pid);
     
     playerElement.children[1].innerText = player.name;
+}
+
+function playerKicked(pid, reason)
+{
+    if (SERVER.pid == pid)
+    {
+        // Redirect to welcome
+        let url = String(window.location);
+        let ridStart = url.indexOf("#");
+        window.location = url.slice(0, ridStart);
+
+        // Reason pop-up
+        alert("Nigga kicked bacause: " + reason);
+    }
 }
 
 function nameEdit()

@@ -24,6 +24,15 @@ SERVER.onPlayerLeft = (room, pid) =>
     ownerContent();
 };
 
+SERVER.onPlayerKicked = (room, pid, reason) =>
+{
+    SERVER.room = room;
+
+    playerLeft(pid);
+    playerKicked(pid, reason);
+    ownerContent();
+}
+
 SERVER.onNameChanged = (room, pid) => 
 {
     SERVER.room = room;
