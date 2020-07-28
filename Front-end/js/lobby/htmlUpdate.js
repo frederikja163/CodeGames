@@ -151,13 +151,18 @@ function createPlayer(player)
     // Create button div
     let btnDiv = document.createElement("DIV");
     
+    // Create spymaster icon
+    let smIcon = document.createElement("DIV");
+    smIcon.className = "smIcon";
+    smIcon.innerText = "🕵️";
+
     // Create spymaster button
     let smBtn = document.createElement("BUTTON");
     smBtn.className = "btn2 owner";
     smBtn.style.backgroundColor = teamColor;
     smBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
     smBtn.innerText = "🕵️";
-    btnDiv.appendChild(smBtn);
+    smBtn.setAttribute('onclick', 'SERVER.setSpymaster(' + String(player.team) + ', "' + player.pid + '")');
     
     // Create kick button
     let kickBtn = document.createElement("BUTTON");
@@ -183,6 +188,8 @@ function createPlayer(player)
     downBtn.innerText = "⬇";
     downBtn.setAttribute("onclick", "SERVER.setTeam('" + player.pid + "', " + String(player.team + 1) + ")");
 
+    btnDiv.appendChild(smIcon);
+    btnDiv.appendChild(smBtn);
     btnDiv.appendChild(kickBtn);
     btnDiv.appendChild(upBtn);
     btnDiv.appendChild(downBtn);
@@ -252,4 +259,11 @@ function ownerContent()
             ownerElements[i].style.display = "initial";
         }
     }
+}
+
+function spymasterChanged(pid)
+{
+    let playerElement = getPlayerElement(pid);
+    
+    console.log(pid);
 }

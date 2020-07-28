@@ -31,7 +31,7 @@ SERVER.onPlayerKicked = (room, pid, reason) =>
     playerLeft(pid);
     playerKicked(pid, reason);
     ownerContent();
-}
+};
 
 SERVER.onNameChanged = (room, pid) => 
 {
@@ -46,7 +46,7 @@ SERVER.onTeamChanged = (room, pid) =>
     
     teamChanged(pid);
     ownerContent();
-}
+};
 
 SERVER.onTeamCountChanged = (room) => 
 {
@@ -66,5 +66,15 @@ SERVER.onTeamCountChanged = (room) =>
         removeTeam();
     };
 
+    ownerContent();
+};
+
+SERVER.onSpymasterChanged = (room, pid) =>
+{
+    SERVER.room = room;
+    console.log(pid);
+    // PID er null !!!!!!!
+
+    spymasterChanged(pid);
     ownerContent();
 };

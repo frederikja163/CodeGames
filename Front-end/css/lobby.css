@@ -67,6 +67,13 @@
     text-align: right;
 }
 
+#lobby #teams .smIcon
+{
+    font-size: 16px;
+    margin: var(--space);
+    display: none;
+}
+
 #lobby #options
 {
     grid-column: 3 / 4;
