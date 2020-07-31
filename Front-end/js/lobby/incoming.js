@@ -72,8 +72,7 @@ SERVER.onTeamCountChanged = (room) =>
 SERVER.onSpymasterChanged = (room, pid) =>
 {
     SERVER.room = room;
-    console.log(pid);
-    // PID er null !!!!!!!
+    console.log(pid); // PID er null
 
     spymasterChanged(pid);
     ownerContent();
