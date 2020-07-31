@@ -77,7 +77,15 @@ class Lobby
         if (!this.isOwner(client) || player === undefined || team < 0 || team > this.data.options.teamCount){
             return;
         }
-        player.spymaster = this.findSpymaster(team) === undefined;
+        if (player.spymaster)
+        {
+            let newSpymaster = this.data.players.find(p => p.team === player.team && p.pid != pid);
+            if (newSpymaster != undefined)
+            {
+                this.onSetSpymaster(client, player.team, newSpymaster.pid);
+            }
+        }
+        player.spymaster = this.findSpymaster(team) === undefined && team > 0;
         player.team = team;
         for (let i = 0; i < this.clients.length; i++)
         {

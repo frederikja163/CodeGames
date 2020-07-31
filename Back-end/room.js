@@ -15,9 +15,9 @@ class PlayerData
     constructor(pid)
     {
         this.pid = pid;
+        this.spymaster = false;
         this.name = "Player";
         this.team = -1;
-        this.spymaster = false;
     }
 }
 
