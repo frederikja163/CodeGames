@@ -5,7 +5,7 @@ const VISIBLE = "grid";
 
 let welcome;
 let lobby;
-let teamNames = ["Red", "Blue", "Green", "Yellow", "Pink"];
+let teamNames = [["Red", "light"], ["Blue", "light"], ["Green", "light"], ["Yellow", "dark"], ["Pink", "dark"]];
 let debugMode = false;
 
 document.addEventListener('keyup', (event) =>
@@ -13,6 +13,15 @@ document.addEventListener('keyup', (event) =>
     if(event.keyCode == 113) //F2 is our debug key.
     {
         setDebugMode(!debugmode);
+    }
+    else if(event.keyCode == 13) //Enter
+    {
+        let nameField = document.querySelector("#nameField");
+        if(nameField == document.activeElement)
+        {
+            nameSubmit();
+            SERVER.setName(nameField.value);
+        }
     }
 });
 

@@ -1,24 +1,40 @@
-SERVER.onRoomJoined = (room, rid, pid) => {
+SERVER.onRoomJoined = (room, rid, pid) => 
+{
     SERVER.room = room;
     SERVER.rid = rid;
     SERVER.pid = pid;
 
     activateLobby();
+    ownerContent();
 };
 
-SERVER.onPlayerJoined = (room, pid) => {
+SERVER.onPlayerJoined = (room, pid) => 
+{
     SERVER.room = room;
 
     playerJoined(pid);
+    ownerContent();
 };
 
-SERVER.onPlayerLeft = (room, pid) => {
+SERVER.onPlayerLeft = (room, pid) => 
+{
     SERVER.room = room;
 
     playerLeft(pid);
+    ownerContent();
 };
 
-SERVER.onNameChanged = (room, pid) => {
+SERVER.onPlayerKicked = (room, pid, reason) =>
+{
+    SERVER.room = room;
+
+    playerLeft(pid);
+    playerKicked(pid, reason);
+    ownerContent();
+};
+
+SERVER.onNameChanged = (room, pid) => 
+{
     SERVER.room = room;
 
     nameChanged(pid);
@@ -29,13 +45,17 @@ SERVER.onTeamChanged = (room, pid) =>
     SERVER.room = room;
     
     teamChanged(pid);
-}
+    ownerContent();
+};
 
-SERVER.onTeamCountChanged = (room) => {
+SERVER.onTeamCountChanged = (room) => 
+{
     let oldTeamCount = SERVER.room.options.teamCount;
     let newTeamCount = room.options.teamCount;
 
     SERVER.room = room;
+
+    teamCountChanged();
 
     for (let i = oldTeamCount; i < newTeamCount; i++)
     {
@@ -45,4 +65,15 @@ SERVER.onTeamCountChanged = (room) => {
     {
         removeTeam();
     };
+
+    ownerContent();
+};
+
+SERVER.onSpymasterChanged = (room, pid) =>
+{
+    SERVER.room = room;
+    console.log(pid); // PID er null
+
+    spymasterChanged(pid);
+    ownerContent();
 };
