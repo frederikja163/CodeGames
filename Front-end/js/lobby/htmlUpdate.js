@@ -39,7 +39,6 @@ function activateLobby()
 
     // Activate the name edit field
     document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid === SERVER.pid).name);//TODO: fix
-    console.log(SERVER.room.players.find(p => p.pid === SERVER.pid).name);
 }
 
 function playerJoined(pid)
@@ -111,6 +110,12 @@ function teamChanged(pid)
 
     playerElement.remove();
     team.appendChild(createPlayer(player));
+
+    if (player.spymaster === true)
+    {
+        console.log("new sm");
+        spymasterChanged(player.pid, undefined);
+    }
 }
 
 function getPlayerElement(pid)
@@ -158,7 +163,8 @@ function createPlayer(player)
 
     // Create spymaster button
     let smBtn = document.createElement("BUTTON");
-    smBtn.className = "btn2 owner";
+    smBtn.className = "btn2 owner smBtn";
+    smBtn.id = player.pid;
     smBtn.style.backgroundColor = teamColor;
     smBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
     smBtn.innerText = "🕵️";
@@ -257,13 +263,26 @@ function ownerContent()
         for (let i = 0; i < ownerElements.length; i++)
         {
             ownerElements[i].style.display = "initial";
+
+            if (ownerElements[i].id == (SERVER.room.players.find(p => p.spymaster === true) == undefined ? undefined : SERVER.room.players.find(p => p.spymaster === true).pid))
+            {
+                console.log("sm found");
+                ownerElements[i].style.display = HIDDEN;
+            }
         }
     }
 }
 
-function spymasterChanged(pid)
+function spymasterChanged(pid, oldPid)
 {
+    // Hide spymaster icon on old soymaster if any
+    if (oldPid != undefined)
+    {
+        getPlayerElement(oldPid).querySelector(".smIcon").style.display = HIDDEN;
+    }
+
+    // Change spymaster button to spymaster icon
     let playerElement = getPlayerElement(pid);
-    
-    console.log(pid);
+    playerElement.querySelector(".smIcon").style.display = "inline";
+    playerElement.querySelector(".smBtn").style.display = HIDDEN;
 }

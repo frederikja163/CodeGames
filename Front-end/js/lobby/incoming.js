@@ -71,9 +71,9 @@ SERVER.onTeamCountChanged = (room) =>
 
 SERVER.onSpymasterChanged = (room, pid) =>
 {
+    let oldPid = SERVER.room.players.find(p => p.spymaster === true).pid;
     SERVER.room = room;
-    console.log(pid); // PID er null
 
-    spymasterChanged(pid);
     ownerContent();
+    spymasterChanged(pid, oldPid);
 };
