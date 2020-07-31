@@ -16,16 +16,18 @@ SERVER.onPlayerJoined = (room, pid) =>
 
 SERVER.onPlayerLeft = (room, pid) => 
 {
+    let oldRoom = SERVER.room;
     SERVER.room = room;
 
-    playerLeft(pid);
+    playerLeft(pid, oldRoom);
 };
 
 SERVER.onPlayerKicked = (room, pid, reason) =>
 {
+    let oldRoom = SERVER.room;
     SERVER.room = room;
 
-    playerLeft(pid);
+    playerLeft(pid, oldRoom);
     playerKicked(pid, reason);
 };
 
@@ -64,7 +66,6 @@ SERVER.onTeamCountChanged = (room) =>
 
 SERVER.onSpymasterChanged = (room, pid) =>
 {
-    console.log(pid);
     let player = SERVER.room.players.find(p => p.pid === pid);
     let oldPlayer = SERVER.room.players.find(p => p.spymaster === true && p.team === player.team);
     SERVER.room = room;
