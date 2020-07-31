@@ -1,4 +1,5 @@
-const SERVER = new Server("http://localhost", 9999);
+//const SERVER = new Server("localhost", 9999);
+const SERVER = new Server("116.203.80.39", 9999);
 
 const HIDDEN = "none";
 const VISIBLE = "grid";

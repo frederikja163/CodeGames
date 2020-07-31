@@ -2,7 +2,7 @@ class Server
 {
     constructor(ip, port)
     {
-        const socket = io(ip + ":" + port);
+        const socket = io("http://" + ip + ":" + port);
         
         let send = (message, arg1, arg2, arg3) =>
         {
