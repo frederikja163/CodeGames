@@ -71,6 +71,8 @@
 {
     font-size: 16px;
     margin: var(--space);
+    padding: 7px;
+    line-height: calc(var(--btn2Size) + 2 * var(--space));
     display: none;
 }
 
