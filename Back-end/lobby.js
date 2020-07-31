@@ -117,7 +117,7 @@ class Lobby
         player.spymaster = true;
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].spymasterChanged(this.data)
+            this.clients[i].spymasterChanged(this.data, player.pid)
         }
     }
 
