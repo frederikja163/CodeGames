@@ -4,5 +4,8 @@ function joinBtnOnClick()
     let rid = document.getElementById("welcomeInputRid").value;
     
     SERVER.joinRoom(rid);
-    SERVER.setName(name);
+    if (name != "")
+    {
+        SERVER.setName(name);
+    }
 }
