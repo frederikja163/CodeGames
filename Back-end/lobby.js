@@ -32,7 +32,7 @@ class Lobby
     onKickPlayer(client, pid, reason)
     {
         let playerInd = this.data.players.findIndex(p => p.pid == pid);
-        if (!this.isOwner(client) || playerInd == -1)
+        if (!this.isOwner(client) || playerInd == -1 || client.pid === pid)
         {
             return;
         }
