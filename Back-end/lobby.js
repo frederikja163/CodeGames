@@ -80,9 +80,11 @@ class Lobby
         if (player.spymaster)
         {
             let newSpymaster = this.data.players.find(p => p.team === player.team && p.pid != pid);
+            player.spymaster = false;
             if (newSpymaster != undefined)
             {
-                this.onSetSpymaster(client, player.team, newSpymaster.pid);
+                newSpymaster = true;
+                this.spymasterChanged(newSpymaster.pid);
             }
         }
         player.team = team;
@@ -91,7 +93,8 @@ class Lobby
             this.clients[i].teamChanged(this.data, pid);
         }
         if (this.findSpymaster(team) === undefined && team > 0){
-            this.onSetSpymaster(client, team, player.pid);
+            player.spymaster = true;
+            this.spymasterChanged(player.pid);
         }
     }
 
@@ -143,6 +146,14 @@ class Lobby
     findSpymaster(team)
     {
         return this.data.players.find(p => p.spymaster && p.team == team);
+    }
+
+    spymasterChanged(pid)
+    {
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].spymasterChanged(this.data, pid)
+        }
     }
 }
 
