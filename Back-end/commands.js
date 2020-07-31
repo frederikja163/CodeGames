@@ -1,0 +1,113 @@
+class Argument
+{
+    constructor(name, description)
+    {
+        this.name = name;
+        this.description = description;
+    }
+}
+
+class Command
+{
+    constructor(name, description, args, method)
+    {
+        this.name = name;
+        this.description = description;
+        this.args = args;
+        this.method = method;
+    }
+}
+
+const COMMANDS = [];
+
+exports.initialize = () =>
+{
+    process.stdout.write("> ");
+    process.openStdin().addListener('data', raw => {
+        onReadLine(raw.toString().trim());
+    })
+
+    addCommand("help", "displays this help message", [], help);
+    addCommand("help", "more help for a particular command", [new Argument("command", "command to get help for")], helpCommand);
+    addCommand("stop", "stops the server", [], stop);
+}
+
+function addCommand(name, desc, args, method)
+{
+    COMMANDS.push(new Command(name, desc, args, method));
+}
+
+function onReadLine(text)
+{
+    let args = text.split(" ");
+    let comName = args.shift();
+    let com = COMMANDS.find(c => c.name === comName && c.args.length === args.length);
+    if (com === undefined)
+    {
+        writeLine("Found no matching command, use help to see all available commands");
+        return;
+    }
+    switch (com.args.length)
+    {
+        case 0:
+            com.method();
+            break;
+        case 1:
+            com.method(args[0]);
+            break;
+        default:
+            writeLine("Not supporting " + com.args.length + " arg count");
+            break;
+    }
+    process.stdout.write("> ");
+}
+
+function writeLine(text)
+{
+    process.stdout.write(text + '\n');
+}
+
+function help()
+{
+    for (let i = 0; i < COMMANDS.length; i++)
+    {
+        let com = COMMANDS[i];
+        let args = "";
+        for (let j = 0; j < com.args.length; j++)
+        {
+            args += "[" + com.args[j].name + "] ";
+        }
+        writeLine(com.name + " " + args + " - " + com.description);
+    }
+}
+
+function helpCommand(command)
+{
+    let coms = COMMANDS.filter(c => c.name === command);
+
+    for (let i = 0; i < coms.length; i++)
+    {
+        if (i != 0)
+        {
+            writeLine("---------------");
+        }
+        let com = coms[i];
+        let args = "";
+        for (let j = 0; j < com.args.length; j++)
+        {
+            args += "[" + com.args[j].name + "] ";
+        }
+        writeLine(com.name + " " + args);
+        writeLine(com.description);
+        for (let j = 0; j < com.args.length; j++)
+        {
+            let arg = com.args[j];
+            writeLine(arg.name + " - " + arg.description);
+        }
+    }
+}
+
+function stop()
+{
+    process.exit(1);
+}
