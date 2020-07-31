@@ -85,11 +85,13 @@ class Lobby
                 this.onSetSpymaster(client, player.team, newSpymaster.pid);
             }
         }
-        player.spymaster = this.findSpymaster(team) === undefined && team > 0;
         player.team = team;
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamChanged(this.data, pid);
+        }
+        if (this.findSpymaster(team) === undefined && team > 0){
+            this.onSetSpymaster(client, team, player.pid);
         }
     }
 

@@ -53,6 +53,19 @@ function playerJoined(pid)
 function playerLeft(pid)
 {
     getPlayerElement(pid).remove();
+
+    if (SERVER.pid === SERVER.room.players[0].pid)
+    {
+        let players = document.querySelectorAll("#lobby #teams li ul li");
+        for (let i = 0; i < players.length; i++)
+        {
+            let pid = players[i].children[0].innerText;
+            let player = SERVER.room.players.find(p => p.pid === pid);
+            let btnElem = players[i].children[2];
+            let teamColor = window.getComputedStyle(players[i].parentNode.parentNode).getPropertyValue("color");
+            addOwnerOnlyPlayerButtons(btnElem, player, teamColor);
+        }
+    }
 }
 
 function nameChanged(pid)
@@ -110,12 +123,6 @@ function teamChanged(pid)
 
     playerElement.remove();
     team.appendChild(createPlayer(player));
-
-    if (player.spymaster === true)
-    {
-        console.log("new sm");
-        spymasterChanged(player.pid, undefined);
-    }
 }
 
 function getPlayerElement(pid)
@@ -132,80 +139,90 @@ function getTeamElement(team)
 function createPlayer(player)
 {
     // Create list item
-    let li = document.createElement("LI");
+    let playerElem = document.createElement("LI");
 
-    // Get background color of player's team
-    let teamLi = getTeamElement(player.team);
-    let teamColor = window.getComputedStyle(teamLi, null).getPropertyValue("color");
+    // Get color of player's team
+    let teamElem = getTeamElement(player.team);
+    let teamColor = window.getComputedStyle(teamElem).getPropertyValue("color");
     
     // Create pid div
-    let pidDiv = document.createElement("DIV");
-    pidDiv.className += " debug";
-    pidDiv.className += " pid";
-    pidDiv.style.display = debugmode ? VISIBLE : HIDDEN;
-    pidDiv.style.gridColumn = "1 / 3";
-    pidDiv.style.gridRow = "2 / 3";
-    pidDiv.style.color = teamColor;
-    pidDiv.innerText = player.pid;
+    let pidElem = document.createElement("DIV");
+    pidElem.className += " debug";
+    pidElem.className += " pid";
+    pidElem.style.display = debugmode ? VISIBLE : HIDDEN;
+    pidElem.style.gridColumn = "1 / 3";
+    pidElem.style.gridRow = "2 / 3";
+    pidElem.style.color = teamColor;
+    pidElem.innerText = player.pid;
     
     // Create name div
-    let nameDiv = document.createElement("DIV");
-    nameDiv.style.color = teamColor;
-    nameDiv.innerText = player.name;
+    let nameElem = document.createElement("DIV");
+    nameElem.style.color = teamColor;
+    nameElem.innerText = player.name;
 
     // Create button div
-    let btnDiv = document.createElement("DIV");
+    let btnElem = document.createElement("DIV");
     
     // Create spymaster icon
-    let smIcon = document.createElement("DIV");
-    smIcon.className = "smIcon";
-    smIcon.innerText = "🕵️";
+    let smElem = document.createElement("DIV");
+    smElem.className = "smIcon";
+    smElem.innerText = "🕵️";
 
-    // Create spymaster button
-    let smBtn = document.createElement("BUTTON");
-    smBtn.className = "btn2 owner smBtn";
-    smBtn.id = player.pid;
-    smBtn.style.backgroundColor = teamColor;
-    smBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    smBtn.innerText = "🕵️";
-    smBtn.setAttribute('onclick', 'SERVER.setSpymaster(' + String(player.team) + ', "' + player.pid + '")');
-    
-    // Create kick button
-    let kickBtn = document.createElement("BUTTON");
-    kickBtn.className = "btn2 owner";
-    kickBtn.style.backgroundColor = teamColor;
-    kickBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    kickBtn.innerText = "🚫";
-    kickBtn.setAttribute('onclick', 'SERVER.kickPlayer("' + player.pid + '", \"Fuck off\")'); //TODO: maybe refactor?
-    
-    // Create move up team button
-    let upBtn = document.createElement("BUTTON");      
-    upBtn.className = "btn2 owner";
-    upBtn.style.backgroundColor = teamColor;
-    upBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    upBtn.innerText = "⬆";
-    upBtn.setAttribute("onclick", "SERVER.setTeam('" + player.pid + "', " + String(player.team - 1) + ")");
-    
-    // Create move down team button
-    let downBtn = document.createElement("BUTTON");
-    downBtn.className = "btn2 owner";
-    downBtn.style.backgroundColor = teamColor;
-    downBtn.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    downBtn.innerText = "⬇";
-    downBtn.setAttribute("onclick", "SERVER.setTeam('" + player.pid + "', " + String(player.team + 1) + ")");
-
-    btnDiv.appendChild(smIcon);
-    btnDiv.appendChild(smBtn);
-    btnDiv.appendChild(kickBtn);
-    btnDiv.appendChild(upBtn);
-    btnDiv.appendChild(downBtn);
+    btnElem.appendChild(smElem);
+    if (SERVER.pid === SERVER.room.players[0].pid)
+    {
+        addOwnerOnlyPlayerButtons(btnElem, player, teamColor);
+    }
     
     // Append children
-    li.appendChild(pidDiv);
-    li.appendChild(nameDiv);
-    li.appendChild(btnDiv);
+    playerElem.appendChild(pidElem);
+    playerElem.appendChild(nameElem);
+    playerElem.appendChild(btnElem);
 
-    return li;
+    return playerElem;
+}
+
+function addOwnerOnlyPlayerButtons(btnElem, player, teamColor)
+{
+    console.log(btnElem);
+    // Create spymaster button
+    let smElem = document.createElement("BUTTON");
+    smElem.className = "btn2 owner smBtn";
+    smElem.id = player.pid;
+    smElem.style.backgroundColor = teamColor;
+    smElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    smElem.innerText = "🕵️";
+    smElem.setAttribute('onclick', 'SERVER.setSpymaster(' + String(player.team) + ', "' + player.pid + '")');
+    
+    // Create kick button
+    let kickElem = document.createElement("BUTTON");
+    kickElem.className = "btn2 owner";
+    kickElem.style.backgroundColor = teamColor;
+    kickElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    kickElem.innerText = "🚫";
+    kickElem.setAttribute('onclick', 'SERVER.kickPlayer("' + player.pid + '", \"Fuck off\")'); //TODO: maybe refactor?
+    
+    // Create move up team button
+    let upElem = document.createElement("BUTTON");      
+    upElem.className = "btn2 owner";
+    upElem.style.backgroundColor = teamColor;
+    upElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    upElem.innerText = "⬆";
+    upElem.setAttribute("onclick", "SERVER.setTeam('" + player.pid + "', " + String(player.team - 1) + ")");
+    
+    // Create move down team button
+    let downElem = document.createElement("BUTTON");
+    downElem.className = "btn2 owner";
+    downElem.style.backgroundColor = teamColor;
+    downElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    downElem.innerText = "⬇";
+    downElem.setAttribute("onclick", "SERVER.setTeam('" + player.pid + "', " + String(player.team + 1) + ")");
+    
+    // Append children
+    btnElem.appendChild(smElem);
+    btnElem.appendChild(kickElem);
+    btnElem.appendChild(upElem);
+    btnElem.appendChild(downElem);
 }
 
 function teamCountChanged()
@@ -253,36 +270,45 @@ function removeTeam()
     document.querySelector("#lobby #players #teams").lastChild.remove();
 }
 
-function ownerContent()
-{
-    // Show owner content if owner
-    let ownerElements = document.querySelectorAll(".owner");
+// function ownerContent()
+// {
+//     // Show owner content if owner
+//     let ownerElements = document.querySelectorAll(".owner");
 
-    if (SERVER.pid == SERVER.room.players[0].pid)
-    {
-        for (let i = 0; i < ownerElements.length; i++)
-        {
-            ownerElements[i].style.display = "initial";
+//     if (SERVER.pid == SERVER.room.players[0].pid)
+//     {
+//         for (let i = 0; i < ownerElements.length; i++)
+//         {
+//             ownerElements[i].style.display = "initial";
 
-            if (ownerElements[i].id == (SERVER.room.players.find(p => p.spymaster === true) == undefined ? undefined : SERVER.room.players.find(p => p.spymaster === true).pid))
-            {
-                console.log("sm found");
-                ownerElements[i].style.display = HIDDEN;
-            }
-        }
-    }
-}
+//             let spymaster = SERVER.room.players.find(p => p.spymaster === true);
+//             if (spymaster != undefined && ownerElements[i].id === spymaster.pid)
+//             {
+//                 ownerElements[i].style.display = HIDDEN;
+//             }
+
+//             /*
+//             if (ownerElements[i].id == (SERVER.room.players.find(p => p.team === 0) == undefined ? undefined : SERVER.room.players.find(p => p.team === 0).pid))
+//             {
+//                 ownerElements[i].style.display = HIDDEN;
+//             }
+//             */
+//         }
+//     }
+// }
 
 function spymasterChanged(pid, oldPid)
 {
-    // Hide spymaster icon on old soymaster if any
-    if (oldPid != undefined)
+    // Hide spymaster icon on old spymaster if any
+    if (oldPid != undefined && oldPid != null)
     {
-        getPlayerElement(oldPid).querySelector(".smIcon").style.display = HIDDEN;
+        let oldPlayerElem = getPlayerElement(oldPid);
+        oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;
+        oldPlayerElem.querySelector(".smBtn").style.display = "inline";
     }
 
     // Change spymaster button to spymaster icon
-    let playerElement = getPlayerElement(pid);
-    playerElement.querySelector(".smIcon").style.display = "inline";
-    playerElement.querySelector(".smBtn").style.display = HIDDEN;
+    let playerElem = getPlayerElement(pid);
+    playerElem.querySelector(".smIcon").style.display = "inline";
+    playerElem.querySelector(".smBtn").style.display = HIDDEN;
 }
