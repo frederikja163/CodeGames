@@ -3,7 +3,7 @@
     - Fix css on player list ✅
     - Fix name change (✅ undtagen når man joiner med navn)
     - Add spymaster
-    - Owner view ✅
+    - Owner view (✅ only on player list)
     - Fix css on start button hover ✅
 */
 
@@ -300,7 +300,7 @@ function removeTeam()
 function spymasterChanged(pid, oldPid)
 {
     // Hide spymaster icon on old spymaster if any
-    if (oldPid != undefined && oldPid != null)
+    if (oldPid != null)
     {
         let oldPlayerElem = getPlayerElement(oldPid);
         oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;

@@ -64,8 +64,9 @@ SERVER.onTeamCountChanged = (room) =>
 
 SERVER.onSpymasterChanged = (room, pid) =>
 {
-    let oldPid = SERVER.room.players.find(p => p.spymaster === true).pid;
+    let player = SERVER.room.players.find(p => p.pid === pid);
+    let oldPlayer = SERVER.room.players.find(p => p.spymaster === true && p.team === player.team);
     SERVER.room = room;
 
-    spymasterChanged(pid, oldPid);
+    spymasterChanged(pid, oldPlayer === undefined ? null : oldPlayer.pid);
 };
