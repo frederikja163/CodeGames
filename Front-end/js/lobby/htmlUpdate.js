@@ -115,17 +115,17 @@ function nameSubmit()
     nameEdit.style.display = "initial";
 }
 
-function teamChanged(pid)
+function teamChanged(pid) // Hide smBtn in spectator
 {
     let player = SERVER.room.players.find(p => p.pid === pid);
     let teamElem = getTeamElement(player.team);
     let playerElem = getPlayerElement(pid);
+    let colors = getColorsForElem(teamElem.parentElement);
+    console.log(colors);
 
-    console.log(window.getComputedStyle(teamElem.parentElement).getPropertyValue("background-color"));
-
-    playerElem.children[1].style.color = teamElem.parentElement.style.color;
-    playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.color = playerElem.querySelector(".btn2").style.backgroundColor);
-    playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.backgroundColor = teamElem.parentElement.style.color);
+    playerElem.children[1].style.color = colors.color;
+    playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.color = colors.backgroundColor);
+    playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.backgroundColor = colors.color);
 
     //playerElem.remove();
     teamElem.appendChild(playerElem);
@@ -318,14 +318,22 @@ function spymasterChanged(pid, oldPid)
     playerElem.querySelector(".smBtn").style.display = HIDDEN;
 }
 
-function getColors(elem)
+function getColorsForElem(elem)
 {
-    let colorString = window.getComputedStyle(elem).getPropertyValue("backgroundColor");
-    let p1Ind = colorString.indexOf()
-    let c1Ind
-    let c2Ind
-    let p2Ind 
-    let red = colorString.slice(color);
+    //Step1: Get rgb values
+    //Step2: Check for black or white colors
+    //Step3: Return correct colors
+    let colorRaw = window.getComputedStyle(elem).getPropertyValue("background-color"); //rgb(56, 65, 255)
+    let start = colorRaw.indexOf("(") + 1;
+    let end = colorRaw.indexOf(")");
+    let rgbColor = colorRaw.substring(start, end);
+    let rgbColors = rgbColor.split(", ");
+    let r = rgbColors[0];
+    let g = rgbColors[1];
+    let b = rgbColors[2];
 
-    return {color, backgroundColor};
+    let light = (r * 0.299) + (g * 0.587) + (b * 0.114) > 186;
+    let color = light ? "var(--backColor)" : "var(--topColor)";
+    let backgroundColor = light ? "var(--topColor)" : "var(--backColor)";
+    return {color: color, backgroundColor: backgroundColor};
 }
