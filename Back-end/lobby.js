@@ -83,7 +83,7 @@ class Lobby
             player.spymaster = false;
             if (newSpymaster != undefined)
             {
-                newSpymaster = true;
+                newSpymaster.spymaster = true;
                 this.spymasterChanged(newSpymaster.pid);
             }
         }
