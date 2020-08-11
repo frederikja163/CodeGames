@@ -1,10 +1,13 @@
 ﻿/*TODO:
-    - Fix team removal ✅
-    - Fix css on player list ✅
-    - Fix name change (✅ undtagen når man joiner med navn)
-    - Add spymaster
-    - Owner view (✅ only on player list)
-    - Fix css on start button hover ✅
+    - Fix name change (når man joiner med navn) (fix animation)
+    - Add spymaster (fix spectator)
+    - Limit team count
+    - Remove kick on owner
+    - Change up/down btns
+    - Remove c logs
+    - Leave btn
+    - Fix text colours on player name (dark / light)
+    - Hide owner content (start - +) ✅
 */
 
 function activateLobby()
@@ -39,6 +42,12 @@ function activateLobby()
 
     // Activate the name edit field
     document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid === SERVER.pid).name);//TODO: fix
+
+    // Hide owner content if not owner
+    if (SERVER.pid != SERVER.room.players[0].pid)
+    {
+        document.querySelectorAll(".owner").forEach(elem => elem.style.display = HIDDEN);
+    }
 }
 
 function playerJoined(pid)
@@ -230,6 +239,14 @@ function addOwnerOnlyPlayerButtons(btnElem, player, teamColor)
     btnElem.appendChild(downElem);
 }
 
+function revealOwnerContent()
+{
+    if (SERVER.pid == SERVER.room.players[0].pid)
+    {
+        document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
+    }
+}
+
 function teamCountChanged()
 {
     // Change team count in options
@@ -245,12 +262,13 @@ function addTeam()
     // Create team box
     let team = document.createElement("LI");
     team.className = "box";
-    team.style.backgroundColor = teamName != undefined ? teamName[0] : "var(--topColor)";
-    team.style.color = teamName != undefined ? (teamName[1] == "light" ? "var(--topColor)" : "var(--backColor)") : "var(--backColor)";
+    team.style.backgroundColor = teamName != undefined ? teamName : "var(--topColor)";
+    team.style.color = teamName != undefined ? getColorsForElem(team) : "var(--backColor)";
+    console.log(getColorsForElem(team));
 
     // Create team title
     let title = document.createElement("H3");
-    title.innerHTML = (teamName != undefined ? teamName[0] : "Please remove this") + " team";
+    title.innerHTML = (teamName != undefined ? teamName : "Please remove this") + " team";
     
     // Create team list
     let list = document.createElement("UL");
@@ -331,8 +349,12 @@ function getColorsForElem(elem)
     let r = rgbColors[0];
     let g = rgbColors[1];
     let b = rgbColors[2];
+    let hsp = Math.sqrt(0.229 * (r*r) + 0.587 * (g*g) + 0.114 * (b*b));
 
-    let light = (r * 0.299) + (g * 0.587) + (b * 0.114) > 186;
+    console.log(rgbColors);
+
+    let light = hsp > 127.5;
+    console.log(light);
     let color = light ? "var(--backColor)" : "var(--topColor)";
     let backgroundColor = light ? "var(--topColor)" : "var(--backColor)";
     return {color: color, backgroundColor: backgroundColor};

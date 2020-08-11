@@ -20,6 +20,7 @@ SERVER.onPlayerLeft = (room, pid) =>
     SERVER.room = room;
 
     playerLeft(pid, oldRoom);
+    revealOwnerContent();
 };
 
 SERVER.onPlayerKicked = (room, pid, reason) =>
