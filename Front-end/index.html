@@ -55,8 +55,8 @@
                 <ul>
                     <li>Number of teams: </li>
                     <li>
-                        <button class="btn2 owner" onclick="SERVER.setTeamCount(SERVER.room.options.teamCount + 1)">+</button>
-                        <button class="btn2 owner" onclick="SERVER.setTeamCount(SERVER.room.options.teamCount - 1)">-</button>
+                        <button class="btn2 owner" onclick="addTeam()">+</button>
+                        <button class="btn2 owner" onclick="removeTeam()">-</button>
                     </li>
                 </ul>
             </div>
@@ -74,6 +74,9 @@
 
             <!-- Start game button -->
             <button class="owner" id="start">Start</button>
+
+            <!-- Leave button -->
+            <button id="leave" onclick="leaveLobby()">Leave</button>
         </page>
 
         <!-- Game -->

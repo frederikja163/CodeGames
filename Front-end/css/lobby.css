@@ -5,14 +5,14 @@
 
     display: none;
     grid-template-columns: var(--colSize) var(--colSize) var(--colSize);
-    grid-template-rows: 50vh 25vh 15vh;
+    grid-template-rows: 50vh 20vh 10vh 10vh;
     margin: var(--space);
 }
 
 #lobby .wall
 {
     background-color: var(--l1Color);
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
 }
 
 #lobby .wall h2
@@ -192,6 +192,45 @@
 }
 
 #lobby #start:focus
+{
+    outline: none;
+}
+
+#lobby #leave
+{
+    --width: 75%;
+    --height: 3vh;
+
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+    width: var(--width);
+    height: var(--height);
+    margin: auto;
+    margin-top: 0;
+    border: none;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    font-size: 20px;
+    transition: width var(--transTime), height var(--transTime), margin-top var(--transTime);
+}
+
+#lobby #leave:hover
+{
+    width: calc(var(--width) + .5vw);
+    height: calc(var(--height) + .5vh);
+    margin-top: -.25vh;
+    box-shadow: var(--shadowHover);
+    cursor: pointer;
+}
+
+#lobby #leave:active
+{
+    width: calc(var(--width) - .5vw);
+    height: calc(var(--height) - .5vh);
+    margin-top: .25vh;
+}
+
+#lobby #leave:focus
 {
     outline: none;
 }

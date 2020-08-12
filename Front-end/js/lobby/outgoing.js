@@ -17,3 +17,20 @@ function changeTeamDown(pid)
 {
     SERVER.setTeam(pid, SERVER.room.players.find(p => p.pid === pid).team + 1);
 }
+
+function addTeam()
+{
+    if (SERVER.room.options.teamCount < teamNames.length)
+    {
+        SERVER.setTeamCount(SERVER.room.options.teamCount + 1);
+    }
+    else
+    {
+        console.log("Maximum team amount reached!");
+    }
+}
+
+function removeTeam()
+{
+    SERVER.setTeamCount(SERVER.room.options.teamCount - 1);
+}
