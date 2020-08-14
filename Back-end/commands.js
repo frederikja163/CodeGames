@@ -19,17 +19,21 @@ class Command
 }
 
 const COMMANDS = [];
+let rooms;
 
-exports.initialize = () =>
+exports.initialize = (r) =>
 {
     process.stdout.write("> ");
     process.openStdin().addListener('data', raw => {
         onReadLine(raw.toString().trim());
-    })
+    });
+    rooms = r;
 
     addCommand("help", "displays this help message", [], help);
     addCommand("help", "more help for a particular command", [new Argument("command", "command to get help for")], helpCommand);
     addCommand("stop", "stops the server", [], stop);
+    addCommand("rooms", "lists all rooms by rid", [], roomsCmd);
+    addCommand("room", "gets all information for one room", [new Argument("rid", "rid of the room to get information of")], room);
 }
 
 function addCommand(name, desc, args, method)
@@ -110,4 +114,27 @@ function helpCommand(command)
 function stop()
 {
     process.exit(1);
+}
+
+function roomsCmd()
+{
+    writeLine("A total of " + rooms.length + " rooms exist");
+    for(let i = 0; i < rooms.length; i++)
+    {
+        writeLine(rooms[i]);
+        writeLine((i + 1) + "/" + rooms.length + " - #" + rooms[i].data.rid);
+    }
+}
+
+function room(rid)
+{
+    let r = rooms.find(r => r.data.rid === rid);
+    if (r != undefined)
+    {
+        writeLine(JSON.stringify(r.data));
+    }
+    else
+    {
+        writeLine("Room could not be found, use rooms to get a full list of all rooms.");
+    }
 }

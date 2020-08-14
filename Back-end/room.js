@@ -96,11 +96,6 @@ class Room
 
     static JoinRoom(client, rid)
     {
-        if (Room.rooms === undefined)
-        {
-            Room.rooms = [];
-        }
-
         if (rid === null || rid === undefined || rid === "")
         {
             const ridChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6' ,'7', '8', '9', '0'];
@@ -110,14 +105,16 @@ class Room
             {
                 let i = Math.floor(Math.random() * ridChars.length);
                 rid = rid + ridChars[i];
-            } while(Room.rooms[rid] != undefined || --minCount > 0)
+            } while(--minCount > 0 || Room.rooms.find(r => r.rid === rid) != undefined)
         }
-
-        if (Room.rooms[rid] === undefined)
+        
+        let room = Room.rooms.find(r => r.rid === rid);
+        if (room === undefined)
         {
-            Room.rooms[rid] = new Room(rid);
+            room = new Room(rid);
+            Room.rooms.push(room);
         }
-        Room.rooms[rid].AddClient(client);
+        room.AddClient(client);
     }
 }
 
