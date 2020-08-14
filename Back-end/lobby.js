@@ -31,17 +31,19 @@ class Lobby
 
     onKickPlayer(client, pid, reason)
     {
-        let playerInd = this.data.players.findIndex(p => p.pid == pid);
+        let playerInd = this.data.players.findIndex(p => p.pid === pid);
         if (!this.isOwner(client) || playerInd == -1 || client.pid === pid)
         {
             return;
         }
         this.data.players.splice(playerInd, 1);
+        let kickedPlayer = this.clients.splice(playerInd, 1)[0];
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].playerKicked(this.data, pid, reason);
         }
-        this.clients.splice(playerInd, 1);
+        kickedPlayer.playerKicked(this.data, pid, reason);
+        kickedPlayer.reset();
     }
     
     onSetWords(client, words)

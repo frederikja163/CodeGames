@@ -89,7 +89,7 @@ function nameChanged(pid)
 
 function playerKicked(pid, reason)
 {
-    if (SERVER.pid == pid)
+    if (SERVER.pid === pid)
     {
         // Redirect to welcome
         let url = String(window.location);
