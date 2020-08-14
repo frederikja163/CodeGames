@@ -1,7 +1,6 @@
 ﻿/*TODO:
-    - Remove all c logs 
+    - Remove all test c logs 
     - Fix name change (når man joiner med navn) (fix animation)
-    - FJA: add teamChanged when team removed
     - Owner icon
 */
 
@@ -36,7 +35,7 @@ function activateLobby()
     teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
 
     // Activate the name edit field
-    document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid === SERVER.pid).name);//TODO: fix
+    document.querySelector("#lobby #nameField").setAttribute("value", String(SERVER.room.players.find(p => p.pid === SERVER.pid).name));//TODO: fix
 
     // Hide owner content if not owner
     if (SERVER.pid != SERVER.room.players[0].pid)
@@ -314,33 +313,6 @@ function removeTeamElem()
 
     document.querySelector("#lobby #players #teams").lastChild.remove();
 }
-
-// function ownerContent()
-// {
-//     // Show owner content if owner
-//     let ownerElements = document.querySelectorAll(".owner");
-
-//     if (SERVER.pid == SERVER.room.players[0].pid)
-//     {
-//         for (let i = 0; i < ownerElements.length; i++)
-//         {
-//             ownerElements[i].style.display = "initial";
-
-//             let spymaster = SERVER.room.players.find(p => p.spymaster === true);
-//             if (spymaster != undefined && ownerElements[i].id === spymaster.pid)
-//             {
-//                 ownerElements[i].style.display = HIDDEN;
-//             }
-
-//             /*
-//             if (ownerElements[i].id == (SERVER.room.players.find(p => p.team === 0) == undefined ? undefined : SERVER.room.players.find(p => p.team === 0).pid))
-//             {
-//                 ownerElements[i].style.display = HIDDEN;
-//             }
-//             */
-//         }
-//     }
-// }
 
 function spymasterChanged(pid, oldPid)
 {

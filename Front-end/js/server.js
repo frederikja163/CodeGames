@@ -1,6 +1,6 @@
 class Server
 {
-    constructor(ip, port)
+    constructor(ip, port) // TODO: couldnt connect err msg
     {
         const socket = io("http://" + ip + ":" + port);
         
