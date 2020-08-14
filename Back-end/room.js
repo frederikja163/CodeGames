@@ -81,9 +81,8 @@ class Room
     onDisconnected(client)
     {
         let playerInd = this.clients.findIndex(p => p.pid === client.pid);
-        let player = this.data.players[playerInd];
         this.clients.splice(playerInd, 1);
-        this.data.players.splice(playerInd, 1);
+        let player = this.data.players.splice(playerInd, 1)[0];
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].playerLeft(this.data, player.pid);
@@ -91,7 +90,7 @@ class Room
 
         if (this.clients.length <= 0)
         {
-            Room.rooms = Room.rooms.filter(r => r.rid != this.data.rid);
+            Room.rooms = Room.rooms.filter(r => r.rid != this.rid);
         }
     }
 
