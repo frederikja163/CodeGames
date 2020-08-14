@@ -1,4 +1,4 @@
-//const SERVER = new Server("localhost", 9999)
+// const SERVER = new Server("localhost", 9999)
 const SERVER = new Server("116.203.80.39", 9999);
 
 const HIDDEN = "none";
@@ -6,7 +6,7 @@ const VISIBLE = "grid";
 
 let welcome;
 let lobby;
-let teamNames = ["Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple", "Pink"];
+let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
 let debugMode = false;
 
 document.addEventListener('keyup', (event) =>
