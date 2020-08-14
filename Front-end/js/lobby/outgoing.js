@@ -23,7 +23,6 @@ function addTeam()
     if (SERVER.room.options.teamCount < teamNames.length)
     {
         SERVER.setTeamCount(SERVER.room.options.teamCount + 1);
-        console.log(SERVER.room.options.teamCount);
     }
     else
     {
