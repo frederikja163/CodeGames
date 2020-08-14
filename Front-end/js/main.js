@@ -42,7 +42,7 @@ window.onload = () => {
     lobby = document.querySelector("#lobby");
     setDebugMode(false);
 
-    let url = String(window.location);
+    let url = String(window.location); // Change URL without redirecting
     let ridStart = url.indexOf("#");
     if (ridStart != -1)
     {

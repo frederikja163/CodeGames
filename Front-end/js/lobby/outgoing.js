@@ -35,3 +35,10 @@ function removeTeam()
 {
     SERVER.setTeamCount(SERVER.room.options.teamCount - 1);
 }
+
+function leaveRoom() // Change URL without redirecting
+{
+    let url = String(window.location);
+    let ridStart = url.indexOf("#");
+    window.location = url.slice(0, ridStart);
+}

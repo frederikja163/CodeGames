@@ -3,6 +3,7 @@
     - Fix name change (når man joiner med navn) (fix animation)
     - Add spymaster (fix spectator) (totally broken, kind of redo)
     - Kicking is weird 
+    - FJA: add teamChanged when team removed
     - Limit team count (teamCount is broken) ✅
     - Remove kick on owner ✅
     - Change up/down btns ✅
@@ -126,7 +127,7 @@ function nameSubmit()
     nameEdit.style.display = "initial";
 }
 
-function teamChanged(pid) // Hide smBtn in spectator
+function teamChanged(pid)
 {
     let player = SERVER.room.players.find(p => p.pid === pid);
     let teamElem = getTeamElement(player.team);
@@ -137,13 +138,20 @@ function teamChanged(pid) // Hide smBtn in spectator
     playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.color = colors.backgroundColor);
     playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.backgroundColor = colors.color);
 
-    if (player.team == 0)
+    // Hide all SM content on playerElem
+
+    // Owners and non-owners
+    playerElem.querySelector(".smIcon").style.display = HIDDEN;
+    
+    // Owners only
+    if (SERVER.pid == SERVER.room.players[0].pid)
     {
-        if (playerElem.querySelector(".smBtn") != null)
+        playerElem.querySelector(".smBtn").style.display = 'initial';
+
+        if (player.team == 0)
         {
             playerElem.querySelector(".smBtn").style.display = HIDDEN;
         }
-        playerElem.querySelector(".smIcon").style.display = HIDDEN;
     }
 
     teamElem.appendChild(playerElem);
@@ -343,20 +351,28 @@ function removeTeamElem()
 
 function spymasterChanged(pid, oldPid)
 {
-    // Hide spymaster icon on old spymaster if any
-    if (oldPid != null)
+    console.log(pid, oldPid);
+    console.log(SERVER.room.players.find(p => p.pid == pid).spymaster);
+    let playerElem = getPlayerElement(pid);
+    let oldPlayerElem = oldPid == null ? null : getPlayerElement(oldPid);
+    
+    // Owners and non-owners
+    playerElem.querySelector(".smIcon").style.display = 'initial';
+
+    if (oldPid != null && oldPid != pid)
     {
-        let oldPlayerElem = getPlayerElement(oldPid);
         oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;
-        oldPlayerElem.querySelector(".smBtn").style.display = "inline";
     }
 
-    // Change spymaster button to spymaster icon
-    let playerElem = getPlayerElement(pid);
-    playerElem.querySelector(".smIcon").style.display = "inline";
-    if (playerElem.querySelector(".smBtn") != null)
+    // Owners only
+    if (SERVER.pid == SERVER.room.players[0].pid)
     {
         playerElem.querySelector(".smBtn").style.display = HIDDEN;
+
+        if (oldPid != null && oldPid != pid)
+        {
+            oldPlayerElem.querySelector(".smBtn").style.display = 'initial';
+        }
     }
 }
 
@@ -379,11 +395,4 @@ function getColorsForElem(elem)
     let color = light ? "var(--backColor)" : "var(--topColor)";
     let backgroundColor = light ? "var(--topColor)" : "var(--backColor)";
     return {color: color, backgroundColor: backgroundColor};
-}
-
-function leaveLobby()
-{
-    let url = String(window.location);
-    let ridStart = url.indexOf("#");
-    window.location = url.slice(0, ridStart);
 }
