@@ -110,6 +110,10 @@ class Lobby
             let player = this.data.players[i];
             if (player.team > count){
                 player.team = 0;
+                for (let i = 0; i < this.clients.length; i++)
+                {
+                    this.clients[i].teamChanged(this.data, player.pid);
+                }
             }
         }
         this.data.options.teamCount = count;
