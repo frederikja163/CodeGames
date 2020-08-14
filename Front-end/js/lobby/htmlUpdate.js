@@ -1,6 +1,5 @@
 ﻿/*TODO:
     - Remove all test c logs 
-    - Fix name change (når man joiner med navn) (fix animation)
     - Owner icon
 */
 
@@ -34,8 +33,8 @@ function activateLobby()
     let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
     teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
 
-    // Activate the name edit field
-    document.querySelector("#lobby #nameField").setAttribute("value", String(SERVER.room.players.find(p => p.pid === SERVER.pid).name));//TODO: fix
+    // Set name field to standard name
+    document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid == SERVER.pid).name);
 
     // Hide owner content if not owner
     if (SERVER.pid != SERVER.room.players[0].pid)
@@ -82,6 +81,12 @@ function nameChanged(pid)
     let playerElement = getPlayerElement(pid);
     
     playerElement.children[1].innerText = player.name;
+
+    // Change name field to name (used when joining with name)
+    if (SERVER.pid == player.pid)
+    {
+        document.querySelector("#lobby #nameField").setAttribute("value", player.name);
+    }
 }
 
 function playerKicked(pid, reason)
