@@ -21,7 +21,6 @@ class Server
         socket.on("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
 
         //======[Server protocol]======
-        this.ip = ip;
         this.room = null;
         this.rid = null;
         this.pid = null;

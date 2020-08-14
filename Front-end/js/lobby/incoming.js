@@ -1,57 +1,57 @@
-server.onRoomJoined = (room, rid, pid) => 
+SERVER.onRoomJoined = (room, rid, pid) => 
 {
-    server.room = room;
-    server.rid = rid;
-    server.pid = pid;
+    SERVER.room = room;
+    SERVER.rid = rid;
+    SERVER.pid = pid;
 
     activateLobby();
 };
 
-server.onPlayerJoined = (room, pid) => 
+SERVER.onPlayerJoined = (room, pid) => 
 {
-    server.room = room;
+    SERVER.room = room;
 
     playerJoined(pid);
 };
 
-server.onPlayerLeft = (room, pid) => 
+SERVER.onPlayerLeft = (room, pid) => 
 {
-    let oldRoom = server.room;
-    server.room = room;
+    let oldRoom = SERVER.room;
+    SERVER.room = room;
 
     playerLeft(pid, oldRoom);
     revealOwnerContent();
 };
 
-server.onPlayerKicked = (room, pid, reason) =>
+SERVER.onPlayerKicked = (room, pid, reason) =>
 {
-    let oldRoom = server.room;
-    server.room = room;
+    let oldRoom = SERVER.room;
+    SERVER.room = room;
 
     playerLeft(pid, oldRoom);
     playerKicked(pid, reason);
 };
 
-server.onNameChanged = (room, pid) => 
+SERVER.onNameChanged = (room, pid) => 
 {
-    server.room = room;
+    SERVER.room = room;
 
     nameChanged(pid);
 };
 
-server.onTeamChanged = (room, pid) =>
+SERVER.onTeamChanged = (room, pid) =>
 {
-    server.room = room;
+    SERVER.room = room;
     
     teamChanged(pid);
 };
 
-server.onTeamCountChanged = (room) => 
+SERVER.onTeamCountChanged = (room) => 
 {
-    let oldTeamCount = server.room.options.teamCount;
+    let oldTeamCount = SERVER.room.options.teamCount;
     let newTeamCount = room.options.teamCount;
 
-    server.room = room;
+    SERVER.room = room;
 
     teamCountChanged();
 
@@ -65,11 +65,11 @@ server.onTeamCountChanged = (room) =>
     };
 };
 
-server.onSpymasterChanged = (room, pid) =>
+SERVER.onSpymasterChanged = (room, pid) =>
 {
-    let player = server.room.players.find(p => p.pid === pid);
-    let oldPlayer = server.room.players.find(p => p.spymaster === true && p.team === player.team);
-    server.room = room;
+    let player = SERVER.room.players.find(p => p.pid === pid);
+    let oldPlayer = SERVER.room.players.find(p => p.spymaster === true && p.team === player.team);
+    SERVER.room = room;
 
     spymasterChanged(pid, oldPlayer === undefined ? null : oldPlayer.pid);
 };

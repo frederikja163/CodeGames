@@ -49,15 +49,6 @@
     margin-bottom: calc(1.5 * var(--space));
 }
 
-#welcome #join .debug
-{
-    width: 50%;
-    height: 2vh;
-    margin-top: var(--space);
-    background-color: red;
-    color: var(--topColor);
-}
-
 #welcome #joinBtn
 {
     --width: 50%;
