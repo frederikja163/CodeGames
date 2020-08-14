@@ -1,3 +1,5 @@
+const { write } = require("fs");
+
 class Argument
 {
     constructor(name, description)
@@ -113,6 +115,14 @@ function helpCommand(command)
 
 function stop()
 {
+    writeLine("Kicking all players");
+    for (let i = 0; i < rooms.length; i++)
+    {
+        for (let j = 0; j < rooms[i].clients.lenght; j++)
+        {
+            rooms[i].clients[j].kickPlayer(rooms[i].clients[j].pid, "Server is restarting due to maintenance, we will be back within a few minutes!");
+        }
+    }
     process.exit(1);
 }
 
