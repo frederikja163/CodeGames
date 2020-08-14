@@ -5,6 +5,7 @@ var Command = require("./commands.js");
 
 io.on("connection", socket =>
 {
+    console.log(socket.id);
     Room.OnConnected(new Client(socket));
 });
 Room.rooms = [];
@@ -13,8 +14,7 @@ Command.initialize(Room.rooms);
 
 //TODO: Security error: Can join other room if randomly generating 4 character long ID
 /*TODO: Debug commands
-    Rooms - Lists all rooms by id and room count
-    Room [Id] - Lists information about a single room
+    Log - Enables logging of all recieved and given messages.
     Memory - Lists memory size of all rooms combined
 
 
