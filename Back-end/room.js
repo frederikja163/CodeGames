@@ -34,6 +34,7 @@ class Room
 {
     constructor(rid)
     {
+        this.rid = rid;
         this.data = new RoomData(rid);
         this.clients = [];
         this.state = new Lobby(this.data, this.clients);
