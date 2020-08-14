@@ -7,5 +7,16 @@ io.on("connection", socket =>
 {
     Room.OnConnected(new Client(socket));
 });
+Room.rooms = [];
 
-Command.initialize();
+Command.initialize(Room.rooms);
+
+//TODO: Security error: Can join other room if randomly generating 4 character long ID
+/*TODO: Debug commands
+    Rooms - Lists all rooms by id and room count
+    Room [Id] - Lists information about a single room
+    Memory - Lists memory size of all rooms combined
+
+
+    Analytics
+*/
