@@ -5,7 +5,6 @@ var Command = require("./commands.js");
 
 io.on("connection", socket =>
 {
-    console.log(socket.id);
     Room.OnConnected(new Client(socket));
 });
 Room.rooms = [];
