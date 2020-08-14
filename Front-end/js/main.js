@@ -1,8 +1,8 @@
-// const SERVER = new Server("localhost", 9999)
-const SERVER = new Server("116.203.80.39", 9999);
-
 const HIDDEN = "none";
 const VISIBLE = "grid";
+
+// let server = new Server("localhost", 9999);
+let server = new Server("116.203.80.39", 9999);
 
 let welcome;
 let lobby;
@@ -22,7 +22,7 @@ document.addEventListener('keyup', (event) =>
         if(nameField == document.activeElement)
         {
             nameSubmit();
-            SERVER.setName(nameField.value);
+            server.setName(nameField.value);
         }
 
         // Join lobby if cursor is in any of 2 textfields
@@ -47,7 +47,7 @@ window.onload = () => {
     if (ridStart != -1)
     {
         let rid = url.substring(ridStart + 1);
-        SERVER.joinRoom(rid);
+        server.joinRoom(rid);
     }
 }
 

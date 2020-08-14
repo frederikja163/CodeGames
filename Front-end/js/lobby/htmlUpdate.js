@@ -1,7 +1,7 @@
 ﻿/*TODO:
     - Remove all c logs 
     - Fix name change (når man joiner med navn) (fix animation)
-    - Add spymaster (fix spectator)
+    - Add spymaster (fix spectator) (error when SM joins new team)
     - Kicking is weird 
     - Limit team count (teamCount is broken) ✅
     - Remove kick on owner ✅
@@ -23,30 +23,30 @@ function activateLobby()
     let ridStart = url.indexOf("#");
     if (ridStart == -1)
     {
-        window.location += "#" + SERVER.rid;
+        window.location += "#" + server.rid;
     }
 
     // Add the amount of teams specified by the server
-    for (let i = 0; i < SERVER.room.options.teamCount; i++)
+    for (let i = 0; i < server.room.options.teamCount; i++)
     {
         addTeamElem();
     }
 
     // Add the players specified by the server
-    for (let i = 0; i < SERVER.room.players.length; i++)
+    for (let i = 0; i < server.room.players.length; i++)
     {
-        playerJoined(SERVER.room.players[i].pid);
+        playerJoined(server.room.players[i].pid);
     }
 
     // Change team count in options
     let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
-    teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
+    teamsOptElement.innerText = "Number of teams: " + String(server.room.options.teamCount);
 
     // Activate the name edit field
-    document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid === SERVER.pid).name);//TODO: fix
+    document.querySelector("#lobby #nameField").setAttribute("value", server.room.players.find(p => p.pid === server.pid).name);//TODO: fix
 
     // Hide owner content if not owner
-    if (SERVER.pid != SERVER.room.players[0].pid)
+    if (server.pid != server.room.players[0].pid)
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = HIDDEN);
     }
@@ -54,7 +54,7 @@ function activateLobby()
 
 function playerJoined(pid)
 {
-    let player = SERVER.room.players.find(p => p.pid === pid);
+    let player = server.room.players.find(p => p.pid === pid);
     let team = getTeamElement(player.team);
     let playerElem = createPlayer(player);
 
@@ -65,13 +65,13 @@ function playerLeft(pid, oldRoom)
 {
     getPlayerElement(pid).remove();
 
-    if (SERVER.pid === SERVER.room.players[0].pid && SERVER.pid != oldRoom.players[0].pid)
+    if (server.pid === server.room.players[0].pid && server.pid != oldRoom.players[0].pid)
     {
         let players = document.querySelectorAll("#lobby #teams li ul li");
         for (let i = 0; i < players.length; i++)
         {
             let pid = players[i].children[0].innerText;
-            let player = SERVER.room.players.find(p => p.pid === pid);
+            let player = server.room.players.find(p => p.pid === pid);
             let btnElem = players[i].children[2];
             let teamColor = window.getComputedStyle(players[i].parentNode.parentNode).getPropertyValue("color");
             addOwnerOnlyPlayerButtons(btnElem, player, teamColor);
@@ -81,7 +81,7 @@ function playerLeft(pid, oldRoom)
 
 function nameChanged(pid)
 {
-    let player = SERVER.room.players.find(p => p.pid === pid);
+    let player = server.room.players.find(p => p.pid === pid);
     let playerElement = getPlayerElement(pid);
     
     playerElement.children[1].innerText = player.name;
@@ -89,7 +89,7 @@ function nameChanged(pid)
 
 function playerKicked(pid, reason)
 {
-    if (SERVER.pid == pid)
+    if (server.pid == pid)
     {
         // Redirect to welcome
         let url = String(window.location);
@@ -120,7 +120,7 @@ function nameSubmit()
     let nameEdit = document.querySelector("#nameEdit");
     let nameSubmit = document.querySelector("#nameSubmit");
 
-    SERVER.room.players.find(p => p.pid === SERVER.pid).name = nameField.value;
+    server.room.players.find(p => p.pid === server.pid).name = nameField.value;
 
     nameSubmit.style.display = HIDDEN;
     nameEdit.style.display = "initial";
@@ -128,7 +128,7 @@ function nameSubmit()
 
 function teamChanged(pid) // Hide smBtn in spectator
 {
-    let player = SERVER.room.players.find(p => p.pid === pid);
+    let player = server.room.players.find(p => p.pid === pid);
     let teamElem = getTeamElement(player.team);
     let playerElem = getPlayerElement(pid);
     let colors = getColorsForElem(teamElem.parentElement);
@@ -137,6 +137,13 @@ function teamChanged(pid) // Hide smBtn in spectator
     playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.color = colors.backgroundColor);
     playerElem.querySelectorAll(".btn2").forEach(elem => elem.style.backgroundColor = colors.color);
 
+    console.log(player.spymaster, player); // ALTID FALSE
+    if (player.spymaster = false)
+    {
+        playerElem.querySelector(".smIcon").style.display = HIDDEN;
+    }
+
+    // Hide SM content on spectator
     if (player.team == 0)
     {
         if (playerElem.querySelector(".smBtn") != null)
@@ -144,6 +151,15 @@ function teamChanged(pid) // Hide smBtn in spectator
             playerElem.querySelector(".smBtn").style.display = HIDDEN;
         }
         playerElem.querySelector(".smIcon").style.display = HIDDEN;
+    }
+
+    // Reveal SM content if owner
+    if (server.pid == pid)
+    {
+        if (player.team != 0)
+        {
+            playerElem.querySelector(".smBtn").style.display = 'initial';
+        }
     }
 
     teamElem.appendChild(playerElem);
@@ -194,7 +210,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     smElem.style.display = HIDDEN;
 
     btnElem.appendChild(smElem);
-    if (SERVER.pid === SERVER.room.players[0].pid)
+    if (server.pid === server.room.players[0].pid)
     {
         addOwnerOnlyPlayerButtons(btnElem, player, teamColor);
     }
@@ -230,7 +246,7 @@ function addOwnerOnlyPlayerButtons(btnElem, player, teamColor)
     kickElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
     kickElem.innerText = "🚫";
     kickElem.setAttribute('onclick', 'kick("' + player.pid + '")'); //TODO: maybe refactor?
-    if (player.pid == SERVER.room.players[0].pid)
+    if (player.pid == server.room.players[0].pid)
     {
         kickElem.style.display = HIDDEN;
     }
@@ -260,10 +276,11 @@ function addOwnerOnlyPlayerButtons(btnElem, player, teamColor)
 
 function revealOwnerContent()
 {
-    if (SERVER.pid == SERVER.room.players[0].pid)
+    if (server.pid == server.room.players[0].pid)
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
-        getPlayerElement(SERVER.pid).querySelector(".kickBtn").style.display = HIDDEN;
+        getPlayerElement(server.pid).querySelector(".kickBtn").style.display = HIDDEN;
+        getTeamElement(0).querySelectorAll(".smBtn").forEach(elem => elem.style.display = HIDDEN);
     }
 }
 
@@ -271,7 +288,7 @@ function teamCountChanged()
 {
     // Change team count in options
     let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
-    teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
+    teamsOptElement.innerText = "Number of teams: " + String(server.room.options.teamCount);
 }
 
 function addTeamElem()
@@ -320,20 +337,20 @@ function removeTeamElem()
 //     // Show owner content if owner
 //     let ownerElements = document.querySelectorAll(".owner");
 
-//     if (SERVER.pid == SERVER.room.players[0].pid)
+//     if (server.pid == server.room.players[0].pid)
 //     {
 //         for (let i = 0; i < ownerElements.length; i++)
 //         {
 //             ownerElements[i].style.display = "initial";
 
-//             let spymaster = SERVER.room.players.find(p => p.spymaster === true);
+//             let spymaster = server.room.players.find(p => p.spymaster === true);
 //             if (spymaster != undefined && ownerElements[i].id === spymaster.pid)
 //             {
 //                 ownerElements[i].style.display = HIDDEN;
 //             }
 
 //             /*
-//             if (ownerElements[i].id == (SERVER.room.players.find(p => p.team === 0) == undefined ? undefined : SERVER.room.players.find(p => p.team === 0).pid))
+//             if (ownerElements[i].id == (server.room.players.find(p => p.team === 0) == undefined ? undefined : server.room.players.find(p => p.team === 0).pid))
 //             {
 //                 ownerElements[i].style.display = HIDDEN;
 //             }
@@ -349,7 +366,10 @@ function spymasterChanged(pid, oldPid)
     {
         let oldPlayerElem = getPlayerElement(oldPid);
         oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;
-        oldPlayerElem.querySelector(".smBtn").style.display = "inline";
+        if (oldPlayerElem.querySelector(".smBtn") != null)
+        {
+            oldPlayerElem.querySelector(".smBtn").style.display = "inline";
+        }
     }
 
     // Change spymaster button to spymaster icon

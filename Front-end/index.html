@@ -32,7 +32,13 @@
                     <input class="inputTxt" id="welcomeInputRid" type="text" name="rid" placeholder="Room ID">
                     <input id="joinBtn" class="btn" type="button" onclick="joinBtnOnClick()" value="Join">
                 </form>
+                <!-- Debug server change -->
+                <div>
+                    <button class="btn debug" onclick="activateLocalServer()">Local server</button>
+                    <button class="btn debug" onclick="activatePublicServer()">Public server</button>
+                </div>
             </div>
+            
         </page>
 
         <!-- Lobby -->
@@ -69,7 +75,7 @@
                 <p>Username:</p>
                 <input class="inputTxt" id="nameField" type="text" oninput="nameEdit()">
                 <button class="btn2" id="nameEdit" onclick="nameEdit()">✏️</button>
-                <button class="btn2" id="nameSubmit" onclick="nameSubmit(); SERVER.setName(document.querySelector('#nameField').value)" style="display: none;">✔️</button>
+                <button class="btn2" id="nameSubmit" onclick="nameSubmit(); server.setName(document.querySelector('#nameField').value)" style="display: none;">✔️</button>
             </div>
 
             <!-- Start game button -->
