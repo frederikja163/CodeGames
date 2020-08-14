@@ -57,11 +57,11 @@ SERVER.onTeamCountChanged = (room) =>
 
     for (let i = oldTeamCount; i < newTeamCount; i++)
     {
-        addTeam();
+        addTeamElem();
     }
     for (let i = newTeamCount; i < oldTeamCount; i++)
     {
-        removeTeam();
+        removeTeamElem();
     };
 };
 

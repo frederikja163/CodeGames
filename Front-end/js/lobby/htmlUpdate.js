@@ -2,7 +2,8 @@
     - Remove all c logs 
     - Fix name change (når man joiner med navn) (fix animation)
     - Add spymaster (fix spectator)
-    - Limit team count (teamCount is broken) ⚠️✅
+    - Kicking is weird 
+    - Limit team count (teamCount is broken) ✅
     - Remove kick on owner ✅
     - Change up/down btns ✅
     - Leave btn ✅
@@ -28,7 +29,7 @@ function activateLobby()
     // Add the amount of teams specified by the server
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
     {
-        addTeam();
+        addTeamElem();
     }
 
     // Add the players specified by the server
@@ -138,7 +139,10 @@ function teamChanged(pid) // Hide smBtn in spectator
 
     if (player.team == 0)
     {
-        playerElem.querySelector(".smBtn").style.display = HIDDEN;
+        if (playerElem.querySelector(".smBtn") != null)
+        {
+            playerElem.querySelector(".smBtn").style.display = HIDDEN;
+        }
         playerElem.querySelector(".smIcon").style.display = HIDDEN;
     }
 
@@ -270,7 +274,7 @@ function teamCountChanged()
     teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
 }
 
-function addTeam()
+function addTeamElem()
 {
     let teamList = document.querySelector("#lobby #teams");
     let teamName = teamNames[teamList.children.length - 1];
@@ -299,7 +303,7 @@ function addTeam()
     team.style.color = getColorsForElem(team).color;
 }
 
-function removeTeam()
+function removeTeamElem()
 {
     let pidElements = Array.from(document.querySelectorAll("#lobby #teams li:last-child .pid"));
 
@@ -351,7 +355,10 @@ function spymasterChanged(pid, oldPid)
     // Change spymaster button to spymaster icon
     let playerElem = getPlayerElement(pid);
     playerElem.querySelector(".smIcon").style.display = "inline";
-    playerElem.querySelector(".smBtn").style.display = HIDDEN;
+    if (playerElem.querySelector(".smBtn") != null)
+    {
+        playerElem.querySelector(".smBtn").style.display = HIDDEN;
+    }
 }
 
 function getColorsForElem(elem)
