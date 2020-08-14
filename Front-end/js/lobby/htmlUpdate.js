@@ -1,17 +1,8 @@
 ﻿/*TODO:
     - Remove all c logs 
     - Fix name change (når man joiner med navn) (fix animation)
-    - Add spymaster (fix spectator) (totally broken, kind of redo) ✅
-    - Kicking is weird 
     - FJA: add teamChanged when team removed
     - Owner icon
-    - Limit team count (teamCount is broken) ✅
-    - Remove kick on owner ✅
-    - Change up/down btns ✅
-    - Leave btn ✅
-    - Fix text colours on player name (dark / light) ✅
-    - Hide owner content (start - +) ✅
-    - Press enter to join game on welcome ✅
 */
 
 function activateLobby()
@@ -156,7 +147,7 @@ function teamChanged(pid)
 
         if (player.team == 0)
         {
-            playerElem.querySelector(".smBtn").style.display = HIDDEN;
+            playerElem.querySelector(".smBtn").style.display = HIDDEN; // TODO: Bug: Briefly shown
         }
     }
 
@@ -353,8 +344,6 @@ function removeTeamElem()
 
 function spymasterChanged(pid, oldPid)
 {
-    console.log(pid, oldPid);
-    console.log(SERVER.room.players.find(p => p.pid == pid).spymaster);
     let playerElem = getPlayerElement(pid);
     let oldPlayerElem = oldPid == null ? null : getPlayerElement(oldPid);
     
