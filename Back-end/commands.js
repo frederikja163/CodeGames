@@ -121,14 +121,13 @@ function roomsCmd()
     writeLine("A total of " + rooms.length + " rooms exist");
     for(let i = 0; i < rooms.length; i++)
     {
-        writeLine(rooms[i]);
-        writeLine((i + 1) + "/" + rooms.length + " - #" + rooms[i].data.rid);
+        writeLine((i + 1) + "/" + rooms.length + " - #" + rooms[i].rid);
     }
 }
 
 function room(rid)
 {
-    let r = rooms.find(r => r.data.rid === rid);
+    let r = rooms.find(r => r.rid === rid);
     if (r != undefined)
     {
         writeLine(JSON.stringify(r.data));
