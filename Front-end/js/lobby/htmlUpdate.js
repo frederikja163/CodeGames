@@ -1,9 +1,10 @@
 ﻿/*TODO:
     - Remove all c logs 
     - Fix name change (når man joiner med navn) (fix animation)
-    - Add spymaster (fix spectator) (totally broken, kind of redo)
+    - Add spymaster (fix spectator) (totally broken, kind of redo) ✅
     - Kicking is weird 
     - FJA: add teamChanged when team removed
+    - Owner icon
     - Limit team count (teamCount is broken) ✅
     - Remove kick on owner ✅
     - Change up/down btns ✅
@@ -58,6 +59,11 @@ function playerJoined(pid)
     let player = SERVER.room.players.find(p => p.pid === pid);
     let team = getTeamElement(player.team);
     let playerElem = createPlayer(player);
+
+    if (SERVER.pid == SERVER.room.players[0].pid)
+    {
+        playerElem.querySelector(".smBtn").style.display = HIDDEN;
+    }
 
     team.appendChild(playerElem);
 }
@@ -225,10 +231,6 @@ function addOwnerOnlyPlayerButtons(btnElem, player, teamColor)
     smElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
     smElem.innerText = "🕵️";
     smElem.setAttribute('onclick', 'setSpymaster("' + player.pid + '")');
-    if (player.team == 0)
-    {
-        smElem.style.display = HIDDEN;
-    }
     
     // Create kick button
     let kickElem = document.createElement("BUTTON");
