@@ -75,6 +75,7 @@ class Room
     onLeaveRoom(client){
         this.onDisconnected(client);
         client.roomLeft();
+        client.reset();
         Room.OnConnected(client);
     }
 
@@ -88,9 +89,10 @@ class Room
             this.clients[i].playerLeft(this.data, player.pid);
         }
 
-        if (this.clients.length <= 0)
+        if (this.data.players.length <= 0)
         {
-            Room.rooms = Room.rooms.filter(r => r.rid != this.rid);
+            let idx = Room.rooms.findIndex(r => r.rid === this.rid);
+            Room.rooms.splice(idx, 1);
         }
     }
 

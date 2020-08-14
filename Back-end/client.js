@@ -1,30 +1,36 @@
 class Client{
     constructor(socket)
     {
+        this.socket = socket;
+        this.reset();
+    }
+
+    reset()
+    {
         let send = (message, arg1, arg2, arg3) => {
-            socket.emit(message, arg1, arg2, arg3);
+            this.socket.emit(message, arg1, arg2, arg3);
         };
         let call = (method, bool) => {
+            console.log(this.pid, Function.prototype.toString.call(method));
             if (bool || bool === undefined){
                 method();
             }
         }
-        socket.on("joinRoom", (rid) => call(() => this.onJoinRoom(rid), typeof rid === "string"));
-        socket.on("leaveRoom", (rid) => call(() => this.onLeaveRoom(rid), typeof rid === "string"));
-        socket.on("disconnect", () => call(() => this.onDisconnected()));
+        this.socket.on("joinRoom", (rid) => call(() => this.onJoinRoom(rid), typeof rid === "string"));
+        this.socket.on("leaveRoom", (rid) => call(() => this.onLeaveRoom(rid), typeof rid === "string"));
+        this.socket.on("disconnect", () => call(() => this.onDisconnected()));
 
-        socket.on("setName", (name) => call(() => this.onSetName(name), typeof name === "string"));
-        socket.on("kickPlayer", (pid, reason) => call(() => this.onKickPlayer(pid, reason)), typeof pid === "string" && typeof reason === "string");
-        socket.on("setWords", (words) => call(() => this.onSetWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
-        socket.on("addWords", (words) => call(() => this.onAddWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
-        socket.on("removeWords", (words) => call(() => this.onRemoveWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
-        socket.on("setTeam", (pid, team) => call(() => this.onSetTeam(pid, team), typeof pid === "string" && typeof team === "number"));
-        socket.on("setTeamCount", (count) => call(() => this.onSetTeamCount(count), typeof count === "number"));
-        socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
+        this.socket.on("setName", (name) => call(() => this.onSetName(name), typeof name === "string"));
+        this.socket.on("kickPlayer", (pid, reason) => call(() => this.onKickPlayer(pid, reason)), typeof pid === "string" && typeof reason === "string");
+        this.socket.on("setWords", (words) => call(() => this.onSetWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
+        this.socket.on("addWords", (words) => call(() => this.onAddWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
+        this.socket.on("removeWords", (words) => call(() => this.onRemoveWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
+        this.socket.on("setTeam", (pid, team) => call(() => this.onSetTeam(pid, team), typeof pid === "string" && typeof team === "number"));
+        this.socket.on("setTeamCount", (count) => call(() => this.onSetTeamCount(count), typeof count === "number"));
+        this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
 
         //======[Server protocol]======
-        this.socket = socket;
-        this.pid = socket.id;
+        this.pid = this.socket.id;
         this.room = null;
 
         //===[Global]===
