@@ -102,12 +102,21 @@ class Room
         {
             const ridChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6' ,'7', '8', '9', '0'];
             rid = "";
-            let minCount = 3;
+            let ridLength = 3;
+            function generateRid(length)
+            {
+                let id = "";
+                for (let i = 0; i < length; i++)
+                {
+                    let char = Math.floor(Math.random() * ridChars.length);
+                    id = id + ridChars[char];
+                }
+                return id;
+            }
             do
             {
-                let i = Math.floor(Math.random() * ridChars.length);
-                rid = rid + ridChars[i];
-            } while(--minCount > 0 || Room.rooms.find(r => r.rid === rid) != undefined)
+                rid = generateRid(ridLength++);
+            } while(Room.rooms.find(r => r.rid === rid) != undefined)
         }
         
         let room = Room.rooms.find(r => r.rid === rid);
@@ -116,6 +125,7 @@ class Room
             room = new Room(rid);
             Room.rooms.push(room);
         }
+        client.room = room;
         room.AddClient(client);
     }
 }

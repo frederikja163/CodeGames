@@ -22,20 +22,23 @@ class Command
 
 const COMMANDS = [];
 let rooms;
+let clients;
 
-exports.initialize = (r) =>
+exports.initialize = (r, c) =>
 {
     process.stdout.write("> ");
     process.openStdin().addListener('data', raw => {
         onReadLine(raw.toString().trim());
     });
     rooms = r;
+    clients = c;
 
     addCommand("help", "displays this help message", [], help);
     addCommand("help", "more help for a particular command", [new Argument("command", "command to get help for")], helpCommand);
     addCommand("stop", "stops the server", [], stop);
     addCommand("rooms", "lists all rooms by rid", [], roomsCmd);
     addCommand("room", "gets all information for one room", [new Argument("rid", "rid of the room to get information of")], room);
+    addCommand("clients", "lists all connected clients and their rid if any", [], clientsCmd);
 }
 
 function addCommand(name, desc, args, method)
@@ -51,6 +54,7 @@ function onReadLine(text)
     if (com === undefined)
     {
         writeLine("Found no matching command, use help to see all available commands");
+        process.stdout.write("> ");
         return;
     }
     switch (com.args.length)
@@ -145,5 +149,14 @@ function room(rid)
     else
     {
         writeLine("Room could not be found, use rooms to get a full list of all rooms.");
+    }
+}
+
+function clientsCmd()
+{
+    writeLine("A total of " + clients.length + " clients exist");
+    for(let i = 0; i < clients.length; i++)
+    {
+        writeLine((i + 1) + "/" + clients.length + " - " + clients[i].pid + (clients[i].room === null ? "" : (" - #" + clients[i].room.rid)));
     }
 }
