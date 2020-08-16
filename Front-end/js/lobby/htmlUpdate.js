@@ -16,6 +16,10 @@ function activateLobby()
     {
         window.location += "#" + SERVER.rid;
     }
+    else if (ridStart == window.location.href.length - 1)
+    {
+        window.location += SERVER.rid;
+    }
 
     // Add the amount of teams specified by the server
     for (let i = 0; i < SERVER.room.options.teamCount; i++)

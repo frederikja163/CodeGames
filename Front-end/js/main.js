@@ -1,5 +1,28 @@
-//const SERVER = new Server("localhost", 9999)
-const SERVER = new Server("116.203.80.39", 9999);
+const URLPARAMS = new URLSearchParams(window.location.search);
+const SERVER = new Server();
+if (URLPARAMS.has("host"))
+{
+    switch(URLPARAMS.get("host"))
+    {
+        case "dev":
+        case "development":
+            //TODO: Create a development server, for now use release.
+            SERVER.connect("116.203.80.39", 9999);
+            break;
+        case "release":
+            SERVER.connect("116.203.80.39", 9999);
+            break;
+        case "local":
+            SERVER.connect("localhost", 9999);
+            break;
+    }
+}
+else
+{
+    SERVER.connect("116.203.80.39", 9999);
+}
+// const SERVER = new Server("localhost", 9999)
+// const SERVER = new Server("116.203.80.39", 9999);
 
 const HIDDEN = "none";
 const VISIBLE = "grid";
