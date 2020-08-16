@@ -147,7 +147,7 @@
     height: 0;
 }
 
-#lobby #nameField:focus
+#lobby #nameField:focus /* TODO: fix animation */
 {
     height: calc(2vh + var(--space));
     margin-top: calc(1.5 * var(--space));
