@@ -110,6 +110,7 @@ class Lobby
             let player = this.data.players[i];
             if (player.team > count){
                 player.team = 0;
+                player.spymaster = false;
                 for (let i = 0; i < this.clients.length; i++)
                 {
                     this.clients[i].teamChanged(this.data, player.pid);
