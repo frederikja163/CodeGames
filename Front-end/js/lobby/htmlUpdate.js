@@ -17,6 +17,10 @@ function activateLobby()
     {
         window.location += "#" + SERVER.rid;
     }
+    else if (ridStart == window.location.href.length - 1)
+    {
+        window.location += SERVER.rid;
+    }
 
     // Add the amount of teams specified by the server
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
@@ -345,7 +349,7 @@ function teamCountChanged()
 {
     // Change team count in options
     let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
-    teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
+    teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
 function addTeamElem()

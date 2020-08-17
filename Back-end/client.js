@@ -21,7 +21,7 @@ class Client{
         this.socket.on("disconnect", () => call(() => this.onDisconnected()));
 
         this.socket.on("setName", (name) => call(() => this.onSetName(name), typeof name === "string"));
-        this.socket.on("kickPlayer", (pid, reason) => call(() => this.onKickPlayer(pid, reason)), typeof pid === "string" && typeof reason === "string");
+        this.socket.on("kickPlayer", (pid, reason) => call(() => this.onKickPlayer(pid, reason)), typeof pid === "string" && typeof reason === "string"); //TODO: Something is not quite right with kicking and player notifications.
         this.socket.on("setWords", (words) => call(() => this.onSetWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
         this.socket.on("addWords", (words) => call(() => this.onAddWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
         this.socket.on("removeWords", (words) => call(() => this.onRemoveWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));

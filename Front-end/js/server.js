@@ -1,7 +1,17 @@
 class Server
 {
-    constructor(ip, port) // TODO: couldnt connect err msg
+    constructor() // TODO: couldnt connect err msg
     {
+        this.connected = false;
+    }
+
+    connect(ip, port)
+    {
+        if (this.connected)
+        {
+            console.warn("Already connected to server!");
+            return;
+        }
         const socket = io("http://" + ip + ":" + port);
         
         let send = (message, arg1, arg2, arg3) =>
