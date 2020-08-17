@@ -1,6 +1,7 @@
 ﻿/*TODO:
     - Remove all test c logs
     - Style logo
+    - SmBtn appears on SM when team mate leaves
 */
 
 function activateLobby()
