@@ -36,7 +36,7 @@ function activateLobby()
 
     // Change team count in options
     let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
-    teamsOptElement.innerText = "Number of teams: " + String(SERVER.room.options.teamCount);
+    teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 
     // Set name field to standard name
     document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid == SERVER.pid).name);
@@ -109,6 +109,7 @@ function nameChanged(pid)
 
 function playerKicked(pid, reason)
 {
+    console.log(pid, SERVER.pid, SERVER.pid === pid);
     if (SERVER.pid === pid)
     {
         // Reason pop-up
