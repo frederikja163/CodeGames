@@ -1,6 +1,5 @@
 ﻿/*TODO:
     - Remove all test c logs 
-    - Owner icon
     - Leave on logo
 */
 
@@ -79,6 +78,10 @@ function playerLeft(pid, oldRoom)
             btnElem.prepend(createUpBtnElem(player, teamColor));
             btnElem.prepend(createDownBtnElem(player, teamColor));
             btnElem.appendChild(createSmBtnElem(player, teamColor));
+            if (pid != SERVER.room.players[0].pid)
+            {
+                btnElem.appendChild(createKickBtnElem(player, teamColor));
+            }
         }
     }
 
@@ -86,12 +89,6 @@ function playerLeft(pid, oldRoom)
     {
         let playerElem = getPlayerElement(SERVER.room.players[0].pid);
         playerElem.children[2].appendChild(createOwnerIconElem());
-    }
-
-    // Reveal owner icon if player becomes owner
-    if (SERVER.pid == SERVER.room.players[0].pid)
-    {
-        getPlayerElement(SERVER.pid).querySelector(".ownerIcon").style.display = 'inline';
     }
 }
 
@@ -191,7 +188,6 @@ function getTeamElement(team)
     
 function createPlayer(player) // TODO: Create element on parent insted of document
 {
-    console.log(player.pid);
     // Create list item
     let playerElem = document.createElement("LI");
 
@@ -221,7 +217,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     let smElem = document.createElement("DIV");
     smElem.className = "smIcon";
     smElem.innerText = "🕵️";
-    smElem.style.display = HIDDEN;
+    smElem.style.display = player.spymaster === true ? 'inline' : HIDDEN;
 
     // Add elements to btnDiv
     if (SERVER.pid === SERVER.room.players[0].pid) // If client is owner
@@ -305,36 +301,6 @@ function createKickBtnElem(player, teamColor)
 
     return kickElem;
 }
-
-/*
-function addOwnerOnlyPlayerButtons(btnElem, player, teamColor) //TODO: maybe refactor?
-{
-    // Create move down team button
-    
-
-    // Create move up team button
-    
-
-    // Create spymaster button
-    
-    
-    // Create kick button
-    let kickElem;
-    if (player.pid != SERVER.pid)
-    {
-        
-    }
-    
-    // Append children
-    
-    
-    
-    if (player.pid != SERVER.pid)
-    {
-        
-    }
-}
-*/
 
 function revealOwnerContent()
 {
