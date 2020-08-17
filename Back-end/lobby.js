@@ -21,11 +21,9 @@ class Lobby
     RemovePlayer(pid)
     {
         let player = this.data.players.find(p => p.pid === pid);
-        console.log(player);
         if (player.spymaster)
         {
             let newSpymaster = this.data.players.find(p => p.team === player.team);
-            console.log(newSpymaster);
             if (newSpymaster != null)
             {
                 newSpymaster.spymaster = true;
