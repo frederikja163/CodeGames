@@ -54,7 +54,7 @@
     padding: var(--space);
 }
 
-#lobby #teams ul li div:nth-child(2)
+#lobby #teams ul li div:nth-child(2) /* TODO: fix height in btn / symbol */
 {
     grid-column: 1 / 2;
     margin-left: var(--space);
@@ -67,14 +67,14 @@
     text-align: right;
 }
 
-#lobby #teams .smIcon
+#lobby #teams .smIcon, .ownerIcon
 {
     font-size: 16px;
     margin: var(--space);
     padding-left: 7px;
     padding-right: 7px;
     line-height: calc(var(--btn2Size) + 2 * var(--space));
-    display: none;
+    display: inline;
 }
 
 #lobby #options
