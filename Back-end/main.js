@@ -7,10 +7,10 @@ Room.rooms = [];
 let clients = [];
 io.on("connection", socket =>
 {
-    let i = clients.length;
     let client = new Client(socket);
-    clients.push(client);
     Room.OnConnected(client);
+    let i = clients.length - 1;
+    clients.push(client);
     socket.on("disconnect", () => clients.splice(i, 1));
 });
 

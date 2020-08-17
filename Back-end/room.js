@@ -81,6 +81,7 @@ class Room
 
     onDisconnected(client)
     {
+        this.state.RemovePlayer(client.pid);
         let playerInd = this.clients.findIndex(p => p.pid === client.pid);
         this.clients.splice(playerInd, 1);
         let player = this.data.players.splice(playerInd, 1)[0];

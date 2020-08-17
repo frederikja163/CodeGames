@@ -18,6 +18,21 @@ class Lobby
         client.onSetSpymaster = (team, pid) => this.onSetSpymaster(client, team, pid);
     }
 
+    RemovePlayer(pid)
+    {
+        let player = this.data.players.find(p => p.pid === pid);
+        console.log(player);
+        if (player.spymaster)
+        {
+            let newSpymaster = this.data.players.find(p => p.team === player.team);
+            console.log(newSpymaster);
+            if (newSpymaster != null)
+            {
+                newSpymaster.spymaster = true;
+                this.spymasterChanged(newSpymaster.pid);
+            }
+        }
+    }
     
     onSetName(client, name)
     {
@@ -36,6 +51,7 @@ class Lobby
         {
             return;
         }
+        this.RemovePlayer(pid);
         this.data.players.splice(playerInd, 1);
         let kickedPlayer = this.clients.splice(playerInd, 1)[0];
         for (let i = 0; i < this.clients.length; i++)
