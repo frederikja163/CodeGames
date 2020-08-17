@@ -110,13 +110,13 @@ function playerKicked(pid, reason)
 {
     if (SERVER.pid === pid)
     {
+        // Reason pop-up
+        alert("Nigga kicked bacause: " + reason);
+        
         // Redirect to welcome
         let url = String(window.location);
         let ridStart = url.indexOf("#");
         window.location = url.slice(0, ridStart);
-
-        // Reason pop-up
-        alert("Nigga kicked bacause: " + reason);
     }
 }
 
