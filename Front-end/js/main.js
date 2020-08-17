@@ -21,8 +21,6 @@ else
 {
     SERVER.connect("116.203.80.39", 9999);
 }
-// const SERVER = new Server("localhost", 9999)
-// const SERVER = new Server("116.203.80.39", 9999);
 
 const HIDDEN = "none";
 const VISIBLE = "grid";
@@ -71,6 +69,18 @@ window.onload = () => {
     {
         let rid = url.substring(ridStart + 1);
         SERVER.joinRoom(rid);
+
+        //Start parameters
+        if (URLPARAMS.has("teamCount"))
+        {
+            let teamCount = Number.parseInt(URLPARAMS.get("teamCount"));
+            SERVER.setTeamCount(teamCount);
+        }
+        if (URLPARAMS.has("name"))
+        {
+            let name = URLPARAMS.get("name")
+            SERVER.setName(name);
+        }
     }
 }
 
