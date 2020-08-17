@@ -1,6 +1,6 @@
 ﻿/*TODO:
     - Remove all test c logs 
-    - Leave on logo
+    - Leave on logo // HTML doesnt respond to any changes
 */
 
 function activateLobby()

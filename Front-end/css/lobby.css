@@ -113,6 +113,11 @@
     margin: auto;
 }
 
+#lobby #logo:hover
+{
+    cursor: pointer;
+}
+
 #lobby #name
 {
     grid-column: 2 / 3;
