@@ -16,10 +16,9 @@ io.on("connection", socket =>
 
 Command.initialize(Room.rooms, clients);
 
-//TODO: Security error: Can join other room if randomly generating 4 character long ID
 /*TODO: Debug commands
+    Fix clients command.
     Log [room] - Enables logging of all recieved and given messages.
-    Clients - Lists all clients connected to the server
     Room [room] - custom json string
     Memory - Lists memory size of all rooms combined
 
