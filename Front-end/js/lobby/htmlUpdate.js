@@ -1,7 +1,6 @@
 ﻿/*TODO:
     - Remove all test c logs
     - Style logo
-    - SmBtn appears on SM when team mate leaves
 */
 
 function activateLobby()
@@ -310,6 +309,16 @@ function revealOwnerContent()
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
         getTeamElement(0).querySelectorAll(".smBtn").forEach(elem => elem.style.display = HIDDEN);
+
+        for (let i = 0; i < SERVER.room.players.length; i++)
+        {
+            let player = SERVER.room.players[i];
+
+            if (player.spymaster)
+            {
+                getPlayerElement(player.pid).querySelector(".smBtn").style.display = HIDDEN;
+            }
+        }
     }
 }
 
