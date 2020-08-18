@@ -306,7 +306,7 @@ function createKickBtnElem(player, teamColor)
 
 function revealOwnerContent()
 {
-    if (SERVER.pid == SERVER.pid)
+    if (SERVER.pid == SERVER.room.players[0].pid)
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
         getTeamElement(0).querySelectorAll(".smBtn").forEach(elem => elem.style.display = HIDDEN);
