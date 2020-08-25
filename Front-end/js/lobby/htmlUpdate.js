@@ -1,7 +1,6 @@
 ﻿/*TODO:
     - Remove all test c logs
     - Style logo
-    - Visual on own name
     - SM icon disapears on team removal, but only on last player of teams
     - Array order in teams
 */
@@ -212,6 +211,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     // Create name div
     let nameElem = document.createElement("DIV");
     nameElem.style.color = teamColor;
+    nameElem.style.fontWeight = (SERVER.pid == player.pid) ? "800" : "500";
     nameElem.innerText = player.name;
 
     // Create button div
