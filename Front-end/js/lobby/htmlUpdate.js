@@ -111,7 +111,7 @@ function nameChanged(pid)
 
 function playerKicked(pid, reason)
 {
-    console.log(pid, SERVER.pid, SERVER.pid === pid);
+    //TODO: Redirect to another html page
     if (SERVER.pid === pid)
     {
         // Reason pop-up
