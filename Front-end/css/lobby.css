@@ -54,6 +54,11 @@
     padding: var(--space);
 }
 
+#lobby #teams ul li div
+{
+    height: 55px;
+}
+
 #lobby #teams ul li div:nth-child(2) /* TODO: fix height in btn / symbol */
 {
     grid-column: 1 / 2;

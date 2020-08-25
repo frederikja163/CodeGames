@@ -1,6 +1,9 @@
 ﻿/*TODO:
     - Remove all test c logs
     - Style logo
+    - Visual on own name
+    - SM icon disapears on team removal, but only on last player of teams
+    - Array order in teams
 */
 
 function activateLobby()
@@ -218,6 +221,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     let smElem = document.createElement("DIV");
     smElem.className = "smIcon";
     smElem.innerText = "🕵️";
+    smElem.style.fontSize = "16.56px";
     smElem.style.display = player.spymaster === true ? 'inline' : HIDDEN;
 
     // Add elements to btnDiv
@@ -249,6 +253,7 @@ function createOwnerIconElem()
 {
     let ownerElem = document.createElement("DIV");
     ownerElem.className = "ownerIcon";
+    ownerElem.style.fontSize = "15.294px";
     ownerElem.innerText = "👑";
 
     return ownerElem;
@@ -364,7 +369,7 @@ function removeTeamElem()
 
     for (let i = 0; i < pidElements.length; i++)
     {
-        teamChanged(pidElements[i].innerText)
+        teamChanged(pidElements[i].innerText);
     }
 
     document.querySelector("#lobby #players #teams").lastChild.remove();
