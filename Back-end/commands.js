@@ -151,12 +151,3 @@ function room(rid)
         writeLine("Room could not be found, use rooms to get a full list of all rooms.");
     }
 }
-
-function clientsCmd()
-{
-    writeLine("A total of " + clients.length + " clients exist");
-    for(let i = 0; i < clients.length; i++)
-    {
-        writeLine((i + 1) + "/" + clients.length + " - " + clients[i].pid + (clients[i].room === null ? "" : (" - #" + clients[i].room.rid)));
-    }
-}

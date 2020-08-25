@@ -4,14 +4,9 @@ var {Client} = require("./client.js");
 var Command = require("./commands.js");
 
 Room.rooms = [];
-let clients = [];
 io.on("connection", socket =>
 {
-    let client = new Client(socket);
-    Room.OnConnected(client);
-    let i = clients.length - 1;
-    clients.push(client);
-    socket.on("disconnect", () => clients.splice(i, 1));
+    Room.OnConnected(new Client(socket));
 });
 
 Command.initialize(Room.rooms, clients);
