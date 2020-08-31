@@ -16,19 +16,35 @@ class Server
         
         let send = (message, arg1, arg2, arg3) =>
         {
+            if (debugMode)
+            {
+                console.log(message, arg1, arg2, arg3);
+            }
             socket.emit(message, arg1, arg2, arg3);
         };
-        socket.on("roomJoined", (room, rid, pid) => this.onRoomJoined(room, rid, pid));
-        socket.on("roomLeft", () => this.onRoomLeft());
-        socket.on("playerJoined", (room, pid) => this.onPlayerJoined(room, pid));
-        socket.on("playerLeft", (room, pid) => this.onPlayerLeft(room, pid));
+        let incoming = (message, method) =>
+        {
+            socket.on(message, (arg1, arg2, arg3) => 
+            {
+                if (debugMode)
+                {
+                    console.log(message, arg1, arg2, arg3);
+                }
+                method(arg1, arg2, arg3);
+            }
+            );
+        }
+        incoming("roomJoined", (room, rid, pid) => this.onRoomJoined(room, rid, pid));
+        incoming("roomLeft", () => this.onRoomLeft());
+        incoming("playerJoined", (room, pid) => this.onPlayerJoined(room, pid));
+        incoming("playerLeft", (room, pid) => this.onPlayerLeft(room, pid));
 
-        socket.on("nameChanged", (room, pid, name) => this.onNameChanged(room, pid, name));
-        socket.on("playerKicked", (room, pid, reason) => this.onPlayerKicked(room, pid, reason));
-        socket.on("wordsChanged", (room) => this.onWordsChanged(room));
-        socket.on("teamChanged", (room, pid) => this.onTeamChanged(room, pid));
-        socket.on("teamCountChanged", (room) => this.onTeamCountChanged(room));
-        socket.on("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
+        incoming("nameChanged", (room, pid, name) => this.onNameChanged(room, pid, name));
+        incoming("playerKicked", (room, pid, reason) => this.onPlayerKicked(room, pid, reason));
+        incoming("wordsChanged", (room) => this.onWordsChanged(room));
+        incoming("teamChanged", (room, pid) => this.onTeamChanged(room, pid));
+        incoming("teamCountChanged", (room) => this.onTeamCountChanged(room));
+        incoming("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
 
         //======[Server protocol]======
         this.room = null;
