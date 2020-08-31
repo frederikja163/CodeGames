@@ -1,6 +1,6 @@
 ﻿/*TODO:
     - Remove all test c logs
-    - Style logo
+    - Style logo element
 */
 
 function activateLobby()
@@ -34,7 +34,7 @@ function activateLobby()
     }
 
     // Change team count in options
-    let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
+    let teamsOptElement = document.querySelector("#lobby #options > ul > li:nth-child(1)");
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 
     // Set name field to standard name
