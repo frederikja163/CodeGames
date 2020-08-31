@@ -2,7 +2,6 @@
     - Remove all test c logs
     - Style logo
     - SM icon disapears on team removal, but only on last player of teams
-    - Array order in teams
 */
 
 function activateLobby()
@@ -175,7 +174,7 @@ function teamChanged(pid)
         }
     }
 
-    teamElem.appendChild(playerElem);
+    teamElem.insertBefore(playerElem, teamElem.children[SERVER.room.players.findIndex(i => i.pid == playerElem.querySelector(".pid").innerText)]);
 }
 
 function getPlayerElement(pid)
