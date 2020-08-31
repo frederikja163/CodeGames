@@ -5,8 +5,6 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     SERVER.pid = pid;
 
     activateLobby();
-
-    console.log("roomJoined");
 };
 
 SERVER.onPlayerJoined = (room, pid) => 
@@ -14,8 +12,6 @@ SERVER.onPlayerJoined = (room, pid) =>
     SERVER.room = room;
 
     playerJoined(pid);
-
-    console.log("playerJoined");
 };
 
 SERVER.onPlayerLeft = (room, pid) => 
@@ -25,8 +21,6 @@ SERVER.onPlayerLeft = (room, pid) =>
 
     playerLeft(pid, oldRoom);
     revealOwnerContent();
-
-    console.log("playerLeft");
 };
 
 SERVER.onPlayerKicked = (room, pid, reason) =>
@@ -36,8 +30,6 @@ SERVER.onPlayerKicked = (room, pid, reason) =>
 
     playerLeft(pid, oldRoom);
     playerKicked(pid, reason);
-
-    console.log("playerKicked");
 };
 
 SERVER.onNameChanged = (room, pid) => 
@@ -45,8 +37,6 @@ SERVER.onNameChanged = (room, pid) =>
     SERVER.room = room;
 
     nameChanged(pid);
-
-    console.log("nameChanged");
 };
 
 SERVER.onTeamChanged = (room, pid) =>
@@ -54,8 +44,6 @@ SERVER.onTeamChanged = (room, pid) =>
     SERVER.room = room;
     
     teamChanged(pid);
-
-    console.log("teamChanged");
 };
 
 SERVER.onTeamCountChanged = (room) => 
@@ -75,8 +63,6 @@ SERVER.onTeamCountChanged = (room) =>
     {
         removeTeamElem();
     };
-
-    console.log("teamCountChanged");
 };
 
 SERVER.onSpymasterChanged = (room, pid) =>
@@ -86,6 +72,4 @@ SERVER.onSpymasterChanged = (room, pid) =>
     SERVER.room = room;
 
     spymasterChanged(pid, oldPlayer === undefined ? null : oldPlayer.pid);
-
-    console.log("spymasterChanged");
 };

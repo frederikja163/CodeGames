@@ -1,7 +1,6 @@
 ﻿/*TODO:
     - Remove all test c logs
     - Style logo
-    - SM icon disapears on team removal, but only on last player of teams
 */
 
 function activateLobby()
@@ -174,7 +173,7 @@ function teamChanged(pid)
         }
     }
 
-    teamElem.insertBefore(playerElem, teamElem.children[SERVER.room.players.findIndex(i => i.pid == playerElem.querySelector(".pid").innerText)]);
+    teamElem.insertBefore(playerElem, teamElem.children[SERVER.room.players.findIndex(p => p.pid == playerElem.querySelector(".pid").innerText)]);
 }
 
 function getPlayerElement(pid)
@@ -364,7 +363,7 @@ function addTeamElem()
 
 function removeTeamElem()
 {
-    let pidElements = Array.from(document.querySelectorAll("#lobby #teams li:last-child .pid"));
+    let pidElements = Array.from(document.querySelectorAll("#lobby #teams > li:last-child .pid"));
 
     for (let i = 0; i < pidElements.length; i++)
     {
