@@ -1,3 +1,5 @@
+var debugMode = false;
+
 const URLPARAMS = new URLSearchParams(window.location.search);
 const SERVER = new Server();
 if (URLPARAMS.has("host"))
@@ -28,13 +30,12 @@ const VISIBLE = "grid";
 let welcome;
 let lobby;
 let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
-let debugMode = false;
 
 document.addEventListener('keyup', (event) =>
 {
     if(event.keyCode == 113) //F2 is our debug key.
     {
-        setDebugMode(!debugmode);
+        setDebugMode(!debugMode);
     }
     else if(event.keyCode == 13) //Enter
     {
@@ -86,8 +87,8 @@ window.onload = () => {
 
 function setDebugMode(newMode)
 {
-    debugmode = newMode;
-    document.querySelectorAll(".debug").forEach(e => e.style.display = debugmode ? VISIBLE : HIDDEN);
+    debugMode = newMode;
+    document.querySelectorAll(".debug").forEach(e => e.style.display = debugMode ? VISIBLE : HIDDEN);
 }
 
 //TODO: Lost connection.

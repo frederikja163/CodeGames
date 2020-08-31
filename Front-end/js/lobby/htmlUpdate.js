@@ -200,7 +200,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     let pidElem = document.createElement("DIV");
     pidElem.className += " debug";
     pidElem.className += " pid";
-    pidElem.style.display = debugmode ? VISIBLE : HIDDEN;
+    pidElem.style.display = debugMode ? VISIBLE : HIDDEN;
     pidElem.style.gridColumn = "1 / 3";
     pidElem.style.gridRow = "2 / 3";
     pidElem.style.color = teamColor;
