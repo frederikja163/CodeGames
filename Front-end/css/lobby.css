@@ -128,10 +128,17 @@
     padding: var(--space);
 }
 
-#lobby #options #words > li
+#lobby #options #words li
 {
     display: grid;
     grid-template-columns: auto auto;
+    justify-items: right;
+}
+
+#lobby #options #words li > div
+{
+    justify-items: left;
+    width: 100%;
 }
 
 #lobby #options #words img
@@ -141,8 +148,6 @@
     border-color: black;
     border-width: 2px;
     border-style: solid;
-    margin-right:0;
-    float: right;
 }
 
 #lobby #logo
