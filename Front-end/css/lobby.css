@@ -30,7 +30,7 @@
     grid-column: 1 / 2;
 }
 
-#lobby #teams > li
+#lobby #teams li
 {
     background-color: var(--topColor);
     margin: var(--space);
@@ -88,7 +88,7 @@
     font-size: 18px;
 }
 
-#lobby #options ul
+#lobby #options > ul
 {
     display: grid;
     grid-template-columns: auto auto;
@@ -96,19 +96,53 @@
     padding: var(--space);
 }
 
-#lobby #options ul li
+#lobby #options > ul > li
 {
     line-height: calc(var(--btn2Size) + 2 * var(--space));
 }
 
-#lobby #options ul li:nth-child(odd)
+#lobby #options > ul > li:nth-child(odd)
 {
     margin-left: var(--space);
 }
 
-#lobby #options ul li:nth-child(even)
+#lobby #options > ul > li:nth-child(even)
 {
     text-align: right;
+}
+
+#lobby #options > ul > li:nth-child(3), #lobby #options > ul > li:nth-child(4)
+{
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+#lobby #options #words
+{
+    grid-column: 1 / 3;
+    overflow: auto;
+    height: 500px;
+    background-color: var(--topColor);
+    color: var(--backColor);
+    text-align: left;
+    padding: var(--space);
+}
+
+#lobby #options #words > li
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#lobby #options #words img
+{
+    grid-column: 2 / 3;
+    border-radius: 100%;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    margin-right:0;
+    float: right;
 }
 
 #lobby #logo
