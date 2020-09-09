@@ -26,6 +26,7 @@ function addTeam()
     }
     else
     {
+        //TODO: Use different logging (maybe user logging?)
         console.log("Maximum team amount reached!");
     }
 }
@@ -35,7 +36,7 @@ function removeTeam()
     SERVER.setTeamCount(SERVER.room.options.teamCount - 1);
 }
 
-function leaveRoom() // Change URL without redirecting
+function leaveRoom() //TODO: Change URL without redirecting
 {
     let url = String(window.location);
     let ridStart = url.indexOf("#");

@@ -38,7 +38,10 @@ function activateLobby()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 
     // Set name field to standard name
-    document.querySelector("#lobby #nameField").setAttribute("value", SERVER.room.players.find(p => p.pid == SERVER.pid).name);
+    var nameField = document.querySelector("#lobby #nameField");
+    var name = SERVER.room.players.find(p => p.pid == SERVER.pid).name;
+    nameField.setAttribute("value", name);
+    nameField.selectionStart = name.length;
 
     // Hide owner content if not owner
     if (SERVER.pid != SERVER.room.players[0].pid)
@@ -102,7 +105,10 @@ function nameChanged(pid)
     // Change name field to name (used when joining with name)
     if (SERVER.pid == player.pid)
     {
-        document.querySelector("#lobby #nameField").setAttribute("value", player.name);
+        var nameField = document.querySelector("#lobby #nameField");
+        var name = SERVER.room.players.find(p => p.pid == SERVER.pid).name;
+        nameField.setAttribute("value", name);
+        nameField.selectionStart = name.length;
     }
 }
 
@@ -144,6 +150,7 @@ function nameSubmit()
 
     nameSubmit.style.display = HIDDEN;
     nameEdit.style.display = "initial";
+    document.activeElement.blur();
 }
 
 function teamChanged(pid)

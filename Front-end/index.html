@@ -57,15 +57,18 @@
             <div class="box wall" id="options">
                 <h2>Room Options</h2>
                 <ul>
-                    <li>Team count: </li>
-                    <li>
+                    <li id="countTitle">Team count: </li>
+                    <li id="countOption">
                         <button class="btn2 owner" onclick="addTeam()">+</button>
                         <button class="btn2 owner" onclick="removeTeam()">-</button>
                     </li>
-                    <li>Words:</li>
-                    <li>
+                    <li id="langTitle">Language:</li>
+                    <li id="langOption">EN</li>
+                    <li id="wordsTitle">Words:</li>
+                    <li id="wordsOption">
                         <div class="owner" id="words">
                             <ul>
+                                <li><div>Animals</div><div class="btn2" onclick=""></div></li>
                                 <li><div>Animals</div><img class="btn2" src="assets/flags/english.png" alt="EN"></img></li>
                                 <li><div>Animals</div><img class="btn2" src="assets/flags/english.png" alt="EN"></img></li>
                                 <li><div>Animals</div><img class="btn2" src="assets/flags/english.png" alt="EN"></img></li>
@@ -91,7 +94,7 @@
             <!-- Name -->
             <div id="name">
                 <p>Username:</p>
-                <input class="inputTxt" id="nameField" type="text" oninput="nameEdit()">
+                <input class="inputTxt" id="nameField" type="text" onclick="nameEdit()">
                 <button class="btn2" id="nameEdit" onclick="nameEdit()">✏️</button>
                 <button class="btn2" id="nameSubmit" onclick="nameSubmit(); SERVER.setName(document.querySelector('#nameField').value)" style="display: none;">✔️</button>
             </div>

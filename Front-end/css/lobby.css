@@ -30,7 +30,7 @@
     grid-column: 1 / 2;
 }
 
-#lobby #teams li
+#lobby #teams > li
 {
     background-color: var(--topColor);
     margin: var(--space);
@@ -111,7 +111,7 @@
     text-align: right;
 }
 
-#lobby #options > ul > li:nth-child(3), #lobby #options > ul > li:nth-child(4)
+#lobby #options #wordsTitle, #lobby #options #wordsOption
 {
     grid-column: 1 / 3;
     text-align: center;
@@ -135,13 +135,13 @@
     justify-items: right;
 }
 
-#lobby #options #words li > div
+#lobby #options #words li > div:first-child
 {
     justify-items: left;
     width: 100%;
 }
 
-#lobby #options #words img
+#lobby #options #words:last-child
 {
     grid-column: 2 / 3;
     border-radius: 100%;

@@ -41,17 +41,21 @@ document.addEventListener('keyup', (event) =>
     {
         // Submit name if cursor is in namefield
         let nameField = document.querySelector("#nameField");
-        if(nameField == document.activeElement)
+        if(nameField === document.activeElement)
         {
             nameSubmit();
             SERVER.setName(nameField.value);
+        }
+        else if (lobby.style.display != HIDDEN)
+        {
+            nameEdit();
         }
 
         // Join lobby if cursor is in any of 2 textfields
         let welcomeFields = document.querySelectorAll("#welcome input");
         for (let i = 0; i < welcomeFields.length; i++)
         {
-            if (welcomeFields[i] == document.activeElement)
+            if (welcomeFields[i] === document.activeElement)
             {
                 joinBtnOnClick();
             }
