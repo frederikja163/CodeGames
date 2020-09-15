@@ -4,7 +4,12 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     SERVER.rid = rid;
     SERVER.pid = pid;
 
-    activateLobby();
+    swapToLobby();
+    updateLink();
+    updateNameField();
+    initializeTeams();
+    initializePlayers();
+    updateTeamCount();
 };
 
 SERVER.onPlayerJoined = (room, pid) => 
@@ -37,6 +42,10 @@ SERVER.onNameChanged = (room, pid) =>
     SERVER.room = room;
 
     nameChanged(pid);
+    if (SERVER.pid == pid)
+    {
+        updateNameField();
+    }
 };
 
 SERVER.onTeamChanged = (room, pid) =>
