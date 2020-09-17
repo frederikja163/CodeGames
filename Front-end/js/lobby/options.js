@@ -16,7 +16,7 @@ function teamCountChanged()
 function initializePackList()
 {
     var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", 'https://frederikja163.github.io/CodeGames/Front-end/index.html', true);
+    rawFile.open("GET", './index.html', true);
     rawFile.onreadystatechange = function ()
     {
         if(rawFile.readyState === 4)

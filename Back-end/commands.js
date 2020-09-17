@@ -22,7 +22,6 @@ class Command
 
 const COMMANDS = [];
 let rooms;
-let clients;
 
 exports.initialize = (r, c) =>
 {
@@ -31,14 +30,13 @@ exports.initialize = (r, c) =>
         onReadLine(raw.toString().trim());
     });
     rooms = r;
-    clients = c;
 
     addCommand("help", "displays this help message", [], help);
     addCommand("help", "more help for a particular command", [new Argument("command", "command to get help for")], helpCommand);
     addCommand("stop", "stops the server", [], stop);
     addCommand("rooms", "lists all rooms by rid", [], roomsCmd);
     addCommand("room", "gets all information for one room", [new Argument("rid", "rid of the room to get information of")], room);
-    addCommand("clients", "lists all connected clients and their rid if any", [], clientsCmd);
+    // addCommand("clients", "lists all connected clients and their rid if any", [], clientsCmd);
 }
 
 function addCommand(name, desc, args, method)

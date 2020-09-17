@@ -12,7 +12,7 @@ class Server
             console.warn("Already connected to server!");
             return;
         }
-        const socket = io("http://" + ip + ":" + port);
+        const socket = io("http://" + ip + ":" + port, {secure: true});
         
         let send = (message, arg1, arg2, arg3) =>
         {

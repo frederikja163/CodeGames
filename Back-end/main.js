@@ -9,7 +9,7 @@ io.on("connection", socket =>
     Room.OnConnected(new Client(socket));
 });
 
-Command.initialize(Room.rooms, clients);
+Command.initialize(Room.rooms);
 
 /*TODO: Debug commands
     Fix clients command.
