@@ -9,6 +9,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     updateNameField();
     initializeTeams();
     initializePlayers();
+    initializePackList();
     updateTeamCount();
 };
 

@@ -1,4 +1,7 @@
-const LANGS = ["EN"]
+const HTTP = new XMLHttpRequest();
+const BASEURL = "http://codegames.ga/";
+const PACKURL = BASEURL + "Front-end/assets/packs/";
+let languages = [];
 
 function updateTeamCount()
 {
@@ -20,18 +23,22 @@ function langBtn() //TODO: Hide/show menu, expand vertically when pressed to sho
 
 function initializePackList()
 {
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", './index.html', true);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
-    }
-    rawFile.send(null);
+    fetch(PACKURL + "lang.csv")
+        .then(r => r.text())
+        .then(t => t.split(',').forEach(lang => languages.push(createLang(lang.trim()))));
+}
+
+function createLang(lang)
+{
+    let l = {};
+    let i = lang.indexOf('[');
+    let code = lang.substring(i + 1, lang.length - 1);
+    l.code = code;
+    let name = lang.substring(0, i-1);
+    l.name = name;
+    l.packs = [];
+    fetch(PACKURL + code.toLowerCase() + "/packs.csv")
+        .then(r => r.text())
+        .then(t => t.split(',').forEach(p => l.packs.push(p)));
+    console.log(l);
 }
