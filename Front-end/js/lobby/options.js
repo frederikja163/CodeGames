@@ -13,6 +13,11 @@ function teamCountChanged()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
+function langBtn() //TODO: Hide/show menu, expand vertically when pressed to show available packs
+{
+
+}
+
 function initializePackList()
 {
     var rawFile = new XMLHttpRequest();

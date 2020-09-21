@@ -113,6 +113,30 @@
     text-align: right;
 }
 
+#lobby #options #dropBtn
+{
+    margin: var(--space);
+    margin-left: auto;
+    height: var(--btn2Size);
+    width: calc(var(--btn2Size) * 2);
+    background-color: var(--topColor);
+    border-radius: calc(var(--btn2Size) * .5);
+    text-align: left;
+    color: var(--backColor);
+    line-height: var(--btn2Size);
+}
+
+#lobby #options #dropBtn > *
+{
+    margin: 0;
+    width: var(--btn2Size);
+}
+
+#lobby #options #dropMenu
+{
+    display: none;
+}
+
 #lobby #options #wordsTitle, #lobby #options #wordsOption
 {
     grid-column: 1 / 3;
