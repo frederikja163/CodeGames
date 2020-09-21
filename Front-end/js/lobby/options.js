@@ -21,12 +21,6 @@ function initializePackList()
     fetch(PACKURL + "lang.csv")
         .then(r => r.text())
         .then(t => t.split(',').forEach(lang => languages.push(createLang(lang.trim()))));
-    // HTTP.open("GET", PACKURL + "lang.csv");
-    // HTTP.send();
-    // console.log(HTTP.responseText);
-    // HTTP.open("GET", PACKURL + "packs.csv");
-    // HTTP.send();
-    // console.log(HTTP.responseText);
 }
 
 function createLang(lang)
