@@ -1,4 +1,6 @@
-const LANGS = ["EN"]
+const HTTP = new XMLHttpRequest();
+const BASEURL = "http://codegames.ga/";
+const PACKURL = BASEURL + "Front-end/assets/packs/";
 
 function updateTeamCount()
 {
@@ -15,18 +17,10 @@ function teamCountChanged()
 
 function initializePackList()
 {
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", './index.html', true);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
-    }
-    rawFile.send(null);
+    HTTP.open("GET", PACKURL + "lang.csv");
+    HTTP.send();
+    console.log(HTTP.responseText);
+    HTTP.open("GET", PACKURL + "pack.csv");
+    HTTP.send();
+    console.log(HTTP.responseText);
 }
