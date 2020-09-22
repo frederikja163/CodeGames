@@ -18,7 +18,8 @@ function teamCountChanged()
 
 function langBtn() //TODO: Hide/show menu, expand vertically when pressed to show available packs
 {
-
+    let dropMenu = document.querySelector("#lobby #dropMenu");
+    dropMenu.style.display = dropMenu.style.display == "block" ? "none" : "block";
 }
 
 function initializePackList()
