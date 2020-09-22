@@ -17,6 +17,12 @@ function teamCountChanged()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
+function langBtn() //TODO: Hide/show menu, expand vertically when pressed to show available packs
+{
+    let dropMenu = document.querySelector("#lobby #dropMenu");
+    dropMenu.style.display = dropMenu.style.display == "block" ? "none" : "block";
+}
+
 async function initializePackList()
 {
     let r = await fetch(PACKURL + "lang.csv");
