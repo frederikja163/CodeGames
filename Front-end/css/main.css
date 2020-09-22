@@ -64,7 +64,7 @@ ul
     margin: var(--space);
     background-color: var(--topColor);
     border: none;
-    border-radius: 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000px;
+    border-radius: 100%;
     box-shadow: var(--shadow);
     transition: width var(--transTime), height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime), box-shadow var(--transTime);
 }
