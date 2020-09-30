@@ -149,6 +149,38 @@
 #lobby #options #dropMenu > ol
 {
     list-style-type: none;
+    padding: 0;
+}
+
+#lobby #options #dropMenu > ol > li
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: right;
+}
+
+#lobby #options #dropMenu > ol > li:hover
+{
+    cursor: pointer;
+}
+
+#lobby #options #dropMenu > ol > li > div:first-child
+{
+    justify-items: left;
+    text-align: left;
+    width: 100%;
+}
+
+#lobby #options #dropMenu img
+{
+    font-size: 16px;
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    margin: var(--space);
+    background-color: var(--topColor);
+    border: none;
+    border-radius: 100%;
+    box-shadow: var(--shadow);
 }
 
 #lobby #options #wordsTitle, #lobby #options #wordsOption
