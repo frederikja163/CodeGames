@@ -32,7 +32,10 @@ function createLangElem(lang)
     }
 
     let nameElem = document.createElement("div");
-    nameElem.innerHTML = languages[lang].name;
+    nameElem.innerHTML = languages[lang].name + 
+    " (" + String(languages[lang].packs.length) + 
+    (languages[lang].packs.length == 1 ? " pack" : " packs") +
+    " available)";
 
     let flagElem = document.createElement("img");
     flagElem.alt = languages[lang].code;
