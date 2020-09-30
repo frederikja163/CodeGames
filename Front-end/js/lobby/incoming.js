@@ -86,5 +86,6 @@ SERVER.onSpymasterChanged = (room, pid) =>
 
 SERVER.onWordsChanged = (room) =>
 {
+    SERVER.room = room;
     console.log(room);
 };

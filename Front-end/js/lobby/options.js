@@ -114,9 +114,11 @@ async function createLang(lang)
     return l;
 }
 
+let s = {};
 function packClicked(index)
 {
-    let pack = languages[currentLang][index];
+    let pack = languages[currentLang].packs[index];
+    s = SERVER.room.options.words;
     if (SERVER.room.options.words.includes(pack))
     {
         SERVER.removeWords([pack]);
