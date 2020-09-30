@@ -23,15 +23,38 @@ function langBtn() //TODO: Hide/show menu, expand vertically when pressed to sho
     dropMenu.style.display = dropMenu.style.display == "block" ? "none" : "block";
 }
 
+function createLangElem(lang)
+{
+    let langElem = document.createElement("li");
+    langElem.onclick = function() 
+    {
+        selectLanguage(lang);
+    }
+
+    let nameElem = document.createElement("div");
+    nameElem.innerHTML = languages[lang].name;
+
+    let flagElem = document.createElement("img");
+    flagElem.alt = languages[lang].code;
+    flagElem.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
+
+    langElem.appendChild(nameElem);
+    langElem.appendChild(flagElem);
+
+    return langElem;
+}
+
 async function initializePackList()
 {
     let r = await fetch(PACKURL + "lang.csv");
     let t = await r.text();
     let langs = t.split(',');
+    let langListElem = document.querySelector("#lobby #dropMenu > ol");
     for (let i = 0; i < langs.length; i++)
     {
         let l = await createLang(langs[i].trim());
         languages.push(l);
+        langListElem.appendChild(createLangElem(i));
     }
     selectLanguage(0);
 }
