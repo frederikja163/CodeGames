@@ -66,7 +66,7 @@ class Lobby
             return;
         }
         this.data.options.words = words;
-        this.wordsChanged();
+        this.wordsChanged(words);
     }
 
     onAddWords(client, words)
@@ -75,7 +75,7 @@ class Lobby
             return;
         }
         this.data.options.words = this.data.options.words.concat(words);
-        this.wordsChanged();
+        this.wordsChanged(words);
     }
 
     onRemoveWords(client, words)
@@ -84,7 +84,7 @@ class Lobby
             return;
         }
         this.data.options.words = this.data.options.words.filter(w => !words.includes(w));
-        this.wordsChanged();
+        this.wordsChanged(words);
     }
 
     onSetTeam(client, pid, team)
@@ -153,10 +153,10 @@ class Lobby
         }
     }
 
-    wordsChanged(){
+    wordsChanged(words){
         for (let i = 0; i < this.clients.length; i++)
         {
-            this.clients[i].wordsChanged(this.data);
+            this.clients[i].wordsChanged(this.data, words);
         }
     }
 

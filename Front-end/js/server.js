@@ -41,7 +41,7 @@ class Server
 
         incoming("nameChanged", (room, pid, name) => this.onNameChanged(room, pid, name));
         incoming("playerKicked", (room, pid, reason) => this.onPlayerKicked(room, pid, reason));
-        incoming("wordsChanged", (room) => this.onWordsChanged(room));
+        incoming("wordsChanged", (room, words) => this.onWordsChanged(room, words));
         incoming("teamChanged", (room, pid) => this.onTeamChanged(room, pid));
         incoming("teamCountChanged", (room) => this.onTeamCountChanged(room));
         incoming("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
@@ -65,7 +65,7 @@ class Server
         //From-Server
         this.onNameChanged =        (room, pid) => {};
         this.onPlayerKicked =       (room, pid, reason) => {};
-        this.onWordsChanged =       (room) => {};
+        this.onWordsChanged =       (room, words) => {};
         this.onTeamChanged =        (room, pid) => {};
         this.onTeamCountChanged =   (room) => {};
         this.onSpymasterChanged =   (room,pid) => {}

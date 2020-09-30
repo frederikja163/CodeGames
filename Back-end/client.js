@@ -57,7 +57,7 @@ class Client{
         //To-Client
         this.nameChanged =          (room, pid) => send("nameChanged", room, pid);
         this.playerKicked =         (room, pid, reason) => send("playerKicked", room, pid, reason);
-        this.wordsChanged =         (room) => send("wordsChanged", room);
+        this.wordsChanged =         (room, words) => send("wordsChanged", room, words);
         this.teamChanged =          (room, pid) => send("teamChanged", room, pid);
         this.teamCountChanged =     (room) => send("teamCountChanged", room);
         this.spymasterChanged =     (room, pid) => send("spymasterChanged", room, pid);
