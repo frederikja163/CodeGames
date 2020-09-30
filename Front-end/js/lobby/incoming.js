@@ -83,3 +83,8 @@ SERVER.onSpymasterChanged = (room, pid) =>
 
     spymasterChanged(pid, oldPlayer === undefined ? null : oldPlayer.pid);
 };
+
+SERVER.onWordsChanged = (room) =>
+{
+    console.log(room);
+};

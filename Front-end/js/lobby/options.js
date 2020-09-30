@@ -86,7 +86,10 @@ function selectLanguage(index)
         elem.appendChild(name);
         let div = document.createElement("div");
         div.classList = "btn2";
-        div.attributes["onclick"] = "clickPack(" + i + ")";
+        div.onclick = function()
+        {
+            clickPack(i);
+        };
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
         img.style.display = "none";
@@ -111,8 +114,6 @@ async function createLang(lang)
     return l;
 }
 
-SERVER.onWordsChanged = console.log;
-
 function packClicked(index)
 {
     let pack = languages[currentLang][index];
@@ -122,6 +123,6 @@ function packClicked(index)
     }
     else
     {
-        SERVER.addWords([packs]);
+        SERVER.addWords([pack]);
     }
 }
