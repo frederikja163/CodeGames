@@ -60,7 +60,7 @@ function selectLanguage(index)
         elem.appendChild(name);
         let div = document.createElement("div");
         div.classList = "btn2";
-        div.onclick = "";
+        div.attributes["onclick"] = "clickPack(" + i + ")";
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
         img.style.display = "none";
@@ -83,4 +83,19 @@ async function createLang(lang)
     let t = await r.text();
     t.split(',').forEach(p => l.packs.push(p));
     return l;
+}
+
+SERVER.onWordsChanged = console.log;
+
+function packClicked(index)
+{
+    let pack = languages[currentLang][index];
+    if (SERVER.room.options.words.includes(pack))
+    {
+        SERVER.removeWords([pack]);
+    }
+    else
+    {
+        SERVER.addWords([packs]);
+    }
 }

@@ -42,3 +42,8 @@ function leaveRoom() //TODO: Change URL without redirecting
     let ridStart = url.indexOf("#");
     window.location = url.slice(0, ridStart);
 }
+
+function clickPack(index)
+{
+    packClicked(index);
+}
