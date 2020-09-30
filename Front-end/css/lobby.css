@@ -233,6 +233,13 @@
     border-style: solid;
 }
 
+#lobby > #options #words li img
+{
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    border-radius: 100%;
+}
+
 #lobby #logo
 {
     width: 100%;

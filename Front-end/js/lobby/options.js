@@ -67,7 +67,8 @@ function selectLanguage(index)
     let packs = packList.querySelectorAll("li");
     for (let i = packs.length - 1; i >= 0; i--)
     {
-        if (!packs[i].lastElementChild.src)
+        let img = packs[i].querySelector("img");
+        if (img.style.display == "none")
         {
             packs[i].remove();
         }
@@ -80,10 +81,14 @@ function selectLanguage(index)
         let name = document.createElement("div");
         name.innerText = p.substring(1);
         elem.appendChild(name);
+        let div = document.createElement("div");
+        div.classList = "btn2";
+        div.onclick = "";
         let img = document.createElement("img");
-        img.classList = "btn2";
-        img.onclick = "";
-        elem.appendChild(img);
+        img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
+        img.style.display = "none";
+        div.appendChild(img);
+        elem.appendChild(div);
         packList.appendChild(elem);
     }
 }
