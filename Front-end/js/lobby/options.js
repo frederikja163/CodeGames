@@ -79,20 +79,23 @@ async function initializePackList()
     dropMenu.addEventListener("click", ev => ev.stopPropagation());
 }
 
-function selectLanguage(index)
+function selectLanguage(index) //TODO: Do this in a non index based manner, to allow multiple languages active at once.
 {
     currentLang = index;
     let lang = languages[currentLang];
     let packList = document.querySelector("#lobby > #options > ul > #wordsOption > #words > ul");
     let packs = packList.querySelectorAll("li");
+    packRemoves = [];
     for (let i = packs.length - 1; i >= 0; i--)
     {
         let img = packs[i].querySelector("img");
-        if (img.style.display == "none")
+        if (img.style.display == "block")
         {
-            packs[i].remove();
+            packRemoves.push("#" + packs[i].firstChild.innerText);
         }
+        packs[i].remove();
     }
+    SERVER.removeWords(packRemoves);
 
     for (let i = 0; i < lang.packs.length; i++)
     {
@@ -105,7 +108,7 @@ function selectLanguage(index)
         div.classList = "btn2";
         div.onclick = () =>
         {
-            clickPack(i.valueOf());
+            clickPack(i);
         };
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
@@ -166,7 +169,7 @@ function updatePack(pack)
     let packElems = document.querySelectorAll("#lobby #options #words li > div:first-child");
     for (let i = 0; i < packElems.length; i++)
     {
-        if (packElems[i].innerHTML === packName);
+        if (packElems[i].innerHTML === packName)
         {
             let imgElem = packElems[i].parentElement.querySelector("div:nth-child(2) img");
 

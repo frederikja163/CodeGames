@@ -205,8 +205,7 @@
 
     overflow: auto;
     height: 500px;
-    background-color: var(--topColor);
-    color: var(--backColor);
+    background-color: var(--l1Color);
     text-align: left;
     padding: var(--space);
 }
@@ -238,6 +237,31 @@
     width: var(--btn2Size);
     height: var(--btn2Size);
     border-radius: 100%;
+}
+
+#lobby #options #wordsField
+{
+    display: inline-block;
+    height: 2vh;
+    font-size: 18px;
+    background-color: transparent;
+    color: var(--topColor);
+    box-shadow: none;
+    margin-left: calc(var(--btn2Size) + 2 * var(--space));
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+#lobby #options #wordsField:focus
+{
+    height: calc(2vh + var(--space));
+    margin-top: calc(1.5 * var(--space));
+    margin-bottom: calc(1.5 * var(--space));
+    box-shadow: var(--shadow);
+    background-color: var(--topColor);
+    color: black;
 }
 
 #lobby #logo
