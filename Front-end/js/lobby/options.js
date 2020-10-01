@@ -17,18 +17,22 @@ function teamCountChanged()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
-function langBtn() //TODO: Hide/show menu, expand vertically when pressed to show available packs
+function langBtn(display) //TODO: Hide/show menu, expand vertically when pressed to show available packs
 {
     let dropMenu = document.querySelector("#lobby #dropMenu");
-    dropMenu.style.display = dropMenu.style.display == "block" ? "none" : "block";
+    dropMenu.style.display = display ? display : dropMenu.style.display == "block" ? "none" : "block";
 }
 
 function createLangElem(lang)
 {
     let langElem = document.createElement("li");
-    langElem.onclick = function() 
+    langElem.onclick = () => 
     {
         selectLanguage(lang);
+        let dropBtn = document.querySelector("#lobby #dropBtn");
+        let img = dropBtn.firstElementChild;
+        img.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
+        langBtn("none");
     }
 
     let nameElem = document.createElement("div");
@@ -60,6 +64,19 @@ async function initializePackList()
         langListElem.appendChild(createLangElem(i));
     }
     selectLanguage(0);
+
+    //To minimize the dropdown when you click anywhere on the page we have to set up two events
+    //The first event will be for a click anywhere on body.
+    //The second event will be for a click on the dropdown.
+    //If we click on the dropdown we cancel the body event before it happens.
+    //Hereby we have code that executes on a click outside the dropdown.
+    let dropMenu = document.querySelector("#lobby #dropMenu");
+    let dropBtn = document.querySelector("#lobby #dropBtn");
+    let body = document.body;
+
+    body.addEventListener("click", ev => langBtn("none"));
+    dropBtn.addEventListener("click", ev => ev.stopPropagation());
+    dropMenu.addEventListener("click", ev => ev.stopPropagation());
 }
 
 function selectLanguage(index)
@@ -110,7 +127,7 @@ async function createLang(lang)
     l.packs = [];
     let r = await fetch(PACKURL + code.toLowerCase() + "/packs.csv");
     let t = await r.text();
-    t.split(',').forEach(p => l.packs.push(p));
+    t.split(',\n').forEach(p => l.packs.push(p));
     return l;
 }
 
