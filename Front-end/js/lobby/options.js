@@ -77,7 +77,7 @@ function selectLanguage(index)
         }
     }
 
-    for (let i = 0; i < languages[currentLang].packs.length; i++)
+    for (let i = 0; i < lang.packs.length; i++)
     {
         let p = lang.packs[i];
         let elem = document.createElement("li");
@@ -86,9 +86,9 @@ function selectLanguage(index)
         elem.appendChild(name);
         let div = document.createElement("div");
         div.classList = "btn2";
-        div.onclick = function()
+        div.onclick = () =>
         {
-            clickPack(i);
+            clickPack(i.valueOf());
         };
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
@@ -126,5 +126,42 @@ function packClicked(index)
     else
     {
         SERVER.addWords([pack]);
+    }
+}
+
+function updateWordsField()
+{
+    let wordsFieldElem = document.querySelector("#wordsField");
+    wordsFieldElem.value = SERVER.room.options.words;
+}
+
+function updatePacks(packs)
+{
+    for (let i = 0; i < packs.length; i++)
+    {
+        updatePack(packs[i]);
+    }
+}
+
+function updatePack(pack)
+{
+    let packName = pack.substring(1);
+    let packElems = document.querySelectorAll("#lobby #options #words li > div:first-child");
+    for (let i = 0; i < packElems.length; i++)
+    {
+        if (packElems[i].innerHTML === packName);
+        {
+            let imgElem = packElems[i].parentElement.querySelector("div:nth-child(2) img");
+
+            if (SERVER.room.options.words.includes(pack))
+            {
+                imgElem.style.display = "block";
+            }
+            else
+            {
+                imgElem.style.display = "none";
+            }
+        }
+        
     }
 }
