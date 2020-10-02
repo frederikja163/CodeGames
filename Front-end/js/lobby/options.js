@@ -112,7 +112,7 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         };
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
-        img.style.display = "none";
+        img.style.display = SERVER.room.options.words.includes(p) ? "block" : "none";
         div.appendChild(img);
         elem.appendChild(div);
         packList.appendChild(elem);
@@ -182,6 +182,33 @@ function updatePack(pack)
                 imgElem.style.display = "none";
             }
         }
-        
     }
+}
+
+function wordsEdit()
+{
+    let wordsField = document.querySelector("#wordsField");
+    let wordsEdit = document.querySelector("#wordsEdit");
+    let wordsSubmit = document.querySelector("#wordsSubmit");
+
+    wordsField.readOnly = false;
+    wordsField.focus();
+
+    wordsEdit.style.display = HIDDEN;
+    wordsSubmit.style.display = "initial";
+}
+
+function wordsSubmit() // TODO: Enter to subbmit
+{
+    let wordsField = document.querySelector("#wordsField");
+    let wordsEdit = document.querySelector("#wordsEdit");
+    let wordsSubmit = document.querySelector("#wordsSubmit");
+
+    let words = [];
+    wordsField.value.split(',').forEach(p => words.push(p));
+    SERVER.setWords(words);
+
+    wordsSubmit.style.display = HIDDEN;
+    wordsEdit.style.display = "initial";
+    document.activeElement.blur();
 }
