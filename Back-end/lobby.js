@@ -23,7 +23,7 @@ class Lobby
         let player = this.data.players.find(p => p.pid === pid);
         if (player.spymaster)
         {
-            let newSpymaster = this.data.players.find(p => p.team === player.team);
+            let newSpymaster = this.data.players.find(p => p.team === player.team && p.pid != pid);
             if (newSpymaster != null)
             {
                 newSpymaster.spymaster = true;
