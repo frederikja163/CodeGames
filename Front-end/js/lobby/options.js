@@ -204,8 +204,7 @@ function wordsSubmit() // TODO: Enter to subbmit
     let wordsEdit = document.querySelector("#wordsEdit");
     let wordsSubmit = document.querySelector("#wordsSubmit");
 
-    let words = [];
-    wordsField.value.split(',').forEach(p => words.push(p));
+    let words = wordsField.value.split(',');
     SERVER.setWords(words);
 
     wordsSubmit.style.display = HIDDEN;

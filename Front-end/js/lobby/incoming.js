@@ -89,5 +89,14 @@ SERVER.onWordsChanged = (room, words) =>
     SERVER.room = room;
 
     updateWordsField();
-    updatePacks(words);
+
+    if (room.options.words.length === words.length && 
+        room.options.words.find((e, i) => e != words[i]) === undefined)
+    {
+        updatePacks(languages[currentLang].packs);
+    }
+    else
+    {
+        updatePacks(words);
+    }
 };
