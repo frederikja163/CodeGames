@@ -1,8 +1,8 @@
 *
 {
     --space: 10px;
-    --shadow: 5px 5px 5px 0 hsla(0,0%,0%,0.2);
-    --shadowHover: .2em .2em .8em .2em hsla(0,0%,0%,0.2);
+    --shadow: 0 0 8px 0 hsla(0,0%,0%,0.2);
+    --shadowHover: 0 0 8px 4px hsla(0,0%,0%,0.2);
     --transTime: .1s;
     --backColor: #1e1e1e;
     --topColor: #e9e9e9;

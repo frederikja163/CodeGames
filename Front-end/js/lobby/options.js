@@ -79,22 +79,25 @@ async function initializePackList()
     dropMenu.addEventListener("click", ev => ev.stopPropagation());
 }
 
-function selectLanguage(index)
+function selectLanguage(index) //TODO: Do this in a non index based manner, to allow multiple languages active at once.
 {
     currentLang = index;
     let lang = languages[currentLang];
     let packList = document.querySelector("#lobby > #options > ul > #wordsOption > #words > ul");
     let packs = packList.querySelectorAll("li");
+    packRemoves = [];
     for (let i = packs.length - 1; i >= 0; i--)
     {
         let img = packs[i].querySelector("img");
-        if (img.style.display == "none")
+        if (img.style.display == "block")
         {
-            packs[i].remove();
+            packRemoves.push("#" + packs[i].firstChild.innerText);
         }
+        packs[i].remove();
     }
+    SERVER.removeWords(packRemoves);
 
-    for (let i = 0; i < languages[currentLang].packs.length; i++)
+    for (let i = 0; i < lang.packs.length; i++)
     {
         let p = lang.packs[i];
         let elem = document.createElement("li");
@@ -103,13 +106,13 @@ function selectLanguage(index)
         elem.appendChild(name);
         let div = document.createElement("div");
         div.classList = "btn2";
-        div.onclick = function()
+        div.onclick = () =>
         {
             clickPack(i);
         };
         let img = document.createElement("img");
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
-        img.style.display = "none";
+        img.style.display = SERVER.room.options.words.includes(p) ? "block" : "none";
         div.appendChild(img);
         elem.appendChild(div);
         packList.appendChild(elem);
@@ -144,4 +147,67 @@ function packClicked(index)
     {
         SERVER.addWords([pack]);
     }
+}
+
+function updateWordsField()
+{
+    let wordsFieldElem = document.querySelector("#wordsField");
+    wordsFieldElem.value = SERVER.room.options.words;
+}
+
+function updatePacks(packs)
+{
+    for (let i = 0; i < packs.length; i++)
+    {
+        updatePack(packs[i]);
+    }
+}
+
+function updatePack(pack)
+{
+    let packName = pack.substring(1);
+    let packElems = document.querySelectorAll("#lobby #options #words li > div:first-child");
+    for (let i = 0; i < packElems.length; i++)
+    {
+        if (packElems[i].innerHTML === packName)
+        {
+            let imgElem = packElems[i].parentElement.querySelector("div:nth-child(2) img");
+
+            if (SERVER.room.options.words.includes(pack))
+            {
+                imgElem.style.display = "block";
+            }
+            else
+            {
+                imgElem.style.display = "none";
+            }
+        }
+    }
+}
+
+function wordsEdit()
+{
+    let wordsField = document.querySelector("#wordsField");
+    let wordsEdit = document.querySelector("#wordsEdit");
+    let wordsSubmit = document.querySelector("#wordsSubmit");
+
+    wordsField.readOnly = false;
+    wordsField.focus();
+
+    wordsEdit.style.display = HIDDEN;
+    wordsSubmit.style.display = "initial";
+}
+
+function wordsSubmit() // TODO: Enter to subbmit
+{
+    let wordsField = document.querySelector("#wordsField");
+    let wordsEdit = document.querySelector("#wordsEdit");
+    let wordsSubmit = document.querySelector("#wordsSubmit");
+
+    let words = wordsField.value.split(',');
+    SERVER.setWords(words);
+
+    wordsSubmit.style.display = HIDDEN;
+    wordsEdit.style.display = "initial";
+    document.activeElement.blur();
 }

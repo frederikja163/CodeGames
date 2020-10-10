@@ -46,10 +46,12 @@ document.addEventListener('keyup', (event) =>
             nameSubmit();
             SERVER.setName(nameField.value);
         }
+        /*
         else if (lobby.style.display != HIDDEN)
         {
             nameEdit();
         }
+        */
 
         // Join lobby if cursor is in any of 2 textfields
         let welcomeFields = document.querySelectorAll("#welcome input");

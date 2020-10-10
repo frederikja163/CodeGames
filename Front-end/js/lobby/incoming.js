@@ -84,8 +84,19 @@ SERVER.onSpymasterChanged = (room, pid) =>
     spymasterChanged(pid, oldPlayer === undefined ? null : oldPlayer.pid);
 };
 
-SERVER.onWordsChanged = (room) =>
+SERVER.onWordsChanged = (room, words) =>
 {
     SERVER.room = room;
-    console.log(room);
+
+    updateWordsField();
+
+    if (room.options.words.length === words.length && 
+        room.options.words.find((e, i) => e != words[i]) === undefined)
+    {
+        updatePacks(languages[currentLang].packs);
+    }
+    else
+    {
+        updatePacks(words);
+    }
 };
