@@ -123,15 +123,21 @@
     color: var(--backColor);
     border-radius: calc(var(--btn2Size) * .5);
     text-align: left;
-    line-height: var(--btn2Size);
 }
 
-#lobby #options #dropBtn > *
+#lobby #options #dropBtn > *:first-child
 {
+    display:inline-block;
     margin: 0;
     width: var(--btn2Size);
     height: var(--btn2Size);
     border-radius: 100%;
+}
+
+#lobby #options #dropBtn > *:last-child
+{
+    display:inline-block;
+    margin-top:calc(var(--btn2Size) * 0.5 - 9);
 }
 
 #lobby #options #dropMenu
