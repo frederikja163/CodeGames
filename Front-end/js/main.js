@@ -39,20 +39,6 @@ document.addEventListener('keyup', (event) =>
     }
     else if(event.keyCode == 13) //Enter
     {
-        // Submit name if cursor is in namefield
-        let nameField = document.querySelector("#nameField");
-        if(nameField === document.activeElement)
-        {
-            nameSubmit();
-            SERVER.setName(nameField.value);
-        }
-        /*
-        else if (lobby.style.display != HIDDEN)
-        {
-            nameEdit();
-        }
-        */
-
         // Join lobby if cursor is in any of 2 textfields
         let welcomeFields = document.querySelectorAll("#welcome input");
         for (let i = 0; i < welcomeFields.length; i++)

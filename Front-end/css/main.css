@@ -90,6 +90,8 @@ ul
     border-radius: 5px;
     box-shadow: var(--shadow);
     transition: height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
+    height: 20px;
+    font-size: 18px;
 }
 
 .inputTxt:focus
@@ -97,6 +99,7 @@ ul
     outline: none;
     margin-top: calc(1.5 * var(--space));
     margin-bottom: calc(1.5 * var(--space));
+    height: calc(20px + var(--space));
 }
 
 #debugWarning

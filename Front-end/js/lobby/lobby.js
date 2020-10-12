@@ -26,30 +26,10 @@ function updateNameField()
     nameField.selectionStart = name.length;
 }
 
-function nameEdit()
+function nameChange()
 {
     let nameField = document.querySelector("#nameField");
-    let nameEdit = document.querySelector("#nameEdit");
-    let nameSubmit = document.querySelector("#nameSubmit");
-
-    nameField.readOnly = false;
-    nameField.focus();
-
-    nameEdit.style.display = HIDDEN;
-    nameSubmit.style.display = "initial";
-}
-
-function nameSubmit()
-{
-    let nameField = document.querySelector("#nameField");
-    let nameEdit = document.querySelector("#nameEdit");
-    let nameSubmit = document.querySelector("#nameSubmit");
-
-    SERVER.room.players.find(p => p.pid === SERVER.pid).name = nameField.value;
-
-    nameSubmit.style.display = HIDDEN;
-    nameEdit.style.display = "initial";
-    document.activeElement.blur();
+    SERVER.setName(nameField.value);
 }
 
 function revealOwnerContent()

@@ -185,29 +185,10 @@ function updatePack(pack)
     }
 }
 
-function wordsEdit()
+function wordsChange()
 {
     let wordsField = document.querySelector("#wordsField");
-    let wordsEdit = document.querySelector("#wordsEdit");
-    let wordsSubmit = document.querySelector("#wordsSubmit");
-
-    wordsField.readOnly = false;
-    wordsField.focus();
-
-    wordsEdit.style.display = HIDDEN;
-    wordsSubmit.style.display = "initial";
-}
-
-function wordsSubmit() // TODO: Enter to subbmit
-{
-    let wordsField = document.querySelector("#wordsField");
-    let wordsEdit = document.querySelector("#wordsEdit");
-    let wordsSubmit = document.querySelector("#wordsSubmit");
 
     let words = wordsField.value.split(',');
     SERVER.setWords(words);
-
-    wordsSubmit.style.display = HIDDEN;
-    wordsEdit.style.display = "initial";
-    document.activeElement.blur();
 }

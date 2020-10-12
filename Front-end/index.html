@@ -82,10 +82,7 @@
                                 
                             </ul>
                         </div>
-                        <input class="inputTxt" id="wordsField">
-                        </input>
-                        <button class="btn2" id="wordsEdit" onclick="wordsEdit()">✏️</button>
-                        <button class="btn2" id="wordsSubmit" onclick="wordsSubmit()" style="display: none;">✔️</button>
+                        <input class="inputTxt" id="wordsField" placeholder="Words" onchange="wordsChange()"></input>
                     </li>
                 </ul>
             </div>
@@ -96,9 +93,7 @@
             <!-- Name -->
             <div id="name">
                 <p>Username:</p>
-                <input class="inputTxt" id="nameField" type="text" onclick="nameEdit()">
-                <button class="btn2" id="nameEdit" onclick="nameEdit()">✏️</button>
-                <button class="btn2" id="nameSubmit" onclick="nameSubmit(); SERVER.setName(document.querySelector('#nameField').value)" style="display: none;">✔️</button>
+                <input class="inputTxt" id="nameField" type="text" onchange="nameChange()" placeholder="Enter username">
             </div>
 
             <!-- Start game button -->
