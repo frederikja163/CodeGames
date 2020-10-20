@@ -11,6 +11,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     initializePlayers();
     initializePackList();
     updateTeamCount();
+    setupRoom();
 };
 
 SERVER.onPlayerJoined = (room, pid) => 

@@ -11,9 +11,11 @@ if (URLPARAMS.has("host"))
             //TODO: Create a development server, for now use release.
             SERVER.connect("116.203.80.39", 9999);
             break;
+        case "rel":
         case "release":
             SERVER.connect("116.203.80.39", 9999);
             break;
+        case "loc":
         case "local":
             SERVER.connect("localhost", 9999);
             break;
@@ -62,18 +64,6 @@ window.onload = () => {
     {
         let rid = url.substring(ridStart + 1);
         SERVER.joinRoom(rid);
-
-        //Start parameters
-        if (URLPARAMS.has("teamCount"))
-        {
-            let teamCount = Number.parseInt(URLPARAMS.get("teamCount"));
-            SERVER.setTeamCount(teamCount);
-        }
-        if (URLPARAMS.has("name"))
-        {
-            let name = URLPARAMS.get("name")
-            SERVER.setName(name);
-        }
     }
 }
 

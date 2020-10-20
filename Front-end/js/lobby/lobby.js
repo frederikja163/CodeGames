@@ -4,6 +4,32 @@ function swapToLobby()
     lobby.style.display = VISIBLE;
 }
 
+function setupRoom()
+{
+    //Start parameters
+    if (URLPARAMS.has("name"))
+    {
+        let name = URLPARAMS.get("name")
+        SERVER.setName(name);
+    }
+    
+    if (SERVER.room.players[0].pid != SERVER.pid)
+    {
+        return;
+    }
+
+    if (URLPARAMS.has("teamCount"))
+    {
+        let teamCount = Number.parseInt(URLPARAMS.get("teamCount"));
+        SERVER.setTeamCount(teamCount);
+    }
+    if (URLPARAMS.has("words"))
+    {
+        let words = URLPARAMS.get("words")
+        SERVER.setWords(words);
+    }
+}
+
 function updateLink()
 {
     let url = String(window.location);
