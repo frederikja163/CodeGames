@@ -117,6 +117,8 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         elem.appendChild(div);
         packList.appendChild(elem);
     }
+    
+    SERVER.setWords(["@" + lang.code]);
 }
 
 async function createLang(lang)
@@ -190,5 +192,6 @@ function wordsChange()
     let wordsField = document.querySelector("#wordsField");
 
     let words = wordsField.value.split(',');
+
     SERVER.setWords(words);
 }
