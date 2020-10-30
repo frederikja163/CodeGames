@@ -11,7 +11,11 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     initializePlayers();
     initializePackList();
     updateTeamCount();
+<<<<<<< HEAD
     setupRoom();
+=======
+    revealOwnerContent();
+>>>>>>> langSelect
 };
 
 SERVER.onPlayerJoined = (room, pid) => 

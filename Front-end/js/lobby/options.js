@@ -81,6 +81,7 @@ async function initializePackList()
 
 function selectLanguage(index) //TODO: Do this in a non index based manner, to allow multiple languages active at once.
 {
+    let oldLang = currentLang;
     currentLang = index;
     let lang = languages[currentLang];
     let packList = document.querySelector("#lobby > #options > ul > #wordsOption > #words > ul");
@@ -105,7 +106,7 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         name.innerText = p.substring(1);
         elem.appendChild(name);
         let div = document.createElement("div");
-        div.classList = "btn2";
+        div.classList = "packLangDiv";
         div.onclick = () =>
         {
             clickPack(i);
@@ -116,6 +117,17 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         div.appendChild(img);
         elem.appendChild(div);
         packList.appendChild(elem);
+    }
+    
+    if (oldLang != -1 && SERVER.room.options.words.includes("@" + languages[oldLang].code) && 
+    !SERVER.room.options.words.some(w => languages[oldLang].packs.includes(w)))
+    {
+        SERVER.removeWords(["@" + languages[oldLang].code]);
+    }
+
+    if (!SERVER.room.options.words.includes("@" + lang.code))
+    {
+        SERVER.addWords(["@" + lang.code]);
     }
 }
 
@@ -152,7 +164,9 @@ function packClicked(index)
 function updateWordsField()
 {
     let wordsFieldElem = document.querySelector("#wordsField");
+    let wordsTxtElem = document.querySelector("#wordsTxt");
     wordsFieldElem.value = SERVER.room.options.words;
+    wordsTxtElem.innerText = SERVER.room.options.words;
 }
 
 function updatePacks(packs)
@@ -190,5 +204,10 @@ function wordsChange()
     let wordsField = document.querySelector("#wordsField");
 
     let words = wordsField.value.split(',');
+
+    console.log(currentLang);
+
+    //SERVER.room.options.words.find(w => w == "@" + lang)
+
     SERVER.setWords(words);
 }
