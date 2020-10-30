@@ -86,17 +86,17 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
     let lang = languages[currentLang];
     let packList = document.querySelector("#lobby > #options > ul > #wordsOption > #words > ul");
     let packs = packList.querySelectorAll("li");
-    packRemoves = [];
-    for (let i = packs.length - 1; i >= 0; i--)
-    {
-        let img = packs[i].querySelector("img");
-        if (img.style.display == "block")
-        {
-            packRemoves.push("#" + packs[i].firstChild.innerText);
-        }
-        packs[i].remove();
-    }
-    SERVER.removeWords(packRemoves);
+    // packRemoves = [];
+    // for (let i = packs.length - 1; i >= 0; i--)
+    // {
+    //     let img = packs[i].querySelector("img");
+    //     if (img.style.display == "block")
+    //     {
+    //         packRemoves.push("#" + packs[i].firstChild.innerText);
+    //     }
+    //     packs[i].remove();
+    // }
+    //SERVER.removeWords(packRemoves);
 
     for (let i = 0; i < lang.packs.length; i++)
     {
