@@ -11,6 +11,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     initializePlayers();
     initializePackList();
     updateTeamCount();
+    revealOwnerContent();
 };
 
 SERVER.onPlayerJoined = (room, pid) => 

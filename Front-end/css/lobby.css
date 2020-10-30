@@ -96,6 +96,7 @@
     grid-template-columns: auto auto;
     grid-template-rows: auto auto auto auto;
     padding: var(--space);
+    padding-left: 0;
 }
 
 #lobby #options > ul > li
@@ -138,6 +139,14 @@
 {
     display:inline-block;
     margin-top:calc(var(--btn2Size) * 0.5 - 9);
+}
+
+#lobby #options #currentLang
+{
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    border-radius: 100%;
+    box-shadow: var(--shadow);
 }
 
 #lobby #options #dropMenu
@@ -209,6 +218,7 @@
 {
     grid-column: 1 / 3;
 
+    display: grid;
     overflow: auto;
     height: 500px;
     background-color: var(--l1Color);
@@ -250,6 +260,12 @@
     text-align: center;
     width: calc(100% - 2 * var(--space));
     margin-left: 0;
+}
+
+#lobby #options #wordsTxt
+{
+    margin-top: var(--space);
+    background-color: var(--l1Color);
 }
 
 #lobby #logo

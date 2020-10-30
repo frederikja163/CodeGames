@@ -71,10 +71,11 @@
                     </li>
                     <li id="langTitle">Language:</li>
                     <li id="langOption">
-                        <div class="btn" id="dropBtn" onclick="langBtn()">
+                        <div class="btn owner" id="dropBtn" onclick="langBtn()" style="display: none">
                             <img src="./assets/packs/en/flag.png" alt="EN"></img>
                             <div>▼</div>
                         </div>
+                        <img id="currentLang" src="./assets/packs/en/flag.png" alt="EN"></img>
                     </li>
                     <li id="wordsTitle">Words:</li>
                     <li class="box" id="dropMenu">
@@ -82,12 +83,13 @@
                         </ol>
                     </li>
                     <li id="wordsOption">
-                        <div class="box owner" id="words">
+                        <div class="box owner" id="words" style="display: grid">
                             <ul>
                                 
                             </ul>
                         </div>
-                        <input class="inputTxt" id="wordsField" placeholder="Words" onchange="wordsChange()"></input>
+                        <input class="inputTxt owner" id="wordsField" placeholder="Words" onchange="wordsChange()" style="display: none"></input>
+                        <div class="box" id="wordsTxt">Words</div>
                     </li>
                 </ul>
             </div>
