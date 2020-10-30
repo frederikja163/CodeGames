@@ -128,7 +128,7 @@
 
 #lobby #options #dropBtn > *:first-child
 {
-    display:inline-block;
+    /* display:inline-block; */
     margin: 0;
     width: var(--btn2Size);
     height: var(--btn2Size);
@@ -137,8 +137,8 @@
 
 #lobby #options #dropBtn > *:last-child
 {
-    display:inline-block;
-    margin-top:calc(var(--btn2Size) * 0.5 - 9);
+    /* display:inline-block; */
+    /* margin-top:calc(var(--btn2Size) * 0.5 - 9); */
 }
 
 #lobby #options #currentLang

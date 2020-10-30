@@ -63,10 +63,11 @@ function revealOwnerContent()
     if (SERVER.pid == SERVER.room.players[0].pid)
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
+        document.querySelectorAll(".guest").forEach(elem => elem.style.display = HIDDEN);
         document.querySelector("#words").style.display = "grid";
         document.querySelector("#dropBtn").style.display = "block";
-        document.querySelector("#wordsTxt").style.display = HIDDEN;
-        document.querySelector("#currentLang").style.display = HIDDEN;
+        // document.querySelector("#wordsTxt").style.display = HIDDEN;
+        // document.querySelector("#currentLang").style.display = HIDDEN;
         document.querySelectorAll(".packLangDiv").forEach(elem => elem.className += " btn2");
         
         for (let i = 0; i < SERVER.room.players.length; i++)

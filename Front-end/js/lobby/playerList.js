@@ -1,4 +1,4 @@
-function initializeTeams()
+﻿function initializeTeams()
 {
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
     {
