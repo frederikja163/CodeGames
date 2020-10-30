@@ -72,7 +72,7 @@ function revealOwnerContent()
         for (let i = 0; i < packLangDivElems.length; i++)
         {
             //packLangDivElems[i].style.boxShadow = "var(--shadow)";
-            packLangDivElems.className = "btn2";
+            packLangDivElems[i].className += " btn2";
         }
         
         for (let i = 0; i < SERVER.room.players.length; i++)
