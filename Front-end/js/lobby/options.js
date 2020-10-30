@@ -106,13 +106,12 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         name.innerText = p.substring(1);
         elem.appendChild(name);
         let div = document.createElement("div");
-        div.classList = "btn2";
+        div.classList = "packLangDiv";
         div.onclick = () =>
         {
             clickPack(i);
         };
         let img = document.createElement("img");
-        img.className = "packLangImg";
         img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
         img.style.display = SERVER.room.options.words.includes(p) ? "block" : "none";
         div.appendChild(img);

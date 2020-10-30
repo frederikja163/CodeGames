@@ -255,6 +255,15 @@
     border-radius: 100%;
 }
 
+/*
+#lobby .packLangDiv
+{
+    box-shadow: none;
+    cursor: default;
+    background-color: #00000000;
+}
+*/
+
 #lobby #options #wordsField
 {
     text-align: center;
