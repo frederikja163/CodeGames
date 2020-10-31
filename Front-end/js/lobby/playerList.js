@@ -1,4 +1,6 @@
-﻿function initializeTeams()
+﻿const ICONPATH = "./assets/miscIcons/";
+
+function initializeTeams()
 {
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
     {
@@ -77,8 +79,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
     // Create spymaster icon
     let smElem = document.createElement("DIV");
     smElem.className = "smIcon";
-    //TODO: Change to a png image instead.
-    smElem.innerText = "🕵️";
+    smElem.appendChild(createIconElem(ICONPATH + "spy.png"));
     smElem.style.fontSize = "16.56px";
     smElem.style.display = player.spymaster === true ? 'inline' : "none";
 
@@ -112,9 +113,9 @@ function createDownBtnElem(player, teamColor)
     let downElem = document.createElement("BUTTON");
     downElem.className = "btn2 owner";
     downElem.style.backgroundColor = teamColor;
+    downElem.style.padding = 0;
     downElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    //TODO: Change to a png image instead.
-    downElem.innerText = "⬇";
+    downElem.appendChild(createIconElem(ICONPATH + "arrowFull.png", 0, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
     downElem.setAttribute("onclick", "changeTeamDown('" + player.pid + "')");
 
     return downElem;
@@ -125,9 +126,9 @@ function createUpBtnElem(player, teamColor)
     let upElem = document.createElement("BUTTON");      
     upElem.className = "btn2 owner";
     upElem.style.backgroundColor = teamColor;
+    upElem.style.padding = 0;
     upElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    //TODO: Change to a png image instead.
-    upElem.innerText = "⬆";
+    upElem.appendChild(createIconElem(ICONPATH + "arrowFull.png", 180, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
     upElem.setAttribute("onclick", "changeTeamUp('" + player.pid + "')");
 
     return upElem;
@@ -139,9 +140,9 @@ function createSmBtnElem(player, teamColor)
     smElem.className = "btn2 owner smBtn";
     smElem.id = player.pid;
     smElem.style.backgroundColor = teamColor;
+    smElem.style.padding = 0;
     smElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    //TODO: Change to a png image instead.
-    smElem.innerText = "🕵️";
+    smElem.appendChild(createIconElem(ICONPATH + "spy.png"));
     smElem.setAttribute('onclick', 'setSpymaster("' + player.pid + '")');
 
     return smElem;
@@ -152,8 +153,7 @@ function createOwnerIconElem()
     let ownerElem = document.createElement("DIV");
     ownerElem.className = "ownerIcon";
     ownerElem.style.fontSize = "15.294px";
-    //TODO: Change to a png image instead.
-    ownerElem.innerText = "👑";
+    ownerElem.appendChild(createIconElem(ICONPATH + "crown.png"));
 
     return ownerElem;
 }
@@ -163,12 +163,38 @@ function createKickBtnElem(player, teamColor)
     let kickElem = document.createElement("BUTTON");
     kickElem.className = "btn2 owner kickBtn";
     kickElem.style.backgroundColor = teamColor;
+    kickElem.style.padding = 0;
     kickElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    //TODO: Change to a png image instead.
-    kickElem.innerText = "🚫";
+    kickElem.appendChild(createIconElem(ICONPATH + "no.png"));
     kickElem.setAttribute('onclick', 'kick("' + player.pid + '")');
 
     return kickElem;
+}
+
+function createIconElem(src, angle, invertColor, className)
+{
+    let iconElem = document.createElement("IMG");
+    iconElem.src = src;
+    iconElem.style.width = "calc(var(--btn2Size) * (3/4))";
+    iconElem.style.height = "calc(var(--btn2Size) * (3/4))";
+    iconElem.style.padding = "calc(var(--btn2Size) * (1/8))";
+
+    if (angle != undefined || angle != 0 || angle != false || angle != null)
+    {
+        iconElem.style.transform = "rotate(" + angle + "deg)";
+    }
+
+    if (invertColor)
+    {
+        iconElem.style.filter = "invert(1)";
+    }
+
+    if (className != undefined || className != 0)
+    {
+        iconElem.className = className;
+    }
+
+    return iconElem;
 }
 
 function addTeamElem()
@@ -270,6 +296,13 @@ function teamChanged(pid)
     {
         elem.style.color = colors.backgroundColor;
         elem.style.backgroundColor = colors.color;
+
+        let invertElem = elem.querySelector(".invertOnTeamChanged");
+
+        if (invertElem != null)
+        {
+            invertElem.style.filter = colors.color === "var(--topColor)" ? "invert(0)" : "invert(1)";
+        }
     });
 
     //Hide all SM content on playerElem.
