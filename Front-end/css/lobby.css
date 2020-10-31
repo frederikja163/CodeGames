@@ -139,10 +139,6 @@
 #lobby #options #dropBtn > *:last-child
 {
     grid-column: 2 / 3;
-
-    width: calc(var(--btn2Size) * .5);
-    height: calc(var(--btn2Size) * .5);
-    padding: calc(var(--btn2Size) * .25);
 }
 
 #lobby #options #currentLang

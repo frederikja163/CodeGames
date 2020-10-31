@@ -80,6 +80,13 @@ ul
     outline: none;
 }
 
+.icon
+{
+    width: calc(var(--btn2Size) * (3/4));
+    height: calc(var(--btn2Size) * (3/4));
+    padding: calc(var(--btn2Size) * (1/8));
+}
+
 .inputTxt
 {
     margin: var(--space);

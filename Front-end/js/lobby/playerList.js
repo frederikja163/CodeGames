@@ -115,7 +115,7 @@ function createDownBtnElem(player, teamColor)
     downElem.style.backgroundColor = teamColor;
     downElem.style.padding = 0;
     downElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    downElem.appendChild(createIconElem(ICONPATH + "arrowFull.png", 0, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
+    downElem.appendChild(createIconElem(ICONPATH + "arrow.png", 0, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
     downElem.setAttribute("onclick", "changeTeamDown('" + player.pid + "')");
 
     return downElem;
@@ -128,7 +128,7 @@ function createUpBtnElem(player, teamColor)
     upElem.style.backgroundColor = teamColor;
     upElem.style.padding = 0;
     upElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
-    upElem.appendChild(createIconElem(ICONPATH + "arrowFull.png", 180, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
+    upElem.appendChild(createIconElem(ICONPATH + "arrow.png", 180, teamColor == "rgb(30, 30, 30)", "invertOnTeamChanged"));
     upElem.setAttribute("onclick", "changeTeamUp('" + player.pid + "')");
 
     return upElem;

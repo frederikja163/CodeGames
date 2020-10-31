@@ -67,14 +67,18 @@
                 <ul>
                     <li id="countTitle">Team count: </li>
                     <li id="countOption">
-                        <button class="btn2 owner" onclick="addTeam()" style="display: none" >+</button>
-                        <button class="btn2 owner" onclick="removeTeam()" style="display: none" >-</button>
+                        <button class="btn2 owner" onclick="addTeam()" style="display: none; padding: 0" >
+                            <img class="icon" src="./assets/miscIcons/plus.png" alt="+">
+                        </button>
+                        <button class="btn2 owner" onclick="removeTeam()" style="display: none; padding: 0" >
+                            <img class="icon" src="./assets/miscIcons/minus.png" alt="-">
+                        </button>
                     </li>
                     <li id="langTitle">Language:</li>
                     <li id="langOption">
                         <div class="btn owner" id="dropBtn" onclick="langBtn()" style="display: none">
                             <img src="./assets/packs/en/flag.png" alt="EN">
-                            <img src="./assets/miscIcons/arrowEnd.png" alt="\/">
+                            <img class="icon" src="./assets/miscIcons/chevron.png" alt="\/">
                         </div>
                         <img class="guest" id="currentLang" src="./assets/packs/en/flag.png" alt="EN"></img>
                     </li>
