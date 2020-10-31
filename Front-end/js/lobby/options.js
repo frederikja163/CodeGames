@@ -16,7 +16,7 @@ function teamCountChanged()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
-function langBtn(display) //TODO: Hide/show menu, expand vertically when pressed to show available packs
+function langBtn(display)
 {
     let dropMenu = document.querySelector("#lobby #dropMenu");
     dropMenu.style.display = display ? display : dropMenu.style.display == "block" ? "none" : "block";

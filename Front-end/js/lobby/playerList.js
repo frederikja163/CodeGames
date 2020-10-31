@@ -46,7 +46,7 @@ function getPlayerElement(pid)
     return pidElement === undefined ? undefined : pidElement.parentElement;
 }
 
-function createPlayer(player) // TODO: Create element on parent insted of document
+function createPlayer(player)
 {
     // Create list item
     let playerElem = document.createElement("LI");
@@ -276,7 +276,6 @@ function teamChanged(pid)
     {
         if (player.team == 0)
         {
-            //TODO: Bug: Briefly shown.
             playerElem.querySelector(".smBtn").style.display = HIDDEN;
         }
         else

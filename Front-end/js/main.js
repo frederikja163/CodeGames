@@ -72,6 +72,3 @@ function setDebugMode(newMode)
     debugMode = newMode;
     document.querySelectorAll(".debug").forEach(e => e.style.display = debugMode ? VISIBLE : HIDDEN);
 }
-
-//TODO: Lost connection.
-// Todo: button to move player to another team (drag and drop), kick, and activate spymaster
