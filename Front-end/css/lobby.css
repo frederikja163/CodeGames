@@ -116,6 +116,9 @@
 
 #lobby #options #dropBtn
 {
+    display: grid;
+    grid-template-columns: var(--btn2Size) var(--btn2Size);
+
     margin: var(--space);
     margin-left: auto;
     height: var(--btn2Size);
@@ -128,8 +131,8 @@
 
 #lobby #options #dropBtn > *:first-child
 {
-    display:inline-block;
-    margin: 0;
+    grid-column: 1 / 2;
+
     width: var(--btn2Size);
     height: var(--btn2Size);
     border-radius: 100%;
@@ -137,8 +140,11 @@
 
 #lobby #options #dropBtn > *:last-child
 {
-    display:inline-block;
-    margin-top:calc(var(--btn2Size) * 0.5 - 9);
+    grid-column: 2 / 3;
+
+    width: calc(var(--btn2Size) * .5);
+    height: calc(var(--btn2Size) * .5);
+    padding: calc(var(--btn2Size) * .25);
 }
 
 #lobby #options #currentLang
