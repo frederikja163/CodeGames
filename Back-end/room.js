@@ -117,7 +117,7 @@ class Room
             do
             {
                 rid = generateRid(ridLength++);
-            } while(Room.rooms.find(r => r.rid === rid) != undefined)
+            } while(Room.rooms.includes(r => r.rid === rid))
         }
         
         let room = Room.rooms.find(r => r.rid === rid);

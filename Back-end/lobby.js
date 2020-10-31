@@ -145,12 +145,9 @@ class Lobby
         if (!this.isOwner(client) || player === undefined  || curSpymaster === undefined || player.team != team || team <= 0 || team > this.data.options.teamCount){
             return;
         }
-        curSpymaster.spymaster = false,
+        curSpymaster.spymaster = false;
         player.spymaster = true;
-        for (let i = 0; i < this.clients.length; i++)
-        {
-            this.clients[i].spymasterChanged(this.data, player.pid)
-        }
+        this.spymasterChanged(pid);
     }
 
     wordsChanged(words){
@@ -161,12 +158,12 @@ class Lobby
     }
 
     isOwner(client){
-        return this.data.players[0].pid == client.pid;
+        return this.data.players[0].pid === client.pid;
     }
 
     findSpymaster(team)
     {
-        return this.data.players.find(p => p.spymaster && p.team == team);
+        return this.data.players.find(p => p.spymaster && p.team === team);
     }
 
     spymasterChanged(pid)
