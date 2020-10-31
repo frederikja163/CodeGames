@@ -9,7 +9,7 @@ Codegames has been created by two programmers
 * Oliver EC - oliverec04@gmail.com
 * Frederik JA - frederikjand163@gmail.com
 
-Most art in the game has been kindly provided by [https://www.freepick.com](https://www.freepik.com/)
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 ## Where is the source code?
 This github repo has the source code of the game. It is split into two parts one for the backend (server) running nodejs and one for the frontend (client). Both are js-based and the client uses html and css for display. They are connected using socket.io. The server and client are both made opensource under the MIT license because we expect you to do cooler things with this than what we have done. There is a server running so you can create your own client to connect to our server, and you can connect to your own server too if thats what you fancy.
