@@ -81,7 +81,6 @@ function revealOwnerContent()
 
 function playerKicked(pid, reason)
 {
-    //TODO: Redirect to another html page
     if (SERVER.pid === pid)
     {
         //Reason pop-up.
