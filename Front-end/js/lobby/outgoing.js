@@ -47,3 +47,8 @@ function clickPack(pack)
 {
     packClicked(pack);
 }
+
+function wordsChange()
+{
+    wordsChanged();
+}

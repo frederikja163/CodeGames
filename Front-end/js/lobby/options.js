@@ -2,7 +2,6 @@ const HTTP = new XMLHttpRequest();
 const BASEURL = "http://codegames.ga/";
 const PACKURL = BASEURL + "Front-end/assets/packs/";
 let languages = [];
-let currentLang = -1;
 
 function updateTeamCount()
 {
@@ -42,10 +41,6 @@ function createLangElem(lang)
             SERVER.removeWords(w);
             SERVER.addWords(w);
         }
-        // selectLanguage(lang);
-        // let dropBtn = document.querySelector("#lobby #dropBtn");
-        // let img = dropBtn.firstElementChild;
-        // img.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
         langBtn("none");
     }
 
@@ -81,7 +76,6 @@ async function initializePackList()
     {
         SERVER.addWords(["@EN"]);
     }
-    // selectLanguage(0);
 
     //To minimize the dropdown when you click anywhere on the page we have to set up two events
     //The first event will be for a click anywhere on body.
@@ -95,58 +89,6 @@ async function initializePackList()
     body.addEventListener("click", ev => langBtn("none"));
     dropBtn.addEventListener("click", ev => ev.stopPropagation());
     dropMenu.addEventListener("click", ev => ev.stopPropagation());
-}
-
-function selectLanguage(index)
-{
-    let oldLang = currentLang;
-    currentLang = index;
-    let lang = languages[currentLang];
-    let packList = document.querySelector("#lobby > #options > ul > #wordsOption > #words > ul");
-    let packs = packList.querySelectorAll("li");
-    packRemoves = [];
-    for (let i = packs.length - 1; i >= 0; i--)
-    {
-        let img = packs[i].querySelector("img");
-        if (img.style.display == "block")
-        {
-            packRemoves.push("#" + packs[i].firstChild.innerText);
-        }
-        packs[i].remove();
-    }
-    //SERVER.removeWords(packRemoves);
-
-    for (let i = 0; i < lang.packs.length; i++)
-    {
-        let p = lang.packs[i];
-        let elem = document.createElement("li");
-        let name = document.createElement("div");
-        name.innerText = p.substring(1);
-        elem.appendChild(name);
-        let div = document.createElement("div");
-        div.className = SERVER.pid == SERVER.room.players[0].pid ? "btn2 packLangDiv" : "packLangDiv";
-        div.onclick = () =>
-        {
-            clickPack(i);
-        };
-        let img = document.createElement("img");
-        img.src = "./assets/packs/" + lang.code.toLowerCase() + "/flag.png";
-        img.style.display = SERVER.room.options.words.includes(p) ? "block" : "none";
-        div.appendChild(img);
-        elem.appendChild(div);
-        packList.appendChild(elem);
-    }
-    
-    // if (oldLang != -1 && SERVER.room.options.words.includes("@" + languages[oldLang].code) && 
-    // !SERVER.room.options.words.some(w => languages[oldLang].packs.includes(w)))
-    // {
-    //     SERVER.removeWords(["@" + languages[oldLang].code]);
-    // }
-
-    // if (!SERVER.room.options.words.includes("@" + lang.code))
-    // {
-    //     SERVER.addWords(["@" + lang.code]);
-    // }
 }
 
 async function createLang(lang)
@@ -164,10 +106,8 @@ async function createLang(lang)
     return l;
 }
 
-let s = {};
 function packClicked(pack)
 {
-    s = SERVER.room.options.words;
     if (SERVER.room.options.words.includes(pack))
     {
         SERVER.removeWords([pack]);
@@ -186,37 +126,7 @@ function updateWordsField()
     wordsTxtElem.innerText = SERVER.room.options.words;
 }
 
-function updatePacks(packs)
-{
-    for (let i = 0; i < packs.length; i++)
-    {
-        updatePack(packs[i]);
-    }
-}
-
-function updatePack(pack)
-{
-    let packName = pack.substring(1);
-    let packElems = document.querySelectorAll("#lobby #options #words li > div:first-child");
-    for (let i = 0; i < packElems.length; i++)
-    {
-        if (packElems[i].innerHTML === packName)
-        {
-            let imgElem = packElems[i].parentElement.querySelector("div:nth-child(2) img");
-
-            if (SERVER.room.options.words.includes(pack))
-            {
-                imgElem.style.display = "block";
-            }
-            else
-            {
-                imgElem.style.display = "none";
-            }
-        }
-    }
-}
-
-function wordsChange()
+function wordsChanged()
 {
     let wordsField = document.querySelector("#wordsField");
 
