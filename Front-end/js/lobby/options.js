@@ -145,7 +145,7 @@ function updatePackList()
     let packs = null;
     for (let i = 0; i < words.length; i++)
     {
-        if (words[i].startsWith("@"))
+        if (words[i].trim().startsWith("@"))
         {
             let newLang = languages.find(l => words[i].endsWith(l.code));
             if (newLang)
@@ -158,7 +158,7 @@ function updatePackList()
                 packs = [];
             }
         }
-        else if (words[i].startsWith("#") && lang)
+        else if (words[i].trim().startsWith("#") && lang)
         {
             packs.push(words[i]);
         }
