@@ -10,6 +10,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     initializeTeams();
     initializePlayers();
     initializePackList();
+    updateWordsField();
     updateTeamCount();
     setupRoom();
     revealOwnerContent();

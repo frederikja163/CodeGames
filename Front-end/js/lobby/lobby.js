@@ -67,6 +67,8 @@ function revealOwnerContent()
         document.querySelector("#words").style.display = "grid";
         document.querySelector("#dropBtn").style.display = "grid";
         document.querySelectorAll(".packLangDiv").forEach(elem => elem.className += " btn2");
+
+        updatePackList();
         
         for (let i = 0; i < SERVER.room.players.length; i++)
         {

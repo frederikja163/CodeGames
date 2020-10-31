@@ -185,6 +185,16 @@
     cursor: pointer;
 }
 
+#selectedLang
+{
+    background-color: #00000010;
+}
+
+#lobby #options #dropMenu > ol > #selectedLang:hover
+{
+    cursor: default;
+}
+
 #lobby #options #dropMenu > ol > li > div:first-child
 {
     justify-items: left;

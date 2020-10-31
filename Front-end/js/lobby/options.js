@@ -41,6 +41,10 @@ function createLangElem(lang)
             SERVER.removeWords(w);
             SERVER.addWords(w);
         }
+        else
+        {
+            return;
+        }
         langBtn("none");
     }
 
@@ -89,6 +93,8 @@ async function initializePackList()
     body.addEventListener("click", ev => langBtn("none"));
     dropBtn.addEventListener("click", ev => ev.stopPropagation());
     dropMenu.addEventListener("click", ev => ev.stopPropagation());
+
+    updatePackList();
 }
 
 async function createLang(lang)
@@ -164,8 +170,10 @@ function updatePackList()
         }
     }
     
-    let dropBtn = document.querySelector("#lobby #dropBtn");
-    let img = dropBtn.firstElementChild;
+    let img = SERVER.pid === SERVER.room.players[0].pid ?
+        document.querySelector("#lobby #dropBtn").firstElementChild :
+        document.querySelector("#currentLang");
+
     if (lang)
     {
         let code = lang.code.toLowerCase();
@@ -173,6 +181,17 @@ function updatePackList()
         packs = lang.packs.filter(p => !packs.includes(p));
         addPacks(packList, packs, code, "none");
         img.src = "./assets/packs/" + code + "/flag.png";
+
+        if (SERVER.pid === SERVER.room.players[0].pid)
+        {
+            let langElems = document.querySelectorAll("#dropMenu li");
+            let langInd = languages.findIndex(l => l === lang);
+    
+            for (let i = 0; i < langElems.length; i++)
+            {
+                langElems[i].id = i === langInd ? "selectedLang" : "";
+            }
+        }
     }
     else
     {
