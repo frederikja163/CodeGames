@@ -1,4 +1,3 @@
-const HTTP = new XMLHttpRequest();
 const BASEURL = "http://codegames.ga/";
 const PACKURL = BASEURL + "Front-end/assets/packs/";
 let languages = [];
@@ -9,17 +8,11 @@ function updateTeamCount()
     teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
 }
 
-function teamCountChanged()
-{
-    // Change team count in options
-    let teamsOptElement = document.querySelector("#lobby #options ul li:nth-child(1)");
-    teamsOptElement.innerText = "Team count: " + String(SERVER.room.options.teamCount);
-}
-
 function langBtn(display)
 {
     let dropMenu = document.querySelector("#lobby #dropMenu");
-    dropMenu.style.display = display ? display : dropMenu.style.display == "block" ? "none" : "block";
+    //If display is not set we swap the display between none and block.
+    dropMenu.style.display = display ? display : dropMenu.style.display === "block" ? "none" : "block";
 }
 
 function createLangElem(lang)

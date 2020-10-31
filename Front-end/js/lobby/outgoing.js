@@ -5,7 +5,7 @@ function setSpymaster(pid)
 
 function kick(pid)
 {
-    SERVER.kickPlayer(pid, "fuck off github nerds who read old code");
+    SERVER.kickPlayer(pid, "You have been kicked!");
 }
 
 function changeTeamUp(pid)

@@ -46,7 +46,7 @@ function getPlayerElement(pid)
     return pidElement === undefined ? undefined : pidElement.parentElement;
 }
 
-function createPlayer(player)
+function createPlayer(player) // TODO: Create element on parent insted of document
 {
     // Create list item
     let playerElem = document.createElement("LI");
@@ -59,7 +59,7 @@ function createPlayer(player)
     let pidElem = document.createElement("DIV");
     pidElem.className += " debug";
     pidElem.className += " pid";
-    pidElem.style.display = debugMode ? VISIBLE : HIDDEN;
+    pidElem.style.display = debugMode ? "grid" : "none";
     pidElem.style.gridColumn = "1 / 3";
     pidElem.style.gridRow = "2 / 3";
     pidElem.style.color = teamColor;
@@ -77,9 +77,10 @@ function createPlayer(player)
     // Create spymaster icon
     let smElem = document.createElement("DIV");
     smElem.className = "smIcon";
+    //TODO: Change to a png image instead.
     smElem.innerText = "🕵️";
     smElem.style.fontSize = "16.56px";
-    smElem.style.display = player.spymaster === true ? 'inline' : HIDDEN;
+    smElem.style.display = player.spymaster === true ? 'inline' : "none";
 
     // Add elements to btnDiv
     if (SERVER.pid === SERVER.room.players[0].pid) // If client is owner
@@ -112,6 +113,7 @@ function createDownBtnElem(player, teamColor)
     downElem.className = "btn2 owner";
     downElem.style.backgroundColor = teamColor;
     downElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    //TODO: Change to a png image instead.
     downElem.innerText = "⬇";
     downElem.setAttribute("onclick", "changeTeamDown('" + player.pid + "')");
 
@@ -124,6 +126,7 @@ function createUpBtnElem(player, teamColor)
     upElem.className = "btn2 owner";
     upElem.style.backgroundColor = teamColor;
     upElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    //TODO: Change to a png image instead.
     upElem.innerText = "⬆";
     upElem.setAttribute("onclick", "changeTeamUp('" + player.pid + "')");
 
@@ -137,6 +140,7 @@ function createSmBtnElem(player, teamColor)
     smElem.id = player.pid;
     smElem.style.backgroundColor = teamColor;
     smElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    //TODO: Change to a png image instead.
     smElem.innerText = "🕵️";
     smElem.setAttribute('onclick', 'setSpymaster("' + player.pid + '")');
 
@@ -148,6 +152,7 @@ function createOwnerIconElem()
     let ownerElem = document.createElement("DIV");
     ownerElem.className = "ownerIcon";
     ownerElem.style.fontSize = "15.294px";
+    //TODO: Change to a png image instead.
     ownerElem.innerText = "👑";
 
     return ownerElem;
@@ -159,6 +164,7 @@ function createKickBtnElem(player, teamColor)
     kickElem.className = "btn2 owner kickBtn";
     kickElem.style.backgroundColor = teamColor;
     kickElem.style.color = teamColor != "rgb(30, 30, 30)" ? "var(--backColor)" : "var(--topColor)";
+    //TODO: Change to a png image instead.
     kickElem.innerText = "🚫";
     kickElem.setAttribute('onclick', 'kick("' + player.pid + '")');
 

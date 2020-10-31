@@ -26,6 +26,7 @@ else
     SERVER.connect("116.203.80.39", 9999);
 }
 
+//TODO: Remove these
 const HIDDEN = "none";
 const VISIBLE = "grid";
 
@@ -35,13 +36,13 @@ let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "
 
 document.addEventListener('keyup', (event) =>
 {
-    if(event.keyCode == 113) //F2 is our debug key.
+    if(event.code == 113) //F2 is our debug key.
     {
         setDebugMode(!debugMode);
     }
-    else if(event.keyCode == 13) //Enter
+    else if(event.code == 13) //Enter
     {
-        // Join lobby if cursor is in any of 2 textfields
+        // Join lobby if cursor is in any of the textfields in welcome
         let welcomeFields = document.querySelectorAll("#welcome input");
         for (let i = 0; i < welcomeFields.length; i++)
         {
@@ -70,5 +71,5 @@ window.onload = () => {
 function setDebugMode(newMode)
 {
     debugMode = newMode;
-    document.querySelectorAll(".debug").forEach(e => e.style.display = debugMode ? VISIBLE : HIDDEN);
+    document.querySelectorAll(".debug").forEach(e => e.style.display = debugMode ? "grid" : "none");
 }
