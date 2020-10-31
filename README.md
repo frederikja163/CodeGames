@@ -14,6 +14,9 @@ Codegames has been created by two programmers
 ## Where is the source code?
 This github repo has the source code of the game. It is split into two parts one for the backend (server) running nodejs and one for the frontend (client). Both are js-based and the client uses html and css for display. They are connected using socket.io. The server and client are both made opensource under the MIT license because we expect you to do cooler things with this than what we have done. There is a server running so you can create your own client to connect to our server, and you can connect to your own server too if thats what you fancy.
 ### Branches
-TODO: Write description of what branches we have here.
+ * main - this is the live branch displayed at the website.
+ * dev - this is the development branch for in-between updates.
+ * gamedev - this is where the game is being developed
+ * legacy - this is an old legacy version using p5
 
 ## Changelog
