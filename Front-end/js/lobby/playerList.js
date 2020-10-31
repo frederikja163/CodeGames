@@ -175,9 +175,7 @@ function createIconElem(src, angle, invertColor, className)
 {
     let iconElem = document.createElement("IMG");
     iconElem.src = src;
-    iconElem.style.width = "calc(var(--btn2Size) * (3/4))";
-    iconElem.style.height = "calc(var(--btn2Size) * (3/4))";
-    iconElem.style.padding = "calc(var(--btn2Size) * (1/8))";
+    iconElem.className = "icon ";
 
     if (angle != undefined || angle != 0 || angle != false || angle != null)
     {
@@ -191,7 +189,7 @@ function createIconElem(src, angle, invertColor, className)
 
     if (className != undefined || className != 0)
     {
-        iconElem.className = className;
+        iconElem.className += className;
     }
 
     return iconElem;
