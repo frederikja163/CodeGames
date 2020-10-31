@@ -43,7 +43,7 @@ function leaveRoom() //TODO: Change URL without redirecting
     window.location = url.slice(0, ridStart);
 }
 
-function clickPack(index)
+function clickPack(pack)
 {
-    packClicked(index);
+    packClicked(pack);
 }

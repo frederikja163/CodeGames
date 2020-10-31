@@ -28,10 +28,24 @@ function createLangElem(lang)
     let langElem = document.createElement("li");
     langElem.onclick = () => 
     {
-        selectLanguage(lang);
-        let dropBtn = document.querySelector("#lobby #dropBtn");
-        let img = dropBtn.firstElementChild;
-        img.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
+        let words = SERVER.room.options.words;
+        let language = languages[lang];
+        let startInd = words.findIndex(w => w === "@" + language.code);
+        let endInd = words.findIndex((w, i) => i > startInd && w.startsWith("@"));
+        if (startInd === -1)
+        {
+            SERVER.addWords(["@" + language.code]);
+        }
+        else if (endInd != -1)
+        {
+            let w = words.slice(startInd, endInd);
+            SERVER.removeWords(w);
+            SERVER.addWords(w);
+        }
+        // selectLanguage(lang);
+        // let dropBtn = document.querySelector("#lobby #dropBtn");
+        // let img = dropBtn.firstElementChild;
+        // img.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
         langBtn("none");
     }
 
@@ -63,7 +77,11 @@ async function initializePackList()
         languages.push(l);
         langListElem.appendChild(createLangElem(i));
     }
-    selectLanguage(0);
+    if (SERVER.room.options.words.length === 0)
+    {
+        SERVER.addWords(["@EN"]);
+    }
+    // selectLanguage(0);
 
     //To minimize the dropdown when you click anywhere on the page we have to set up two events
     //The first event will be for a click anywhere on body.
@@ -79,7 +97,7 @@ async function initializePackList()
     dropMenu.addEventListener("click", ev => ev.stopPropagation());
 }
 
-function selectLanguage(index) //TODO: Do this in a non index based manner, to allow multiple languages active at once.
+function selectLanguage(index)
 {
     let oldLang = currentLang;
     currentLang = index;
@@ -119,16 +137,16 @@ function selectLanguage(index) //TODO: Do this in a non index based manner, to a
         packList.appendChild(elem);
     }
     
-    if (oldLang != -1 && SERVER.room.options.words.includes("@" + languages[oldLang].code) && 
-    !SERVER.room.options.words.some(w => languages[oldLang].packs.includes(w)))
-    {
-        SERVER.removeWords(["@" + languages[oldLang].code]);
-    }
+    // if (oldLang != -1 && SERVER.room.options.words.includes("@" + languages[oldLang].code) && 
+    // !SERVER.room.options.words.some(w => languages[oldLang].packs.includes(w)))
+    // {
+    //     SERVER.removeWords(["@" + languages[oldLang].code]);
+    // }
 
-    if (!SERVER.room.options.words.includes("@" + lang.code))
-    {
-        SERVER.addWords(["@" + lang.code]);
-    }
+    // if (!SERVER.room.options.words.includes("@" + lang.code))
+    // {
+    //     SERVER.addWords(["@" + lang.code]);
+    // }
 }
 
 async function createLang(lang)
@@ -147,9 +165,8 @@ async function createLang(lang)
 }
 
 let s = {};
-function packClicked(index)
+function packClicked(pack)
 {
-    let pack = languages[currentLang].packs[index];
     s = SERVER.room.options.words;
     if (SERVER.room.options.words.includes(pack))
     {
@@ -203,11 +220,76 @@ function wordsChange()
 {
     let wordsField = document.querySelector("#wordsField");
 
-    let words = wordsField.value.split(',');
-
-    console.log(currentLang);
-
-    //SERVER.room.options.words.find(w => w == "@" + lang)
+    let words = [];
+    wordsField.value.split(',').forEach(w => {if (w.trim() != "") words.push(w.trim); });
 
     SERVER.setWords(words);
+}
+
+function updatePackList()
+{
+    let packList = document.querySelector("#lobby #options #words > ul");
+    packList.innerHTML = "";
+    let words = SERVER.room.options.words;
+    let lang = null;
+    let packs = null;
+    for (let i = 0; i < words.length; i++)
+    {
+        if (words[i].startsWith("@"))
+        {
+            let newLang = languages.find(l => words[i].endsWith(l.code));
+            if (newLang)
+            {
+                if (lang)
+                {
+                    addPacks(packList, packs, lang.code.toLowerCase(), "block");
+                }
+                lang = newLang;
+                packs = [];
+            }
+        }
+        else if (words[i].startsWith("#") && lang)
+        {
+            packs.push(words[i]);
+        }
+    }
+    
+    let dropBtn = document.querySelector("#lobby #dropBtn");
+    let img = dropBtn.firstElementChild;
+    if (lang)
+    {
+        let code = lang.code.toLowerCase();
+        addPacks(packList, packs, code, "block");
+        packs = lang.packs.filter(p => !packs.includes(p));
+        addPacks(packList, packs, code, "none");
+        img.src = "./assets/packs/" + code + "/flag.png";
+    }
+    else
+    {
+        img.src = "./assets/packs/language.png";
+    }
+}
+
+function addPacks(packList, packs, imgFolder, display)
+{
+    for (let j = 0; j < packs.length; j++)
+    {
+        let p = packs[j];
+        let elem = document.createElement("li");
+        let name = document.createElement("div");
+        name.innerText = p.substring(1);
+        elem.appendChild(name);
+        let div = document.createElement("div");
+        div.className = SERVER.pid == SERVER.room.players[0].pid ? "btn2 packLangDiv" : "packLangDiv";
+        div.onclick = () =>
+        {
+            clickPack(p);
+        };
+        let img = document.createElement("img");
+        img.src = "./assets/packs/" + imgFolder + "/flag.png";
+        img.style.display = display;
+        div.appendChild(img);
+        elem.appendChild(div);
+        packList.appendChild(elem);
+    }
 }
