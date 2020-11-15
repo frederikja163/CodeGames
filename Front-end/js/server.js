@@ -45,6 +45,8 @@ class Server
         incoming("teamChanged", (room, pid) => this.onTeamChanged(room, pid));
         incoming("teamCountChanged", (room) => this.onTeamCountChanged(room));
         incoming("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
+        
+        incoming("gameStarted", (room) => this.onGameStarted(room));
 
         //======[Server protocol]======
         this.room = null;
@@ -78,9 +80,11 @@ class Server
         this.setTeam =              (pid, team) => send("setTeam", pid, team); //Requires owner permissions.
         this.setTeamCount =         (count) => send("setTeamCount", count); //Requires owner permissions.
         this.setSpymaster =         (team, pid) => send("setSpymaster", team, pid); //Requires owner permissions.
+        this.startGame =            () => send("startGame");
 
         //===[Game]==
         //From-Server
+        this.onGameStarted =        (room) => {};
         //To-Server
     }
 }

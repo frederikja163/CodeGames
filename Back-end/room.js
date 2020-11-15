@@ -1,4 +1,5 @@
 const { Lobby } = require("./lobby");
+const { Game } = require("./game");
 
 class RoomData
 {
@@ -7,6 +8,7 @@ class RoomData
         this.rid = rid;
         this.players = [];
         this.options = new Options();
+        this.words = undefined;
     }
 }
 
@@ -30,6 +32,15 @@ class Options
     }
 }
 
+class Word
+{
+    constructor(str, team)
+    {
+        this.word = str;
+        this.team = team;
+    }
+}
+
 class Room
 {
     constructor(rid)
@@ -37,12 +48,25 @@ class Room
         this.rid = rid;
         this.data = new RoomData(rid);
         this.clients = [];
-        this.state = new Lobby(this.data, this.clients);
+        this.SetState(new Lobby(this.data, this.clients));
     }
 
     static OnConnected(client)
     {
         client.onJoinRoom = (rid) => Room.JoinRoom(client, rid);
+    }
+
+    SetState(state)
+    {
+        this.state = state;
+        this.clients = [];
+        let clients = this.clients;
+        for(let i = 0; i < clients.length; i++)
+        {
+            let client = clients[i];
+            client.reset();
+            this.AddClient(client);
+        }
     }
 
     AddClient(client)
@@ -63,7 +87,14 @@ class Room
         client.onDisconnected = () => this.onDisconnected(client);
         client.onJoinRoom = (rid) => this.onJoinRoom(client, rid);
         client.onLeaveRoom = () => this.onLeaveRoom(client);
+        client.onStartGame = () => this.onStartGame(client);
         this.state.AddClient(client);
+    }
+
+    onStartGame(client)
+    {
+        //TODO: check if game is valid
+        this.SetState(new Game(this.data, this.clients));
     }
 
     onJoinRoom(client, rid)

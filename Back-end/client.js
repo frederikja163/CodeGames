@@ -28,6 +28,8 @@ class Client{
         this.socket.on("setTeam", (pid, team) => call(() => this.onSetTeam(pid, team), typeof pid === "string" && typeof team === "number"));
         this.socket.on("setTeamCount", (count) => call(() => this.onSetTeamCount(count), typeof count === "number"));
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
+        
+        this.socket.on("startGame", () => call(() => this.onStartGame()));
 
         //======[Server protocol]======
         this.pid = this.socket.id;
@@ -54,6 +56,7 @@ class Client{
         this.onSetTeam =            (pid, team) => {}; //Requires owner permissions.
         this.onSetTeamCount =       (count) => {}; //Requires owner permissions.
         this.onSetSpymaster =       (team, pid) => {} //Requires owner permissions.
+        this.onStartGame =          () => {} //Requires owner permissions.
         //To-Client
         this.nameChanged =          (room, pid) => send("nameChanged", room, pid);
         this.playerKicked =         (room, pid, reason) => send("playerKicked", room, pid, reason);
@@ -65,6 +68,7 @@ class Client{
         //===[Game]===
         //From-Client
         //To-Client
+        this.gameStarted =          (room) => send("gameStarted", room);
     }
 }
 
