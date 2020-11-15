@@ -92,3 +92,42 @@ function playerKicked(pid, reason)
         window.location = url.slice(0, ridStart);
     }
 }
+
+async function startBtnPressed()
+{
+    let words = SERVER.room.options.words;
+    let result = [];
+    let langCode;
+    let langNum;
+
+    for (let i = 0; i < words.length; i++)
+    {
+        let word = words[i].trim();
+
+        if (word.startsWith("@"))
+        {
+            langCode = word.replace("@", "");
+            langNum = languages.find(i => i.code === langCode);
+        }
+        else if (word.startsWith("#"))
+        {
+            let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
+            pack.forEach(w => result.push(w));
+        }
+        else
+        {
+            result.push(word);
+        }
+    }
+
+    SERVER.setWords(result);
+}
+
+async function loadCsv(url)
+{
+    let l = [];
+    let r = await fetch(url);
+    let t = await r.text();
+    t.split(',\n').forEach(p => l.push(p));
+    return l;
+}

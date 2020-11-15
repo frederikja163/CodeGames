@@ -130,7 +130,7 @@ function wordsChanged()
     let wordsField = document.querySelector("#wordsField");
 
     let words = [];
-    wordsField.value.split(',').forEach(w => {if (w.trim() != "") words.push(w.trim); });
+    wordsField.value.split(',').forEach(w => {if (w.trim() != "") words.push(w.trim()); });
 
     SERVER.setWords(words);
 }
