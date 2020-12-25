@@ -100,6 +100,8 @@ async function startBtnPressed()
     let langCode;
     let langNum;
 
+    startGame = true;
+
     for (let i = 0; i < words.length; i++)
     {
         let word = words[i].trim();
@@ -130,4 +132,14 @@ async function loadCsv(url)
     let t = await r.text();
     t.split(',\n').forEach(p => l.push(p));
     return l;
+}
+
+function checkStartGame()
+{
+    let wordsField = document.querySelector("#wordsField").value;
+
+    if (SERVER.room.options.words[0] === wordsField.substring(0, wordsField.indexOf(",")))
+    {
+        console.log("start");
+    }
 }

@@ -91,6 +91,13 @@ SERVER.onWordsChanged = (room, words) =>
 {
     SERVER.room = room;
 
+    if (startGame)
+    {
+        SERVER.startGame();
+        startGame = false;
+        return;
+    }
+
     updateWordsField();
     updatePackList();
 };

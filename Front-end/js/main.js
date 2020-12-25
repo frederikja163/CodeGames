@@ -33,6 +33,7 @@ const VISIBLE = "grid";
 let welcome;
 let lobby;
 let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
+let startGame = false;
 
 document.addEventListener('keyup', (event) =>
 {
