@@ -8,6 +8,7 @@ class Client{
     reset()
     {
         let send = (message, arg1, arg2, arg3) => {
+            //console.log(message, arg1, arg2, arg3);
             this.socket.emit(message, arg1, arg2, arg3);
         };
         let call = (method, bool) => {

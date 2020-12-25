@@ -104,6 +104,7 @@ class Lobby
             }
         }
         player.team = team;
+        console.log(this.clients);
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamChanged(this.data, pid);
