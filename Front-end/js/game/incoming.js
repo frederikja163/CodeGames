@@ -1,0 +1,6 @@
+SERVER.onGameStarted(room)
+{
+    SERVER.room = room;
+
+    
+}
