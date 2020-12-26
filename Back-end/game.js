@@ -8,9 +8,10 @@ class Game
         this.clients = clients;
 
         let words = [];
+        console.log(this.data);
         for (let i = 0; i < 25; i++)
         {
-            words[i] = new Word(this.data.Options.words[i], 0);
+            words[i] = new Word(this.data.options.words[i], 0);
         }
         this.data.words = words;
         
