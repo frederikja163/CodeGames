@@ -24,6 +24,11 @@ class Game
     AddClient(client)
     {
     }
+
+    RemovePlayer(pid)
+    {
+        
+    }
 }
 
 module.exports =
