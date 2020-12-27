@@ -32,6 +32,7 @@ const VISIBLE = "grid";
 
 let welcome;
 let lobby;
+let game;
 let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
 let startGame = false;
 
@@ -58,6 +59,7 @@ document.addEventListener('keyup', (event) =>
 window.onload = () => {
     welcome = document.querySelector("#welcome");
     lobby = document.querySelector("#lobby");
+    game = document.querySelector("#game");
     setDebugMode(false);
 
     let url = String(window.location); // Change URL without redirecting

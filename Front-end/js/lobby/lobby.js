@@ -134,12 +134,12 @@ async function loadCsv(url)
     return l;
 }
 
-function checkStartGame()
-{
-    let wordsField = document.querySelector("#wordsField").value;
+// function checkStartGame()
+// {
+//     let wordsField = document.querySelector("#wordsField").value;
 
-    if (SERVER.room.options.words[0] === wordsField.substring(0, wordsField.indexOf(",")))
-    {
-        console.log("start");
-    }
-}
+//     if (SERVER.room.options.words[0] === wordsField.substring(0, wordsField.indexOf(",")))
+//     {
+//         console.log("start");
+//     }
+// }

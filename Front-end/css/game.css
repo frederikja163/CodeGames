@@ -1,0 +1,21 @@
+#game
+{
+
+}
+
+#game > #board
+{
+    background-color: var(--l1Color);
+    width: 100%;
+    border-spacing: var(--space);
+}
+
+#game > #board > tr > td
+{
+    background-color: var(--topColor);
+    color: var(--backColor);
+    border: none;
+    padding: var(--space);
+    text-align: center;
+    font-size: 24px;
+}
