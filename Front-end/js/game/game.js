@@ -10,22 +10,24 @@ function initializeBoard()
 
     let words = SERVER.room.words;
     let boardElem = document.querySelector("#board");
-    let tiles = [];
     let rowElems = [];
+    let boardTiles = [];
     let x = -1;
     let y = -1;
 
     for (let i = 0; i < words.length; i++)
     {
+        tiles[i] = new Tile(words[i].word, i, [y, x], words[i].team);
         x += i % boardSize[0] === 0 ? 1 : 0;
         if (i % boardSize[1] === 0)
         {
             y++;
-            tiles[y] = [];
+            boardTiles[y] = [];
             rowElems[y] = document.createElement("TR");
         }
-        tiles[y][x] = new Tile(words[i].word, i, [y, x], words[i].team);
-        rowElems[y].appendChild(tiles[y][x].elem);
+        boardTiles[y][x] = tiles[i];
+        tiles[i].pos = [y, x];
+        rowElems[y].appendChild(boardTiles[y][x].elem);
         if (i % boardSize[1] === 0)
         {
             boardElem.appendChild(rowElems[y]);
@@ -42,9 +44,26 @@ class Tile
         this.pos = pos;
         this.team = team;
         this.elem = document.createElement("TD");
-
         this.elem.className = "box";
         this.elem.innerHTML = this.word;
+        
+        this.update();
+
+        this.elem.onmouseup = (event) =>
+        {
+            if (event.button === 0) // Left click
+            {
+                SERVER.markWord(this.index);
+            }
+            else if (event.button === 2) // Right click
+            {
+                SERVER.selectWord(this.index);
+            }
+        }
+    }
+
+    update()
+    {
         if (this.team === -2)
         {
             this.elem.style.backgroundColor = "gray";
@@ -64,19 +83,10 @@ class Tile
             this.elem.style.backgroundColor = teamNames[this.team - 1];
             this.elem.style.color = getColorsForElem(this.elem).color;
         }
+    }
 
-        this.elem.onmouseup = (event) =>
-        {
-            if (event.button === 0) // Left click
-            {
-                SERVER.markWord(this.index);
-
-                this.elem.style.backgroundColor = "yellow";
-            }
-            else if (event.button === 2) // Right click
-            {
-                SERVER.selectWord(this.index);
-            }
-        }
+    mark()
+    {
+        this.elem.style.backgroundColor = "yellow";
     }
 }
