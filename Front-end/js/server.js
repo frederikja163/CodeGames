@@ -47,6 +47,8 @@ class Server
         incoming("spymasterChanged", (room, pid) => this.onSpymasterChanged(room, pid));
         
         incoming("gameStarted", (room) => this.onGameStarted(room));
+        incoming("wordMarked", (room) => this.onWordMarked(room));
+        incoming("wordSelected", (room) => this.onWordMarked(room));
 
         //======[Server protocol]======
         this.room = null;
@@ -85,6 +87,10 @@ class Server
         //===[Game]==
         //From-Server
         this.onGameStarted =        (room) => {};
+        this.onWordMarked =         (room, index) => {};
+        this.onWordSelected =       (room, index) => {};
         //To-Server
+        this.markWord =             (index) => send("markWord");
+        this.selectWord =           (index) => send("selectWord");
     }
 }

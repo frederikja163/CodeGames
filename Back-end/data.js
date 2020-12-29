@@ -35,6 +35,7 @@ class Word
     {
         this.word = str;
         this.team = team;
+        this.marked = [];
     }
 }
 

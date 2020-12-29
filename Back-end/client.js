@@ -31,6 +31,8 @@ class Client{
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
         
         this.socket.on("startGame", () => call(() => this.onStartGame()));
+        this.socket.on("markWord", (index) => call(() => this.onMarkWord(index), typeof index === "number" && index >= 0 && index < 25)); //TODO: Support variable word sizes here
+        this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index), typeof index === "number" && index >= 0 && index < 25)); //TODO: Support variable word sizes here
 
         //======[Server protocol]======
         this.pid = this.socket.id;
@@ -68,8 +70,12 @@ class Client{
 
         //===[Game]===
         //From-Client
+        this.onMarkWord =           (index) => {};
+        this.onSelectWord =         (index) => {};
         //To-Client
         this.gameStarted =          (room) => send("gameStarted", room);
+        this.wordMarked =           (room, index) => send("wordMarked", room, index);
+        this.wordSelected =         (room, index) => send("wordSelected", room, index);
     }
 }
 
