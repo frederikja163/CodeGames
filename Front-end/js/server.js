@@ -48,7 +48,7 @@ class Server
         
         incoming("gameStarted", (room) => this.onGameStarted(room));
         incoming("wordMarked", (room, index) => this.onWordMarked(room, index));
-        incoming("wordSelected", (room, index) => this.onWordMarked(room, index));
+        incoming("wordSelected", (room, index) => this.onWordSelected(room, index));
 
         //======[Server protocol]======
         this.room = null;
