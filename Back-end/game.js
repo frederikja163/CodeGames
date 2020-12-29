@@ -7,12 +7,16 @@ class Game
         this.data = data;
         this.clients = clients;
 
+        let wordOptions = this.data.options.words.slice();
         let words = [];
-        console.log(this.data);
         for (let i = 0; i < 25; i++)
         {
-            words[i] = new Word(this.data.options.words[i], 0);
+            let index = Math.floor(Math.random() * wordOptions.length);
+            words[i] = new Word(wordOptions[index], Math.floor(Math.random() * 5 - 2));
+            wordOptions.splice(index, 1);
         }
+        this.fullWords = words.slice();
+        
         this.data.words = words;
         
         for (let i = 0; i < this.clients.length; i++)
