@@ -20,14 +20,12 @@ class Room
     SetState(state)
     {
         this.state = state;
-        this.clients = [];
-        this.state.clients = this.clients;
         let clients = this.clients;
         for(let i = 0; i < clients.length; i++)
         {
             let client = clients[i];
             client.reset();
-            this.AddClient(client);
+            this.AddClientEvents(client);
         }
     }
 
@@ -46,6 +44,11 @@ class Room
         this.clients.push(client);
         client.roomJoined(this.data, this.data.rid, client.pid);
 
+        this.AddClientEvents(client);
+    }
+
+    AddClientEvents(client)
+    {
         client.onDisconnected = () => this.onDisconnected(client);
         client.onJoinRoom = (rid) => this.onJoinRoom(client, rid);
         client.onLeaveRoom = () => this.onLeaveRoom(client);

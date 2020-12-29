@@ -3,16 +3,9 @@ class Client{
     {
         this.socket = socket;
         this.reset();
-    }
 
-    reset()
-    {
-        let send = (message, arg1, arg2, arg3) => {
-            //console.log(message, arg1, arg2, arg3);
-            this.socket.emit(message, arg1, arg2, arg3);
-        };
         let call = (method, bool) => {
-            //console.log(this.pid, Function.prototype.toString.call(method));
+            console.log(this.pid, Function.prototype.toString.call(method));
             if (bool || bool === undefined){
                 method();
             }
@@ -31,8 +24,17 @@ class Client{
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
         
         this.socket.on("startGame", () => call(() => this.onStartGame()));
-        this.socket.on("markWord", (index) => call(() => this.onMarkWord(index), typeof index === "number" && index >= 0 && index < 25)); //TODO: Support variable word sizes here
-        this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index), typeof index === "number" && index >= 0 && index < 25)); //TODO: Support variable word sizes here
+        this.socket.on("markWord", (index) => call(() => this.onMarkWord(index))); //TODO: Support variable word sizes here
+        this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index))); //TODO: Support variable word sizes here
+
+    }
+
+    reset()
+    {
+        let send = (message, arg1, arg2, arg3) => {
+            //console.log(message, arg1, arg2, arg3);
+            this.socket.emit(message, arg1, arg2, arg3);
+        };
 
         //======[Server protocol]======
         this.pid = this.socket.id;

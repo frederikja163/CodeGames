@@ -26,15 +26,19 @@ class Game
         this.ForeachClient(client => 
             {
                 client.gameStarted(this.data);
-
-                client.onMarkWord(index => this.onMarkWord(client, index));
-                client.onSelectWord(index => this.onSelectWord(client, index));
             });
     }
 
     AddClient(client)
     {
-
+        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
+        let player = this.data.players[playerInd];
+        if (player.team == -1)
+        {
+            return;
+        }
+        client.onMarkWord = (index) => this.onMarkWord(client, index);
+        client.onSelectWord = (index) => this.onSelectWord(client, index);
     }
 
     RemovePlayer(pid)
@@ -74,7 +78,7 @@ class Game
         {
             return;
         }
-
+        
         this.playerWords[index] = this.fullWords[index];
         this.ForeachClient(client => client.wordSelected(this.data, index));
     }
