@@ -43,7 +43,22 @@ class Tile
         this.elem = document.createElement("TD");
 
         this.elem.className = "box";
-        this.elem.innerHTML = word;
-        this.elem.style.backgroundColor = this.team === 0 ? "var(--topColor)" : teamNames[this.team - 1];
+        this.elem.innerHTML = this.word;
+        if (this.team === -2)
+        {
+            this.elem.style.backgroundColor = "gray";
+        }
+        else if (this.team === -1)
+        {
+            this.elem.style.backgroundColor = "var(--backColor)";
+        }
+        else if (this.team === 0)
+        {
+            this.elem.style.backgroundColor = "var(--topColor)";
+        }
+        else
+        {
+            this.elem.style.backgroundColor = teamNames[this.team - 1];
+        }
     }
 }
