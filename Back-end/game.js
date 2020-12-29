@@ -78,7 +78,7 @@ class Game
         {
             return;
         }
-        
+
         this.playerWords[index] = this.fullWords[index];
         this.ForeachClient(client => client.wordSelected(this.data, index));
     }
