@@ -5,7 +5,7 @@ class Client{
         this.reset();
 
         let call = (method, bool) => {
-            console.log(this.pid, Function.prototype.toString.call(method));
+            //console.log(this.pid, Function.prototype.toString.call(method));
             if (bool || bool === undefined){
                 method();
             }
