@@ -194,6 +194,7 @@ function updatePackList()
 
 function addPacks(packList, packs, imgFolder, display)
 {
+    console.log(packs);
     for (let j = 0; j < packs.length; j++)
     {
         let p = packs[j];

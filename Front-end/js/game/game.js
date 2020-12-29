@@ -53,11 +53,13 @@ class Tile
         {
             if (event.button === 0) // Left click
             {
-                SERVER.markWord(this.index);
+                console.log("left");
+                SERVER.selectWord(this.index);
             }
             else if (event.button === 2) // Right click
             {
-                SERVER.selectWord(this.index);
+                console.log("right");
+                SERVER.markWord(this.index);
             }
         }
     }
