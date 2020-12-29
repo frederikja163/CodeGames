@@ -6,28 +6,30 @@ function swapToGame()
 
 function initializeBoard()
 {
-    let boardSize = [4, 6];
+    let boardSize = [5, 5];
 
     let words = SERVER.room.words;
     let boardElem = document.querySelector("#board");
     let tiles = [];
     let rowElems = [];
+    let x = -1;
+    let y = -1;
 
-    for (let y = 0; y < boardSize[1]; y++)
-    {   
-        tiles[y] = [];
-        rowElems[y] = document.createElement("TR");
-        for (let x = 0; x < boardSize[0]; x++) // Lav om til server rækkefølge
+    for (let i = 0; i < words.length; i++)
+    {
+        x += i % boardSize[0] === 0 ? 1 : 0;
+        if (i % boardSize[1] === 0)
         {
-            let wordIndex = Math.floor(Math.random() * words.length);
-            
-            tiles[y][x] = new Tile(words[wordIndex].word, [y, x], words[wordIndex].team);
-            rowElems[y].appendChild(tiles[y][x].elem);
-            
-            words.splice(wordIndex, 1);
+            y++;
+            tiles[y] = [];
+            rowElems[y] = document.createElement("TR");
         }
-
-        boardElem.appendChild(rowElems[y]);
+        tiles[y][x] = new Tile(words[i].word, [y, x], words[i].team);
+        rowElems[y].appendChild(tiles[y][x].elem);
+        if (i % boardSize[1] === 0)
+        {
+            boardElem.appendChild(rowElems[y]);
+        }
     }
 }
 
