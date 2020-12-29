@@ -47,10 +47,12 @@ class Tile
         if (this.team === -2)
         {
             this.elem.style.backgroundColor = "gray";
+            this.elem.style.color = "var(--topColor)";
         }
         else if (this.team === -1)
         {
             this.elem.style.backgroundColor = "var(--backColor)";
+            this.elem.style.color = "var(--topColor)";
         }
         else if (this.team === 0)
         {
@@ -59,6 +61,7 @@ class Tile
         else
         {
             this.elem.style.backgroundColor = teamNames[this.team - 1];
+            this.elem.style.color = getColorsForElem(this.elem).color;
         }
     }
 }
