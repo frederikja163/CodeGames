@@ -56,6 +56,22 @@ document.addEventListener('keyup', (event) =>
     }
 });
 
+if (document.addEventListener)
+{
+    document.addEventListener('contextmenu', function(e)
+    {
+        e.preventDefault();
+    }, false);
+}
+else
+{
+    document.attachEvent('oncontextmenu', function()
+    {
+    alert("You've tried to open context menu");
+    window.event.returnValue = false;
+    });
+}
+
 window.onload = () => {
     welcome = document.querySelector("#welcome");
     lobby = document.querySelector("#lobby");

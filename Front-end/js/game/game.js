@@ -1,7 +1,7 @@
 function swapToGame()
 {
-    lobby.style.display = HIDDEN;
-    game.style.display = VISIBLE;
+    lobby.style.display = "none";
+    game.style.display = "grid";
 }
 
 function initializeBoard()
@@ -24,7 +24,7 @@ function initializeBoard()
             tiles[y] = [];
             rowElems[y] = document.createElement("TR");
         }
-        tiles[y][x] = new Tile(words[i].word, [y, x], words[i].team);
+        tiles[y][x] = new Tile(words[i].word, i, [y, x], words[i].team);
         rowElems[y].appendChild(tiles[y][x].elem);
         if (i % boardSize[1] === 0)
         {
@@ -35,9 +35,10 @@ function initializeBoard()
 
 class Tile
 {
-    constructor(word, pos, team)
+    constructor(word, index, pos, team)
     {
         this.word = word;
+        this.index = index;
         this.pos = pos;
         this.team = team;
         this.elem = document.createElement("TD");
@@ -62,6 +63,20 @@ class Tile
         {
             this.elem.style.backgroundColor = teamNames[this.team - 1];
             this.elem.style.color = getColorsForElem(this.elem).color;
+        }
+
+        this.elem.onmouseup = (event) =>
+        {
+            if (event.button === 0) // Left click
+            {
+                SERVER.markWord(this.index);
+
+                this.elem.style.backgroundColor = "yellow";
+            }
+            else if (event.button === 2) // Right click
+            {
+                SERVER.selectWord(this.index);
+            }
         }
     }
 }

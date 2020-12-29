@@ -1,7 +1,7 @@
 function swapToLobby()
 {
-    welcome.style.display = HIDDEN;
-    lobby.style.display = VISIBLE;
+    welcome.style.display = "none";
+    lobby.style.display = "grid";
 }
 
 function setupRoom()
