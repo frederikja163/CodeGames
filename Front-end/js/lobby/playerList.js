@@ -4,7 +4,7 @@ function initializeTeams()
 {
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
     {
-        addTeamElem();
+        addTeamElem(document.querySelector("#lobby #teams"));
     }
 }
 
@@ -176,8 +176,8 @@ function createIconElem(src, angle, invertColor, className)
 
 function addTeamElem()
 {
-    let teamList = document.querySelector("#lobby #teams");
-    let teamName = teamNames[teamList.children.length - 1];
+    let teamListElem = document.querySelector("#lobby #teams");
+    let teamName = teamNames[teamListElem.children.length - 1];
 
     // Create team box
     let team = document.createElement("LI");
@@ -197,7 +197,7 @@ function addTeamElem()
     team.appendChild(list);
 
     // Add team to player list
-    teamList.appendChild(team);
+    teamListElem.appendChild(team);
 
     // Set text-colour for team box
     team.style.color = getColorsForElem(team).color;

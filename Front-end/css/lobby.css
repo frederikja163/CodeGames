@@ -30,58 +30,6 @@
     grid-column: 1 / 2;
 }
 
-#lobby #teams > li
-{
-    background-color: var(--topColor);
-    margin: var(--space);
-}
-
-#lobby #teams li:first-child
-{
-    color: var(--backColor);
-}
-
-#lobby #teams h3
-{
-    text-align: center;
-    padding: var(--space);
-}
-
-#lobby #teams ul li
-{
-    display: grid;
-    grid-template-columns: auto auto;
-    padding: var(--space);
-}
-
-#lobby #teams ul li div
-{
-    height: 55px;
-}
-
-#lobby #teams ul li div:nth-child(2) /* TODO: fix height in btn / symbol */
-{
-    grid-column: 1 / 2;
-    margin-left: var(--space);
-    font-size: 18px;
-    line-height: calc(var(--btn2Size) + 2 * var(--space));
-}
-
-#lobby #teams ul li div:nth-child(3)
-{
-    text-align: right;
-}
-
-#lobby #teams .smIcon, .ownerIcon
-{
-    font-size: 16px;
-    margin: var(--space);
-    /* padding-left: 7px;
-    padding-right: 7px; */
-    line-height: calc(var(--btn2Size) + 2 * var(--space));
-    display: inline;
-}
-
 #lobby #options
 {
     grid-column: 3 / 4;

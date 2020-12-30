@@ -17,7 +17,7 @@ function initializeBoard()
 
     for (let i = 0; i < words.length; i++)
     {
-        tiles[i] = new Tile(words[i].word, i, [y, x], words[i].team);
+        tiles[i] = new Tile(words[i].word, i, [y, x]);
         x += i % boardSize[0] === 0 ? 1 : 0;
         if (i % boardSize[1] === 0)
         {
@@ -46,12 +46,12 @@ function getElemRgb(elem, property)
 
 class Tile
 {
-    constructor(word, index, pos, team)
+    constructor(word, index, pos)
     {
         this.word = word;
         this.index = index;
         this.pos = pos;
-        this.team = team;
+        this.selected = false;
         this.marked = false;
         this.elem = document.createElement("TD");
         this.elem.className = "box";
@@ -61,9 +61,10 @@ class Tile
 
         this.elem.onmouseup = (event) =>
         {
-            if (event.button === 0) // Left click
+            if (event.button === 0 && this.selected === false) // Left click
             {
                 SERVER.selectWord(this.index);
+                this.selected = true;
             }
             else if (event.button === 2) // Right click
             {
