@@ -95,7 +95,7 @@ function playerKicked(pid, reason)
 
 async function startBtnPressed()
 {
-    clickPack("#Animals");
+    //clickPack("#Animals");
     let words = SERVER.room.options.words;
     let result = [];
     let langCode;

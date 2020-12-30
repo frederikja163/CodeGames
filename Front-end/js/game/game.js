@@ -43,6 +43,7 @@ class Tile
         this.index = index;
         this.pos = pos;
         this.team = team;
+        this.marked = false;
         this.elem = document.createElement("TD");
         this.elem.className = "box";
         this.elem.innerHTML = this.word;
@@ -89,6 +90,15 @@ class Tile
 
     mark()
     {
-        this.elem.style.backgroundColor = "yellow";
+        if (this.marked)
+        {
+            this.marked = false;
+            this.update();
+        }
+        else
+        {
+            this.marked = true;
+            this.elem.style.backgroundColor = "yellow";
+        }
     }
 }
