@@ -63,12 +63,10 @@ class Tile
         {
             if (event.button === 0) // Left click
             {
-                console.log("left");
                 SERVER.selectWord(this.index);
             }
             else if (event.button === 2) // Right click
             {
-                console.log("right");
                 SERVER.markWord(this.index);
             }
         }
@@ -76,6 +74,8 @@ class Tile
 
     update()
     {
+        this.team = SERVER.room.words[this.index].team;
+
         if (this.team === -2)
         {
             this.elem.style.backgroundColor = "gray";
@@ -89,6 +89,7 @@ class Tile
         else if (this.team === 0)
         {
             this.elem.style.backgroundColor = "var(--topColor)";
+            this.elem.style.color = "var(--backColor)";
         }
         else
         {
@@ -102,18 +103,21 @@ class Tile
         if (this.marked)
         {
             this.marked = false;
-            
+
             this.elem.style.border = "none";
             this.elem.style.padding = "var(--space)";
+            this.update();
         }
         else
         {
             this.marked = true;
 
-            let borderRgb = getElemRgb(this.elem, "background-color");
-            let borderColor = "rgb(" + str(parseInt(borderRgb[0]) - 100) + ", " + str(parseInt(borderRgb[1]) - 100) + ", " + str(parseInt(borderRgb[2]) - 100) + ")";
+            let elemRgb = getElemRgb(this.elem, "background-color");
+            let borderColor = "rgb(" + str(parseInt(elemRgb[0]) - 100) + ", " + str(parseInt(elemRgb[1]) - 100) + ", " + str(parseInt(elemRgb[2]) - 100) + ")";
             this.elem.style.border = "var(--space) solid " + borderColor;
             this.elem.style.padding = "0px";
+            let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")"
+            this.elem.style.backgroundColor = backgroundColor;
         }
     }
 }
