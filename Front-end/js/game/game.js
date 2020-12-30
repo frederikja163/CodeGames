@@ -35,6 +35,15 @@ function initializeBoard()
     }
 }
 
+function getElemRgb(elem, property)
+{
+    let colorRaw = window.getComputedStyle(elem, null).getPropertyValue(property);
+    let start = colorRaw.indexOf("(") + 1;
+    let end = colorRaw.indexOf(")");
+    let rgbColor = colorRaw.substring(start, end);
+    return rgbColor.split(", ");
+}
+
 class Tile
 {
     constructor(word, index, pos, team)
@@ -93,12 +102,18 @@ class Tile
         if (this.marked)
         {
             this.marked = false;
-            this.update();
+            
+            this.elem.style.border = "none";
+            this.elem.style.padding = "var(--space)";
         }
         else
         {
             this.marked = true;
-            this.elem.style.backgroundColor = "yellow";
+
+            let borderRgb = getElemRgb(this.elem, "background-color");
+            let borderColor = "rgb(" + str(parseInt(borderRgb[0]) - 100) + ", " + str(parseInt(borderRgb[1]) - 100) + ", " + str(parseInt(borderRgb[2]) - 100) + ")";
+            this.elem.style.border = "var(--space) solid " + borderColor;
+            this.elem.style.padding = "0px";
         }
     }
 }

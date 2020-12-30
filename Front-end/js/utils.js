@@ -18,3 +18,8 @@ function getColorsForElem(elem)
     let backgroundColor = light ? "var(--topColor)" : "var(--backColor)";
     return {color: color, backgroundColor: backgroundColor};
 }
+
+function str(value)
+{
+    return JSON.stringify(value);
+}

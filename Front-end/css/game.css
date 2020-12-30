@@ -38,6 +38,8 @@
     padding: var(--space);
     text-align: center;
     font-size: 24px;
+    box-sizing: border-box;
+    transition: border var(--transTime);
 }
 
 #game > #word
