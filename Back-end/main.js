@@ -1,6 +1,6 @@
 var args = process.argv;
 var port;
-switch (args[3])
+switch (args[2])
 {
     case "dev":
     case "development":
