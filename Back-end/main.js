@@ -17,6 +17,8 @@ switch (args[3])
     case "local":
         port = 9998;
         break;
+    default:
+        port = 9998;
 }
 
 var io = require("socket.io")(9999);
