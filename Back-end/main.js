@@ -21,7 +21,7 @@ switch (args[3])
         port = 9998;
 }
 
-var io = require("socket.io")(9999);
+var io = require("socket.io")(port);
 var {Room} = require("./room.js");
 var {Client} = require("./client.js");
 var Command = require("./commands.js");

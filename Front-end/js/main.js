@@ -8,9 +8,6 @@ if (URLPARAMS.has("host"))
     {
         case "dev":
         case "development":
-            SERVER.connect("116.203.80.39", 9996);
-            break;
-        case "beta":
             SERVER.connect("116.203.80.39", 9997);
             break;
         case "rel":
