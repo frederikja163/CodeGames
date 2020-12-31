@@ -1,3 +1,24 @@
+var args = process.argv;
+var port;
+switch (args[3])
+{
+    case "dev":
+    case "development":
+        port = 9996;
+        break;
+    case "beta":
+        port = 9997;
+        break;
+    case "rel":
+    case "release":
+        port = 9999;
+        break;
+    case "loc":
+    case "local":
+        port = 9998;
+        break;
+}
+
 var io = require("socket.io")(9999);
 var {Room} = require("./room.js");
 var {Client} = require("./client.js");
