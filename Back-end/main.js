@@ -4,9 +4,6 @@ switch (args[3])
 {
     case "dev":
     case "development":
-        port = 9996;
-        break;
-    case "beta":
         port = 9997;
         break;
     case "rel":
