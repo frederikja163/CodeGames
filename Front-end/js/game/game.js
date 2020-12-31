@@ -2,6 +2,27 @@ function swapToGame()
 {
     lobby.style.display = "none";
     game.style.display = "grid";
+    state = "game";
+}
+
+function initializePlayerlist()
+{
+    document.querySelector("#game").prepend(document.querySelector(".playerlist"));
+    document.querySelectorAll("#game > .playerlist .icon, .btn2").forEach(e => e.style.display = "none");
+
+    for (let i = 0; i < SERVER.room.players.length; i++)
+    {
+        if (SERVER.room.players[i].spymaster)
+        {
+            let playerElem = getPlayerElement(SERVER.room.players[i].pid);
+            let teamElem = getTeamElement(SERVER.room.players[i].team);
+
+            playerElem.querySelector(".smIcon").style.display = "inline";
+            playerElem.querySelectorAll(".smIcon *").forEach(e => e.style.display = "inline");
+
+            teamElem.prepend(playerElem);
+        }
+    }
 }
 
 function initializeBoard()

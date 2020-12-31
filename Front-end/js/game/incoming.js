@@ -3,6 +3,7 @@ SERVER.onGameStarted = (room) =>
     SERVER.room = room;
 
     swapToGame();
+    initializePlayerlist();
     initializeBoard();
 }
 

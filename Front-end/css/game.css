@@ -6,6 +6,16 @@
     margin: var(--space);
 }
 
+#game > .playerlist
+{
+    grid-row: 1 / 4;
+}
+
+#game > .playerlist .btn2
+{
+    display: none;
+}
+
 #game > #gamePlayers
 {
     grid-row: 1 / 4;

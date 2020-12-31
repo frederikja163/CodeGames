@@ -23,3 +23,14 @@ function str(value)
 {
     return JSON.stringify(value);
 }
+
+function getTeamElement(team)
+{
+    return Array.from(document.querySelectorAll(".playerlist > ul ul"))[team];
+}
+
+function getPlayerElement(pid)
+{
+    let pidElement = Array.from(document.querySelectorAll(".pid")).find(p => p.innerText === pid);
+    return pidElement === undefined ? undefined : pidElement.parentElement;
+}

@@ -16,17 +16,6 @@ function initializePlayers()
     }
 }
 
-function getTeamElement(team)
-{
-    return Array.from(document.querySelectorAll("#lobby #players #teams ul"))[team];
-}
-
-function getPlayerElement(pid)
-{
-    let pidElement = Array.from(document.querySelectorAll(".pid")).find(p => p.innerText === pid);
-    return pidElement === undefined ? undefined : pidElement.parentElement;
-}
-
 function createPlayer(player) // TODO: Create element on parent insted of document
 {
     // Create list item
@@ -212,7 +201,7 @@ function removeTeamElem()
         teamChanged(pidElements[i].innerText);
     }
 
-    document.querySelector("#lobby #players #teams").lastChild.remove();
+    document.querySelector(".playerlist > ul").lastChild.remove();
 }
 
 function playerJoined(pid)

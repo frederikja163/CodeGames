@@ -2,6 +2,7 @@ function swapToLobby()
 {
     welcome.style.display = "none";
     lobby.style.display = "grid";
+    state = "lobby";
 }
 
 function setupRoom()
@@ -60,7 +61,7 @@ function nameChange()
 
 function revealOwnerContent()
 {
-    if (SERVER.pid == SERVER.room.players[0].pid)
+    if (SERVER.pid == SERVER.room.players[0].pid && state === "lobby")
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
         document.querySelectorAll(".guest").forEach(elem => elem.style.display = HIDDEN);

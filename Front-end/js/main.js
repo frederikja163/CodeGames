@@ -34,6 +34,7 @@ let lobby;
 let game;
 let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
 let tiles = [];
+let state = "welcome";
 let startGame = false;
 
 document.addEventListener('keyup', (event) =>
