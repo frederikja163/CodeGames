@@ -8,8 +8,7 @@ if (URLPARAMS.has("host"))
     {
         case "dev":
         case "development":
-            //TODO: Create a development server, for now use release.
-            SERVER.connect("116.203.80.39", 9999);
+            SERVER.connect("116.203.80.39", 9997);
             break;
         case "rel":
         case "release":
@@ -17,7 +16,7 @@ if (URLPARAMS.has("host"))
             break;
         case "loc":
         case "local":
-            SERVER.connect("localhost", 9999);
+            SERVER.connect("localhost", 9998);
             break;
     }
 }
