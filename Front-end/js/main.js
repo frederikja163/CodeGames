@@ -35,11 +35,11 @@ let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "
 
 document.addEventListener('keyup', (event) =>
 {
-    if(event.code == 113) //F2 is our debug key.
+    if(event.key == "F2") // Debug key
     {
         setDebugMode(!debugMode);
     }
-    else if(event.code == 13) //Enter
+    else if(event.key == "Enter")
     {
         // Join lobby if cursor is in any of the textfields in welcome
         let welcomeFields = document.querySelectorAll("#welcome input");
