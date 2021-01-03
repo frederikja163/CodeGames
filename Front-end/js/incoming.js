@@ -4,23 +4,33 @@ SERVER.onRoomJoined = (room, rid, pid) =>
     SERVER.rid = rid;
     SERVER.pid = pid;
 
-    swapToLobby();
-    updateLink();
-    updateNameField();
-    initializeTeams();
-    initializePlayers();
-    initializePackList();
-    updateWordsField();
-    updateTeamCount();
-    setupRoom();
-    revealOwnerContent();
+    if (SERVER.room.players.find(p => p.pid === SERVER.pid).team === -1)
+    {
+        swapToWait();
+    }
+    else
+    {
+        swapToLobby();
+        updateLink();
+        updateNameField();
+        initializeTeams();
+        initializePlayers();
+        initializePackList();
+        updateWordsField();
+        updateTeamCount();
+        setupRoom();
+        revealOwnerContent();
+    }
 };
 
 SERVER.onPlayerJoined = (room, pid) => 
 {
     SERVER.room = room;
 
-    playerJoined(pid);
+    if (SERVER.room.players.find(p => p.pid === pid).team != -1)
+    {
+        playerJoined(pid);
+    }
 };
 
 SERVER.onPlayerLeft = (room, pid) => 
@@ -28,6 +38,9 @@ SERVER.onPlayerLeft = (room, pid) =>
     let oldRoom = SERVER.room;
     SERVER.room = room;
 
-    playerLeft(pid, oldRoom);
-    revealOwnerContent();
+    if (oldRoom.players.find(p => p.pid === pid).team != -1)
+    {
+        playerLeft(pid, oldRoom);
+        revealOwnerContent();
+    }
 };

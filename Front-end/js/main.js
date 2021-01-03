@@ -32,6 +32,7 @@ const VISIBLE = "grid";
 let welcome;
 let lobby;
 let game;
+let wait;
 let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
 let tiles = [];
 let state = "welcome";
@@ -77,6 +78,7 @@ window.onload = () => {
     welcome = document.querySelector("#welcome");
     lobby = document.querySelector("#lobby");
     game = document.querySelector("#game");
+    wait = document.querySelector("#wait");
     setDebugMode(false);
 
     let url = String(window.location); // Change URL without redirecting
