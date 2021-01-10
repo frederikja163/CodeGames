@@ -29,7 +29,7 @@ function initializeBoard()
 {
     let boardSize = [5, 5];
 
-    let words = SERVER.room.words;
+    let words = SERVER.room.game.words;
     let boardElem = document.querySelector("#board");
     let rowElems = [];
     let boardTiles = [];
@@ -96,7 +96,7 @@ class Tile
 
     update()
     {
-        this.team = SERVER.room.words[this.index].team;
+        this.team = SERVER.room.game.words[this.index].team;
 
         if (this.team === -2)
         {

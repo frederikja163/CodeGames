@@ -26,7 +26,8 @@ class Client{
         this.socket.on("startGame", () => call(() => this.onStartGame()));
         this.socket.on("markWord", (index) => call(() => this.onMarkWord(index))); //TODO: Support variable word sizes here
         this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index))); //TODO: Support variable word sizes here
-
+        this.socket.on("giveWord", (word, wordCount) => call(() => this.onGiveWord(word, wordcount)));
+        this.socket.on("endRound", () => call(() => this.onEndRound()));
     }
 
     reset()
@@ -74,10 +75,14 @@ class Client{
         //From-Client
         this.onMarkWord =           (index) => {};
         this.onSelectWord =         (index) => {};
+        this.onGiveWord =           (word) => {};
+        this.onEndRound =           () => {};
         //To-Client
         this.gameStarted =          (room) => send("gameStarted", room);
         this.wordMarked =           (room, index) => send("wordMarked", room, index);
         this.wordSelected =         (room, index) => send("wordSelected", room, index);
+        this.wordGiven =            (room) => send("wordGiven", room);
+        this.roundEnded =           (room) => send("roundEnded", room);
     }
 }
 
