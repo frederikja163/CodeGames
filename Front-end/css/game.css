@@ -52,6 +52,50 @@
     transition: all var(--transTime);
 }
 
+#game > #board > tr > td > div
+{    
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100% 0;
+    grid-template-rows: repeat(3, calc(100% / 3));
+}
+
+#game > #board > tr > td > div > .txt
+{
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+}
+
+.pie
+{
+    grid-row: 3 / 4;
+
+    margin: auto;
+    box-sizing: border-box;
+    border: solid 3px var(--topColor);
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    max-height: var(--btn2Size);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+
+#game > #board > tr > td > div > .pie
+{
+    grid-row: 3 / 4;
+
+    display: inline;
+    margin: auto;
+    box-sizing: border-box;
+    border: solid 3px var(--topColor);
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    max-height: var(--btn2Size);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+
 #game > #word
 {
     grid-row: 3 / 4;

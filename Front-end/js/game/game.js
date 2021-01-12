@@ -65,6 +65,67 @@ function getElemRgb(elem, property)
     return rgbColor.split(", ");
 }
 
+function getMarked(room, wordIndex)
+{
+    marked = {
+        total: 0,
+        teams: [[]],
+    };
+    let players = room.players;
+    for (let t = 1; t <= room.options.teamCount; t++)
+    {
+        marked.teams[t] = [];
+        let count = 0;
+        for (let p = 0; p < players.length; p++)
+        {
+            let player = players[p];
+            if (player.team === t)
+            {
+                marked.teams[t][count] = room.words[wordIndex].marked.includes(player.pid) ? true : false;
+                count++;
+            }
+        }
+    }
+
+    return marked;
+}
+
+class Pie
+{
+    constructor(filled, color)
+    {
+        this.filled = filled === undefined ? [true] : filled;
+        this.sliceCount = this.filled.length - 1;
+        this.color = color;
+        this.elem = document.createElement("DIV");
+        this.elem.className = "pie";
+        
+        this.update(this.filled);
+    }
+
+    update(filled)
+    {
+        this.filled = filled === undefined ? [true] : filled;
+        let backgroundStr = "conic-gradient(";
+
+        for (let i = 1; i <= this.sliceCount; i++)
+        {
+            let angleStart = 360 / this.sliceCount * (i - 1);
+            let angleEnd = 360 / this.sliceCount * i;
+            let sliceColor = this.filled[i] ? this.color : "var(--topColor)";
+            
+            backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Use String insted str to prevent double quotation marks
+            if (i < this.sliceCount) backgroundStr += ", ";
+            else backgroundStr += ")";
+        }
+
+        if (!this.filled.includes(true)) this.elem.style.display = "none";
+        else this.elem.style.display = "inline";
+
+        this.elem.style.backgroundImage = backgroundStr;
+    }
+}
+
 class Tile
 {
     constructor(word, index, pos)
@@ -73,11 +134,33 @@ class Tile
         this.index = index;
         this.pos = pos;
         this.selected = false;
-        this.marked = false;
+        this.marked = getMarked(SERVER.room, this.index);
+        
+        this.pieCount = 0;
+        for (let i = 0; i < this.marked.teams.length; i++)
+        {
+            this.pieCount += this.marked.teams[i].length > 1 ? 1 : 0;
+        }
+        
         this.elem = document.createElement("TD");
         this.elem.className = "box";
-        this.elem.innerHTML = this.word;
         
+        this.wrapElem = document.createElement("DIV");
+        this.wrapElem.style.gridTemplateColumns = "repeat(" + str(this.pieCount) + ", calc(100% / " + str(this.pieCount) + "))";
+        this.elem.appendChild(this.wrapElem);
+        
+        this.txtWrapElem = document.createElement("DIV");
+        this.txtWrapElem.className = "txt";
+        this.txtWrapElem.innerHTML = this.word;
+        this.wrapElem.appendChild(this.txtWrapElem);
+        
+        this.pies = [];
+        for (let t = 1; t < this.marked.teams.length; t++)
+        {
+            this.pies[t] = new Pie(this.marked.teams[t], teamNames[t - 1]);
+            this.wrapElem.appendChild(this.pies[t].elem);
+        }
+
         this.update();
 
         this.elem.onmouseup = (event) =>
@@ -96,8 +179,8 @@ class Tile
 
     update()
     {
-        this.team = SERVER.room.words[this.index].team;
-
+        let wordObj = SERVER.room.words[this.index];
+        this.team = wordObj.team;
         if (this.team === -2)
         {
             this.elem.style.backgroundColor = "gray";
@@ -122,24 +205,28 @@ class Tile
 
     mark()
     {
-        if (this.marked)
-        {
-            this.marked = false;
+        this.marked = getMarked(SERVER.room, this.index);
 
-            this.elem.style.border = "none";
-            this.elem.style.padding = "var(--space)";
-            this.update();
+        for (let t = 1; t < this.marked.teams.length; t++)
+        {
+            this.pies[t].update(this.marked.teams[t]);
         }
-        else
-        {
-            this.marked = true;
 
+        let wordObj = SERVER.room.words[this.index];
+        if (wordObj.marked.includes(SERVER.pid))
+        {
             let elemRgb = getElemRgb(this.elem, "background-color");
             let borderColor = "rgb(" + str(parseInt(elemRgb[0]) - 100) + ", " + str(parseInt(elemRgb[1]) - 100) + ", " + str(parseInt(elemRgb[2]) - 100) + ")";
             this.elem.style.border = "var(--space) solid " + borderColor;
             this.elem.style.padding = "0px";
             let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")"
             this.elem.style.backgroundColor = backgroundColor;
+        }
+        else
+        {
+            this.elem.style.border = "none";
+            this.elem.style.padding = "var(--space)";
+            this.update();
         }
     }
 }
