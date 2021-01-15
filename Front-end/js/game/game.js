@@ -79,9 +79,9 @@ function initializeBoard()
     let rowElem;
     tiles = [];
 
-    for (let i = 0; i < 36; i++)
+    for (let i = 0; i < words.length; i++)
     {
-        tiles[i] = new Tile(words[0].word, i);
+        tiles[i] = new Tile(words[i].word, i);
         if (i % boardWidth === 0)
         {
             rowElem = document.createElement("TR");
