@@ -43,7 +43,7 @@ function getAllFactors(n)
 
 function getBoardWidth(aspectRatio)
 {
-    let wordCount = 36;
+    let wordCount = SERVER.room.words.length;
     let factorPairs = getAllFactors(wordCount);
     let i = 1;
     while (factorPairs.length < 10)
@@ -55,9 +55,6 @@ function getBoardWidth(aspectRatio)
     let bestRatioInd = 0;
     for (let i = 1; i < factorPairs.length; i++)
     {
-        console.log(factorPairs[i].factor1, factorPairs[i].factor2);
-        console.log(factorPairs[i].factor1 / factorPairs[i].factor2);
-        console.log(bestRatioDiff, bestRatioInd);
         let ratioDiff = Math.abs((factorPairs[i].factor1 / factorPairs[i].factor2) - aspectRatio);
         if (ratioDiff < bestRatioDiff)
         {
@@ -66,8 +63,11 @@ function getBoardWidth(aspectRatio)
         }
     }
 
-    return factorPairs[bestRatioInd].factor1;
-    return Math.ceil(Math.sqrt(wordCount));
+    let factorWords = factorPairs[bestRatioInd].factor1 * factorPairs[bestRatioInd].factor2;
+    let sqrtSize = Math.ceil(Math.sqrt(wordCount));
+    let sqrtWords = sqrtSize * sqrtSize;
+
+    return factorWords < sqrtWords ? factorPairs[bestRatioInd].factor1 : sqrtSize;
 }
 
 function initializeBoard()
