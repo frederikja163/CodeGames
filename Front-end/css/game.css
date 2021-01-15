@@ -11,6 +11,17 @@
     grid-row: 1 / 4;
 }
 
+#game > .playerlist > .btnWrap
+{
+    text-align: right;
+}
+
+#game > .playerlist > .btnWrap > .pie
+{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
 #game > .playerlist .btn2
 {
     display: none;

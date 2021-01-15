@@ -43,6 +43,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
 
     // Create button div
     let btnElem = document.createElement("DIV");
+    btnElem.className = "btnWrap";
     
     // Create spymaster icon
     let smElem = document.createElement("DIV");

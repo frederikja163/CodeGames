@@ -34,3 +34,21 @@ function getPlayerElement(pid)
     let pidElement = Array.from(document.querySelectorAll(".pid")).find(p => p.innerText === pid);
     return pidElement === undefined ? undefined : pidElement.parentElement;
 }
+
+function getTeamsData()
+{
+    let teams = [];
+    let players = SERVER.room.players;
+
+    for (let i = 0; i < players.length; i++)
+    {
+        let player = players[i];
+        if (!teams[player.team])
+        {
+            teams[player.team] = [];
+        }
+        teams[player.team].push(player);
+    }
+
+    return teams;
+}
