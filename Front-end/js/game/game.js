@@ -48,9 +48,49 @@ function initializePlayerlist()
     }
 }
 
+function getAllFactors(n)
+{
+    let factorPairs = [];
+    for (let i = 1; i < n / 2; i++)
+    {
+        if (n % i === 0)
+        {
+            factorPairs.push(
+                {
+                    factor1: i, factor2: n / i
+                });
+        }
+    }
+    return factorPairs;
+}
+
 function getBoardWidth(aspectRatio)
 {
-    return 5;
+    let wordCount = SERVER.room.words.length;
+    let factorPairs = getAllFactors(wordCount);
+    let i = 1;
+    while (factorPairs.length < 10)
+    {
+        factorPairs = factorPairs.concat(getAllFactors(wordCount + i++));
+    }
+    
+    let bestRatioDiff = Math.abs((factorPairs[0].factor1 / factorPairs[0].factor2) - aspectRatio);
+    let bestRatioInd = 0;
+    for (let i = 1; i < factorPairs.length; i++)
+    {
+        let ratioDiff = Math.abs((factorPairs[i].factor1 / factorPairs[i].factor2) - aspectRatio);
+        if (ratioDiff < bestRatioDiff)
+        {
+            bestRatioInd = i;
+            bestRatioDiff = ratioDiff;
+        }
+    }
+
+    let factorWords = factorPairs[bestRatioInd].factor1 * factorPairs[bestRatioInd].factor2;
+    let sqrtSize = Math.ceil(Math.sqrt(wordCount));
+    let sqrtWords = sqrtSize * sqrtSize;
+
+    return factorWords < sqrtWords ? factorPairs[bestRatioInd].factor1 : sqrtSize;
 }
 
 function initializeBoard()
