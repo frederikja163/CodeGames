@@ -95,7 +95,6 @@ function getBoardWidth(aspectRatio)
 
 function initializeBoard()
 {
-    
     const words = SERVER.room.words;
     const boardElem = document.querySelector("#board");
     const boardWidth = getBoardWidth(boardElem.offsetWidth / boardElem.offsetHeight);
@@ -111,6 +110,11 @@ function initializeBoard()
             boardElem.appendChild(rowElem);
         }
         rowElem.appendChild(tiles[i].elem);
+    }
+
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 }
 

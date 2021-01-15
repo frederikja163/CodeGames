@@ -61,6 +61,7 @@
     font-size: 24px;
     box-sizing: border-box;
     transition: all var(--transTime);
+
 }
 
 #game > #board > tr > td > div
@@ -82,21 +83,6 @@
 {
     grid-row: 3 / 4;
 
-    margin: auto;
-    box-sizing: border-box;
-    border: solid 3px var(--topColor);
-    width: var(--btn2Size);
-    height: var(--btn2Size);
-    max-height: var(--btn2Size);
-    border-radius: 50%;
-    box-shadow: var(--shadow);
-}
-
-#game > #board > tr > td > div > .pie
-{
-    grid-row: 3 / 4;
-
-    display: inline;
     margin: auto;
     box-sizing: border-box;
     border: solid 3px var(--topColor);
