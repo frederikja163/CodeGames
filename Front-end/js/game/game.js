@@ -25,9 +25,49 @@ function initializePlayerlist()
     }
 }
 
+function getAllFactors(n)
+{
+    let factorPairs = [];
+    for (let i = 1; i < n / 2; i++)
+    {
+        if (n % i === 0)
+        {
+            factorPairs.push(
+                {
+                    factor1: i, factor2: n / i
+                });
+        }
+    }
+    return factorPairs;
+}
+
 function getBoardWidth(aspectRatio)
 {
-    return 5;
+    let wordCount = 36;
+    let factorPairs = getAllFactors(wordCount);
+    let i = 1;
+    while (factorPairs.length < 10)
+    {
+        factorPairs = factorPairs.concat(getAllFactors(wordCount + i++));
+    }
+    
+    let bestRatioDiff = Math.abs((factorPairs[0].factor1 / factorPairs[0].factor2) - aspectRatio);
+    let bestRatioInd = 0;
+    for (let i = 1; i < factorPairs.length; i++)
+    {
+        console.log(factorPairs[i].factor1, factorPairs[i].factor2);
+        console.log(factorPairs[i].factor1 / factorPairs[i].factor2);
+        console.log(bestRatioDiff, bestRatioInd);
+        let ratioDiff = Math.abs((factorPairs[i].factor1 / factorPairs[i].factor2) - aspectRatio);
+        if (ratioDiff < bestRatioDiff)
+        {
+            bestRatioInd = i;
+            bestRatioDiff = ratioDiff;
+        }
+    }
+
+    return factorPairs[bestRatioInd].factor1;
+    return Math.ceil(Math.sqrt(wordCount));
 }
 
 function initializeBoard()
@@ -35,13 +75,13 @@ function initializeBoard()
     
     const words = SERVER.room.words;
     const boardElem = document.querySelector("#board");
-    const boardWidth = getBoardWidth(boardElem.width / boardElem.height);
+    const boardWidth = getBoardWidth(boardElem.offsetWidth / boardElem.offsetHeight);
     let rowElem;
     tiles = [];
 
-    for (let i = 0; i < words.length; i++)
+    for (let i = 0; i < 36; i++)
     {
-        tiles[i] = new Tile(words[i].word, i);
+        tiles[i] = new Tile(words[0].word, i);
         if (i % boardWidth === 0)
         {
             rowElem = document.createElement("TR");
