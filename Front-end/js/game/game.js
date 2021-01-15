@@ -25,34 +25,29 @@ function initializePlayerlist()
     }
 }
 
+function getBoardWidth(aspectRatio)
+{
+    return 5;
+}
+
 function initializeBoard()
 {
-    let boardSize = [5, 5];
-
-    let words = SERVER.room.words;
-    let boardElem = document.querySelector("#board");
-    let rowElems = [];
-    let boardTiles = [];
-    let x = -1;
-    let y = -1;
+    
+    const words = SERVER.room.words;
+    const boardElem = document.querySelector("#board");
+    const boardWidth = getBoardWidth(boardElem.width / boardElem.height);
+    let rowElem;
+    tiles = [];
 
     for (let i = 0; i < words.length; i++)
     {
-        tiles[i] = new Tile(words[i].word, i, [y, x]);
-        x += i % boardSize[0] === 0 ? 1 : 0;
-        if (i % boardSize[1] === 0)
+        tiles[i] = new Tile(words[i].word, i);
+        if (i % boardWidth === 0)
         {
-            y++;
-            boardTiles[y] = [];
-            rowElems[y] = document.createElement("TR");
+            rowElem = document.createElement("TR");
+            boardElem.appendChild(rowElem);
         }
-        boardTiles[y][x] = tiles[i];
-        tiles[i].pos = [y, x];
-        rowElems[y].appendChild(boardTiles[y][x].elem);
-        if (i % boardSize[1] === 0)
-        {
-            boardElem.appendChild(rowElems[y]);
-        }
+        rowElem.appendChild(tiles[i].elem);
     }
 }
 
@@ -94,32 +89,35 @@ class Pie
 {
     constructor(filled, color)
     {
-        this.filled = filled === undefined ? [true] : filled;
-        this.sliceCount = this.filled.length - 1;
+        this.sliceCount = filled.length - 1;
         this.color = color;
         this.elem = document.createElement("DIV");
         this.elem.className = "pie";
         
-        this.update(this.filled);
+        this.update(filled);
     }
 
     update(filled)
     {
-        this.filled = filled === undefined ? [true] : filled;
+        if (!filled) 
+        {
+            filled = [true];
+        }
+        
         let backgroundStr = "conic-gradient(";
 
         for (let i = 1; i <= this.sliceCount; i++)
         {
             let angleStart = 360 / this.sliceCount * (i - 1);
             let angleEnd = 360 / this.sliceCount * i;
-            let sliceColor = this.filled[i] ? this.color : "var(--topColor)";
+            let sliceColor = filled[i] ? this.color : "var(--topColor)";
             
             backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Use String insted str to prevent double quotation marks
             if (i < this.sliceCount) backgroundStr += ", ";
             else backgroundStr += ")";
         }
 
-        if (!this.filled.includes(true)) this.elem.style.display = "none";
+        if (!filled.includes(true)) this.elem.style.display = "none";
         else this.elem.style.display = "inline";
 
         this.elem.style.backgroundImage = backgroundStr;
@@ -128,11 +126,10 @@ class Pie
 
 class Tile
 {
-    constructor(word, index, pos)
+    constructor(word, index)
     {
         this.word = word;
         this.index = index;
-        this.pos = pos;
         this.selected = false;
         this.marked = getMarked(SERVER.room, this.index);
         
@@ -219,7 +216,7 @@ class Tile
             let borderColor = "rgb(" + str(parseInt(elemRgb[0]) - 100) + ", " + str(parseInt(elemRgb[1]) - 100) + ", " + str(parseInt(elemRgb[2]) - 100) + ")";
             this.elem.style.border = "var(--space) solid " + borderColor;
             this.elem.style.padding = "0px";
-            let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")"
+            let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")";
             this.elem.style.backgroundColor = backgroundColor;
         }
         else
