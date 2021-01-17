@@ -184,8 +184,18 @@ class Pie
             else backgroundStr += ")";
         }
 
-        if (!filled.includes(true)) this.elem.style.display = "none";
-        else this.elem.style.display = "inline";
+        if (!filled.includes(true))
+        {
+            this.elem.style.opacity = "0";
+            this.elem.style.width = "0";
+            this.elem.style.height = "0";
+        }
+        else 
+        {
+            this.elem.style.opacity = "1";
+            this.elem.style.width = "var(--btn2Size)";
+            this.elem.style.height = "var(--btn2Size)";
+        }
 
         this.elem.style.backgroundImage = backgroundStr;
     }
@@ -280,15 +290,13 @@ class Tile
         if (wordObj.marked.includes(SERVER.pid))
         {
             let elemRgb = getElemRgb(this.elem, "background-color");
-            let borderColor = "rgb(" + str(parseInt(elemRgb[0]) - 100) + ", " + str(parseInt(elemRgb[1]) - 100) + ", " + str(parseInt(elemRgb[2]) - 100) + ")";
-            this.elem.style.border = "var(--space) solid " + borderColor;
-            this.elem.style.padding = "0px";
+            this.elem.style.borderColor = "rgba(0, 0, 0, .5)";
             let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")";
             this.elem.style.backgroundColor = backgroundColor;
         }
         else
         {
-            this.elem.style.border = "none";
+            this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
             this.update();
         }

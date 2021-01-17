@@ -11,15 +11,11 @@
     grid-row: 1 / 4;
 }
 
-#game > .playerlist > .btnWrap
-{
-    text-align: right;
-}
-
-#game > .playerlist > .btnWrap > .pie
+#game > .playerlist .btnWrap > .pie
 {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+    margin-right: var(--space);
 }
 
 #game > .playerlist .btn2
@@ -55,13 +51,12 @@
 {
     background-color: var(--topColor);
     color: var(--backColor);
-    border: none;
+    border: var(--space) solid rgba(0, 0, 0, 0);
     padding: var(--space);
     text-align: center;
     font-size: 24px;
     box-sizing: border-box;
     transition: all var(--transTime);
-
 }
 
 #game > #board > tr > td > div
@@ -91,6 +86,7 @@
     max-height: var(--btn2Size);
     border-radius: 50%;
     box-shadow: var(--shadow);
+    transition: all var(--transTime);
 }
 
 #game > #word
