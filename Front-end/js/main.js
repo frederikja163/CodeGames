@@ -1,3 +1,5 @@
+// Icon pack: https://www.flaticon.com/packs/ui-interface-25 
+
 var debugMode = false;
 
 const URLPARAMS = new URLSearchParams(window.location.search);

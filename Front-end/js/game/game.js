@@ -10,7 +10,7 @@ function initializePlayerlist()
     let teamsData = getTeamsData();
 
     document.querySelector("#game").prepend(document.querySelector(".playerlist"));
-    document.querySelectorAll("#game > .playerlist .icon, .btn2").forEach(e => e.style.display = "none");
+    document.querySelectorAll("#game > .playerlist .icon, #game > .playerlist .btn2").forEach(e => e.style.display = "none");
 
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
@@ -150,6 +150,27 @@ function getMarked(room, wordIndex)
     }
 
     return marked;
+}
+
+function initializeWord()
+{
+    let form = document.querySelector("#game > #word > form");
+    
+    if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
+    {
+        form.style.display = "grid";
+        form.querySelectorAll("input").forEach(e => e.style.display = "inline");
+    }
+    else
+    {
+        form.style.display = "none";
+        form.querySelectorAll("input").forEach(e => e.style.display = "none");
+    }
+}
+
+function wordSend()
+{
+    console.log("send");
 }
 
 class Pie

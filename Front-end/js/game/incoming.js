@@ -5,6 +5,7 @@ SERVER.onGameStarted = (room) =>
     swapToGame();
     initializePlayerlist();
     initializeBoard();
+    initializeWord();
 }
 
 SERVER.onWordMarked = (room, index) =>
