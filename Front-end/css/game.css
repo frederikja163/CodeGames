@@ -93,4 +93,32 @@
 {
     grid-row: 3 / 4;
     grid-column: 2 / 3;
+
+    background-color: var(--l1Color);
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+#game > #word > form
+{
+    grid-column: 2 / 3;
+
+    display: grid;
+    grid-template-columns: auto calc(var(--btn2Size) + 2 * var(--space));
+}
+
+#game > #word > form > .inputTxt
+{
+    grid-column: 1 / 2;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#game > #word > form > .btn2
+{
+    grid-column: 2 / 3;
+
+    margin-top: auto;
+    margin-bottom: auto;
 }

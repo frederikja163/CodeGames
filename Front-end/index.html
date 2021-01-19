@@ -42,7 +42,7 @@
             <!-- Join box-->
             <div class="box" id="join">
                 <h2>Welcome to Code Games!</h2>
-                <form>
+                <form action="javascript:void(0);">
                     <h3>Name</h3>
                     <p>Enter the nickname you would like to be recognized as in the game</p>
                     <input class="inputTxt" id="welcomeInputName" type="text" name="name" placeholder="Name">
@@ -146,7 +146,10 @@
             </table>
             <!-- Word -->
             <div class="box" id="word">
-                WIP word
+                <form onsubmit="wordSend()" action="javascript:void(0);">
+                    <input class="inputTxt" placeholder="Give word">
+                    <input class="btn2" style="display=inline" type="submit" value="Submit">
+                </form>
             </div>
         </page>
         <page id="wait">
