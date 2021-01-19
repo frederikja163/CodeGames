@@ -1,4 +1,4 @@
-const {RoomData, PlayerData, Options, Word} = require("./data");
+const {RoomData, PlayerData, Options, GameData, Word} = require("./data");
 
 class Game
 {
@@ -6,6 +6,8 @@ class Game
     {
         this.data = data;
         this.clients = clients;
+
+        this.data.game = new GameData();
 
         let wordOptions = this.data.options.words.slice();
         this.fullWords = [];
@@ -50,8 +52,51 @@ class Game
         {
             return;
         }
-        client.onMarkWord = (index) => this.onMarkWord(client, index);
-        client.onSelectWord = (index) => this.onSelectWord(client, index);
+        if (player.spymaster)
+        {
+            client.onGiveWord = (word, wordCount) => this.onGiveWord(client, word, wordCount);
+        }
+        else if (player.team != 0)
+        {
+            client.onMarkWord = (index) => this.onMarkWord(client, index);
+            client.onSelectWord = (index) => this.onSelectWord(client, index);
+            client.onEndRound = () => this.onEndRound(client);
+        }
+    }
+
+    onGiveWord(client, word, wordCount)
+    {
+        if (!this.isSpymastersTurn())
+        {
+            return;
+        }
+        this.data.game.word = word;
+        this.data.game.wordCount = wordCount;
+        this.ForeachClient(c => {c.wordGiven(this.data)});
+    }
+
+    onEndRound(client)
+    {
+        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
+        let player = this.data.players[playerInd];
+        if (this.isSpymastersTurn())
+        {
+            return;
+        }
+        this.EndRound();
+    }
+
+    EndRound()
+    {
+        this.data.game.word = null;
+        this.data.game.wordCount = null;
+        this.data.game.activeTeam  += 1;
+        if (this.data.game.activeTeam > this.data.options.teamCount)
+        {
+            this.data.game.activeTeam = 1;
+        }
+
+        this.ForeachClient(client => client.roundEnded(this.data));
     }
 
     RemovePlayer(pid)
@@ -61,9 +106,7 @@ class Game
 
     onMarkWord(client, index)
     {
-        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
-        let player = this.data.players[playerInd];
-        if (player.team == 0 || player.spymaster || index < 0 || index >= this.fullWords.length)
+        if (index < 0 || index >= this.fullWords.length)
         {
             return;
         }
@@ -85,15 +128,23 @@ class Game
 
     onSelectWord(client, index)
     {
-        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
-        let player = this.data.players[playerInd];
-        if (player.team == 0 || player.spymaster || index < 0 || index >= this.fullWords.length)
+        if (index < 0 || index >= this.fullWords.length)
         {
             return;
         }
 
+        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
+        let player = this.data.players[playerInd];
+        if (this.isSpymastersTurn() || player.team != this.data.game.activeTeam)
+        {
+            return;
+        }
         this.playerWords[index] = this.fullWords[index];
         this.ForeachClient(client => client.wordSelected(this.data, index));
+        if (player.team != this.fullWords[index].team)
+        {
+            this.EndRound();
+        }
     }
 
     ForeachClient(method)
@@ -107,14 +158,19 @@ class Game
             }
             else if (player.team == 0 || player.spymaster)
             {
-                this.data.words = this.fullWords;
+                this.data.game.words = this.fullWords;
             }
             else
             {
-                this.data.words = this.playerWords;
+                this.data.game.words = this.playerWords;
             }
             method(this.clients[i]);
         }
+    }
+
+    isSpymastersTurn()
+    {
+        return this.data.game.word === null && this.data.game.wordCount === null;
     }
 }
 

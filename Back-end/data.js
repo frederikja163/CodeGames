@@ -5,7 +5,7 @@ class RoomData
         this.rid = rid;
         this.players = [];
         this.options = new Options();
-        this.words = undefined;
+        this.game = null;
     }
 }
 
@@ -29,6 +29,17 @@ class Options
     }
 }
 
+class GameData
+{
+    constructor()
+    {
+        this.words = [];
+        this.activeTeam = 1;
+        this.word = null;
+        this.wordCount = null;
+    }
+}
+
 class Word
 {
     constructor(str, team)
@@ -45,5 +56,6 @@ module.exports =
     RoomData,
     PlayerData,
     Options,
+    GameData,
     Word
 }
