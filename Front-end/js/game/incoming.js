@@ -21,3 +21,10 @@ SERVER.onWordSelected = (room, index) =>
 
     tiles[index].update();
 }
+
+SERVER.onWordGiven = (room) =>
+{
+    SERVER.room = room;
+
+    wordGiven();
+}
