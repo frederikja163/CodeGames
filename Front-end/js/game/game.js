@@ -66,7 +66,7 @@ function getAllFactors(n)
 
 function getBoardWidth(aspectRatio)
 {
-    let wordCount = SERVER.room.words.length;
+    let wordCount = SERVER.room.game.words.length;
     let factorPairs = getAllFactors(wordCount);
     let i = 1;
     while (factorPairs.length < 10)
@@ -95,7 +95,7 @@ function getBoardWidth(aspectRatio)
 
 function initializeBoard()
 {
-    const words = SERVER.room.words;
+    const words = SERVER.room.game.words;
     const boardElem = document.querySelector("#board");
     const boardWidth = getBoardWidth(boardElem.offsetWidth / boardElem.offsetHeight);
     let rowElem;
@@ -143,7 +143,7 @@ function getMarked(room, wordIndex)
             let player = players[p];
             if (player.team === t)
             {
-                marked.teams[t][count] = room.words[wordIndex].marked.includes(player.pid) ? true : false;
+                marked.teams[t][count] = room.game.words[wordIndex].marked.includes(player.pid) ? true : false;
                 count++;
             }
         }
@@ -279,7 +279,7 @@ class Tile
 
     update()
     {
-        let wordObj = SERVER.room.words[this.index];
+        let wordObj = SERVER.room.game.words[this.index];
         this.team = wordObj.team;
         if (this.team === -2)
         {
@@ -312,7 +312,7 @@ class Tile
             this.pies[t].update(this.marked.teams[t]);
         }
 
-        let wordObj = SERVER.room.words[this.index];
+        let wordObj = SERVER.room.game.words[this.index];
         if (wordObj.marked.includes(SERVER.pid))
         {
             let elemRgb = getElemRgb(this.elem, "background-color");
