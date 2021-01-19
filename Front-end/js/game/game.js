@@ -7,20 +7,43 @@ function swapToGame()
 
 function initializePlayerlist()
 {
+    let teamsData = getTeamsData();
+
     document.querySelector("#game").prepend(document.querySelector(".playerlist"));
     document.querySelectorAll("#game > .playerlist .icon, .btn2").forEach(e => e.style.display = "none");
 
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
-        if (SERVER.room.players[i].spymaster)
+        let player = SERVER.room.players[i];
+        let playerElem = getPlayerElement(player.pid);
+
+        if (player.spymaster)
         {
-            let playerElem = getPlayerElement(SERVER.room.players[i].pid);
-            let teamElem = getTeamElement(SERVER.room.players[i].team);
+            let teamElem = getTeamElement(player.team);
 
             playerElem.querySelector(".smIcon").style.display = "inline";
             playerElem.querySelectorAll(".smIcon *").forEach(e => e.style.display = "inline");
 
             teamElem.prepend(playerElem);
+        }
+        else if (player.team > 0)
+        {
+            let slices = [];   
+            for (let j = 0; j < teamsData[player.team].length; j++)
+            {
+                if (teamsData[player.team][j].pid === player.pid)
+                {
+                    slices[j] = true;
+                }
+                else
+                {
+                    slices[j] = false;
+                }
+            }
+            
+            let pie = new Pie(slices, teamNames[SERVER.room.players[i].team - 1]);
+            pie.elem.style.display = "block"; // Move to CSS
+            playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
     }
 }
@@ -72,7 +95,6 @@ function getBoardWidth(aspectRatio)
 
 function initializeBoard()
 {
-    
     const words = SERVER.room.words;
     const boardElem = document.querySelector("#board");
     const boardWidth = getBoardWidth(boardElem.offsetWidth / boardElem.offsetHeight);
@@ -88,6 +110,11 @@ function initializeBoard()
             boardElem.appendChild(rowElem);
         }
         rowElem.appendChild(tiles[i].elem);
+    }
+
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 }
 
@@ -157,8 +184,18 @@ class Pie
             else backgroundStr += ")";
         }
 
-        if (!filled.includes(true)) this.elem.style.display = "none";
-        else this.elem.style.display = "inline";
+        if (!filled.includes(true))
+        {
+            this.elem.style.opacity = "0";
+            this.elem.style.width = "0";
+            this.elem.style.height = "0";
+        }
+        else 
+        {
+            this.elem.style.opacity = "1";
+            this.elem.style.width = "var(--btn2Size)";
+            this.elem.style.height = "var(--btn2Size)";
+        }
 
         this.elem.style.backgroundImage = backgroundStr;
     }
@@ -253,15 +290,13 @@ class Tile
         if (wordObj.marked.includes(SERVER.pid))
         {
             let elemRgb = getElemRgb(this.elem, "background-color");
-            let borderColor = "rgb(" + str(parseInt(elemRgb[0]) - 100) + ", " + str(parseInt(elemRgb[1]) - 100) + ", " + str(parseInt(elemRgb[2]) - 100) + ")";
-            this.elem.style.border = "var(--space) solid " + borderColor;
-            this.elem.style.padding = "0px";
+            this.elem.style.borderColor = "rgba(0, 0, 0, .5)";
             let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")";
             this.elem.style.backgroundColor = backgroundColor;
         }
         else
         {
-            this.elem.style.border = "none";
+            this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
             this.update();
         }

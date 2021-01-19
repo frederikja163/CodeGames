@@ -11,6 +11,13 @@
     grid-row: 1 / 4;
 }
 
+#game > .playerlist .btnWrap > .pie
+{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    margin-right: var(--space);
+}
+
 #game > .playerlist .btn2
 {
     display: none;
@@ -44,7 +51,7 @@
 {
     background-color: var(--topColor);
     color: var(--backColor);
-    border: none;
+    border: var(--space) solid rgba(0, 0, 0, 0);
     padding: var(--space);
     text-align: center;
     font-size: 24px;
@@ -79,21 +86,7 @@
     max-height: var(--btn2Size);
     border-radius: 50%;
     box-shadow: var(--shadow);
-}
-
-#game > #board > tr > td > div > .pie
-{
-    grid-row: 3 / 4;
-
-    display: inline;
-    margin: auto;
-    box-sizing: border-box;
-    border: solid 3px var(--topColor);
-    width: var(--btn2Size);
-    height: var(--btn2Size);
-    max-height: var(--btn2Size);
-    border-radius: 50%;
-    box-shadow: var(--shadow);
+    transition: all var(--transTime);
 }
 
 #game > #word
