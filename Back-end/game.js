@@ -63,7 +63,7 @@ class Game
     {
         let playerInd = this.clients.findIndex(c => c.pid == client.pid);
         let player = this.data.players[playerInd];
-        if (player.team == 0 || player.spymaster)
+        if (player.team == 0 || player.spymaster || index < 0 || index >= this.fullWords.length)
         {
             return;
         }
@@ -87,7 +87,7 @@ class Game
     {
         let playerInd = this.clients.findIndex(c => c.pid == client.pid);
         let player = this.data.players[playerInd];
-        if (player.team == 0 || player.spymaster)
+        if (player.team == 0 || player.spymaster || index < 0 || index >= this.fullWords.length)
         {
             return;
         }

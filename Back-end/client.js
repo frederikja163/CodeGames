@@ -24,8 +24,8 @@ class Client{
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
         
         this.socket.on("startGame", () => call(() => this.onStartGame()));
-        this.socket.on("markWord", (index) => call(() => this.onMarkWord(index))); //TODO: Support variable word sizes here
-        this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index))); //TODO: Support variable word sizes here
+        this.socket.on("markWord", (index) => call(() => this.onMarkWord(index), typeof index === "number")); //TODO: Support variable word sizes here
+        this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index), typeof index === "number")); //TODO: Support variable word sizes here
 
     }
 
