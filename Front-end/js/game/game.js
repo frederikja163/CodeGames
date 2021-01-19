@@ -244,7 +244,7 @@ class Tile
     {
         this.word = word;
         this.index = index;
-        this.selected = false;
+        this.team = SERVER.room.game.words[this.index].team;
         this.marked = getMarked(SERVER.room, this.index);
         
         this.pieCount = 0;
@@ -276,10 +276,9 @@ class Tile
 
         this.elem.onmouseup = (event) =>
         {
-            if (event.button === 0 && this.selected === false) // Left click
+            if (event.button === 0 && this.team === -2) // Left click
             {
                 SERVER.selectWord(this.index);
-                this.selected = true;
             }
             else if (event.button === 2) // Right click
             {
