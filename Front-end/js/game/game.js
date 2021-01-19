@@ -155,16 +155,21 @@ function getMarked(room, wordIndex)
 function initializeWord()
 {
     let form = document.querySelector("#game > #word > form");
+    let word = document.querySelector("#game > #word > div");
     
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
         form.style.display = "grid";
         form.querySelectorAll("input").forEach(e => e.style.display = "inline");
+
+        word.style.display = "none";
     }
     else
     {
         form.style.display = "none";
         form.querySelectorAll("input").forEach(e => e.style.display = "none");
+
+        word.style.display = "inline";
     }
 }
 
