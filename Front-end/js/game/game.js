@@ -173,9 +173,20 @@ function initializeWord()
     }
 }
 
-function wordSend()
+function giveWord()
 {
-    console.log("send");
+    let form = document.querySelector("#game > #word > form");
+
+    SERVER.giveWord(form.querySelector(".wordField").value, parseInt(form.querySelector(".countField").value));
+}
+
+function wordGiven()
+{
+    if (!SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
+    {
+        let word = document.querySelector("#game > #word > div");
+        word.innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
+    }
 }
 
 class Pie
