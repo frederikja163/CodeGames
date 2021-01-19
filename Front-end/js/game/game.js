@@ -116,6 +116,15 @@ function initializeBoard()
     {
         tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
+
+    if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
+    {
+        boardElem.style.gridRow = "2 / 3";
+    }
+    else
+    {
+        boardElem.style.gridRow = "2 / 4";
+    }
 }
 
 function getElemRgb(elem, property)
@@ -152,41 +161,40 @@ function getMarked(room, wordIndex)
     return marked;
 }
 
+function initializeInfo()
+{
+    const infoElem = document.querySelector("#game > #info");
+}
+
+function wordGiven()
+{
+    document.querySelector("#game > #info > .givenWord").innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
+}
+
 function initializeWord()
 {
-    let form = document.querySelector("#game > #word > form");
-    let word = document.querySelector("#game > #word > div");
+    const wordElem = document.querySelector("#game > #word");
     
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
-        form.style.display = "grid";
-        form.querySelectorAll("input").forEach(e => e.style.display = "inline");
-
-        word.style.display = "none";
+        wordElem.style.display = "grid";
     }
     else
     {
-        form.style.display = "none";
-        form.querySelectorAll("input").forEach(e => e.style.display = "none");
-
-        word.style.display = "inline";
+        wordElem.style.display = "none";
     }
 }
 
 function giveWord()
 {
-    let form = document.querySelector("#game > #word > form");
+    const formElem = document.querySelector("#game > #word > form");
+    const wordFieldElem = formElem.querySelector(".wordField");
+    const countFieldElem = formElem.querySelector(".countField");
 
-    SERVER.giveWord(form.querySelector(".wordField").value, parseInt(form.querySelector(".countField").value));
-}
-
-function wordGiven()
-{
-    if (!SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
-    {
-        let word = document.querySelector("#game > #word > div");
-        word.innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
-    }
+    SERVER.giveWord(wordFieldElem.value, parseInt(countFieldElem.value));
+    
+    wordFieldElem.value = "";
+    countFieldElem.value = "";
 }
 
 class Pie
