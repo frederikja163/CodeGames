@@ -33,6 +33,18 @@
 {
     grid-row: 1 / 2;
     grid-column: 2 / 3;
+
+    background-color: var(--l1Color);
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+#game > #info > .givenWord
+{
+    grid-column: 2 / 3;
+
+    margin: auto;
+    font-size: 24px;
 }
 
 #game > #board
@@ -129,12 +141,4 @@
 
     margin-top: auto;
     margin-bottom: auto;
-}
-
-#game > #word > div
-{
-    grid-column: 2 / 3;
-
-    margin: auto;
-    font-size: 24px;
 }
