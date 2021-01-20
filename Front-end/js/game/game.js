@@ -284,7 +284,7 @@ class Tile
 
         this.elem.onmouseup = (event) =>
         {
-            if (event.button === 0 && this.team === -2) // Left click
+            if (event.button === 0 && this.team === -2) // Change -2 to null // Left click
             {
                 SERVER.selectWord(this.index);
             }
@@ -299,7 +299,7 @@ class Tile
     {
         let wordObj = SERVER.room.game.words[this.index];
         this.team = wordObj.team;
-        if (this.team === -2)
+        if (this.team === -2) // Change -2 to null
         {
             this.elem.style.backgroundColor = "gray";
             this.elem.style.color = "var(--topColor)";

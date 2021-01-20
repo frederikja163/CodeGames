@@ -55,6 +55,12 @@
     text-align: right;
 }
 
+.playerlist .btnWrap > *
+{
+    margin-top: var(--space);
+    height: var(--btn2Size);
+}
+
 .smIcon, .ownerIcon
 {
     font-size: 16px;
@@ -63,4 +69,5 @@
     padding-right: 7px; */
     line-height: calc(var(--btn2Size) + 2 * var(--space));
     display: inline;
+    height: var(--btn2Size);
 }
