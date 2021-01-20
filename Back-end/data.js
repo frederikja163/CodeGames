@@ -26,6 +26,8 @@ class Options
     {
         this.words = [];
         this.teamCount = 2;
+        this.teamWordCount = [1, 6, 5];
+        this.wordCount = 25;
     }
 }
 

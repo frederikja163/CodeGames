@@ -15,6 +15,8 @@ class Lobby
         client.onRemoveWords = (words) => this.onRemoveWords(client, words);
         client.onSetTeam = (pid, team) => this.onSetTeam(client, pid, team);
         client.onSetTeamCount = (count) => this.onSetTeamCount(client, count);
+        client.onSetTeamWordCount = (team, count) => this.onSetTeamWordCount(client, team, count);
+        client.onSetWordCount = (count) => this.onSetWordCount(client, count);
         client.onSetSpymaster = (team, pid) => this.onSetSpymaster(client, team, pid);
     }
 
@@ -135,6 +137,50 @@ class Lobby
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamCountChanged(this.data);
+        }
+    }
+
+    onSetTeamWordCount(client, team, count)
+    {
+        if (!this.isOwner(client) || count < 1 || team < 0 || team > this.data.options.teamCount){
+            return;
+        }
+        let options = this.data.options;
+        let teamWords = 0;
+        for (let i = 0; i < options.teamWordCount.length; i++)
+        {
+            if (i != team)
+            {
+                teamWords += options.teamWordCount[i];
+            }
+        }
+        count = Math.min(options.wordCount - teamWords, count);
+        this.data.options.teamWordCount[team] = count;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].teamWordCountChanged(this.data, team);
+        }
+    }
+
+    onSetWordCount(client, count)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        let options = this.data.options;
+        let teamWords = 0;
+        for (let i = 0; i < options.teamWordCount; i++)
+        {
+            if (i != team)
+            {
+                teamWords += options.teamWordCount[i];
+            }
+        }
+        count = Math.max(teamWords, count);
+        this.data.options.wordCount = count;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].wordCountChanged(this.data);
         }
     }
 

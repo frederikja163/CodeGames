@@ -21,6 +21,8 @@ class Client{
         this.socket.on("removeWords", (words) => call(() => this.onRemoveWords(words), words instanceof Array && !words.includes(w => typeof w != "string")));
         this.socket.on("setTeam", (pid, team) => call(() => this.onSetTeam(pid, team), typeof pid === "string" && typeof team === "number"));
         this.socket.on("setTeamCount", (count) => call(() => this.onSetTeamCount(count), typeof count === "number"));
+        this.socket.on("setTeamWordCount", (team, count) => call(() => this.onSetTeamWordCount(team, count), typeof team === "number", typeof count === "number"));
+        this.socket.on("setWordCount", (count) => call(() => this.onSetWordCount(count), typeof count === "number"));
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
         
         this.socket.on("startGame", () => call(() => this.onStartGame()));
@@ -61,6 +63,8 @@ class Client{
         this.onRemoveWords =        (words) => {}; //Requires owner permissions.
         this.onSetTeam =            (pid, team) => {}; //Requires owner permissions.
         this.onSetTeamCount =       (count) => {}; //Requires owner permissions.
+        this.onSetTeamWordCount =   (team, count) => {}; //Requires owner permissions.
+        this.onSetWordCount =       (count) => {}; //Requires owner permissions.
         this.onSetSpymaster =       (team, pid) => {} //Requires owner permissions.
         this.onStartGame =          () => {} //Requires owner permissions.
         //To-Client
@@ -69,6 +73,8 @@ class Client{
         this.wordsChanged =         (room, words) => send("wordsChanged", room, words);
         this.teamChanged =          (room, pid) => send("teamChanged", room, pid);
         this.teamCountChanged =     (room) => send("teamCountChanged", room);
+        this.teamWordCountChanged = (room) => send("teamWordCountChanged", room);
+        this.wordCountChanged =     (room) => send("wordCountChanged", room);
         this.spymasterChanged =     (room, pid) => send("spymasterChanged", room, pid);
 
         //===[Game]===
