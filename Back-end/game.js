@@ -35,7 +35,7 @@ class Game
             }
         }
         generateTeams(-1, options.teamWordCount[0]);
-        for (let i = 1; i < options.teamCount; i++)
+        for (let i = 1; i <= options.teamCount; i++)
         {
             generateTeams(i, options.teamWordCount[i]);
         }
