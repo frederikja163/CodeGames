@@ -263,8 +263,13 @@ class Tile
         
         this.elem = document.createElement("TD");
         this.elem.className = "box";
+
+        this.markElem = document.createElement("DIV");
+        this.markElem.className = "selfMark";
+        this.elem.appendChild(this.markElem);
         
         this.wrapElem = document.createElement("DIV");
+        this.wrapElem.className = "wrap";
         this.wrapElem.style.gridTemplateColumns = "repeat(" + str(this.pieCount) + ", calc(100% / " + str(this.pieCount) + "))";
         this.elem.appendChild(this.wrapElem);
         
@@ -333,13 +338,12 @@ class Tile
         let wordObj = SERVER.room.game.words[this.index];
         if (wordObj.marked.includes(SERVER.pid))
         {
-            let elemRgb = getElemRgb(this.elem, "background-color");
             this.elem.style.borderColor = "rgba(0, 0, 0, .5)";
-            let backgroundColor = "rgb(" + str(parseInt(elemRgb[0]) + 60) + ", " + str(parseInt(elemRgb[1]) + 60) + ", " + str(parseInt(elemRgb[2]) + 60) + ")";
-            this.elem.style.backgroundColor = backgroundColor;
+            this.markElem.style.opacity = ".4";
         }
         else
         {
+            this.markElem.style.opacity = "0";
             this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
             this.update();
