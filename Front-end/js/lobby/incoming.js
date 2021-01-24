@@ -42,6 +42,8 @@ SERVER.onTeamCountChanged = (room) =>
     {
         removeTeamElem();
     };
+
+    revealOwnerContent();
 };
 
 SERVER.onSpymasterChanged = (room, pid) =>

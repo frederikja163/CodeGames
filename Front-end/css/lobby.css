@@ -156,9 +156,20 @@
     box-shadow: var(--shadow);
 }
 
+#lobby > #options .wordCountTitle, #lobby > #options .wordCountOption
+{
+    grid-row: 3 / 4;
+}
+
+#lobby > #options .killerWordCountTitle, #lobby > #options .killerWordCountOption
+{
+    grid-row: 4 / 5;
+}
+
 #lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
 {
-    height: 55px;
+    grid-column: 2 / 3;
+    height: 65px;
 }
 
 #lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
@@ -169,6 +180,11 @@
 #lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
 {
     margin-right: var(--space);
+}
+
+#lobby > #options .wordCountOption input, #lobby > #options .killerWordCountOption input
+{
+    display: none;
 }
 
 /* #lobby > #options .teamWordCountTitle

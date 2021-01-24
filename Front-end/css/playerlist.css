@@ -43,15 +43,23 @@
 
 .playerlist > ul > li > form > input
 {
+    display: none;
     width: var(--btn2Size);
     float: right;
     margin: var(--space);
+    margin-right: calc(2 * var(--space));
 }
 
 .playerlist > ul > li > form > input:focus
 {
     margin-top: calc(var(--space) / 2);
     margin-bottom: calc(var(--space) / 2);
+}
+
+.playerlist > ul > li > form > .guest
+{
+    margin-left: var(--space);
+    margin-right: calc(2 * var(--space));
 }
 
 .playerlist > ul > li > ul

@@ -167,7 +167,8 @@ function createIconElem(src, angle, invertColor, className)
 function addTeamElem()
 {
     let teamListElem = document.querySelector("#lobby #teams");
-    let teamName = teamNames[teamListElem.children.length - 1];
+    let teamNum = teamListElem.children.length;
+    let teamName = teamNames[teamNum - 1];
 
     // Create team box
     let team = document.createElement("LI");
@@ -185,19 +186,23 @@ function addTeamElem()
     
     let labelElem = document.createElement("LABEL");
     labelElem.className = "team" + teamName;
-    labelElem.innerHTML = "Word count:"
+    labelElem.innerHTML = "Word count:";
     
     let inputElem = document.createElement("INPUT");
-    inputElem.className = "inputTxt team" + teamName;
+    inputElem.className = "owner inputTxt team" + teamName;
     inputElem.value = "5";
     inputElem.setAttribute("placeholder", "0");
+
+    let guestLabelElem = document.createElement("LABEL");
+    guestLabelElem.className = "guest";
     
     wordCountElem.onsubmit = () =>
     {
-        SERVER.setTeamWordCount(teamListElem.children.length - 2, parseInt(inputElem.value));
-    };
+        SERVER.setTeamWordCount(teamNum, parseInt(inputElem.value));
+    }; // fix team number
 
     wordCountElem.appendChild(inputElem);
+    wordCountElem.appendChild(guestLabelElem);
     wordCountElem.appendChild(labelElem);
 
     // Create team list
@@ -359,6 +364,17 @@ function spymasterChanged(pid, oldPid)
 
 function updateTeamWordCount(team)
 {
-    console.log(team);
-    getTeamElement(team).querySelector("input").value = SERVER.room.options.teamWordCount[team];
+    if (team > 0)
+    {
+        document.querySelector(".playerlist > ul > *:nth-child(" + str(team + 1) + ") input").value = SERVER.room.options.teamWordCount[team];
+        document.querySelector(".playerlist > ul > *:nth-child(" + str(team + 1) + ") .guest").innerHTML = SERVER.room.options.teamWordCount[team];
+    }
+}
+
+function updateTeamsWordCount()
+{
+    for (let i = 1; i <= SERVER.room.options.teamCount; i++)
+    {
+        updateTeamWordCount(i);
+    }
 }

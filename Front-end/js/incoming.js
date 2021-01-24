@@ -15,10 +15,12 @@ SERVER.onRoomJoined = (room, rid, pid) =>
         updateNameField();
         initializeTeams();
         initializePlayers();
-        //initializeTeamWordCount();
         initializePackList();
         updateWordsField();
         updateTeamCount();
+        updateWordCountOption();
+        updateTeamsWordCount();
+        updateKillerWordCountOption();
         setupRoom();
         revealOwnerContent();
     }

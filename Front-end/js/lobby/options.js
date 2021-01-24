@@ -225,18 +225,19 @@ function setWordCount()
 function updateWordCountOption()
 {
     document.querySelector("#lobby .wordCountOption input").value = SERVER.room.options.wordCount;
+    document.querySelector("#lobby .wordCountOption label").innerHTML = SERVER.room.options.wordCount;
 }
 
 function setKillerWordCount()
 {
     let inputElem = document.querySelector("#lobby .killerWordCountOption input");
-    console.log("sub");
     SERVER.setTeamWordCount(0, parseInt(inputElem.value));
 }
 
 function updateKillerWordCountOption()
 {
     document.querySelector("#lobby .killerWordCountOption input").value = SERVER.room.options.teamWordCount[0];
+    document.querySelector("#lobby .killerWordCountOption label").innerHTML = SERVER.room.options.teamWordCount[0];
 }
 
 // function initializeTeamWordCount()
