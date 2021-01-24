@@ -96,4 +96,8 @@ function setDebugMode(newMode)
 {
     debugMode = newMode;
     document.querySelectorAll(".debug").forEach(e => e.style.display = debugMode ? "grid" : "none");
+    if (debugMode)
+    {
+        console.log(SERVER.room);
+    }
 }
