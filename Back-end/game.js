@@ -142,6 +142,7 @@ class Game
             return;
         }
         this.playerWords[index] = this.fullWords[index];
+        this.playerWords[index].selectedBy = player.team;
         this.ForeachClient(client => client.wordSelected(this.data, index));
         if (player.team != this.fullWords[index].team)
         {
