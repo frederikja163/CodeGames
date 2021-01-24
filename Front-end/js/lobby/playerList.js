@@ -199,7 +199,7 @@ function addTeamElem()
     wordCountElem.onsubmit = () =>
     {
         SERVER.setTeamWordCount(teamNum, parseInt(inputElem.value));
-    }; // fix team number
+    };
 
     wordCountElem.appendChild(inputElem);
     wordCountElem.appendChild(guestLabelElem);

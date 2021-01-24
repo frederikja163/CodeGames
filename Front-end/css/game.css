@@ -24,7 +24,7 @@
     transform: translate(calc(2 * var(--space)), var(--space));
 }
 
-#game > .playerlist .btn2
+#game > .playerlist .btn2, #game > .playerlist form
 {
     display: none;
 }
