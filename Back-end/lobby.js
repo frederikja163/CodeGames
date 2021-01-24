@@ -118,19 +118,30 @@ class Lobby
 
     onSetTeamCount(client, count)
     {
-        if (!this.isOwner(client) || count < 1){
+        if (!this.isOwner(client) || count < 1 && count != this.data.options.teamCount){
             return;
         }
-        for (let i = 0; i < this.data.players.length; i++)
+        if (count < this.data.options.teamCount)
         {
-            let player = this.data.players[i];
-            if (player.team > count){
-                player.team = 0;
-                player.spymaster = false;
-                for (let i = 0; i < this.clients.length; i++)
-                {
-                    this.clients[i].teamChanged(this.data, player.pid);
+            this.data.options.teamWordCount.length = count;
+            for (let i = 0; i < this.data.players.length; i++)
+            {
+                let player = this.data.players[i];
+                if (player.team > count){
+                    player.team = 0;
+                    player.spymaster = false;
+                    for (let i = 0; i < this.clients.length; i++)
+                    {
+                        this.clients[i].teamChanged(this.data, player.pid);
+                    }
                 }
+            }
+        }
+        else
+        {
+            for (let i = this.data.options.teamWordCount; i < count; i++)
+            {
+                this.data.options.teamWordCount.push(5); //TODO: Make sure total team words dont exceed total word count
             }
         }
         this.data.options.teamCount = count;

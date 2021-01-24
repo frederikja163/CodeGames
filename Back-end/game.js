@@ -6,14 +6,15 @@ class Game
     {
         this.data = data;
         this.clients = clients;
-
+        
         this.data.game = new GameData();
-
-        let wordOptions = this.data.options.words.slice();
+        
+        let options = this.data.options;
+        let wordOptions = options.words.slice();
         this.fullWords = [];
         this.playerWords = [];
         let emptyWords = [];
-        for (let i = 0; i < 25; i++)
+        for (let i = 0; i < options.wordCount; i++)
         {
             let index = Math.floor(Math.random() * wordOptions.length);
             let word = wordOptions[index];
@@ -23,7 +24,7 @@ class Game
             wordOptions.splice(index, 1);
         }
 
-        let generateTeams = (count, team) =>
+        let generateTeams = (team, count) =>
         {
             while (count-- > 0 && emptyWords.length != 0)
             {
@@ -33,10 +34,11 @@ class Game
                 emptyWords.splice(emptyIndex, 1);
             }
         }
-        generateTeams(6, 1);
-        generateTeams(5, 2);
-        generateTeams(3, 3);
-        generateTeams(1, -1);
+        generateTeams(-1, options.teamWordCount[0]);
+        for (let i = 1; i <= options.teamCount; i++)
+        {
+            generateTeams(i, options.teamWordCount[i]);
+        }
 
         this.ForeachClient(client => 
             {
