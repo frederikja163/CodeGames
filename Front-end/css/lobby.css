@@ -12,7 +12,7 @@
 #lobby .wall
 {
     background-color: var(--l1Color);
-    grid-row: 1 / 5;
+    grid-row: 1 / 6;
 }
 
 #lobby .wall h2
@@ -156,6 +156,55 @@
     box-shadow: var(--shadow);
 }
 
+#lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
+{
+    height: 55px;
+}
+
+#lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
+{
+    margin: 0;
+}
+
+#lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
+{
+    margin-right: var(--space);
+}
+
+/* #lobby > #options .teamWordCountTitle
+{
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+#lobby > #options .teamWordCountOption
+{
+    grid-column: 1 / 3;
+}
+
+#lobby > #options .teamWordCountOption > form
+{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: var(--l1Color);
+    margin: var(--space);
+    margin-right: 0;
+}
+
+#lobby > #options .teamWordCountOption > form > label
+{
+    grid-column: 1 / 2;
+    height: 55px;
+    text-align: left;
+    padding-left: var(--space);
+}
+
+#lobby > #options .teamWordCountOption > form > input
+{
+    grid-column: 2 / 3;
+    margin: 0;
+} */
+
 #lobby #options #wordsTitle, #lobby #options #wordsOption
 {
     grid-column: 1 / 3;
@@ -164,12 +213,12 @@
 
 #lobby #options #wordsTitle
 {
-    grid-row: 3 / 4;
+    grid-row: 6 / 7;
 }
 
 #lobby #options #wordsOption
 {
-    grid-row: 4 / 5;
+    grid-row: 7 / 8;
 }
 
 #lobby #options #words

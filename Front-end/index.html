@@ -90,6 +90,18 @@
                         </div>
                         <img class="guest" id="currentLang" src="./assets/packs/en/flag.png" alt="EN"></img>
                     </li>
+                    <li class="wordCountTitle">Word count:</li>
+                    <li class="wordCountOption">
+                        <form onsubmit="setWordCount()" action="javascript:void(0);">
+                            <input class="inputTxt" value="25" placeholder="0"></input>
+                        </form>
+                    </li>
+                    <li class="killerWordCountTitle">Killer word count:</li>
+                    <li class="killerWordCountOption">
+                        <form onsubmit="setKillerWordCount()" action="javascript:void(0);">
+                            <input class="inputTxt" value="5" placeholder="0"></input>
+                        </form>
+                    </li>
                     <li id="wordsTitle">Words:</li>
                     <li class="box" id="dropMenu">
                         <ol>

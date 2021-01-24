@@ -99,6 +99,7 @@ ul
     transition: height var(--transTime), margin-top var(--transTime), margin-bottom var(--transTime);
     height: 20px;
     font-size: 18px;
+    background-color: var(--topColor);
 }
 
 .inputTxt:focus
