@@ -178,12 +178,28 @@ function addTeamElem()
     // Create team title
     let title = document.createElement("H3");
     title.innerHTML = (teamName != undefined ? teamName : "Please remove this") + " team";
+
+    // Create team word count
+    let wordCountElem = document.createElement("FORM");
+
+    let labelElem = document.createElement("LABEL");
+    labelElem.className = "team" + teamName;
+    labelElem.innerHTML = "Word count:"
+
+    let inputElem = document.createElement("INPUT");
+    inputElem.className = "inputTxt team" + teamName;
+    inputElem.value = "5";
+    inputElem.setAttribute("placeholder", "0");
     
+    wordCountElem.appendChild(inputElem);
+    wordCountElem.appendChild(labelElem);
+
     // Create team list
     let list = document.createElement("UL");
     
     // Add element to team
     team.appendChild(title);
+    team.appendChild(wordCountElem);
     team.appendChild(list);
 
     // Add team to player list

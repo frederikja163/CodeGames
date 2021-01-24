@@ -15,19 +15,48 @@
 
 .playerlist h3
 {
-    text-align: center;
+    text-align: left;
     padding: var(--space);
+    margin: var(--space);
+    height: 20px;
 }
 
 .playerlist > ul > li
 {
     background-color: var(--topColor);
     margin: var(--space);
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 .playerlist > ul > li:first-child
 {
     color: var(--backColor);
+    grid-template-columns: 100%;
+}
+
+.playerlist > ul > li > form > label
+{
+    float: right;
+    line-height: 60px;
+}
+
+.playerlist > ul > li > form > input
+{
+    width: var(--btn2Size);
+    float: right;
+    margin: var(--space);
+}
+
+.playerlist > ul > li > form > input:focus
+{
+    margin-top: calc(var(--space) / 2);
+    margin-bottom: calc(var(--space) / 2);
+}
+
+.playerlist > ul > li > ul
+{
+    grid-column: 1 / 3;
 }
 
 .playerlist > ul > li > ul > li
@@ -35,6 +64,7 @@
     display: grid;
     grid-template-columns: auto auto;
     padding: var(--space);
+    padding-left: calc(2 * var(--space));
 }
 
 .playerlist > ul > li > ul > li > div

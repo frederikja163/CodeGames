@@ -194,7 +194,6 @@ function updatePackList()
 
 function addPacks(packList, packs, imgFolder, display)
 {
-    console.log(packs);
     for (let j = 0; j < packs.length; j++)
     {
         let p = packs[j];
@@ -214,5 +213,50 @@ function addPacks(packList, packs, imgFolder, display)
         div.appendChild(img);
         elem.appendChild(div);
         packList.appendChild(elem);
+    }
+}
+
+function initializeTeamWordCount()
+{
+    for (let i = 0; i < SERVER.room.options.teamCount; i++)
+    {
+        addTeamWordCount();
+    }
+}
+
+function addTeamWordCount()
+{
+    let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
+
+    let teamWordCount = new TeamWordCount(formElem.children.length / 2)
+
+    formElem.appendChild(teamWordCount.labelElem);
+    formElem.appendChild(teamWordCount.inputElem);
+}
+
+function removeTeamWordCount()
+{
+    let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
+    let teamCount = formElem.children.length / 2;
+
+    let labelElem = formElem.querySelector("label.team" + str(teamCount - 1));
+    labelElem.remove();
+
+    let inputElem = formElem.querySelector("input.team" + str(teamCount - 1));
+    inputElem.remove();
+}
+
+class TeamWordCount
+{
+    constructor(team)
+    {
+        this.labelElem = document.createElement("LABEL");
+        this.labelElem.className = "team" + str(team);
+        this.labelElem.innerHTML = teamNames[team] + " team";
+        
+        this.inputElem = document.createElement("INPUT");
+        this.inputElem.className = "inputTxt team" + str(team);
+        this.inputElem.value = "5";
+        this.inputElem.setAttribute("placeholder", "0");
     }
 }
