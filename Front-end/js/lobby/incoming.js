@@ -80,4 +80,5 @@ SERVER.onTeamWordCountChanged = (room, team) =>
     SERVER.room = room;
 
     updateKillerWordCountOption();
+    updateTeamWordCount(team);
 };

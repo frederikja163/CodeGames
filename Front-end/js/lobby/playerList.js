@@ -181,16 +181,22 @@ function addTeamElem()
 
     // Create team word count
     let wordCountElem = document.createElement("FORM");
-
+    wordCountElem.setAttribute("action", "javascript:void(0);");
+    
     let labelElem = document.createElement("LABEL");
     labelElem.className = "team" + teamName;
     labelElem.innerHTML = "Word count:"
-
+    
     let inputElem = document.createElement("INPUT");
     inputElem.className = "inputTxt team" + teamName;
     inputElem.value = "5";
     inputElem.setAttribute("placeholder", "0");
     
+    wordCountElem.onsubmit = () =>
+    {
+        SERVER.setTeamWordCount(teamListElem.children.length - 2, parseInt(inputElem.value));
+    };
+
     wordCountElem.appendChild(inputElem);
     wordCountElem.appendChild(labelElem);
 
@@ -349,4 +355,10 @@ function spymasterChanged(pid, oldPid)
             console.warn("Didn't find the player elem for " + pid);
         }
     }
+}
+
+function updateTeamWordCount(team)
+{
+    console.log(team);
+    getTeamElement(team).querySelector("input").value = SERVER.room.options.teamWordCount[team];
 }
