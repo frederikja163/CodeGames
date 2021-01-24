@@ -123,7 +123,7 @@ class Lobby
         }
         if (count < this.data.options.teamCount)
         {
-            this.data.options.teamWordCount.length = count;
+            this.data.options.teamWordCount.length = count + 1;
             for (let i = 0; i < this.data.players.length; i++)
             {
                 let player = this.data.players[i];
@@ -141,7 +141,7 @@ class Lobby
         {
             for (let i = this.data.options.teamCount; i <= count; i++)
             {
-                this.data.options.teamWordCount.push(5); //TODO: Make sure total team words dont exceed total word count
+                this.SetTeamWordCount(i, 5);
             }
         }
         this.data.options.teamCount = count;
@@ -156,6 +156,15 @@ class Lobby
         if (!this.isOwner(client) || count < 1 || team < 0 || team > this.data.options.teamCount){
             return;
         }
+        this.SetTeamWordCount(team, count);
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].teamWordCountChanged(this.data, team);
+        }
+    }
+
+    SetTeamWordCount(team, count)
+    {
         let options = this.data.options;
         let teamWords = 0;
         for (let i = 0; i < options.teamWordCount.length; i++)
@@ -167,10 +176,6 @@ class Lobby
         }
         count = Math.min(options.wordCount - teamWords, count);
         this.data.options.teamWordCount[team] = count;
-        for (let i = 0; i < this.clients.length; i++)
-        {
-            this.clients[i].teamWordCountChanged(this.data, team);
-        }
     }
 
     onSetWordCount(client, count)

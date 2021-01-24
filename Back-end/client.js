@@ -73,7 +73,7 @@ class Client{
         this.wordsChanged =         (room, words) => send("wordsChanged", room, words);
         this.teamChanged =          (room, pid) => send("teamChanged", room, pid);
         this.teamCountChanged =     (room) => send("teamCountChanged", room);
-        this.teamWordCountChanged = (room) => send("teamWordCountChanged", room);
+        this.teamWordCountChanged = (room, team) => send("teamWordCountChanged", room, team);
         this.wordCountChanged =     (room) => send("wordCountChanged", room);
         this.spymasterChanged =     (room, pid) => send("spymasterChanged", room, pid);
 
