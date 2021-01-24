@@ -48,6 +48,7 @@ class Word
     {
         this.word = str;
         this.team = team;
+        this.selectedBy = null;
         this.marked = [];
     }
 }

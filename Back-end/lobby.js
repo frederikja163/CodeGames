@@ -139,7 +139,7 @@ class Lobby
         }
         else
         {
-            for (let i = this.data.options.teamWordCount; i < count; i++)
+            for (let i = this.data.options.teamCount; i <= count; i++)
             {
                 this.data.options.teamWordCount.push(5); //TODO: Make sure total team words dont exceed total word count
             }

@@ -141,7 +141,17 @@ class Game
         {
             return;
         }
-        this.playerWords[index] = this.fullWords[index];
+        let word = this.fullWords[index];
+        this.playerWords[index] = word;
+        word.selectedBy = player.team;
+        for (let i = word.marked.length - 1; i >= 0; i--)
+        {
+            let markedPlayer = this.data.players.find(p => p.pid == word.marked[i]);
+            if (markedPlayer.team == this.data.game.activeTeam)
+            {
+                word.marked.splice(i, 1);
+            }
+        }
         this.ForeachClient(client => client.wordSelected(this.data, index));
         if (player.team != this.fullWords[index].team)
         {
