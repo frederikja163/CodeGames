@@ -67,3 +67,17 @@ SERVER.onWordsChanged = (room, words) =>
     updateWordsField();
     updatePackList();
 };
+
+SERVER.onWordCountChanged = (room) =>
+{
+    SERVER.room = room;
+
+    updateWordCountOption();
+};
+
+SERVER.onTeamWordCountChanged = (room, team) =>
+{
+    SERVER.room = room;
+
+    updateKillerWordCountOption();
+};

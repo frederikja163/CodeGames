@@ -216,47 +216,70 @@ function addPacks(packList, packs, imgFolder, display)
     }
 }
 
-function initializeTeamWordCount()
+function setWordCount()
 {
-    for (let i = 0; i < SERVER.room.options.teamCount; i++)
-    {
-        addTeamWordCount();
-    }
+    let inputElem = document.querySelector("#lobby .wordCountOption input");
+    SERVER.setWordCount(parseInt(inputElem.value));
 }
 
-function addTeamWordCount()
+function updateWordCountOption()
 {
-    let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
-
-    let teamWordCount = new TeamWordCount(formElem.children.length / 2)
-
-    formElem.appendChild(teamWordCount.labelElem);
-    formElem.appendChild(teamWordCount.inputElem);
+    document.querySelector("#lobby .wordCountOption input").value = SERVER.room.options.wordCount;
 }
 
-function removeTeamWordCount()
+function setKillerWordCount()
 {
-    let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
-    let teamCount = formElem.children.length / 2;
-
-    let labelElem = formElem.querySelector("label.team" + str(teamCount - 1));
-    labelElem.remove();
-
-    let inputElem = formElem.querySelector("input.team" + str(teamCount - 1));
-    inputElem.remove();
+    let inputElem = document.querySelector("#lobby .killerWordCountOption input");
+    console.log("sub");
+    SERVER.setTeamWordCount(0, parseInt(inputElem.value));
 }
 
-class TeamWordCount
+function updateKillerWordCountOption()
 {
-    constructor(team)
-    {
-        this.labelElem = document.createElement("LABEL");
-        this.labelElem.className = "team" + str(team);
-        this.labelElem.innerHTML = teamNames[team] + " team";
+    document.querySelector("#lobby .killerWordCountOption input").value = SERVER.room.options.teamWordCount[0];
+}
+
+// function initializeTeamWordCount()
+// {
+//     for (let i = 0; i < SERVER.room.options.teamCount; i++)
+//     {
+//         addTeamWordCount();
+//     }
+// }
+
+// function addTeamWordCount()
+// {
+//     let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
+
+//     let teamWordCount = new TeamWordCount(formElem.children.length / 2)
+
+//     formElem.appendChild(teamWordCount.labelElem);
+//     formElem.appendChild(teamWordCount.inputElem);
+// }
+
+// function removeTeamWordCount()
+// {
+//     let formElem = document.querySelector("#lobby > #options .teamWordCountOption > form");
+//     let teamCount = formElem.children.length / 2;
+
+//     let labelElem = formElem.querySelector("label.team" + str(teamCount - 1));
+//     labelElem.remove();
+
+//     let inputElem = formElem.querySelector("input.team" + str(teamCount - 1));
+//     inputElem.remove();
+// }
+
+// class TeamWordCount
+// {
+//     constructor(team)
+//     {
+//         this.labelElem = document.createElement("LABEL");
+//         this.labelElem.className = "team" + str(team);
+//         this.labelElem.innerHTML = teamNames[team] + " team";
         
-        this.inputElem = document.createElement("INPUT");
-        this.inputElem.className = "inputTxt team" + str(team);
-        this.inputElem.value = "5";
-        this.inputElem.setAttribute("placeholder", "0");
-    }
-}
+//         this.inputElem = document.createElement("INPUT");
+//         this.inputElem.className = "inputTxt team" + str(team);
+//         this.inputElem.value = "5";
+//         this.inputElem.setAttribute("placeholder", "0");
+//     }
+// }

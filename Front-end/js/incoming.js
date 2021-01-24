@@ -15,7 +15,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
         updateNameField();
         initializeTeams();
         initializePlayers();
-        initializeTeamWordCount();
+        //initializeTeamWordCount();
         initializePackList();
         updateWordsField();
         updateTeamCount();

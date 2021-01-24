@@ -156,27 +156,22 @@
     box-shadow: var(--shadow);
 }
 
-#lobby > #options .wordCountTitle
-{
-
-}
-
-#lobby > #options .wordCountOption
+#lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
 {
     height: 55px;
 }
 
-#lobby > #options .wordCountOption *
+#lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
 {
     margin: 0;
 }
 
-#lobby > #options .wordCountOption > *
+#lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
 {
     margin-right: var(--space);
 }
 
-#lobby > #options .teamWordCountTitle
+/* #lobby > #options .teamWordCountTitle
 {
     grid-column: 1 / 3;
     text-align: center;
@@ -208,7 +203,7 @@
 {
     grid-column: 2 / 3;
     margin: 0;
-}
+} */
 
 #lobby #options #wordsTitle, #lobby #options #wordsOption
 {
