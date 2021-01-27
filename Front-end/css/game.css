@@ -53,6 +53,12 @@
     font-size: 24px;
 }
 
+#game > #info > form
+{
+    margin: auto;
+    margin-right: var(--space);
+}
+
 #game > #board
 {
     grid-row: 2 / 3;

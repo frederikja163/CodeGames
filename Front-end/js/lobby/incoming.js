@@ -75,6 +75,8 @@ SERVER.onWordCountChanged = (room) =>
     SERVER.room = room;
 
     updateWordCountOption();
+    updateKillerWordCountOption();
+    updateTeamsWordCount();
 };
 
 SERVER.onTeamWordCountChanged = (room, team) =>

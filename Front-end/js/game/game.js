@@ -185,13 +185,13 @@ function initializeWord()
     }
 }
 
-function giveWord()
+function giveFormWord()
 {
     const formElem = document.querySelector("#game > #word > form");
     const wordFieldElem = formElem.querySelector(".wordField");
     const countFieldElem = formElem.querySelector(".countField");
 
-    SERVER.giveWord(wordFieldElem.value, parseInt(countFieldElem.value));
+    giveWord(wordFieldElem.value, parseInt(countFieldElem.value));
     
     wordFieldElem.value = "";
     countFieldElem.value = "";
@@ -291,11 +291,11 @@ class Tile
         {
             if (event.button === 0 && this.team === -2) // Change -2 to null // Left click
             {
-                SERVER.selectWord(this.index);
+                selectWord(this.index);
             }
             else if (event.button === 2) // Right click
             {
-                SERVER.markWord(this.index);
+                markWord(this.index);
             }
         }
     }

@@ -196,7 +196,7 @@ function addTeamElem()
     let guestLabelElem = document.createElement("LABEL");
     guestLabelElem.className = "guest";
     
-    wordCountElem.onsubmit = () =>
+    wordCountElem.onchange = () =>
     {
         SERVER.setTeamWordCount(teamNum, parseInt(inputElem.value));
     };
