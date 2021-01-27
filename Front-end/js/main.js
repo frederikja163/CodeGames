@@ -35,10 +35,46 @@ let welcome;
 let lobby;
 let game;
 let wait;
-let teamNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Cyan", "Orange", "Pink"];
 let tiles = [];
 let state = "welcome";
 let startGame = false;
+const teams = [
+    {
+        name: "Red",
+        normal: "#CC2828FF",
+        light: "#F23030FF",
+        dark: "#8C1C1CFF"
+    },
+    {
+        name: "Blue",
+        normal: "#285FCCFF",
+        light: "#3071F2FF",
+        dark: "#1C418CFF"
+    },
+    {
+        name:"Green",
+        normal: "#5FCC28FF",
+        light: "#71F230FF",
+        dark: "#418C1CFF"
+    },
+    {
+        name:"Yellow",
+        normal: "#CCCC28FF",
+        light: "#F2F230FF",
+        dark: "8C8C1C"
+    },
+    {
+        name:"Purple",
+        normal: "#7A28CCFF",
+        light: "#9130F2FF",
+        dark: "#541C8CFF"
+    },
+    {
+        name:"Cyan",
+        normal: "#28CCB0FF",
+        light: "#30F2D1FF",
+        dark: "#1C8C79FF"
+    }];
 
 document.addEventListener('keyup', (event) =>
 {
