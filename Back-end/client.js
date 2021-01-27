@@ -22,7 +22,7 @@ class Client{
         this.socket.on("setTeam", (pid, team) => call(() => this.onSetTeam(pid, team), typeof pid === "string" && typeof team === "number"));
         this.socket.on("setTeamCount", (count) => call(() => this.onSetTeamCount(count), typeof count === "number"));
         this.socket.on("setTeamWordCount", (team, count) => call(() => this.onSetTeamWordCount(team, count), typeof team === "number", typeof count === "number"));
-        this.socket.on("setWordCount", (count) => call(() => this.onSetWordCount(count), typeof count === "number"));
+        this.socket.on("setWordCount", (count) => call(() => this.onSetWordCount(count), typeof count === "number" && count > 0 && count < 256));
         this.socket.on("setSpymaster", (team, pid) => call(() => this.onSetSpymaster(team, pid), typeof team === "number" && typeof(pid) === "string"));
         
         this.socket.on("startGame", () => call(() => this.onStartGame()));

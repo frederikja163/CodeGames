@@ -168,13 +168,14 @@ function addTeamElem()
 {
     let teamListElem = document.querySelector("#lobby #teams");
     let teamNum = teamListElem.children.length;
-    let teamName = teamNames[teamNum - 1];
+    let teamColor = teams[teamNum - 1].normal;
+    let teamName = teams[teamNum - 1].name;
 
     // Create team box
     let team = document.createElement("LI");
     team.id = teamName;
     team.className = "box";
-    team.style.backgroundColor = teamName != undefined ? teamName : "var(--topColor)";
+    team.style.backgroundColor = teamColor != undefined ? teamColor : "var(--topColor)";
 
     // Create team title
     let title = document.createElement("H3");

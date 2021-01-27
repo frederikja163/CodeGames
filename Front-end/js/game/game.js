@@ -41,7 +41,7 @@ function initializePlayerlist()
                 }
             }
             
-            let pie = new Pie(slices, teamNames[SERVER.room.players[i].team - 1]);
+            let pie = new Pie(slices, teams[SERVER.room.players[i].team - 1].normal);
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
@@ -281,7 +281,7 @@ class Tile
         this.pies = [];
         for (let t = 1; t < this.marked.teams.length; t++)
         {
-            this.pies[t] = new Pie(this.marked.teams[t], teamNames[t - 1]);
+            this.pies[t] = new Pie(this.marked.teams[t], teams[t - 1].normal);
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
@@ -321,7 +321,7 @@ class Tile
         }
         else
         {
-            this.elem.style.backgroundColor = teamNames[this.team - 1];
+            this.elem.style.backgroundColor = teams[this.team - 1].normal;
             this.elem.style.color = getColorsForElem(this.elem).color;
         }
     }
