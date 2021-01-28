@@ -44,12 +44,12 @@ class GameData
 
 class Word
 {
-    constructor(str, team)
+    constructor(str, team, marked)
     {
         this.word = str;
         this.team = team;
         this.selectedBy = null;
-        this.marked = [];
+        this.marked = marked;
     }
 }
 

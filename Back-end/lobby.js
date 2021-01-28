@@ -185,12 +185,9 @@ class Lobby
         }
         let options = this.data.options;
         let teamWords = 0;
-        for (let i = 0; i < options.teamWordCount; i++)
+        for (let i = 0; i < options.teamWordCount.length; i++)
         {
-            if (i != team)
-            {
-                teamWords += options.teamWordCount[i];
-            }
+            teamWords += options.teamWordCount[i];
         }
         count = Math.max(teamWords, count);
         this.data.options.wordCount = count;
