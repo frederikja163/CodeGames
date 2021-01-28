@@ -11,6 +11,11 @@
     grid-row: 1 / 4;
 }
 
+#game > .playerlist > ul > li
+{
+    grid-template-columns: 100%;
+}
+
 #game > .playerlist .btnWrap > .pie
 {
     grid-column: 2 / 3;
