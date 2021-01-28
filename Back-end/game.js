@@ -18,8 +18,8 @@ class Game
         {
             let index = Math.floor(Math.random() * wordOptions.length);
             let word = wordOptions[index];
-            this.playerWords[i] = new Word(word, -2);
-            this.fullWords[i] = new Word(word, 0);
+            this.fullWords[i] = new Word(word, 0, []);
+            this.playerWords[i] = new Word(word, -2, this.fullWords[i].marked);
             emptyWords[i] = i;
             wordOptions.splice(index, 1);
         }
@@ -117,12 +117,10 @@ class Game
         if (markIndex === -1)
         {
             this.fullWords[index].marked.push(client.pid);
-            this.playerWords[index].marked.push(client.pid);
         }
         else
         {
             this.fullWords[index].marked.splice(markIndex, 1);
-            this.playerWords[index].marked.splice(markIndex, 1);
         }
 
         this.ForeachClient(client => client.wordMarked(this.data, index));
@@ -147,7 +145,7 @@ class Game
         for (let i = word.marked.length - 1; i >= 0; i--)
         {
             let markedPlayer = this.data.players.find(p => p.pid == word.marked[i]);
-            if (markedPlayer.team == this.data.game.activeTeam)
+            if (markedPlayer.team === this.data.game.activeTeam)
             {
                 word.marked.splice(i, 1);
             }
