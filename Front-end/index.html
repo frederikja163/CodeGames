@@ -19,6 +19,7 @@
         <script src="js/lobby/playerList.js"></script>
         <script src="js/lobby/options.js"></script>
         <script src="js/game/incoming.js"></script>
+        <script src="js/game/outgoing.js"></script>
         <script src="js/game/game.js"></script>
         <script src="js/wait.js"></script>
 
@@ -92,14 +93,14 @@
                     </li>
                     <li class="wordCountTitle">Word count:</li>
                     <li class="wordCountOption">
-                        <form onsubmit="setWordCount()" action="javascript:void(0);">
+                        <form onchange="setWordCount()" action="javascript:void(0);">
                             <input class="owner inputTxt" value="25" placeholder="0"></input>
                             <label class="guest">0</label>
                         </form>
                     </li>
                     <li class="killerWordCountTitle">Killer word count:</li>
                     <li class="killerWordCountOption">
-                        <form onsubmit="setKillerWordCount()" action="javascript:void(0);">
+                        <form onchange="setKillerWordCount()" action="javascript:void(0);">
                             <input class="owner inputTxt" value="5" placeholder="0"></input>
                             <label class="guest">0</label>
                         </form>
@@ -154,19 +155,23 @@
             <!-- Info -->
             <div class="box" id="info">
                 <div class="givenWord"></div>
+                <form onsubmit="endTurn()" action="javascript:void(0);">
+                    <input class="btn2" type="image" alt="End turn" src="https://raw.githubusercontent.com/frederikja163/CodeGames/gamedev/Front-end/assets/miscIcons/skip.png">
+                </form>
             </div>
             <!-- Board -->
             <table class="box" id="board">
             </table>
             <!-- Word -->
             <div class="box" id="word">
-                <form onsubmit="giveWord()" action="javascript:void(0);">
+                <form onsubmit="giveFormWord()" action="javascript:void(0);">
                     <input class="inputTxt wordField" placeholder="Give word">
                     <input class="inputTxt countField" placeholder="Word count">
-                    <input class="btn2 icon" type="image" src="https://raw.githubusercontent.com/frederikja163/CodeGames/gamedev/Front-end/assets/miscIcons/compass.png">
+                    <input class="btn2 icon" type="image" alt="Give word" src="https://raw.githubusercontent.com/frederikja163/CodeGames/gamedev/Front-end/assets/miscIcons/compass.png">
                 </form>
             </div>
         </page>
+        <!-- Wait -->
         <page id="wait">
             Wait
         </page>

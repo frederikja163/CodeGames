@@ -40,7 +40,7 @@
 {
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
     padding: var(--space);
     padding-left: 0;
 }
@@ -187,40 +187,6 @@
     display: none;
 }
 
-/* #lobby > #options .teamWordCountTitle
-{
-    grid-column: 1 / 3;
-    text-align: center;
-}
-
-#lobby > #options .teamWordCountOption
-{
-    grid-column: 1 / 3;
-}
-
-#lobby > #options .teamWordCountOption > form
-{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    background-color: var(--l1Color);
-    margin: var(--space);
-    margin-right: 0;
-}
-
-#lobby > #options .teamWordCountOption > form > label
-{
-    grid-column: 1 / 2;
-    height: 55px;
-    text-align: left;
-    padding-left: var(--space);
-}
-
-#lobby > #options .teamWordCountOption > form > input
-{
-    grid-column: 2 / 3;
-    margin: 0;
-} */
-
 #lobby #options #wordsTitle, #lobby #options #wordsOption
 {
     grid-column: 1 / 3;
@@ -243,7 +209,7 @@
 
     display: grid;
     overflow: auto;
-    height: 500px;
+    max-height: 200px;
     background-color: var(--l1Color);
     text-align: left;
     padding: var(--space);
