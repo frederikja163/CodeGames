@@ -60,6 +60,37 @@
     text-align: right;
 }
 
+#lobby > #options .wordCountTitle, #lobby > #options .wordCountOption
+{
+    grid-row: 2 / 3;
+}
+
+#lobby > #options .killerWordCountTitle, #lobby > #options .killerWordCountOption
+{
+    grid-row: 3 / 4;
+}
+
+#lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
+{
+    grid-column: 2 / 3;
+    height: 65px;
+}
+
+#lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
+{
+    margin: 0;
+}
+
+#lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
+{
+    margin-right: var(--space);
+}
+
+#lobby > #options .wordCountOption input, #lobby > #options .killerWordCountOption input
+{
+    display: none;
+}
+
 #lobby #options #dropBtn
 {
     display: grid;
@@ -100,7 +131,7 @@
 #lobby #options #dropMenu
 {
     grid-column: 2 / 3;
-    grid-row: 3 / 5;
+    grid-row: 5 / 8;
 
     z-index: 10;
     display: none;
@@ -154,37 +185,6 @@
     border: none;
     border-radius: 100%;
     box-shadow: var(--shadow);
-}
-
-#lobby > #options .wordCountTitle, #lobby > #options .wordCountOption
-{
-    grid-row: 3 / 4;
-}
-
-#lobby > #options .killerWordCountTitle, #lobby > #options .killerWordCountOption
-{
-    grid-row: 4 / 5;
-}
-
-#lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
-{
-    grid-column: 2 / 3;
-    height: 65px;
-}
-
-#lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
-{
-    margin: 0;
-}
-
-#lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
-{
-    margin-right: var(--space);
-}
-
-#lobby > #options .wordCountOption input, #lobby > #options .killerWordCountOption input
-{
-    display: none;
 }
 
 #lobby #options #wordsTitle, #lobby #options #wordsOption

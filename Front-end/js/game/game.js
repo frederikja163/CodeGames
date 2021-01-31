@@ -161,11 +161,6 @@ function getMarked(room, wordIndex)
     return marked;
 }
 
-function initializeInfo()
-{
-    const infoElem = document.querySelector("#game > #info");
-}
-
 function wordGiven()
 {
     document.querySelector("#game > #info > .givenWord").innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
@@ -324,6 +319,15 @@ class Tile
             this.elem.style.backgroundColor = teams[this.team - 1].normal;
             this.elem.style.color = getColorsForElem(this.elem).color;
         }
+    }
+
+    select()
+    {
+        this.update();
+        this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
+
+        this.elem.style.borderColor = teams[this.selectedBy - 1].light;
+        this.elem.style.backgroundColor = teams[this.team - 1].light;
     }
 
     mark()

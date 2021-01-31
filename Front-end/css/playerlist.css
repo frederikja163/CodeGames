@@ -26,7 +26,7 @@
     background-color: var(--topColor);
     margin: var(--space);
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: auto auto-fit;
 }
 
 .playerlist > ul > li:first-child

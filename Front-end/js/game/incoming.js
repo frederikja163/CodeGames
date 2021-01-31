@@ -19,8 +19,7 @@ SERVER.onWordSelected = (room, index) =>
 {
     SERVER.room = room;
 
-    tiles[index].update();
-    tiles[index].mark();
+    tiles[index].select();
 }
 
 SERVER.onWordGiven = (room) =>
