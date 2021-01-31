@@ -24,7 +24,7 @@ if (URLPARAMS.has("host"))
 }
 else
 {
-    SERVER.connect("116.203.80.39", 9999);
+    SERVER.connect("5.186.82.234", 9999);
 }
 
 //TODO: Remove these
