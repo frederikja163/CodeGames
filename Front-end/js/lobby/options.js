@@ -130,7 +130,7 @@ function wordsChanged()
     let wordsField = document.querySelector("#wordsField");
 
     let words = [];
-    wordsField.value.split(',').forEach(w => {if (w.trim() != "") words.push(w.trim); });
+    wordsField.value.split(',').forEach(w => {if (w.trim() != "") words.push(w.trim()); });
 
     SERVER.setWords(words);
 }
@@ -214,4 +214,28 @@ function addPacks(packList, packs, imgFolder, display)
         elem.appendChild(div);
         packList.appendChild(elem);
     }
+}
+
+function setWordCount()
+{
+    let inputElem = document.querySelector("#lobby .wordCountOption input");
+    SERVER.setWordCount(parseInt(inputElem.value));
+}
+
+function updateWordCountOption()
+{
+    document.querySelector("#lobby .wordCountOption input").value = SERVER.room.options.wordCount;
+    document.querySelector("#lobby .wordCountOption label").innerHTML = SERVER.room.options.wordCount;
+}
+
+function setKillerWordCount()
+{
+    let inputElem = document.querySelector("#lobby .killerWordCountOption input");
+    SERVER.setTeamWordCount(0, parseInt(inputElem.value));
+}
+
+function updateKillerWordCountOption()
+{
+    document.querySelector("#lobby .killerWordCountOption input").value = SERVER.room.options.teamWordCount[0];
+    document.querySelector("#lobby .killerWordCountOption label").innerHTML = SERVER.room.options.teamWordCount[0];
 }

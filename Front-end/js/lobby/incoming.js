@@ -1,37 +1,3 @@
-SERVER.onRoomJoined = (room, rid, pid) => 
-{
-    SERVER.room = room;
-    SERVER.rid = rid;
-    SERVER.pid = pid;
-
-    swapToLobby();
-    updateLink();
-    updateNameField();
-    initializeTeams();
-    initializePlayers();
-    initializePackList();
-    updateWordsField();
-    updateTeamCount();
-    setupRoom();
-    revealOwnerContent();
-};
-
-SERVER.onPlayerJoined = (room, pid) => 
-{
-    SERVER.room = room;
-
-    playerJoined(pid);
-};
-
-SERVER.onPlayerLeft = (room, pid) => 
-{
-    let oldRoom = SERVER.room;
-    SERVER.room = room;
-
-    playerLeft(pid, oldRoom);
-    revealOwnerContent();
-};
-
 SERVER.onPlayerKicked = (room, pid, reason) =>
 {
     let oldRoom = SERVER.room;
@@ -76,6 +42,8 @@ SERVER.onTeamCountChanged = (room) =>
     {
         removeTeamElem();
     };
+
+    revealOwnerContent();
 };
 
 SERVER.onSpymasterChanged = (room, pid) =>
@@ -91,6 +59,30 @@ SERVER.onWordsChanged = (room, words) =>
 {
     SERVER.room = room;
 
+    if (startGame)
+    {
+        SERVER.startGame();
+        startGame = false;
+        return;
+    }
+
     updateWordsField();
     updatePackList();
+};
+
+SERVER.onWordCountChanged = (room) =>
+{
+    SERVER.room = room;
+
+    updateWordCountOption();
+    updateKillerWordCountOption();
+    updateTeamsWordCount();
+};
+
+SERVER.onTeamWordCountChanged = (room, team) =>
+{
+    SERVER.room = room;
+
+    updateKillerWordCountOption();
+    updateTeamWordCount(team);
 };

@@ -15,6 +15,8 @@ class Lobby
         client.onRemoveWords = (words) => this.onRemoveWords(client, words);
         client.onSetTeam = (pid, team) => this.onSetTeam(client, pid, team);
         client.onSetTeamCount = (count) => this.onSetTeamCount(client, count);
+        client.onSetTeamWordCount = (team, count) => this.onSetTeamWordCount(client, team, count);
+        client.onSetWordCount = (count) => this.onSetWordCount(client, count);
         client.onSetSpymaster = (team, pid) => this.onSetSpymaster(client, team, pid);
     }
 
@@ -116,25 +118,82 @@ class Lobby
 
     onSetTeamCount(client, count)
     {
-        if (!this.isOwner(client) || count < 1){
+        if (!this.isOwner(client) || count < 1 && count != this.data.options.teamCount){
             return;
         }
-        for (let i = 0; i < this.data.players.length; i++)
+        if (count < this.data.options.teamCount)
         {
-            let player = this.data.players[i];
-            if (player.team > count){
-                player.team = 0;
-                player.spymaster = false;
-                for (let i = 0; i < this.clients.length; i++)
-                {
-                    this.clients[i].teamChanged(this.data, player.pid);
+            this.data.options.teamWordCount.length = count + 1;
+            for (let i = 0; i < this.data.players.length; i++)
+            {
+                let player = this.data.players[i];
+                if (player.team > count){
+                    player.team = 0;
+                    player.spymaster = false;
+                    for (let i = 0; i < this.clients.length; i++)
+                    {
+                        this.clients[i].teamChanged(this.data, player.pid);
+                    }
                 }
+            }
+        }
+        else
+        {
+            for (let i = this.data.options.teamCount; i <= count; i++)
+            {
+                this.SetTeamWordCount(i, 5);
             }
         }
         this.data.options.teamCount = count;
         for (let i = 0; i < this.clients.length; i++)
         {
             this.clients[i].teamCountChanged(this.data);
+        }
+    }
+
+    onSetTeamWordCount(client, team, count)
+    {
+        if (!this.isOwner(client) || count < 1 || team < 0 || team > this.data.options.teamCount){
+            return;
+        }
+        this.SetTeamWordCount(team, count);
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].teamWordCountChanged(this.data, team);
+        }
+    }
+
+    SetTeamWordCount(team, count)
+    {
+        let options = this.data.options;
+        let teamWords = 0;
+        for (let i = 0; i < options.teamWordCount.length; i++)
+        {
+            if (i != team)
+            {
+                teamWords += options.teamWordCount[i];
+            }
+        }
+        count = Math.min(options.wordCount - teamWords, count);
+        this.data.options.teamWordCount[team] = count;
+    }
+
+    onSetWordCount(client, count)
+    {
+        if (!this.isOwner(client)){
+            return;
+        }
+        let options = this.data.options;
+        let teamWords = 0;
+        for (let i = 0; i < options.teamWordCount.length; i++)
+        {
+            teamWords += options.teamWordCount[i];
+        }
+        count = Math.max(teamWords, count);
+        this.data.options.wordCount = count;
+        for (let i = 0; i < this.clients.length; i++)
+        {
+            this.clients[i].wordCountChanged(this.data);
         }
     }
 

@@ -1,0 +1,32 @@
+body
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+#backBtn
+{
+    grid-column: 1 / 2;
+    transform: rotate(90deg);
+}
+
+h2
+{
+    grid-column: 2 / 3;
+    margin: auto;
+    margin-top: 80px;
+}
+
+#formLink
+{
+    grid-column: 2 / 3;
+    margin: auto;
+    margin-top: 40px;
+    font-size: 20px;
+    color: var(--topColor);
+}
+
+a:hover
+{
+    color: blue;
+}

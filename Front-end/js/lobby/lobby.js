@@ -1,7 +1,8 @@
 function swapToLobby()
 {
-    welcome.style.display = HIDDEN;
-    lobby.style.display = VISIBLE;
+    welcome.style.display = "none";
+    lobby.style.display = "grid";
+    state = "lobby";
 }
 
 function setupRoom()
@@ -60,7 +61,7 @@ function nameChange()
 
 function revealOwnerContent()
 {
-    if (SERVER.pid == SERVER.room.players[0].pid)
+    if (SERVER.pid == SERVER.room.players[0].pid && state === "lobby")
     {
         document.querySelectorAll(".owner").forEach(elem => elem.style.display = 'initial');
         document.querySelectorAll(".guest").forEach(elem => elem.style.display = HIDDEN);
@@ -92,3 +93,55 @@ function playerKicked(pid, reason)
         window.location = url.slice(0, ridStart);
     }
 }
+
+async function startBtnPressed()
+{
+    //clickPack("#Animals");
+    let words = SERVER.room.options.words;
+    let result = [];
+    let langCode;
+    let langNum;
+
+    startGame = true;
+
+    for (let i = 0; i < words.length; i++)
+    {
+        let word = words[i].trim();
+
+        if (word.startsWith("@"))
+        {
+            langCode = word.replace("@", "");
+            langNum = languages.find(i => i.code === langCode);
+        }
+        else if (word.startsWith("#"))
+        {
+            let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
+            pack.forEach(w => result.push(w));
+        }
+        else
+        {
+            result.push(word);
+        }
+    }
+
+    SERVER.setWords(result);
+}
+
+async function loadCsv(url)
+{
+    let l = [];
+    let r = await fetch(url);
+    let t = await r.text();
+    t.split(',\n').forEach(p => l.push(p));
+    return l;
+}
+
+// function checkStartGame()
+// {
+//     let wordsField = document.querySelector("#wordsField").value;
+
+//     if (SERVER.room.options.words[0] === wordsField.substring(0, wordsField.indexOf(",")))
+//     {
+//         console.log("start");
+//     }
+// }

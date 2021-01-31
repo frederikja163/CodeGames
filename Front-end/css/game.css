@@ -1,0 +1,175 @@
+#game
+{
+    display: none;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 10vh 70vh 10vh;
+    margin: var(--space);
+}
+
+#game > .playerlist
+{
+    grid-row: 1 / 4;
+}
+
+#game > .playerlist > ul > li
+{
+    grid-template-columns: 100%;
+}
+
+#game > .playerlist .btnWrap > .pie
+{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    margin-right: var(--space);
+    margin-top: var(--space);
+}
+
+#game > .playerlist .btnWrap > .smIcon *
+{
+    transform: translate(calc(2 * var(--space)), var(--space));
+}
+
+#game > .playerlist .btn2, #game > .playerlist form
+{
+    display: none;
+}
+
+#game > #gamePlayers
+{
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+}
+
+#game > #info
+{
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+
+    background-color: var(--l1Color);
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+#game > #info > .givenWord
+{
+    grid-column: 2 / 3;
+
+    margin: auto;
+    font-size: 24px;
+}
+
+#game > #info > form
+{
+    margin: auto;
+    margin-right: var(--space);
+    display: none;
+}
+
+#game > #board
+{
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+
+    background-color: var(--l1Color);
+    width: 100%;
+    height: 100%;
+    border-spacing: var(--space);
+    table-layout: fixed;
+}
+
+#game > #board > tr > td
+{
+    background-color: var(--topColor);
+    color: var(--backColor);
+    border: var(--space) solid rgba(0, 0, 0, 0);
+    padding: var(--space);
+    text-align: center;
+    font-size: 24px;
+    box-sizing: border-box;
+    transition: all var(--transTime);
+}
+
+#game > #board > tr > td > .selfMark
+{
+    display: block;
+    background-color: var(--topColor);
+    opacity: 0;
+    width: calc(100% + 2 * var(--space));
+    height: calc(100% + 2 * var(--space));
+    transform: translateY(calc(50% - var(--space))) scale(1);
+    margin: calc(-1 * var(--space));
+    transition: all var(--transTime);
+}
+
+#game > #board > tr > td > .wrap
+{    
+    width: 100%;
+    height: 100%;
+    display: grid;
+    transform: translateY(-50%);
+    grid-template-columns: 100% 0;
+    grid-template-rows: repeat(3, calc(100% / 3));
+}
+
+#game > #board > tr > td > .wrap > .txt
+{
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+}
+
+.pie
+{
+    grid-row: 3 / 4;
+
+    margin: auto;
+    box-sizing: border-box;
+    border: solid 3px var(--topColor);
+    width: var(--btn2Size);
+    height: var(--btn2Size);
+    max-height: var(--btn2Size);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    transition: all var(--transTime);
+}
+
+#game > #word
+{
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+
+    background-color: var(--l1Color);
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+#game > #word > form
+{
+    grid-column: 2 / 3;
+
+    display: grid;
+    grid-template-columns: auto 20% calc(var(--btn2Size) + 2 * var(--space));
+}
+
+#game > #word > form > .wordField
+{
+    grid-column: 1 / 2;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#game > #word > form > .countField
+{
+    grid-column: 2 / 3;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#game > #word > form > .btn2
+{
+    grid-column: 3 / 4;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}

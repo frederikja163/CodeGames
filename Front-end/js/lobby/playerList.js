@@ -4,7 +4,7 @@ function initializeTeams()
 {
     for (let i = 0; i < SERVER.room.options.teamCount; i++)
     {
-        addTeamElem();
+        addTeamElem(document.querySelector("#lobby #teams"));
     }
 }
 
@@ -14,38 +14,6 @@ function initializePlayers()
     {
         playerJoined(SERVER.room.players[i].pid);
     }
-}
-
-function getColorsForElem(elem)
-{
-    //Step1: Get rgb values
-    //Step2: Check for black or white colors
-    //Step3: Return correct colors
-    let colorRaw = window.getComputedStyle(elem).getPropertyValue("background-color"); //rgb(56, 65, 255)
-    let start = colorRaw.indexOf("(") + 1;
-    let end = colorRaw.indexOf(")");
-    let rgbColor = colorRaw.substring(start, end);
-    let rgbColors = rgbColor.split(", ");
-    let r = rgbColors[0];
-    let g = rgbColors[1];
-    let b = rgbColors[2];
-    let hsp = Math.sqrt(0.229 * (r*r) + 0.587 * (g*g) + 0.114 * (b*b));
-
-    let light = hsp > 127.5;
-    let color = light ? "var(--backColor)" : "var(--topColor)";
-    let backgroundColor = light ? "var(--topColor)" : "var(--backColor)";
-    return {color: color, backgroundColor: backgroundColor};
-}
-
-function getTeamElement(team)
-{
-    return Array.from(document.querySelectorAll("#lobby #players #teams ul"))[team];
-}
-
-function getPlayerElement(pid)
-{
-    let pidElement = Array.from(document.querySelectorAll(".pid")).find(p => p.innerText === pid);
-    return pidElement === undefined ? undefined : pidElement.parentElement;
 }
 
 function createPlayer(player) // TODO: Create element on parent insted of document
@@ -75,6 +43,7 @@ function createPlayer(player) // TODO: Create element on parent insted of docume
 
     // Create button div
     let btnElem = document.createElement("DIV");
+    btnElem.className = "btnWrap";
     
     // Create spymaster icon
     let smElem = document.createElement("DIV");
@@ -197,28 +166,56 @@ function createIconElem(src, angle, invertColor, className)
 
 function addTeamElem()
 {
-    let teamList = document.querySelector("#lobby #teams");
-    let teamName = teamNames[teamList.children.length - 1];
+    let teamListElem = document.querySelector("#lobby #teams");
+    let teamNum = teamListElem.children.length;
+    let teamColor = teams[teamNum - 1].normal;
+    let teamName = teams[teamNum - 1].name;
 
     // Create team box
     let team = document.createElement("LI");
     team.id = teamName;
     team.className = "box";
-    team.style.backgroundColor = teamName != undefined ? teamName : "var(--topColor)";
+    team.style.backgroundColor = teamColor != undefined ? teamColor : "var(--topColor)";
 
     // Create team title
     let title = document.createElement("H3");
     title.innerHTML = (teamName != undefined ? teamName : "Please remove this") + " team";
+
+    // Create team word count
+    let wordCountElem = document.createElement("FORM");
+    wordCountElem.setAttribute("action", "javascript:void(0);");
     
+    let labelElem = document.createElement("LABEL");
+    labelElem.className = "team" + teamName;
+    labelElem.innerHTML = "Word count:";
+    
+    let inputElem = document.createElement("INPUT");
+    inputElem.className = "owner inputTxt team" + teamName;
+    inputElem.value = "5";
+    inputElem.setAttribute("placeholder", "0");
+
+    let guestLabelElem = document.createElement("LABEL");
+    guestLabelElem.className = "guest";
+    
+    wordCountElem.onchange = () =>
+    {
+        SERVER.setTeamWordCount(teamNum, parseInt(inputElem.value));
+    };
+
+    wordCountElem.appendChild(inputElem);
+    wordCountElem.appendChild(guestLabelElem);
+    wordCountElem.appendChild(labelElem);
+
     // Create team list
     let list = document.createElement("UL");
     
     // Add element to team
     team.appendChild(title);
+    team.appendChild(wordCountElem);
     team.appendChild(list);
 
     // Add team to player list
-    teamList.appendChild(team);
+    teamListElem.appendChild(team);
 
     // Set text-colour for team box
     team.style.color = getColorsForElem(team).color;
@@ -233,7 +230,7 @@ function removeTeamElem()
         teamChanged(pidElements[i].innerText);
     }
 
-    document.querySelector("#lobby #players #teams").lastChild.remove();
+    document.querySelector(".playerlist > ul").lastChild.remove();
 }
 
 function playerJoined(pid)
@@ -363,5 +360,22 @@ function spymasterChanged(pid, oldPid)
         {
             console.warn("Didn't find the player elem for " + pid);
         }
+    }
+}
+
+function updateTeamWordCount(team)
+{
+    if (team > 0)
+    {
+        document.querySelector(".playerlist > ul > *:nth-child(" + str(team + 1) + ") input").value = SERVER.room.options.teamWordCount[team];
+        document.querySelector(".playerlist > ul > *:nth-child(" + str(team + 1) + ") .guest").innerHTML = SERVER.room.options.teamWordCount[team];
+    }
+}
+
+function updateTeamsWordCount()
+{
+    for (let i = 1; i <= SERVER.room.options.teamCount; i++)
+    {
+        updateTeamWordCount(i);
     }
 }

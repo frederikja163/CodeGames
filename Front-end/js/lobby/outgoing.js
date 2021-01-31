@@ -20,7 +20,7 @@ function changeTeamDown(pid)
 
 function addTeam()
 {
-    if (SERVER.room.options.teamCount < teamNames.length)
+    if (SERVER.room.options.teamCount < teams.length)
     {
         SERVER.setTeamCount(SERVER.room.options.teamCount + 1);
     }

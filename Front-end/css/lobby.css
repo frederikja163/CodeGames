@@ -12,7 +12,7 @@
 #lobby .wall
 {
     background-color: var(--l1Color);
-    grid-row: 1 / 5;
+    grid-row: 1 / 6;
 }
 
 #lobby .wall h2
@@ -30,58 +30,6 @@
     grid-column: 1 / 2;
 }
 
-#lobby #teams > li
-{
-    background-color: var(--topColor);
-    margin: var(--space);
-}
-
-#lobby #teams li:first-child
-{
-    color: var(--backColor);
-}
-
-#lobby #teams h3
-{
-    text-align: center;
-    padding: var(--space);
-}
-
-#lobby #teams ul li
-{
-    display: grid;
-    grid-template-columns: auto auto;
-    padding: var(--space);
-}
-
-#lobby #teams ul li div
-{
-    height: 55px;
-}
-
-#lobby #teams ul li div:nth-child(2) /* TODO: fix height in btn / symbol */
-{
-    grid-column: 1 / 2;
-    margin-left: var(--space);
-    font-size: 18px;
-    line-height: calc(var(--btn2Size) + 2 * var(--space));
-}
-
-#lobby #teams ul li div:nth-child(3)
-{
-    text-align: right;
-}
-
-#lobby #teams .smIcon, .ownerIcon
-{
-    font-size: 16px;
-    margin: var(--space);
-    /* padding-left: 7px;
-    padding-right: 7px; */
-    line-height: calc(var(--btn2Size) + 2 * var(--space));
-    display: inline;
-}
-
 #lobby #options
 {
     grid-column: 3 / 4;
@@ -92,7 +40,7 @@
 {
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
     padding: var(--space);
     padding-left: 0;
 }
@@ -110,6 +58,37 @@
 #lobby #options > ul > li:nth-child(even)
 {
     text-align: right;
+}
+
+#lobby > #options .wordCountTitle, #lobby > #options .wordCountOption
+{
+    grid-row: 2 / 3;
+}
+
+#lobby > #options .killerWordCountTitle, #lobby > #options .killerWordCountOption
+{
+    grid-row: 3 / 4;
+}
+
+#lobby > #options .wordCountOption, #lobby > #options .killerWordCountOption
+{
+    grid-column: 2 / 3;
+    height: 65px;
+}
+
+#lobby > #options .wordCountOption *, #lobby > #options .killerWordCountOption *
+{
+    margin: 0;
+}
+
+#lobby > #options .wordCountOption > *, #lobby > #options .killerWordCountOption > *
+{
+    margin-right: var(--space);
+}
+
+#lobby > #options .wordCountOption input, #lobby > #options .killerWordCountOption input
+{
+    display: none;
 }
 
 #lobby #options #dropBtn
@@ -152,7 +131,7 @@
 #lobby #options #dropMenu
 {
     grid-column: 2 / 3;
-    grid-row: 3 / 5;
+    grid-row: 5 / 8;
 
     z-index: 10;
     display: none;
@@ -216,12 +195,12 @@
 
 #lobby #options #wordsTitle
 {
-    grid-row: 3 / 4;
+    grid-row: 6 / 7;
 }
 
 #lobby #options #wordsOption
 {
-    grid-row: 4 / 5;
+    grid-row: 7 / 8;
 }
 
 #lobby #options #words
@@ -230,7 +209,7 @@
 
     display: grid;
     overflow: auto;
-    height: 500px;
+    max-height: 200px;
     background-color: var(--l1Color);
     text-align: left;
     padding: var(--space);
