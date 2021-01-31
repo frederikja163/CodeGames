@@ -49,6 +49,17 @@
     margin-bottom: calc(1.5 * var(--space));
 }
 
+#welcome form > a
+{
+    font-size: 20px;
+    color: var(--topColor);
+}
+
+#welcome form > a:hover
+{
+    color: blue;
+}
+
 #welcome #joinBtn
 {
     --width: 50%;
