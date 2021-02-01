@@ -59,7 +59,6 @@ class Room
 
     onStartGame(client)
     {
-        //TODO: check if game is valid
         if (roomCheck(this.data))
         {
             this.SetState(new Game(this.data, this.clients));
