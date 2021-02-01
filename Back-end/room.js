@@ -43,9 +43,8 @@ class Room
             this.clients[i].playerJoined(this.data, player.pid);
         }
         this.clients.push(client);
-        client.roomJoined(this.data, this.data.rid, client.pid);
-
         this.AddClientEvents(client);
+        client.roomJoined(this.data, this.data.rid, client.pid);
     }
 
     AddClientEvents(client)
@@ -62,6 +61,9 @@ class Room
         if (roomCheck(this.data))
         {
             this.SetState(new Game(this.data, this.clients));
+            this.state.onGameEnded = () => {
+                this.SetState(new Lobby(this.data, this.clients));
+            }
         }
     }
 

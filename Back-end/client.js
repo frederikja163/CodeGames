@@ -89,6 +89,7 @@ class Client{
         this.wordSelected =         (room, index) => send("wordSelected", room, index);
         this.wordGiven =            (room) => send("wordGiven", room);
         this.roundEnded =           (room) => send("roundEnded", room);
+        this.gameEnded =            (room, words) => send("gameEnded", room, words);
     }
 }
 

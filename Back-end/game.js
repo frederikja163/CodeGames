@@ -44,6 +44,8 @@ class Game
             {
                 client.gameStarted(this.data);
             });
+
+        this.onGameEnded = () => {};
     }
 
     AddClient(client)
@@ -52,6 +54,7 @@ class Game
         let player = this.data.players[playerInd];
         if (player.team == -1)
         {
+            this.data.game.words = null;
             return;
         }
         if (player.spymaster)
@@ -81,7 +84,7 @@ class Game
     {
         let playerInd = this.clients.findIndex(c => c.pid == client.pid);
         let player = this.data.players[playerInd];
-        if (this.isSpymastersTurn())
+        if (this.isSpymastersTurn() || player.team != this.data.game.activeTeam)
         {
             return;
         }
@@ -153,8 +156,23 @@ class Game
         this.ForeachClient(client => client.wordSelected(this.data, index));
         if (player.team != this.fullWords[index].team)
         {
-            this.EndRound();
+            if (this.fullWords[index].team === -1)
+            {
+                this.endGame();
+            }
+            else
+            {
+                this.EndRound();
+            }
         }
+    }
+
+    endGame()
+    {
+        this.game = null;
+        this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
+        this.clients.forEach(c => c.gameEnded(this.data, this.fullWords));
+        this.onGameEnded();
     }
 
     ForeachClient(method)
