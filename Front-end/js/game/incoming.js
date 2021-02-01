@@ -36,6 +36,7 @@ SERVER.onRoundEnded = (room) =>
 {
     SERVER.room = room;
 
+    wordGiven();
     checkTurn();
 }
 

@@ -163,7 +163,7 @@ function getMarked(room, wordIndex)
 
 function wordGiven()
 {
-    document.querySelector("#game > #info > .givenWord").innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
+    document.querySelector("#game > #info > .givenWord").innerHTML = (SERVER.room.game.word === null ? "" : SERVER.room.game.word) + " " + String(SERVER.room.game.wordCount === null ? "" : SERVER.room.game.wordCount);
 }
 
 function initializeWord()
@@ -198,11 +198,13 @@ function checkTurn()
     let teamData = getTeamsData()[teamNum];
 
     document.querySelectorAll(".activeTurn").forEach(elem => elem.classList.remove("activeTurn"));
+    document.querySelector("#info > form").style.display = "none";
 
     for (let i = 0; i < teamData.length; i++)
     {
         let pid = teamData[i].pid;
         let playerElem = getPlayerElement(pid);
+        playerElem.style.backgroundColor = "none";
 
         if (SERVER.room.game.word === null)
         {
@@ -218,6 +220,18 @@ function checkTurn()
                 playerElem.className += " activeTurn";
             }
         }
+    }
+
+    let activePlayers = document.querySelectorAll(".playerlist .activeTurn");
+    activePlayers.item(0).style.borderTopLeftRadius = "5px";
+    activePlayers.item(0).style.borderTopRightRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.borderBottomLeftRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.borderBottomRightRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.marginBottom = "var(--space)";
+
+    if (getPlayerElement(SERVER.pid).classList.contains("activeTurn") && !SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
+    {
+        document.querySelector("#info > form").style.display = "grid";
     }
 }
 

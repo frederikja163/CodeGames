@@ -110,10 +110,18 @@
     height: var(--btn2Size);
 }
 
-.playerlist li.activeTurn
+.playerlist .activeTurn
 {
     background-color: rgba(255, 255, 255, .4);
-    margin: var(--space);
-    padding: none !important;
-    border-radius: 5px;
+    margin: 0 var(--space);
+}
+
+.playerlist li.activeTurn > div
+{
+    transform: translate(calc(-1 * var(--space)), 0);
+}
+
+.playerlist li.activeTurn > div.btnWrap
+{
+    transform: translate(var(--space), 0);
 }
