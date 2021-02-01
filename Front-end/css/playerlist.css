@@ -109,3 +109,11 @@
     display: inline;
     height: var(--btn2Size);
 }
+
+.playerlist li.activeTurn
+{
+    background-color: rgba(255, 255, 255, .4);
+    margin: var(--space);
+    padding: none !important;
+    border-radius: 5px;
+}

@@ -41,7 +41,7 @@ function initializePlayerlist()
                 }
             }
             
-            let pie = new Pie(slices, teams[SERVER.room.players[i].team - 1].normal);
+            let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
@@ -192,6 +192,35 @@ function giveFormWord()
     countFieldElem.value = "";
 }
 
+function checkTurn()
+{
+    let teamNum = SERVER.room.game.activeTeam;
+    let teamData = getTeamsData()[teamNum];
+
+    document.querySelectorAll(".activeTurn").forEach(elem => elem.classList.remove("activeTurn"));
+
+    for (let i = 0; i < teamData.length; i++)
+    {
+        let pid = teamData[i].pid;
+        let playerElem = getPlayerElement(pid);
+
+        if (SERVER.room.game.word === null)
+        {
+            if (teamData.find(e => e.pid === pid).spymaster)
+            {
+                playerElem.className += " activeTurn";
+            }
+        }
+        else
+        {
+            if (!teamData.find(e => e.pid === pid).spymaster)
+            {
+                playerElem.className += " activeTurn";
+            }
+        }
+    }
+}
+
 class Pie
 {
     constructor(filled, color)
@@ -316,7 +345,7 @@ class Tile
         }
         else
         {
-            this.elem.style.backgroundColor = teams[this.team - 1].normal;
+            this.elem.style.backgroundColor = teams[this.team + 1].normal;
             this.elem.style.color = getColorsForElem(this.elem).color;
         }
     }
@@ -326,8 +355,8 @@ class Tile
         this.update();
         this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
 
-        this.elem.style.borderColor = teams[this.selectedBy - 1].light;
-        this.elem.style.backgroundColor = teams[this.team - 1].light;
+        this.elem.style.borderColor = teams[this.selectedBy + 1].light;
+        this.elem.style.backgroundColor = teams[this.team + 1].light;
     }
 
     mark()

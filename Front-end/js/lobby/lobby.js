@@ -94,40 +94,46 @@ function playerKicked(pid, reason)
     }
 }
 
+async function getWords()
+{
+    let result = [];
+    let words = SERVER.room.options.words;
+    let langCode;
+    let langNum;
+
+    for (let i = 0; i < words.length; i++)
+    {
+        let word = words[i].trim();
+
+        if (word.startsWith("@"))
+        {
+            langCode = word.replace("@", "");
+            langNum = languages.find(i => i.code === langCode);
+        }
+        else if (word.startsWith("#"))
+        {
+            let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
+            pack.forEach(w => result.push(w));
+        }
+        else
+        {
+            result.push(word);
+        }
+    }
+
+    return result;
+}
+
 async function startBtnPressed()
 {
     if (checkPlayersInTeam(SERVER.room))
     {
-        if (checkWordCount(SERVER.room))
+        let words = await getWords();
+
+        if (words.length >= SERVER.room.options.wordCount)
         {
-            let words = SERVER.room.options.words;
-            let result = [];
-            let langCode;
-            let langNum;
-
             startGame = true;
-
-            for (let i = 0; i < words.length; i++)
-            {
-                let word = words[i].trim();
-
-                if (word.startsWith("@"))
-                {
-                    langCode = word.replace("@", "");
-                    langNum = languages.find(i => i.code === langCode);
-                }
-                else if (word.startsWith("#"))
-                {
-                    let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
-                    pack.forEach(w => result.push(w));
-                }
-                else
-                {
-                    result.push(word);
-                }
-            }
-
-            SERVER.setWords(result);
+            SERVER.setWords(words);
         }
         else
         {

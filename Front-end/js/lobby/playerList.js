@@ -168,8 +168,8 @@ function addTeamElem()
 {
     let teamListElem = document.querySelector("#lobby #teams");
     let teamNum = teamListElem.children.length;
-    let teamColor = teams[teamNum - 1].normal;
-    let teamName = teams[teamNum - 1].name;
+    let teamColor = teams[teamNum + 1].normal;
+    let teamName = teams[teamNum + 1].name;
 
     // Create team box
     let team = document.createElement("LI");
