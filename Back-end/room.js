@@ -1,6 +1,7 @@
 const { Lobby } = require("./lobby");
 const { Game } = require("./game");
 const {RoomData, PlayerData, Options, Word} = require("./data");
+const roomCheck = require("./../Common/roomCheck");
 
 class Room
 {
@@ -59,7 +60,10 @@ class Room
     onStartGame(client)
     {
         //TODO: check if game is valid
-        this.SetState(new Game(this.data, this.clients));
+        if (roomCheck(this.data))
+        {
+            this.SetState(new Game(this.data, this.clients));
+        }
     }
 
     onJoinRoom(client, rid)
