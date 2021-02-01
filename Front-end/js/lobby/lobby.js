@@ -96,35 +96,48 @@ function playerKicked(pid, reason)
 
 async function startBtnPressed()
 {
-    //clickPack("#Animals");
-    let words = SERVER.room.options.words;
-    let result = [];
-    let langCode;
-    let langNum;
-
-    startGame = true;
-
-    for (let i = 0; i < words.length; i++)
+    if (checkPlayersInTeam(SERVER.room))
     {
-        let word = words[i].trim();
+        if (checkWordCount(SERVER.room))
+        {
+            let words = SERVER.room.options.words;
+            let result = [];
+            let langCode;
+            let langNum;
 
-        if (word.startsWith("@"))
-        {
-            langCode = word.replace("@", "");
-            langNum = languages.find(i => i.code === langCode);
-        }
-        else if (word.startsWith("#"))
-        {
-            let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
-            pack.forEach(w => result.push(w));
+            startGame = true;
+
+            for (let i = 0; i < words.length; i++)
+            {
+                let word = words[i].trim();
+
+                if (word.startsWith("@"))
+                {
+                    langCode = word.replace("@", "");
+                    langNum = languages.find(i => i.code === langCode);
+                }
+                else if (word.startsWith("#"))
+                {
+                    let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
+                    pack.forEach(w => result.push(w));
+                }
+                else
+                {
+                    result.push(word);
+                }
+            }
+
+            SERVER.setWords(result);
         }
         else
         {
-            result.push(word);
+            window.alert("Not enough words! Please add more words to your game.");
         }
     }
-
-    SERVER.setWords(result);
+    else
+    {
+        window.alert("Not enough players on teams! At least two players on every team.");
+    }
 }
 
 async function loadCsv(url)
