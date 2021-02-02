@@ -6,7 +6,7 @@ function swapToLobby()
     state = "lobby";
 }
 
-function setupRoom()
+function createRoomFromUrl()
 {
     //Start parameters
     if (URLPARAMS.has("name"))

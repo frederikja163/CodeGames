@@ -42,7 +42,11 @@ SERVER.onRoundEnded = (room) =>
 
 SERVER.onGameEnded = (room, words) =>
 {
+    checkTurn();
+
     SERVER.room = room;
 
-    checkTurn();
+    if (room.players.find(p => p.pid === SERVER.pid).team === -1){
+        SERVER.onRoomJoined(SERVER.room, SERVER.rid, SERVER.pid);
+    }
 }

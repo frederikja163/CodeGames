@@ -50,6 +50,19 @@
     grid-template-columns: 20% 60% 20%;
 }
 
+#game > #info > #backToLobbyBtn
+{
+    display: flex;
+    color: var(--backColor);
+    margin: var(--space);
+    padding: var(--space);
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
 #game > #info > .givenWord
 {
     grid-column: 2 / 3;

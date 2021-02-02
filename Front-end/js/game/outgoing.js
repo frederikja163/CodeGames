@@ -20,5 +20,5 @@ function endTurn()
 
 function backToLobbyBtn()
 {
-    swapToLobby();
+    resetRoom();
 }

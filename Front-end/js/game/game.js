@@ -162,7 +162,6 @@ function getMarked(room, wordIndex) // Fix rækkefølge
             {
                 marked.teams[t][count] = room.game.words[wordIndex].marked.includes(player.pid) ? true : false;
                 count++;
-                console.log(marked.teams);
 
                 if (player.spymaster)
                 {
@@ -248,6 +247,20 @@ function checkTurn()
     {
         document.querySelector("#info > form").style.display = "grid";
     }
+}
+
+function resetRoom()
+{
+    let playerlistElem = document.querySelector(".playerlist");
+    lobby.prepend(playerlistElem);
+    document.querySelectorAll(".playerlist > ul > li:not(:first-child)").forEach(e => e.remove());
+    document.querySelector("#board").innerHTML = "";
+    
+    swapToLobby();
+    initializeTeams();
+    initializePlayers();
+    revealOwnerContent();
+    updateTeamsWordCount();
 }
 
 class Pie

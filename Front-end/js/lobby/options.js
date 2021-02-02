@@ -122,7 +122,7 @@ function updateWordsField()
     let wordsFieldElem = document.querySelector("#wordsField");
     let wordsTxtElem = document.querySelector("#wordsTxt");
     wordsFieldElem.value = SERVER.room.options.words;
-    wordsTxtElem.innerText = SERVER.room.options.words;
+    wordsTxtElem.innerText = SERVER.room.options.words.join(", ");
 }
 
 function wordsChanged()

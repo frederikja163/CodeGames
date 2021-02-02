@@ -21,7 +21,7 @@ SERVER.onRoomJoined = (room, rid, pid) =>
         updateWordCountOption();
         updateTeamsWordCount();
         updateKillerWordCountOption();
-        setupRoom();
+        createRoomFromUrl();
         revealOwnerContent();
     }
 };
