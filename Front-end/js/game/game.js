@@ -48,7 +48,6 @@ function initializePlayerlist()
                 }
             }
             
-            console.log(player, slices);
             let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
@@ -212,7 +211,6 @@ function checkTurn()
     let teamData = getTeamsData()[teamNum];
 
     document.querySelectorAll(".activeTurn").forEach(elem => elem.classList.remove("activeTurn"));
-    document.querySelector("#info > form").style.display = "none";
 
     for (let i = 0; i < teamData.length; i++)
     {
@@ -242,11 +240,16 @@ function checkTurn()
     activePlayers.item(activePlayers.length - 1).style.borderBottomLeftRadius = "5px";
     activePlayers.item(activePlayers.length - 1).style.borderBottomRightRadius = "5px";
     activePlayers.item(activePlayers.length - 1).style.marginBottom = "var(--space)";
+}
 
-    if (getPlayerElement(SERVER.pid).classList.contains("activeTurn") && !SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
-    {
-        document.querySelector("#info > form").style.display = "grid";
-    }
+function showSkipBtn()
+{
+    document.querySelector("#info > form").style.display = "grid";
+}
+
+function hideSkipBtn()
+{
+    document.querySelector("#info > form").style.display = "none";
 }
 
 function resetRoom()

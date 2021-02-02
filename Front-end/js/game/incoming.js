@@ -2,11 +2,17 @@ SERVER.onGameStarted = (room) =>
 {
     SERVER.room = room;
 
+    if (state != "lobby")
+    {
+        resetRoom();
+    }
+
     swapToGame();
     initializePlayerlist();
     initializeBoard();
     initializeWord();
     checkTurn();
+    hideSkipBtn();
 }
 
 SERVER.onWordMarked = (room, index) =>
@@ -30,6 +36,12 @@ SERVER.onWordGiven = (room) =>
 
     wordGiven();
     checkTurn();
+
+    let player = SERVER.room.players.find(p => p.pid === SERVER.pid);
+    if (!player.spymaster && player.team === SERVER.room.game.activeTeam)
+    {
+        showSkipBtn();
+    }
 }
 
 SERVER.onRoundEnded = (room) =>
@@ -38,13 +50,14 @@ SERVER.onRoundEnded = (room) =>
 
     wordGiven();
     checkTurn();
+    hideSkipBtn();
 }
 
 SERVER.onGameEnded = (room, words) =>
 {
-    checkTurn();
-
     SERVER.room = room;
+
+    hideSkipBtn();
 
     if (room.players.find(p => p.pid === SERVER.pid).team === -1){
         SERVER.onRoomJoined(SERVER.room, SERVER.rid, SERVER.pid);
