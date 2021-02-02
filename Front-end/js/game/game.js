@@ -43,7 +43,7 @@ function initializePlayerlist()
 
                 if (teamsData[player.team][j].spymaster)
                 {
-                    slices[j].splice(j, 1);
+                    slices.splice(j, 1);
                     slices.unshift(false);
                 }
             }
@@ -162,6 +162,13 @@ function getMarked(room, wordIndex) // Fix rækkefølge
             {
                 marked.teams[t][count] = room.game.words[wordIndex].marked.includes(player.pid) ? true : false;
                 count++;
+                console.log(marked.teams);
+
+                if (player.spymaster)
+                {
+                    marked.teams[t].splice(count, 1);
+                    marked.teams[t].unshift(false);
+                }
             }
         }
     }
@@ -327,7 +334,7 @@ class Tile
         this.pies = [];
         for (let t = 1; t < this.marked.teams.length; t++)
         {
-            this.pies[t] = new Pie(this.marked.teams[t], teams[t - 1].normal);
+            this.pies[t] = new Pie(this.marked.teams[t], teams[t + 1].normal);
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
