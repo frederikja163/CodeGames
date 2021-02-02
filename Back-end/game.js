@@ -178,7 +178,7 @@ class Game
 
     endGame()
     {
-        this.game = null;
+        this.data.game = new GameData();
         this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
         this.clients.forEach(c => c.gameEnded(this.data, this.fullWords));
         this.onGameEnded();
