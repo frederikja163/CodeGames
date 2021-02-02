@@ -106,7 +106,12 @@ class Game
 
     RemovePlayer(pid)
     {
-        
+        let playerInd = this.clients.findIndex(c => c.pid == pid);
+        let player = this.data.players[playerInd];
+        if (player.spymaster || !this.data.players.find(p => p.team === player.team && !p.spymaster && p.pid != pid))
+        {
+            this.endGame();
+        }
     }
 
     onMarkWord(client, index)
@@ -154,6 +159,10 @@ class Game
             }
         }
         this.ForeachClient(client => client.wordSelected(this.data, index));
+        if (!this.fullWords.find(w => w.team === player.team && w.selectedBy === null))
+        {
+            this.endGame();
+        }
         if (player.team != this.fullWords[index].team)
         {
             if (this.fullWords[index].team === -1)
