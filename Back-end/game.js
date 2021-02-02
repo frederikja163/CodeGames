@@ -7,7 +7,7 @@ class Game
         this.data = data;
         this.clients = clients;
         
-        this.data.game = new GameData();
+        this.data.game.activeTeam = 1;
         
         let options = this.data.options;
         let wordOptions = options.words.slice();
