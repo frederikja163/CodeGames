@@ -2,6 +2,7 @@ function swapToLobby()
 {
     welcome.style.display = "none";
     lobby.style.display = "grid";
+    game.style.display = "none";
     state = "lobby";
 }
 

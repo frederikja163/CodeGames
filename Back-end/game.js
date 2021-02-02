@@ -174,7 +174,7 @@ class Game
         this.clients.forEach(c => c.gameEnded(this.data, this.fullWords));
         this.onGameEnded();
     }
-
+    
     ForeachClient(method)
     {
         for (let i = 0; i < this.clients.length; i++)
