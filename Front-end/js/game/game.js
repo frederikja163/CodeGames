@@ -1,5 +1,6 @@
 function swapToGame()
 {
+    welcome.style.display = "none";
     lobby.style.display = "none";
     game.style.display = "grid";
     state = "game";

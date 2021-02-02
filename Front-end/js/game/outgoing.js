@@ -17,3 +17,8 @@ function endTurn()
 {
     SERVER.endRound();
 }
+
+function backToLobbyBtn()
+{
+    swapToLobby();
+}
