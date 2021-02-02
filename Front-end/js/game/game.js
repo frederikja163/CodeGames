@@ -28,7 +28,7 @@ function initializePlayerlist()
         }
         else if (player.team > 0)
         {
-            let slices = [];   
+            let slices = [];
             for (let j = 0; j < teamsData[player.team].length; j++)
             {
                 if (teamsData[player.team][j].pid === player.pid)
@@ -39,8 +39,15 @@ function initializePlayerlist()
                 {
                     slices[j] = false;
                 }
+
+                if (teamsData[player.team][j].spymaster)
+                {
+                    slices[j].splice(j, 1);
+                    slices.unshift(false);
+                }
             }
             
+            console.log(player, slices);
             let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
@@ -136,7 +143,7 @@ function getElemRgb(elem, property)
     return rgbColor.split(", ");
 }
 
-function getMarked(room, wordIndex)
+function getMarked(room, wordIndex) // Fix rækkefølge
 {
     marked = {
         total: 0,
@@ -262,7 +269,7 @@ class Pie
             let angleEnd = 360 / this.sliceCount * i;
             let sliceColor = filled[i] ? this.color : "var(--topColor)";
             
-            backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Use String insted str to prevent double quotation marks
+            backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Using String insted str to prevent double quotation marks
             if (i < this.sliceCount) backgroundStr += ", ";
             else backgroundStr += ")";
         }
