@@ -58,7 +58,7 @@ class Room
 
     onStartGame(client)
     {
-        if (roomCheck(this.data))
+        if (roomCheck(this.data) && this.state instanceof Lobby)
         {
             this.SetState(new Game(this.data, this.clients));
             this.state.onGameEnded = () => {
