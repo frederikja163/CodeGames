@@ -13,6 +13,11 @@ SERVER.onGameStarted = (room) =>
     initializeWord();
     checkTurn();
     hideSkipBtn();
+
+    if (SERVER.room.players.find(p => p.pid === SERVER.pid).team != SERVER.room.game.activeTeam)
+    {
+        disableWordForm();
+    }
 }
 
 SERVER.onWordMarked = (room, index) =>
@@ -36,6 +41,7 @@ SERVER.onWordGiven = (room) =>
 
     wordGiven();
     checkTurn();
+    disableWordForm();
 
     let player = SERVER.room.players.find(p => p.pid === SERVER.pid);
     if (!player.spymaster && player.team === SERVER.room.game.activeTeam)
@@ -51,6 +57,10 @@ SERVER.onRoundEnded = (room) =>
     wordGiven();
     checkTurn();
     hideSkipBtn();
+    if (SERVER.room.players.find(p => p.pid === SERVER.pid).team === SERVER.room.game.activeTeam)
+    {
+        enableWordForm();
+    }
 }
 
 SERVER.onGameEnded = (room, words) =>

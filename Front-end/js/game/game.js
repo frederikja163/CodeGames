@@ -252,6 +252,22 @@ function hideSkipBtn()
     document.querySelector("#info > form").style.display = "none";
 }
 
+function enableWordForm()
+{
+    let formElem = document.querySelector("#game #word form");
+    formElem.querySelector(".wordField").style.opacity = "1";
+    formElem.querySelector(".countField").style.opacity = "1";
+    formElem.querySelector(".btn2").style.display = "grid";
+}
+
+function disableWordForm()
+{
+    let formElem = document.querySelector("#game #word form");
+    formElem.querySelector(".wordField").style.opacity = ".8";
+    formElem.querySelector(".countField").style.opacity = ".8";
+    formElem.querySelector(".btn2").style.display = "none";
+}
+
 function resetRoom()
 {
     let playerlistElem = document.querySelector(".playerlist");
