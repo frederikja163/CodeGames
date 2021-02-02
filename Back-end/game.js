@@ -7,7 +7,7 @@ class Game
         this.data = data;
         this.clients = clients;
         
-        this.data.game = new GameData();
+        this.data.game.activeTeam = 1;
         
         let options = this.data.options;
         let wordOptions = options.words.slice();
@@ -178,7 +178,7 @@ class Game
 
     endGame()
     {
-        this.game = null;
+        this.data.game = new GameData();
         this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
         this.clients.forEach(c => c.gameEnded(this.data, this.fullWords));
         this.onGameEnded();
