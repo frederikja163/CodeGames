@@ -84,8 +84,10 @@ SERVER.onGameEnded = (room, words, winner) =>
     showBackToLobbyBtn();
     revealBoard(words);
     gameEnded(winner);
-
-    if (room.players.find(p => p.pid === SERVER.pid).team === -1){
+    
+    if (oldRoom.players.find(p => p.pid === SERVER.pid).team === -1){
+        console.log(1);
         SERVER.onRoomJoined(SERVER.room, SERVER.rid, SERVER.pid);
+        return;
     }
 }

@@ -31,7 +31,7 @@ function addTeam()
     }
 }
 
-function removeTeam()
+function removeTeamBtn()
 {
     SERVER.setTeamCount(SERVER.room.options.teamCount - 1);
 }

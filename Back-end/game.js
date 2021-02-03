@@ -176,6 +176,11 @@ class Game
                 this.ForeachClient(client => client.teamOut(this.data, this.data.game.activeTeam));
                 if (this.data.game.teamsOut.length >= this.data.options.teamCount - 1)
                 {
+                    if (this.data.options.teamCount === 1)
+                    {
+                        this.endGame(0);
+                        return;
+                    }
                     // Last remaining team wins.
                     for (let i = 1; i <= this.data.options.teamCount; i++)
                     {
@@ -208,7 +213,7 @@ class Game
             {
                 continue;
             }
-            else if (player.team == 0 || player.spymaster)
+            if (player.team == 0 || player.spymaster)
             {
                 this.data.game.words = this.fullWords;
             }
