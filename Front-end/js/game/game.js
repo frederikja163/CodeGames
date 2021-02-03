@@ -119,21 +119,18 @@ function initializeBoard()
         rowElem.appendChild(tiles[i].elem);
     }
 
-    for (let i = 0; i < tiles.length; i++)
-    {
-        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
-    }
-
-    console.log(SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster, boardElem.parentElement.style);
-
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
-        boardElem.parentElement.style.gridTemplateRows = "10vh 70vh 10vh";
         boardElem.style.gridRow = "2 / 3";
     }
     else
     {
         boardElem.style.gridRow = "2 / 4";
+    }
+
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 }
 
