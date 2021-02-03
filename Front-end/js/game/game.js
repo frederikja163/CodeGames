@@ -265,8 +265,6 @@ function disableWordForm()
     formElem.querySelector(".btn2").style.display = "none";
 }
 
-<<<<<<< HEAD
-=======
 function removeTeam(team)
 {
     getTeamElement(team).parentElement.style.opacity = ".4";
@@ -277,7 +275,6 @@ function hideBackToLobbyBtn()
     document.querySelector("#backToLobbyBtn").style.display = "none";
 }
 
->>>>>>> 5eb6027feb3d0477409667da1f2563b7668c0c9c
 function showBackToLobbyBtn()
 {
     document.querySelector("#backToLobbyBtn").style.display = "flex";
