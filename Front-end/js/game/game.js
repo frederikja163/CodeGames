@@ -116,11 +116,6 @@ function initializeBoard()
         rowElem.appendChild(tiles[i].elem);
     }
 
-    for (let i = 0; i < tiles.length; i++)
-    {
-        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
-    }
-
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
         boardElem.style.gridRow = "2 / 3";
@@ -128,6 +123,11 @@ function initializeBoard()
     else
     {
         boardElem.style.gridRow = "2 / 4";
+    }
+
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 }
 
@@ -265,10 +265,22 @@ function disableWordForm()
     formElem.querySelector(".btn2").style.display = "none";
 }
 
+<<<<<<< HEAD
+=======
+function removeTeam(team)
+{
+    getTeamElement(team).parentElement.style.opacity = ".4";
+}
+
+function hideBackToLobbyBtn()
+{
+    document.querySelector("#backToLobbyBtn").style.display = "none";
+}
+
+>>>>>>> 5eb6027feb3d0477409667da1f2563b7668c0c9c
 function showBackToLobbyBtn()
 {
-    let backToLobbyBtnElem = document.querySelector("#backToLobbyBtn");
-    backToLobbyBtnElem.style.display = "flex";
+    document.querySelector("#backToLobbyBtn").style.display = "flex";
 }
 
 function gameEnded(winner)
@@ -282,12 +294,14 @@ function resetRoom()
     lobby.prepend(playerlistElem);
     document.querySelectorAll(".playerlist > ul > li:not(:first-child)").forEach(e => e.remove());
     document.querySelector("#board").innerHTML = "";
+    document.querySelector("#board").style.removeProperty("gridRow");
     
     swapToLobby();
     initializeTeams();
     initializePlayers();
     revealOwnerContent();
     updateTeamsWordCount();
+    hideBackToLobbyBtn();
 }
 
 class Pie

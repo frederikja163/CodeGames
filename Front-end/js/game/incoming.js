@@ -12,11 +12,16 @@ SERVER.onGameStarted = (room) =>
     initializeBoard();
     initializeWord();
     checkTurn();
+    hideBackToLobbyBtn();
     hideSkipBtn();
 
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).team != SERVER.room.game.activeTeam)
     {
         disableWordForm();
+    }
+    else
+    {
+        enableWordForm();
     }
 }
 
