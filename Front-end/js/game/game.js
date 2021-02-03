@@ -274,10 +274,9 @@ function showBackToLobbyBtn()
     backToLobbyBtnElem.style.display = "flex";
 }
 
-function gameEnded(oldRoom)
+function gameEnded(winner)
 {
-    let lastTeam = SERVER.room.game.activeTeam;
-    //let lastSelectedWord = 
+    window.alert("Team " + str(winner) + " won the game!");
 }
 
 function resetRoom()
