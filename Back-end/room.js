@@ -1,6 +1,7 @@
 const { Lobby } = require("./lobby");
 const { Game } = require("./game");
 const {RoomData, PlayerData, Options, Word} = require("./data");
+const roomCheck = require("./../Common/roomCheck");
 
 class Room
 {
@@ -42,9 +43,8 @@ class Room
             this.clients[i].playerJoined(this.data, player.pid);
         }
         this.clients.push(client);
-        client.roomJoined(this.data, this.data.rid, client.pid);
-
         this.AddClientEvents(client);
+        client.roomJoined(this.data, this.data.rid, client.pid);
     }
 
     AddClientEvents(client)
@@ -58,8 +58,13 @@ class Room
 
     onStartGame(client)
     {
-        //TODO: check if game is valid
-        this.SetState(new Game(this.data, this.clients));
+        if (roomCheck(this.data) && this.state instanceof Lobby)
+        {
+            this.SetState(new Game(this.data, this.clients));
+            this.state.onGameEnded = () => {
+                this.SetState(new Lobby(this.data, this.clients));
+            }
+        }
     }
 
     onJoinRoom(client, rid)

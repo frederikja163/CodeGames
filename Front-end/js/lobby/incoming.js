@@ -42,8 +42,25 @@ SERVER.onTeamCountChanged = (room) =>
     {
         removeTeamElem();
     };
-
-    revealOwnerContent();
+    
+    const maxTeams = teams.length - 2;
+    const minTeams = 1;
+    if (newTeamCount >= maxTeams)
+    {
+        hideAddTeamBtn();
+    }
+    else if (newTeamCount === maxTeams - 1 && oldTeamCount === maxTeams)
+    {
+        showAddTeamBtn();
+    }
+    else if (newTeamCount <= minTeams)
+    {
+        hideRemoveTeamBtn();
+    }
+    else if (newTeamCount === minTeams + 1 && oldTeamCount === minTeams)
+    {
+        showRemoveTeamBtn();
+    }
 };
 
 SERVER.onSpymasterChanged = (room, pid) =>

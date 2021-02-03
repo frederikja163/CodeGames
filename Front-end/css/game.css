@@ -26,7 +26,7 @@
 
 #game > .playerlist .btnWrap > .smIcon *
 {
-    transform: translate(calc(2 * var(--space)), var(--space));
+    transform: translate(0, var(--space));
 }
 
 #game > .playerlist .btn2, #game > .playerlist form
@@ -48,6 +48,19 @@
     background-color: var(--l1Color);
     display: grid;
     grid-template-columns: 20% 60% 20%;
+}
+
+#game > #info > #backToLobbyBtn
+{
+    display: none;
+    color: var(--backColor);
+    margin: var(--space);
+    padding: var(--space);
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
 }
 
 #game > #info > .givenWord

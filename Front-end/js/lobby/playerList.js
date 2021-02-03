@@ -168,8 +168,8 @@ function addTeamElem()
 {
     let teamListElem = document.querySelector("#lobby #teams");
     let teamNum = teamListElem.children.length;
-    let teamColor = teams[teamNum - 1].normal;
-    let teamName = teams[teamNum - 1].name;
+    let teamColor = teams[teamNum + 1].normal;
+    let teamName = teams[teamNum + 1].name;
 
     // Create team box
     let team = document.createElement("LI");
@@ -193,7 +193,11 @@ function addTeamElem()
     inputElem.className = "owner inputTxt team" + teamName;
     inputElem.value = "5";
     inputElem.setAttribute("placeholder", "0");
-
+    if (SERVER.pid == SERVER.room.players[0].pid)
+    {
+        inputElem.style.display = "initial";
+    }
+    
     let guestLabelElem = document.createElement("LABEL");
     guestLabelElem.className = "guest";
     

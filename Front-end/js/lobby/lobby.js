@@ -2,10 +2,11 @@ function swapToLobby()
 {
     welcome.style.display = "none";
     lobby.style.display = "grid";
+    game.style.display = "none";
     state = "lobby";
 }
 
-function setupRoom()
+function createRoomFromUrl()
 {
     //Start parameters
     if (URLPARAMS.has("name"))
@@ -94,15 +95,12 @@ function playerKicked(pid, reason)
     }
 }
 
-async function startBtnPressed()
+async function getWords()
 {
-    //clickPack("#Animals");
-    let words = SERVER.room.options.words;
     let result = [];
+    let words = SERVER.room.options.words;
     let langCode;
     let langNum;
-
-    startGame = true;
 
     for (let i = 0; i < words.length; i++)
     {
@@ -124,7 +122,29 @@ async function startBtnPressed()
         }
     }
 
-    SERVER.setWords(result);
+    return result;
+}
+
+async function startBtnPressed()
+{
+    if (checkPlayersInTeam(SERVER.room))
+    {
+        let words = await getWords();
+
+        if (words.length >= SERVER.room.options.wordCount)
+        {
+            startGame = true;
+            SERVER.setWords(words);
+        }
+        else
+        {
+            window.alert("Not enough words! Please add more words to your game.");
+        }
+    }
+    else
+    {
+        window.alert("Not enough players on teams! At least two players on every team.");
+    }
 }
 
 async function loadCsv(url)

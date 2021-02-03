@@ -7,7 +7,7 @@ class Game
         this.data = data;
         this.clients = clients;
         
-        this.data.game = new GameData();
+        this.data.game.activeTeam = 1;
         
         let options = this.data.options;
         let wordOptions = options.words.slice();
@@ -44,6 +44,8 @@ class Game
             {
                 client.gameStarted(this.data);
             });
+
+        this.onGameEnded = (winner) => {};
     }
 
     AddClient(client)
@@ -52,6 +54,7 @@ class Game
         let player = this.data.players[playerInd];
         if (player.team == -1)
         {
+            this.data.game.words = null;
             return;
         }
         if (player.spymaster)
@@ -81,7 +84,7 @@ class Game
     {
         let playerInd = this.clients.findIndex(c => c.pid == client.pid);
         let player = this.data.players[playerInd];
-        if (this.isSpymastersTurn())
+        if (this.isSpymastersTurn() || player.team != this.data.game.activeTeam)
         {
             return;
         }
@@ -92,18 +95,27 @@ class Game
     {
         this.data.game.word = null;
         this.data.game.wordCount = null;
-        this.data.game.activeTeam  += 1;
-        if (this.data.game.activeTeam > this.data.options.teamCount)
+        do
         {
-            this.data.game.activeTeam = 1;
-        }
+            this.data.game.activeTeam  += 1;
+            if (this.data.game.activeTeam > this.data.options.teamCount)
+            {
+                this.data.game.activeTeam = 1;
+            }
+        } while (this.data.game.teamsOut.find(t => t === this.data.game.activeTeam))
 
         this.ForeachClient(client => client.roundEnded(this.data));
     }
 
     RemovePlayer(pid)
     {
-        
+        let playerInd = this.clients.findIndex(c => c.pid == pid);
+        let player = this.data.players[playerInd];
+        if (player.spymaster || !this.data.players.find(p => p.team === player.team && !p.spymaster && p.pid != pid))
+        {
+            // Draw.
+            this.endGame(0);
+        }
     }
 
     onMarkWord(client, index)
@@ -151,12 +163,47 @@ class Game
             }
         }
         this.ForeachClient(client => client.wordSelected(this.data, index));
+        if (!this.fullWords.find(w => w.team === player.team && w.selectedBy === null))
+        {
+            // Winner.
+            this.endGame(this.data.game.activeTeam);
+        }
         if (player.team != this.fullWords[index].team)
         {
+            if (this.fullWords[index].team === -1)
+            {
+                this.data.game.teamsOut.push(this.data.game.activeTeam);
+                this.ForeachClient(client => client.teamOut(this.data, this.data.game.activeTeam));
+                if (this.data.game.teamsOut.length >= this.data.options.teamCount - 1)
+                {
+                    if (this.data.options.teamCount === 1)
+                    {
+                        this.endGame(0);
+                        return;
+                    }
+                    // Last remaining team wins.
+                    for (let i = 1; i <= this.data.options.teamCount; i++)
+                    {
+                        if (!this.data.game.teamsOut.find(t => t === i))
+                        {
+                            this.endGame(i);
+                            return;
+                        }
+                    }
+                }
+            }
             this.EndRound();
         }
     }
 
+    endGame(winner)
+    {
+        this.data.game = new GameData();
+        this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
+        this.clients.forEach(c => c.gameEnded(this.data, this.fullWords, winner));
+        this.onGameEnded();
+    }
+    
     ForeachClient(method)
     {
         for (let i = 0; i < this.clients.length; i++)
@@ -166,7 +213,7 @@ class Game
             {
                 continue;
             }
-            else if (player.team == 0 || player.spymaster)
+            if (player.team == 0 || player.spymaster)
             {
                 this.data.game.words = this.fullWords;
             }

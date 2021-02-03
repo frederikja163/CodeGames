@@ -1,5 +1,6 @@
 function swapToGame()
 {
+    welcome.style.display = "none";
     lobby.style.display = "none";
     game.style.display = "grid";
     state = "game";
@@ -10,7 +11,7 @@ function initializePlayerlist()
     let teamsData = getTeamsData();
 
     document.querySelector("#game").prepend(document.querySelector(".playerlist"));
-    document.querySelectorAll("#game > .playerlist .icon, #game > .playerlist .btn2").forEach(e => e.style.display = "none");
+    document.querySelectorAll("#game > .playerlist .btnWrap > *:not(.smIcon)").forEach(e => e.remove());
 
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
@@ -21,14 +22,11 @@ function initializePlayerlist()
         {
             let teamElem = getTeamElement(player.team);
 
-            playerElem.querySelector(".smIcon").style.display = "inline";
-            playerElem.querySelectorAll(".smIcon *").forEach(e => e.style.display = "inline");
-
             teamElem.prepend(playerElem);
         }
         else if (player.team > 0)
         {
-            let slices = [];   
+            let slices = [];
             for (let j = 0; j < teamsData[player.team].length; j++)
             {
                 if (teamsData[player.team][j].pid === player.pid)
@@ -39,9 +37,15 @@ function initializePlayerlist()
                 {
                     slices[j] = false;
                 }
+
+                if (teamsData[player.team][j].spymaster)
+                {
+                    slices.splice(j, 1);
+                    slices.unshift(false);
+                }
             }
             
-            let pie = new Pie(slices, teams[SERVER.room.players[i].team - 1].normal);
+            let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
@@ -112,11 +116,6 @@ function initializeBoard()
         rowElem.appendChild(tiles[i].elem);
     }
 
-    for (let i = 0; i < tiles.length; i++)
-    {
-        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
-    }
-
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
         boardElem.style.gridRow = "2 / 3";
@@ -124,6 +123,11 @@ function initializeBoard()
     else
     {
         boardElem.style.gridRow = "2 / 4";
+    }
+
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 }
 
@@ -136,7 +140,7 @@ function getElemRgb(elem, property)
     return rgbColor.split(", ");
 }
 
-function getMarked(room, wordIndex)
+function getMarked(room, wordIndex) // Fix rækkefølge
 {
     marked = {
         total: 0,
@@ -154,6 +158,12 @@ function getMarked(room, wordIndex)
             {
                 marked.teams[t][count] = room.game.words[wordIndex].marked.includes(player.pid) ? true : false;
                 count++;
+
+                if (player.spymaster)
+                {
+                    marked.teams[t].splice(count, 1);
+                    marked.teams[t].unshift(false);
+                }
             }
         }
     }
@@ -163,7 +173,7 @@ function getMarked(room, wordIndex)
 
 function wordGiven()
 {
-    document.querySelector("#game > #info > .givenWord").innerHTML = SERVER.room.game.word + " " + str(SERVER.room.game.wordCount);
+    document.querySelector("#game > #info > .givenWord").innerHTML = (SERVER.room.game.word === null ? "" : SERVER.room.game.word) + " " + String(SERVER.room.game.wordCount === null ? "" : SERVER.room.game.wordCount);
 }
 
 function initializeWord()
@@ -190,6 +200,105 @@ function giveFormWord()
     
     wordFieldElem.value = "";
     countFieldElem.value = "";
+}
+
+function checkTurn()
+{
+    let teamNum = SERVER.room.game.activeTeam;
+    let teamData = getTeamsData()[teamNum];
+
+    document.querySelectorAll(".activeTurn").forEach(elem => elem.classList.remove("activeTurn"));
+
+    for (let i = 0; i < teamData.length; i++)
+    {
+        let pid = teamData[i].pid;
+        let playerElem = getPlayerElement(pid);
+        playerElem.style.backgroundColor = "none";
+
+        if (SERVER.room.game.word === null)
+        {
+            if (teamData.find(e => e.pid === pid).spymaster)
+            {
+                playerElem.className += " activeTurn";
+            }
+        }
+        else
+        {
+            if (!teamData.find(e => e.pid === pid).spymaster)
+            {
+                playerElem.className += " activeTurn";
+            }
+        }
+    }
+
+    let activePlayers = document.querySelectorAll(".playerlist .activeTurn");
+    activePlayers.item(0).style.borderTopLeftRadius = "5px";
+    activePlayers.item(0).style.borderTopRightRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.borderBottomLeftRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.borderBottomRightRadius = "5px";
+    activePlayers.item(activePlayers.length - 1).style.marginBottom = "var(--space)";
+}
+
+function showSkipBtn()
+{
+    document.querySelector("#info > form").style.display = "grid";
+}
+
+function hideSkipBtn()
+{
+    document.querySelector("#info > form").style.display = "none";
+}
+
+function enableWordForm()
+{
+    let formElem = document.querySelector("#game #word form");
+    formElem.querySelector(".wordField").style.opacity = "1";
+    formElem.querySelector(".countField").style.opacity = "1";
+    formElem.querySelector(".btn2").style.display = "grid";
+}
+
+function disableWordForm()
+{
+    let formElem = document.querySelector("#game #word form");
+    formElem.querySelector(".wordField").style.opacity = ".8";
+    formElem.querySelector(".countField").style.opacity = ".8";
+    formElem.querySelector(".btn2").style.display = "none";
+}
+
+function removeTeam(team)
+{
+    getTeamElement(team).parentElement.style.opacity = ".4";
+}
+
+function hideBackToLobbyBtn()
+{
+    document.querySelector("#backToLobbyBtn").style.display = "none";
+}
+
+function showBackToLobbyBtn()
+{
+    document.querySelector("#backToLobbyBtn").style.display = "flex";
+}
+
+function gameEnded(winner)
+{
+    window.alert("Team " + str(winner) + " won the game!");
+}
+
+function resetRoom()
+{
+    let playerlistElem = document.querySelector(".playerlist");
+    lobby.prepend(playerlistElem);
+    document.querySelectorAll(".playerlist > ul > li:not(:first-child)").forEach(e => e.remove());
+    document.querySelector("#board").innerHTML = "";
+    document.querySelector("#board").style.removeProperty("gridRow");
+    
+    swapToLobby();
+    initializeTeams();
+    initializePlayers();
+    revealOwnerContent();
+    updateTeamsWordCount();
+    hideBackToLobbyBtn();
 }
 
 class Pie
@@ -219,7 +328,7 @@ class Pie
             let angleEnd = 360 / this.sliceCount * i;
             let sliceColor = filled[i] ? this.color : "var(--topColor)";
             
-            backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Use String insted str to prevent double quotation marks
+            backgroundStr += String(sliceColor) + " " + str(angleStart) + "deg " + str(angleEnd) + "deg"; // Using String insted str to prevent double quotation marks
             if (i < this.sliceCount) backgroundStr += ", ";
             else backgroundStr += ")";
         }
@@ -276,7 +385,7 @@ class Tile
         this.pies = [];
         for (let t = 1; t < this.marked.teams.length; t++)
         {
-            this.pies[t] = new Pie(this.marked.teams[t], teams[t - 1].normal);
+            this.pies[t] = new Pie(this.marked.teams[t], teams[t + 1].normal);
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
@@ -316,7 +425,7 @@ class Tile
         }
         else
         {
-            this.elem.style.backgroundColor = teams[this.team - 1].normal;
+            this.elem.style.backgroundColor = teams[this.team + 1].normal;
             this.elem.style.color = getColorsForElem(this.elem).color;
         }
     }
@@ -326,8 +435,8 @@ class Tile
         this.update();
         this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
 
-        this.elem.style.borderColor = teams[this.selectedBy - 1].light;
-        this.elem.style.backgroundColor = teams[this.team - 1].light;
+        this.elem.style.borderColor = teams[this.selectedBy + 1].light;
+        this.elem.style.backgroundColor = teams[this.team + 1].light;
     }
 
     mark()

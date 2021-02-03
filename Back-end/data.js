@@ -5,7 +5,7 @@ class RoomData
         this.rid = rid;
         this.players = [];
         this.options = new Options();
-        this.game = null;
+        this.game = new GameData();
     }
 }
 
@@ -36,9 +36,10 @@ class GameData
     constructor()
     {
         this.words = [];
-        this.activeTeam = 1;
+        this.activeTeam = null;
         this.word = null;
         this.wordCount = null;
+        this.teamsOut = [];
     }
 }
 

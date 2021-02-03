@@ -8,6 +8,8 @@
         <![endif]-->
         <title>Codegames version2.0 featuring html and css</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
+        <script>let module = {};</script>
+        <script src="../Common/roomCheck.js"></script>
         <script src="js/server.js"></script>
         <script src="js/main.js"></script>
         <script src="js/utils.js"></script>
@@ -80,7 +82,7 @@
                         <button class="btn2 owner" onclick="addTeam()" style="display: none; padding: 0" >
                             <img class="icon" src="./assets/miscIcons/plus.png" alt="+">
                         </button>
-                        <button class="btn2 owner" onclick="removeTeam()" style="display: none; padding: 0" >
+                        <button class="btn2 owner" onclick="removeTeamBtn()" style="display: none; padding: 0" >
                             <img class="icon" src="./assets/miscIcons/minus.png" alt="-">
                         </button>
                     </li>
@@ -117,8 +119,8 @@
                                 
                             </ul>
                         </div>
-                        <input class="inputTxt owner" id="wordsField" placeholder="Words" onchange="wordsChange()" style="display: none"></input>
-                        <div class="box guest" id="wordsTxt">Words</div>
+                        <textarea class="inputTxt owner" id="wordsField" placeholder="Words" onchange="wordsChange()" style="display: none"></textarea>
+                        <textarea class="inputTxt guest" id="wordsTxt" placeholder="Words" disabled></textarea>
                     </li>
                 </ul>
             </div>
@@ -155,6 +157,9 @@
             -->
             <!-- Info -->
             <div class="box" id="info">
+                <div id="backToLobbyBtn" class="btn" onclick="backToLobbyBtn()">
+                    To lobby
+                </div>
                 <div class="givenWord"></div>
                 <form onsubmit="endTurn()" action="javascript:void(0);">
                     <input class="btn2 icon" type="image" alt="End turn" src="https://raw.githubusercontent.com/frederikja163/CodeGames/gamedev/Front-end/assets/miscIcons/skip.png">

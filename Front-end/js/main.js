@@ -40,6 +40,18 @@ let state = "welcome";
 let startGame = false;
 const teams = [
     {
+        name: "Black",
+        normal: "#0000000",
+        light: "#0000000",
+        dark: "#0000000"
+    },
+    {
+        name: "White",
+        normal: "#FFFFFFFF",
+        light: "#FFFFFFFF",
+        dark: "#FFFFFFFF"
+    },
+    {
         name: "Red",
         normal: "#CC2828FF",
         light: "#F23030FF",
