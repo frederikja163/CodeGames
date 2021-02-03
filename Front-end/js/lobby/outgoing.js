@@ -20,14 +20,9 @@ function changeTeamDown(pid)
 
 function addTeam()
 {
-    if (SERVER.room.options.teamCount < teams.length)
+    if (SERVER.room.options.teamCount < teams.length - 2)
     {
         SERVER.setTeamCount(SERVER.room.options.teamCount + 1);
-    }
-    else
-    {
-        //TODO: Use different logging (maybe user logging?)
-        console.log("Maximum team amount reached!");
     }
 }
 

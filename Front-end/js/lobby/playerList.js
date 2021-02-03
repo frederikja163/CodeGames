@@ -193,7 +193,11 @@ function addTeamElem()
     inputElem.className = "owner inputTxt team" + teamName;
     inputElem.value = "5";
     inputElem.setAttribute("placeholder", "0");
-
+    if (SERVER.pid == SERVER.room.players[0].pid)
+    {
+        inputElem.style.display = "initial";
+    }
+    
     let guestLabelElem = document.createElement("LABEL");
     guestLabelElem.className = "guest";
     

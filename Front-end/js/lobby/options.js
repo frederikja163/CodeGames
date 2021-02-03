@@ -15,6 +15,39 @@ function langBtn(display)
     dropMenu.style.display = display ? display : dropMenu.style.display === "block" ? "none" : "block";
 }
 
+
+function hideAddTeamBtn()
+{
+    let addTeamElem = document.querySelector("#countOption > button:first-child");
+    addTeamElem.style.opacity = "0.5";
+    addTeamElem.onclick = () => {};
+    addTeamElem.style.cursor = "default";
+}
+
+function hideRemoveTeamBtn()
+{
+    let removeTeamElem = document.querySelector("#countOption > button:last-child")
+    removeTeamElem.style.opacity = "0.5";
+    removeTeamElem.onclick = () => {};
+    removeTeamElem.style.cursor = "default";
+}
+
+function showAddTeamBtn()
+{
+    let addTeamElem = document.querySelector("#countOption > button:first-child");
+    addTeamElem.style.opacity = "1";
+    addTeamElem.onclick = addTeam;
+    addTeamElem.style.cursor = "pointer";
+}
+
+function showRemoveTeamBtn()
+{
+    let removeTeamElem = document.querySelector("#countOption > button:last-child")
+    removeTeamElem.style.opacity = "1";
+    removeTeamElem.onclick = removeTeamBtn;
+    removeTeamElem.style.cursor = "pointer";
+}
+
 function createLangElem(lang)
 {
     let langElem = document.createElement("li");
