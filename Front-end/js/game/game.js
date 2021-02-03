@@ -268,6 +268,11 @@ function disableWordForm()
     formElem.querySelector(".btn2").style.display = "none";
 }
 
+function removeTeam(team)
+{
+    getTeamElement(team).parentElement.style.opacity = ".4";
+}
+
 function showBackToLobbyBtn()
 {
     let backToLobbyBtnElem = document.querySelector("#backToLobbyBtn");
@@ -405,9 +410,7 @@ class Tile
     }
 
     update(team)
-    {
-        if (!team) console.log(team);
-        
+    {        
         this.team = team;
         if (this.team === -2) // Change -2 to null
         {
@@ -433,7 +436,6 @@ class Tile
 
     select()
     {
-        console.log(SERVER.room.game.words);
         let wordObj = SERVER.room.game.words[this.index];
 
         this.update(wordObj.team);

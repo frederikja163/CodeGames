@@ -63,6 +63,13 @@ SERVER.onRoundEnded = (room) =>
     }
 }
 
+SERVER.onTeamOut = (room, team) =>
+{
+    SERVER.room = room;
+
+    removeTeam(team);
+}
+
 SERVER.onGameEnded = (room, words, winner) =>
 {
     let oldRoom = SERVER.room;
