@@ -174,15 +174,15 @@ class Game
             {
                 this.data.game.teamsOut.push(this.data.game.activeTeam);
                 this.ForeachClient(client => client.teamOut(this.data, this.data.game.activeTeam));
-                if (this.data.game.teamsOut.length === this.data.options.teamCount - 1)
+                if (this.data.game.teamsOut.length >= this.data.options.teamCount - 1)
                 {
                     // Last remaining team wins.
-                    for (let i = 1; i < this.data.options.teamCount; i++)
+                    for (let i = 1; i <= this.data.options.teamCount; i++)
                     {
                         if (!this.data.game.teamsOut.find(t => t === i))
                         {
                             this.endGame(i);
-
+                            return;
                         }
                     }
                 }
@@ -195,7 +195,7 @@ class Game
     {
         this.data.game = new GameData();
         this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
-        this.clients.forEach(c => c.gameEnded(this.data, this.fullWords, this.winner));
+        this.clients.forEach(c => c.gameEnded(this.data, this.fullWords, winner));
         this.onGameEnded();
     }
     
