@@ -11,7 +11,7 @@ function initializePlayerlist()
     let teamsData = getTeamsData();
 
     document.querySelector("#game").prepend(document.querySelector(".playerlist"));
-    document.querySelectorAll("#game > .playerlist .icon, #game > .playerlist .btn2").forEach(e => e.style.display = "none");
+    document.querySelectorAll("#game > .playerlist .btnWrap > *:not(.smIcon)").forEach(e => e.remove());
 
     for (let i = 0; i < SERVER.room.players.length; i++)
     {
@@ -21,9 +21,6 @@ function initializePlayerlist()
         if (player.spymaster)
         {
             let teamElem = getTeamElement(player.team);
-
-            playerElem.querySelector(".smIcon").style.display = "inline";
-            playerElem.querySelectorAll(".smIcon *").forEach(e => e.style.display = "inline");
 
             teamElem.prepend(playerElem);
         }
@@ -268,23 +265,10 @@ function disableWordForm()
     formElem.querySelector(".btn2").style.display = "none";
 }
 
-function removeTeam(team)
-{
-    getTeamElement(team).parentElement.style.opacity = ".4";
-}
-
 function showBackToLobbyBtn()
 {
     let backToLobbyBtnElem = document.querySelector("#backToLobbyBtn");
     backToLobbyBtnElem.style.display = "flex";
-}
-
-function revealBoard(words)
-{
-    for (let i = 0; i < tiles.length; i++)
-    {
-        tiles[i].update(words[i].team);
-    }
 }
 
 function gameEnded(winner)
@@ -394,7 +378,7 @@ class Tile
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
-        this.update(this.team);
+        this.update();
 
         this.elem.onmouseup = (event) =>
         {
@@ -409,9 +393,10 @@ class Tile
         }
     }
 
-    update(team)
-    {        
-        this.team = team;
+    update()
+    {
+        let wordObj = SERVER.room.game.words[this.index];
+        this.team = wordObj.team;
         if (this.team === -2) // Change -2 to null
         {
             this.elem.style.backgroundColor = "gray";
@@ -436,11 +421,8 @@ class Tile
 
     select()
     {
-        let wordObj = SERVER.room.game.words[this.index];
-
-        this.update(wordObj.team);
-
-        this.selectedBy = wordObj.selectedBy;
+        this.update();
+        this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
 
         this.elem.style.borderColor = teams[this.selectedBy + 1].light;
         this.elem.style.backgroundColor = teams[this.team + 1].light;
@@ -466,7 +448,7 @@ class Tile
             this.markElem.style.opacity = "0";
             this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
-            this.update(wordObj.team);
+            this.update();
         }
     }
 }
