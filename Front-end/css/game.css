@@ -26,7 +26,7 @@
 
 #game > .playerlist .btnWrap > .smIcon *
 {
-    transform: translate(calc(2 * var(--space)), var(--space));
+    transform: translate(0, var(--space));
 }
 
 #game > .playerlist .btn2, #game > .playerlist form
