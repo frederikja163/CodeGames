@@ -124,8 +124,11 @@ function initializeBoard()
         tiles[i].elem.style.height = str(tiles[i].elem.offsetHeight) + "px";
     }
 
+    console.log(SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster, boardElem.parentElement.style);
+
     if (SERVER.room.players.find(p => p.pid === SERVER.pid).spymaster)
     {
+        boardElem.parentElement.style.gridTemplateRows = "10vh 70vh 10vh";
         boardElem.style.gridRow = "2 / 3";
     }
     else
@@ -302,12 +305,14 @@ function resetRoom()
     lobby.prepend(playerlistElem);
     document.querySelectorAll(".playerlist > ul > li:not(:first-child)").forEach(e => e.remove());
     document.querySelector("#board").innerHTML = "";
+    document.querySelector("#board").style.removeProperty("gridRow");
     
     swapToLobby();
     initializeTeams();
     initializePlayers();
     revealOwnerContent();
     updateTeamsWordCount();
+    hideBackToLobbyBtn();
 }
 
 class Pie

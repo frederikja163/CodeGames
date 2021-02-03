@@ -19,6 +19,10 @@ SERVER.onGameStarted = (room) =>
     {
         disableWordForm();
     }
+    else
+    {
+        enableWordForm();
+    }
 }
 
 SERVER.onWordMarked = (room, index) =>
