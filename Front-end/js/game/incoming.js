@@ -65,9 +65,12 @@ SERVER.onRoundEnded = (room) =>
 
 SERVER.onGameEnded = (room, words) =>
 {
+    let oldRoom = SERVER.room;
     SERVER.room = room;
-
+    
     hideSkipBtn();
+    showBackToLobbyBtn();
+    //gameEnded(oldRoom);
 
     if (room.players.find(p => p.pid === SERVER.pid).team === -1){
         SERVER.onRoomJoined(SERVER.room, SERVER.rid, SERVER.pid);

@@ -268,6 +268,18 @@ function disableWordForm()
     formElem.querySelector(".btn2").style.display = "none";
 }
 
+function showBackToLobbyBtn()
+{
+    let backToLobbyBtnElem = document.querySelector("#backToLobbyBtn");
+    backToLobbyBtnElem.style.display = "flex";
+}
+
+function gameEnded(oldRoom)
+{
+    let lastTeam = SERVER.room.game.activeTeam;
+    //let lastSelectedWord = 
+}
+
 function resetRoom()
 {
     let playerlistElem = document.querySelector(".playerlist");
