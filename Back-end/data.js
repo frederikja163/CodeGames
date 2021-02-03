@@ -39,6 +39,7 @@ class GameData
         this.activeTeam = null;
         this.word = null;
         this.wordCount = null;
+        this.teamsOut = [];
     }
 }
 
