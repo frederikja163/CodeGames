@@ -274,6 +274,14 @@ function showBackToLobbyBtn()
     backToLobbyBtnElem.style.display = "flex";
 }
 
+function revealBoard(words)
+{
+    for (let i = 0; i < tiles.length; i++)
+    {
+        tiles[i].update(words[i].team);
+    }
+}
+
 function gameEnded(winner)
 {
     window.alert("Team " + str(winner) + " won the game!");
@@ -381,7 +389,7 @@ class Tile
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
-        this.update();
+        this.update(this.team);
 
         this.elem.onmouseup = (event) =>
         {
@@ -396,10 +404,11 @@ class Tile
         }
     }
 
-    update()
+    update(team)
     {
-        let wordObj = SERVER.room.game.words[this.index];
-        this.team = wordObj.team;
+        if (!team) console.log(team);
+        
+        this.team = team;
         if (this.team === -2) // Change -2 to null
         {
             this.elem.style.backgroundColor = "gray";
@@ -424,8 +433,12 @@ class Tile
 
     select()
     {
-        this.update();
-        this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
+        console.log(SERVER.room.game.words);
+        let wordObj = SERVER.room.game.words[this.index];
+
+        this.update(wordObj.team);
+
+        this.selectedBy = wordObj.selectedBy;
 
         this.elem.style.borderColor = teams[this.selectedBy + 1].light;
         this.elem.style.backgroundColor = teams[this.team + 1].light;
@@ -451,7 +464,7 @@ class Tile
             this.markElem.style.opacity = "0";
             this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
-            this.update();
+            this.update(wordObj.team);
         }
     }
 }

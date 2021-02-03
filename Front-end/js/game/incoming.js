@@ -70,6 +70,7 @@ SERVER.onGameEnded = (room, words, winner) =>
     
     hideSkipBtn();
     showBackToLobbyBtn();
+    revealBoard(words);
     gameEnded(winner);
 
     if (room.players.find(p => p.pid === SERVER.pid).team === -1){
