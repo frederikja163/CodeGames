@@ -255,8 +255,11 @@
 
 #lobby #options #wordsField
 {
+    resize: vertical;
     text-align: center;
     width: calc(100% - 2 * var(--space));
+    height: 100%;
+    min-height: 40px;
     margin-left: 0;
 }
 

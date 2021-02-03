@@ -52,7 +52,7 @@
 
 #game > #info > #backToLobbyBtn
 {
-    display: flex;
+    display: none;
     color: var(--backColor);
     margin: var(--space);
     padding: var(--space);
