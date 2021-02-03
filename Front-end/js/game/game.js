@@ -273,10 +273,14 @@ function removeTeam(team)
     getTeamElement(team).parentElement.style.opacity = ".4";
 }
 
+function hideBackToLobbyBtn()
+{
+    document.querySelector("#backToLobbyBtn").style.display = "none";
+}
+
 function showBackToLobbyBtn()
 {
-    let backToLobbyBtnElem = document.querySelector("#backToLobbyBtn");
-    backToLobbyBtnElem.style.display = "flex";
+    document.querySelector("#backToLobbyBtn").style.display = "flex";
 }
 
 function revealBoard(words)
