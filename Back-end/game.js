@@ -45,7 +45,7 @@ class Game
                 client.gameStarted(this.data);
             });
 
-        this.onGameEnded = () => {};
+        this.onGameEnded = (winner) => {};
     }
 
     AddClient(client)
@@ -110,7 +110,8 @@ class Game
         let player = this.data.players[playerInd];
         if (player.spymaster || !this.data.players.find(p => p.team === player.team && !p.spymaster && p.pid != pid))
         {
-            this.endGame();
+            // Draw.
+            this.endGame(0);
         }
     }
 
@@ -161,13 +162,15 @@ class Game
         this.ForeachClient(client => client.wordSelected(this.data, index));
         if (!this.fullWords.find(w => w.team === player.team && w.selectedBy === null))
         {
-            this.endGame();
+            // Winner.
+            this.endGame(this.data.game.activeTeam);
         }
         if (player.team != this.fullWords[index].team)
         {
             if (this.fullWords[index].team === -1)
             {
-                this.endGame();
+                // Lose.
+                this.endGame(0);
             }
             else
             {
@@ -176,12 +179,12 @@ class Game
         }
     }
 
-    endGame()
+    endGame(winner)
     {
         this.data.game = new GameData();
         this.data.players.forEach(p => {if (p.team === -1) p.team = 0;});
         this.clients.forEach(c => c.gameEnded(this.data, this.fullWords));
-        this.onGameEnded();
+        this.onGameEnded(winner);
     }
     
     ForeachClient(method)

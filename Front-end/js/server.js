@@ -53,7 +53,7 @@ class Server
         incoming("wordSelected", (room, index) => this.onWordSelected(room, index));
         incoming("wordGiven", (room) => this.onWordGiven(room));
         incoming("roundEnded", (room) => this.onRoundEnded(room));
-        incoming("gameEnded", (room, words) => this.onGameEnded(room, words));
+        incoming("gameEnded", (room, words, winner) => this.onGameEnded(room, words, winner));
 
         //======[Server protocol]======
         this.room = null;
@@ -100,7 +100,7 @@ class Server
         this.onWordSelected =           (room, index) => {};
         this.onWordGiven =              (room) => {};
         this.onRoundEnded =             (room) => {};
-        this.onGameEnded =              (room, words) => {};
+        this.onGameEnded =              (room, words, winner) => {};
         //To-Server
         this.markWord =                 (index) => send("markWord", index);
         this.selectWord =               (index) => send("selectWord", index);
