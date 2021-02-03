@@ -126,6 +126,7 @@
     height: var(--btn2Size);
     border-radius: 100%;
     box-shadow: var(--shadow);
+    background-color: var(--topColor);
 }
 
 #lobby #options #dropMenu
