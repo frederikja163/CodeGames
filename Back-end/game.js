@@ -213,7 +213,7 @@ class Game
             {
                 continue;
             }
-            else if (player.team == 0 || player.spymaster)
+            if (player.team == 0 || player.spymaster)
             {
                 this.data.game.words = this.fullWords;
             }
