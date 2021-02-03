@@ -30,7 +30,7 @@ SERVER.onPlayerJoined = (room, pid) =>
 {
     SERVER.room = room;
 
-    if (SERVER.room.players.find(p => p.pid === pid).team != -1)
+    if (SERVER.room.players.find(p => p.pid === pid).team != -1 && state === "lobby")
     {
         playerJoined(pid);
     }
