@@ -3,7 +3,8 @@ function getColorsForElem(elem)
     //Step1: Get rgb values
     //Step2: Check for black or white colors
     //Step3: Return correct colors
-    let colorRaw = window.getComputedStyle(elem).getPropertyValue("background-color"); //rgb(56, 65, 255)
+    let computedStyle = window.getComputedStyle(elem);
+    let colorRaw = computedStyle.getPropertyValue("background-color"); //rgb(56, 65, 255)
     let start = colorRaw.indexOf("(") + 1;
     let end = colorRaw.indexOf(")");
     let rgbColor = colorRaw.substring(start, end);

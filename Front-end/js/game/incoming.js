@@ -29,7 +29,7 @@ SERVER.onWordMarked = (room, index) =>
 {
     SERVER.room = room;
 
-    tiles[index].mark();
+    tiles[index].updateMark();
 }
 
 SERVER.onWordSelected = (room, index) =>
