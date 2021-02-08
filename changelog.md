@@ -1,3 +1,6 @@
+### Version 2.3
+ - Removed some NSFW packs (@EN, #CodeNamesUndercover1, #CodeNamesUndercover2)
+
 ### Version 2.2
  - Added new wordpacks to english (@EN)
     - #SmartHome
