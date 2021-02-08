@@ -29,7 +29,7 @@ class Client{
         this.socket.on("markWord", (index) => call(() => this.onMarkWord(index), typeof index === "number"));
         this.socket.on("selectWord", (index) => call(() => this.onSelectWord(index), typeof index === "number"));
         this.socket.on("giveWord", (word, wordCount) => call(() => this.onGiveWord(word, wordCount), typeof word === "string", typeof wordCount === "number"));
-        this.socket.on("endRound", () => call(() => this.onEndRound()));
+        this.socket.on("endTurn", () => call(() => this.onEndTurn()));
     }
 
     reset()
@@ -82,13 +82,13 @@ class Client{
         this.onMarkWord =           (index) => {};
         this.onSelectWord =         (index) => {};
         this.onGiveWord =           (word, wordCount) => {};
-        this.onEndRound =           () => {};
+        this.onEndTurn =           () => {};
         //To-Client
         this.gameStarted =          (room) => send("gameStarted", room);
         this.wordMarked =           (room, index) => send("wordMarked", room, index);
         this.wordSelected =         (room, index) => send("wordSelected", room, index);
         this.wordGiven =            (room) => send("wordGiven", room);
-        this.roundEnded =           (room) => send("roundEnded", room);
+        this.turnEnded =           (room) => send("turnEnded", room);
         this.teamOut =              (room, team) => send("teamOut", room, team);
         this.gameEnded =            (room, words, winner) => send("gameEnded", room, words, winner);
     }

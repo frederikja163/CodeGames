@@ -1,5 +1,6 @@
 ### Version 2.1
- - Fixed bug when selecting marked words
+ - Fixed bug when selecting marked word
+ - Changed round to turn in the API and made the client match said change.
 
 ### Version 2.0
  - Basic game added

@@ -52,7 +52,7 @@ class Server
         incoming("wordMarked", (room, index) => this.onWordMarked(room, index));
         incoming("wordSelected", (room, index) => this.onWordSelected(room, index));
         incoming("wordGiven", (room) => this.onWordGiven(room));
-        incoming("roundEnded", (room) => this.onRoundEnded(room));
+        incoming("turnEnded", (room) => this.onTurnEnded(room));
         incoming("teamOut", (room, team) => this.onTeamOut(room, team));
         incoming("gameEnded", (room, words, winner) => this.onGameEnded(room, words, winner));
 
@@ -100,13 +100,13 @@ class Server
         this.onWordMarked =             (room, index) => {};
         this.onWordSelected =           (room, index) => {};
         this.onWordGiven =              (room) => {};
-        this.onRoundEnded =             (room) => {};
+        this.onTurnEnded =             (room) => {};
         this.onTeamOut =                (room, team) => {};
         this.onGameEnded =              (room, words, winner) => {};
         //To-Server
         this.markWord =                 (index) => send("markWord", index);
         this.selectWord =               (index) => send("selectWord", index);
         this.giveWord =                 (word, wordCount) => send("giveWord", word, wordCount);
-        this.endRound =                 () => send("endRound");
+        this.endTurn =                 () => send("endTurn");
     }
 }
