@@ -102,6 +102,7 @@ async function getWords()
     let langCode;
     let langNum;
 
+    console.log(1);
     for (let i = 0; i < words.length; i++)
     {
         let word = words[i].trim();
@@ -114,6 +115,11 @@ async function getWords()
         else if (word.startsWith("#"))
         {
             let pack = await loadCsv(PACKURL + langCode.toLowerCase() + "/" + word.replace("#", "").toLowerCase() + ".csv");
+            pack.forEach(w => result.push(w));
+        }
+        else if (word.startsWith("$"))
+        {
+            let pack = await loadCsv(PACKURL + "hidden/" + word.replace("$", "").toLowerCase() + ".csv");
             pack.forEach(w => result.push(w));
         }
         else

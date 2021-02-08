@@ -10,6 +10,7 @@
  - Removed old wordpacks used for testing (@DK, #Lorem)
 
 ### Version 2.1
+ - Fixed bug when selecting marked word
  - Changed round to turn in the API and made the client match said change.
 
 ### Version 2.0

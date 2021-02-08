@@ -65,7 +65,7 @@ class Game
         {
             client.onMarkWord = (index) => this.onMarkWord(client, index);
             client.onSelectWord = (index) => this.onSelectWord(client, index);
-            client.onEndRound = () => this.onEndRound(client);
+            client.onEndTurn = () => this.onEndTurn(client);
         }
     }
 
@@ -80,7 +80,7 @@ class Game
         this.ForeachClient(c => {c.wordGiven(this.data)});
     }
 
-    onEndRound(client)
+    onEndTurn(client)
     {
         let playerInd = this.clients.findIndex(c => c.pid == client.pid);
         let player = this.data.players[playerInd];
@@ -88,10 +88,10 @@ class Game
         {
             return;
         }
-        this.EndRound();
+        this.EndTurn();
     }
 
-    EndRound()
+    EndTurn()
     {
         this.data.game.word = null;
         this.data.game.wordCount = null;
@@ -104,7 +104,7 @@ class Game
             }
         } while (this.data.game.teamsOut.find(t => t === this.data.game.activeTeam))
 
-        this.ForeachClient(client => client.roundEnded(this.data));
+        this.ForeachClient(client => client.turnEnded(this.data));
     }
 
     RemovePlayer(pid)
@@ -192,7 +192,7 @@ class Game
                     }
                 }
             }
-            this.EndRound();
+            this.EndTurn();
         }
     }
 

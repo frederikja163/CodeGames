@@ -29,7 +29,7 @@ SERVER.onWordMarked = (room, index) =>
 {
     SERVER.room = room;
 
-    tiles[index].mark();
+    tiles[index].updateMark();
 }
 
 SERVER.onWordSelected = (room, index) =>
@@ -55,7 +55,7 @@ SERVER.onWordGiven = (room) =>
     }
 }
 
-SERVER.onRoundEnded = (room) =>
+SERVER.onTurnEnded = (room) =>
 {
     SERVER.room = room;
 
