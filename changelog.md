@@ -1,3 +1,6 @@
+### Version 2.1
+ - Fixed bug when selecting marked words
+
 ### Version 2.0
  - Basic game added
  - Added a way of making your own packs and suggesting them via google forms
