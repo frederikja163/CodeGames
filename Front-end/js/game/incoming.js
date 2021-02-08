@@ -55,7 +55,7 @@ SERVER.onWordGiven = (room) =>
     }
 }
 
-SERVER.onRoundEnded = (room) =>
+SERVER.onTurnEnded = (room) =>
 {
     SERVER.room = room;
 
