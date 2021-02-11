@@ -42,14 +42,14 @@ const teams = [
     {
         name: "Black",
         normal: "var(--backColor)",
-        light: "#000000FF",
-        dark: "#000000FF"
+        light: "hsl(0, 0%, 20%)",
+        dark: "hsl(0, 0%, 0%)"
     },
     {
         name: "White",
         normal: "var(--topColor)",
-        light: "#FFFFFFFF",
-        dark: "#FFFFFFFF"
+        light: "hsl(0, 0%, 100%)",
+        dark: "hsl(0, 0%, 80%)"
     },
     {
         name: "Red",
