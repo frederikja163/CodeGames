@@ -1,3 +1,6 @@
+### Version 2.6
+ - Changed location of index and faq files
+
 ### Version 2.5
  - Changed image path to local path
 
