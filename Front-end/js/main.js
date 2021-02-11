@@ -42,8 +42,8 @@ const teams = [
     {
         name: "Black",
         normal: "var(--backColor)",
-        light: "#0000000",
-        dark: "#0000000"
+        light: "#000000FF",
+        dark: "#000000FF"
     },
     {
         name: "White",
