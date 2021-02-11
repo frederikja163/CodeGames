@@ -41,13 +41,13 @@ let startGame = false;
 const teams = [
     {
         name: "Black",
-        normal: "#0000000",
+        normal: "var(--backColor)",
         light: "#0000000",
         dark: "#0000000"
     },
     {
         name: "White",
-        normal: "#FFFFFFFF",
+        normal: "var(--topColor)",
         light: "#FFFFFFFF",
         dark: "#FFFFFFFF"
     },
