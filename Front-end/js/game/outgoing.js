@@ -15,7 +15,7 @@ function giveWord(word, wordCount)
 
 function endTurn()
 {
-    SERVER.endRound();
+    SERVER.endTurn();
 }
 
 function backToLobbyBtn()
