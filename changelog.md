@@ -1,3 +1,9 @@
+### Version 2.6
+ - Removed split-up packs
+ - Changed tile marking to pie color
+ - Fixed smarthome pack filename
+ - Changed team colors
+
 ### Version 2.5
  - Changed image path to local path
 
