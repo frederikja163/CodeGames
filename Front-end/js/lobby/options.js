@@ -82,7 +82,7 @@ function createLangElem(lang)
 
     let flagElem = document.createElement("img");
     flagElem.alt = languages[lang].code;
-    flagElem.src = "./assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
+    flagElem.src = "./Front-end/assets/packs/" + languages[lang].code.toLowerCase() + "/flag.png";
 
     langElem.appendChild(nameElem);
     langElem.appendChild(flagElem);
@@ -206,7 +206,7 @@ function updatePackList()
         addPacks(packList, packs, code, "block");
         packs = lang.packs.filter(p => !packs.includes(p));
         addPacks(packList, packs, code, "none");
-        img.src = "./assets/packs/" + code + "/flag.png";
+        img.src = "./Front-end/assets/packs/" + code + "/flag.png";
 
         if (SERVER.pid === SERVER.room.players[0].pid)
         {
@@ -221,7 +221,7 @@ function updatePackList()
     }
     else
     {
-        img.src = "./assets/packs/language.png";
+        img.src = "./Front-end/assets/packs/language.png";
     }
 }
 
@@ -241,7 +241,7 @@ function addPacks(packList, packs, imgFolder, display)
             clickPack(p);
         };
         let img = document.createElement("img");
-        img.src = "./assets/packs/" + imgFolder + "/flag.png";
+        img.src = "./Front-end/assets/packs/" + imgFolder + "/flag.png";
         img.style.display = display;
         div.appendChild(img);
         elem.appendChild(div);

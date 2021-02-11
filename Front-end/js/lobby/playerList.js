@@ -1,4 +1,4 @@
-﻿const ICONPATH = "./assets/miscIcons/";
+﻿const ICONPATH = "./Front-end/assets/miscIcons/";
 
 function initializeTeams()
 {
