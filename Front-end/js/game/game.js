@@ -280,6 +280,11 @@ function showBackToLobbyBtn()
     document.querySelector("#backToLobbyBtn").style.display = "flex";
 }
 
+function revealBoard(words)
+{
+    tiles.forEach((tile, i) => tile.update(words[i].team))
+}
+
 function gameEnded(winner)
 {
     setTimeout(() => window.alert("Team " + str(winner) + " won the game!"), 0);
@@ -356,7 +361,6 @@ class Tile
     {
         this.word = word;
         this.index = index;
-        this.team = SERVER.room.game.words[this.index].team;
         this.marked = getMarked(SERVER.room, this.index);
         
         this.pieCount = 0;
@@ -389,7 +393,7 @@ class Tile
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
-        this.update();
+        this.update(SERVER.room.game.words[this.index].team);
 
         this.elem.onmouseup = (event) =>
         {
@@ -404,10 +408,13 @@ class Tile
         }
     }
 
-    update()
+    update(team)
     {
-        let wordObj = SERVER.room.game.words[this.index];
-        this.team = wordObj.team;
+        if (this.team === team)
+        {
+            return;
+        }
+        this.team = team;
 
         if (this.team === -2)
         {
@@ -441,14 +448,15 @@ class Tile
             this.markElem.style.opacity = "0";
             this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
             this.elem.style.padding = "var(--space)";
-            this.update();
+            this.update(wordObj.team);
         }
     }
 
     select()
     {
+        let wordObj = SERVER.room.game.words[this.index];
         this.updateMark();
-        this.update();
+        this.update(wordObj.team);
         this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
 
         this.elem.style.borderColor = teams[this.selectedBy + 1].light;
