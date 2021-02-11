@@ -46,6 +46,10 @@ function initializePlayerlist()
             }
             
             let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
+            if (player.pid === SERVER.pid)
+            {
+                pie.blackBorder();
+            }
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
@@ -353,6 +357,16 @@ class Pie
 
         this.elem.style.backgroundImage = backgroundStr;
     }
+
+    blackBorder()
+    {
+        this.elem.style.borderColor = "var(--backColor)";
+    }
+
+    whiteBorder()
+    {
+        this.elem.style.borderColor = "var(--topColor)";
+    }
 }
 
 class Tile
@@ -427,41 +441,22 @@ class Tile
     updateMark()
     {
         this.marked = getMarked(SERVER.room, this.index);
+        let wordObj = SERVER.room.game.words[this.index];
 
         for (let t = 1; t < this.marked.teams.length; t++)
         {
             this.pies[t].update(this.marked.teams[t]);
         }
 
-        let wordObj = SERVER.room.game.words[this.index];
-        let team = wordObj.team;
+        let player = SERVER.room.players.find(p => p.pid === SERVER.pid);
 
         if (wordObj.marked.includes(SERVER.pid))
         {
-            if (team === -2)
-            {
-                this.elem.style.borderColor = teams[0].dark;
-                this.elem.style.backgroundColor = teams[0].light;
-            }
-            else
-            {
-                this.elem.style.borderColor = teams[team + 1].dark;
-                this.elem.style.backgroundColor = teams[team + 1].light;
-            }
+            this.pies[player.team].blackBorder();
         }
         else
         {
-            if (team === -2)
-            {
-                this.elem.style.backgroundColor = "grey";
-            }
-            else
-            {
-                this.elem.style.backgroundColor = teams[team + 1].normal;
-            }
-            this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
-            this.elem.style.padding = "var(--space)";
-            this.update(wordObj.team);
+            this.pies[player.team].whiteBorder();
         }
     }
 
