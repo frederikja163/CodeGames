@@ -1,3 +1,6 @@
+### Version 2.4
+ - Added wordpacks (@EN, #PopularPlaces, @DK, #Corona)
+
 ### Version 2.3
  - Removed some NSFW packs (@EN, #CodeNamesUndercover1, #CodeNamesUndercover2)
 
