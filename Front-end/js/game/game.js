@@ -469,6 +469,6 @@ class Tile
 
         this.elem.style.borderColor = teams[this.selectedBy + 1].light;
         this.elem.style.backgroundColor = teams[this.team + 1].light;
+        setTimeout(() => this.elem.style.color = getColorsForElem(this.elem).color, 100);
     }
-
 }
