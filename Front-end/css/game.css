@@ -102,11 +102,24 @@
     transition: all var(--transTime);
 }
 
+#game > #board > tr > td > .selfMark
+{
+    display: block;
+    background-color: var(--topColor);
+    opacity: 0;
+    width: calc(100% + 2 * var(--space));
+    height: calc(100% + 2 * var(--space));
+    transform: translateY(calc(50% - var(--space))) scale(1);
+    margin: calc(-1 * var(--space));
+    transition: all var(--transTime);
+}
+
 #game > #board > tr > td > .wrap
 {    
     width: 100%;
     height: 100%;
     display: grid;
+    transform: translateY(-50%);
     grid-template-columns: 100% 0;
     grid-template-rows: repeat(3, calc(100% / 3));
 }

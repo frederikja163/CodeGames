@@ -46,10 +46,6 @@ function initializePlayerlist()
             }
             
             let pie = new Pie(slices, teams[SERVER.room.players[i].team + 1].normal);
-            if (player.pid === SERVER.pid)
-            {
-                pie.blackBorder();
-            }
             pie.elem.style.display = "block"; // Move to CSS
             playerElem.querySelector(".btnWrap").appendChild(pie.elem);
         }
@@ -284,11 +280,6 @@ function showBackToLobbyBtn()
     document.querySelector("#backToLobbyBtn").style.display = "flex";
 }
 
-function revealBoard(words)
-{
-    tiles.forEach((tile, i) => tile.update(words[i].team))
-}
-
 function gameEnded(winner)
 {
     setTimeout(() => window.alert("Team " + str(winner) + " won the game!"), 0);
@@ -357,16 +348,6 @@ class Pie
 
         this.elem.style.backgroundImage = backgroundStr;
     }
-
-    blackBorder()
-    {
-        this.elem.style.borderColor = "var(--backColor)";
-    }
-
-    whiteBorder()
-    {
-        this.elem.style.borderColor = "var(--topColor)";
-    }
 }
 
 class Tile
@@ -375,6 +356,7 @@ class Tile
     {
         this.word = word;
         this.index = index;
+        this.team = SERVER.room.game.words[this.index].team;
         this.marked = getMarked(SERVER.room, this.index);
         
         this.pieCount = 0;
@@ -385,6 +367,10 @@ class Tile
         
         this.elem = document.createElement("TD");
         this.elem.className = "box";
+
+        this.markElem = document.createElement("DIV");
+        this.markElem.className = "selfMark";
+        this.elem.appendChild(this.markElem);
         
         this.wrapElem = document.createElement("DIV");
         this.wrapElem.className = "wrap";
@@ -403,7 +389,7 @@ class Tile
             this.wrapElem.appendChild(this.pies[t].elem);
         }
 
-        this.update(SERVER.room.game.words[this.index].team);
+        this.update();
 
         this.elem.onmouseup = (event) =>
         {
@@ -418,13 +404,10 @@ class Tile
         }
     }
 
-    update(team)
+    update()
     {
-        if (this.team === team)
-        {
-            return;
-        }
-        this.team = team;
+        let wordObj = SERVER.room.game.words[this.index];
+        this.team = wordObj.team;
 
         if (this.team === -2)
         {
@@ -441,30 +424,31 @@ class Tile
     updateMark()
     {
         this.marked = getMarked(SERVER.room, this.index);
-        let wordObj = SERVER.room.game.words[this.index];
 
         for (let t = 1; t < this.marked.teams.length; t++)
         {
             this.pies[t].update(this.marked.teams[t]);
         }
 
-        let player = SERVER.room.players.find(p => p.pid === SERVER.pid);
-
+        let wordObj = SERVER.room.game.words[this.index];
         if (wordObj.marked.includes(SERVER.pid))
         {
-            this.pies[player.team].blackBorder();
+            this.elem.style.borderColor = "rgba(0, 0, 0, .5)";
+            this.markElem.style.opacity = ".4";
         }
         else
         {
-            this.pies[player.team].whiteBorder();
+            this.markElem.style.opacity = "0";
+            this.elem.style.borderColor = "rgba(0, 0, 0, 0)";
+            this.elem.style.padding = "var(--space)";
+            this.update();
         }
     }
 
     select()
     {
-        let wordObj = SERVER.room.game.words[this.index];
         this.updateMark();
-        this.update(wordObj.team);
+        this.update();
         this.selectedBy = SERVER.room.game.words[this.index].selectedBy;
 
         this.elem.style.borderColor = teams[this.selectedBy + 1].light;

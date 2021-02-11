@@ -41,51 +41,51 @@ let startGame = false;
 const teams = [
     {
         name: "Black",
-        normal: "var(--backColor)",
-        light: "hsl(0, 0%, 20%)",
-        dark: "hsl(0, 0%, 0%)"
+        normal: "#0000000",
+        light: "#0000000",
+        dark: "#0000000"
     },
     {
         name: "White",
-        normal: "var(--topColor)",
-        light: "hsl(0, 0%, 100%)",
-        dark: "hsl(0, 0%, 80%)"
+        normal: "#FFFFFFFF",
+        light: "#FFFFFFFF",
+        dark: "#FFFFFFFF"
     },
     {
         name: "Red",
-        normal: "hsl(0, 65%, 45%)",
-        light: "hsl(0, 65%, 65%)",
-        dark: "hsl(0, 65%, 30%)"
+        normal: "#CC2828FF",
+        light: "#F23030FF",
+        dark: "#8C1C1CFF"
     },
     {
         name: "Blue",
-        normal: "hsl(220, 65%, 45%)",
-        light: "hsl(220, 65%, 65%)",
-        dark: "hsl(220, 65%, 30%)"
+        normal: "#285FCCFF",
+        light: "#3071F2FF",
+        dark: "#1C418CFF"
     },
     {
         name:"Green",
-        normal: "hsl(100, 65%, 45%)",
-        light: "hsl(100, 65%, 65%)",
-        dark: "hsl(100, 65%, 30%)"
+        normal: "#5FCC28FF",
+        light: "#71F230FF",
+        dark: "#418C1CFF"
     },
     {
         name:"Yellow",
-        normal: "hsl(60, 65%, 45%)",
-        light: "hsl(60, 65%, 65%)",
-        dark: "hsl(60, 65%, 30%)"
+        normal: "#CCCC28FF",
+        light: "#F2F230FF",
+        dark: "8C8C1C"
     },
     {
         name:"Purple",
-        normal: "hsl(270, 65%, 45%)",
-        light: "hsl(270, 65%, 65%)",
-        dark: "hsl(270, 65%, 30%)"
+        normal: "#7A28CCFF",
+        light: "#9130F2FF",
+        dark: "#541C8CFF"
     },
     {
         name:"Cyan",
-        normal: "hsl(170, 65%, 45%)",
-        light: "hsl(170, 65%, 65%)",
-        dark: "hsl(170, 65%, 30%)"
+        normal: "#28CCB0FF",
+        light: "#30F2D1FF",
+        dark: "#1C8C79FF"
     }];
 
 document.addEventListener('keyup', (event) =>
