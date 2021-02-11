@@ -1,3 +1,6 @@
+### Version 2.5
+ - Changed image path to local path
+
 ### Version 2.4
  - Added wordpacks (@EN, #PopularPlaces, @DK, #Corona)
  - Merged all original codenames packs.
