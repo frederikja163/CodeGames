@@ -1,3 +1,8 @@
+### Version 2.4
+ - Added wordpacks (@EN, #PopularPlaces, @DK, #Corona)
+ - Merged all original codenames packs.
+ - Added @EN #Minecraft
+
 ### Version 2.3
  - Removed some NSFW packs (@EN, #CodeNamesUndercover1, #CodeNamesUndercover2)
 
