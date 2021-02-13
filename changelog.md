@@ -1,3 +1,6 @@
+### Version 2.7
+ - Improved revealboard text color bug, so it won't happen as often
+
 ### Version 2.6
  - Changed location of index and faq files
  - Removed split-up packs
