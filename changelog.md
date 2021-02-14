@@ -1,3 +1,5 @@
+### Version 2.7
+
 ### Version 2.6
  - Changed location of index and faq files
  - Removed split-up packs
