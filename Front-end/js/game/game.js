@@ -301,6 +301,8 @@ function resetRoom()
     document.querySelectorAll(".playerlist > ul > li:not(:first-child)").forEach(e => e.remove());
     document.querySelector("#board").innerHTML = "";
     document.querySelector("#board").style.removeProperty("gridRow");
+
+    document.querySelector(".givenWord").innerHTML = "";
     
     swapToLobby();
     initializeTeams();
