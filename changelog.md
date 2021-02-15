@@ -1,4 +1,5 @@
 ### Version 2.7
+ - Fixed bug where given word stays in next game
 
 ### Version 2.6
  - Changed location of index and faq files
