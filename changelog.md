@@ -1,4 +1,5 @@
 ### Version 2.7
+ - Improved revealboard text color bug, so it won't happen as often
  - Fixed bug where given word stays in next game
 
 ### Version 2.6

@@ -286,12 +286,12 @@ function showBackToLobbyBtn()
 
 function revealBoard(words)
 {
-    tiles.forEach((tile, i) => tile.update(words[i].team))
+    tiles.forEach((tile, i) => tile.update(words[i].team));
 }
 
 function gameEnded(winner)
 {
-    setTimeout(() => window.alert("Team " + str(winner) + " won the game!"), 0);
+    setTimeout(() => window.alert("Team " + str(winner) + " won the game!"), 1);
 }
 
 function resetRoom()
@@ -436,7 +436,7 @@ class Tile
         else
         {
             this.elem.style.backgroundColor = teams[this.team + 1].normal;
-            setTimeout(() => this.elem.style.color = getColorsForElem(this.elem).color, 0);
+            setTimeout(() => this.elem.style.color = getColorsForElem(this.elem).color, 100);
         }
     }
 
