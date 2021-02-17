@@ -1,3 +1,6 @@
+### Version 2.7
+ - Changed server IP-address
+
 ### Version 2.6
  - Changed location of index and faq files
  - Removed split-up packs
