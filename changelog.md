@@ -1,4 +1,5 @@
 ### Version 2.7
+ - Changed server IP-address
  - Improved revealboard text color bug, so it won't happen as often
  - Fixed bug where given word stays in next game
 
