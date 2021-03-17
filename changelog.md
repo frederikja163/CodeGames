@@ -2,6 +2,7 @@
  - Fixed bug where teams can give words to each other.
  - Added colors for given word and given word count.
  - Added fade to skip button.
+ - Added confirmation before picking word.
 
 ### Version 2.7
  - Changed server IP-address
