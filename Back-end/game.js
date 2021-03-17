@@ -71,7 +71,9 @@ class Game
 
     onGiveWord(client, word, wordCount)
     {
-        if (!this.isSpymastersTurn())
+        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
+        let player = this.data.players[playerInd];
+        if (!this.isSpymastersTurn() || player.team != this.data.game.activeTeam)
         {
             return;
         }

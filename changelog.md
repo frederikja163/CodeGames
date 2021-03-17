@@ -1,3 +1,5 @@
+### Version 2.6
+
 ### Version 2.5
  - Changed image path to local path
 
