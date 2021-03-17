@@ -1,10 +1,185 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="refresh" content="0; url='./Front-end/index.html'" />
+        <!--[if IE]>
+        <script type="text/javascript">
+        window.location = "https://www.google.com/chrome/";
+        </script>
+        <![endif]-->
         <title>Codegames version2.0 featuring html and css</title>
-        <link rel="icon" type="image/png" href="./assets/Codegames-icon.png"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
+        <script>let module = {};</script>
+        <script src="Common/roomCheck.js"></script>
+        <script src="Front-end/js/server.js"></script>
+        <script src="Front-end/js/main.js"></script>
+        <script src="Front-end/js/utils.js"></script>
+        <script src="Front-end/js/incoming.js"></script>
+        <script src="Front-end/js/welcome.js"></script>
+        <script src="Front-end/js/lobby/incoming.js"></script>
+        <script src="Front-end/js/lobby/outgoing.js"></script>
+        <script src="Front-end/js/lobby/lobby.js"></script>
+        <script src="Front-end/js/lobby/playerList.js"></script>
+        <script src="Front-end/js/lobby/options.js"></script>
+        <script src="Front-end/js/game/incoming.js"></script>
+        <script src="Front-end/js/game/outgoing.js"></script>
+        <script src="Front-end/js/game/game.js"></script>
+        <script src="Front-end/js/wait.js"></script>
+
+        <link rel="stylesheet" href="Front-end/css/main.css">
+        <link rel="stylesheet" href="Front-end/css/playerlist.css">
+        <link rel="stylesheet" href="Front-end/css/welcome.css">
+        <link rel="stylesheet" href="Front-end/css/lobby.css">
+        <link rel="stylesheet" href="Front-end/css/game.css">
+        <link rel="stylesheet" href="Front-end/css/wait.css">
+        <link rel="icon" type="image/png" href="Front-end/assets/Codegames-icon.png"/>
     </head>
     <body>
+        <div class="box debug" id="debugWarning">
+            Warning: Debug mode activated, if you didnt mean to do this, press F2.
+        </div>
+        <!-- Welcome -->
+        <page id="welcome">
+            <!-- Logo / title -->
+            <img id="logo" src="Front-end/assets/Codegames-welcome.png">
+
+            <!-- Join box-->
+            <div class="box" id="join">
+                <h2>Welcome to Code Games!</h2>
+                <form action="javascript:void(0);">
+                    <h3>Name</h3>
+                    <p>Enter the nickname you would like to be recognized as in the game</p>
+                    <input class="inputTxt" id="welcomeInputName" type="text" name="name" placeholder="Name">
+                    <h3>Room ID</h3>
+                    <p>Enter the ID of the room you want to join, or leave blank to join a random room</p>
+                    <input class="inputTxt" id="welcomeInputRid" type="text" name="rid" placeholder="Room ID">
+                    <a href="./faq/index.html">FAQ<a><br>
+                    <a href="https://github.com/frederikja163/CodeGames/blob/main/README.md">Source<a><br>
+                    <input id="joinBtn" class="btn" type="button" onclick="joinBtnOnClick()" value="Join">
+                </form>
+            </div>
+        </page>
+
+        <!-- Lobby -->
+        <page id="lobby">
+            <!-- Player list -->
+            <div class="box wall playerlist">
+                <h2>Players in Room</h2>
+                <ul id="teams">
+                    <li class="box">
+                        <h3>Spectators</h3>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Options list -->
+            <div class="box wall" id="options">
+                <h2>Room Options</h2>
+                <ul>
+                    <li id="countTitle">Team count: </li>
+                    <li id="countOption">
+                        <button class="btn2 owner" onclick="addTeam()" style="display: none; padding: 0" >
+                            <img class="icon" src="Front-end/assets/miscIcons/plus.png" alt="+">
+                        </button>
+                        <button class="btn2 owner" onclick="removeTeamBtn()" style="display: none; padding: 0" >
+                            <img class="icon" src="Front-end/assets/miscIcons/minus.png" alt="-">
+                        </button>
+                    </li>
+                    <li id="langTitle">Language:</li>
+                    <li id="langOption">
+                        <div class="btn owner" id="dropBtn" onclick="langBtn()" style="display: none">
+                            <img src="Front-end/assets/packs/en/flag.png" alt="EN">
+                            <img class="icon" src="Front-end/assets/miscIcons/chevron.png" alt="\/">
+                        </div>
+                        <img class="guest" id="currentLang" src="./Front-end/assets/packs/en/flag.png" alt="EN"></img>
+                    </li>
+                    <li class="wordCountTitle">Word count:</li>
+                    <li class="wordCountOption">
+                        <form onchange="setWordCount()" action="javascript:void(0);">
+                            <input class="owner inputTxt" value="25" placeholder="0"></input>
+                            <label class="guest">0</label>
+                        </form>
+                    </li>
+                    <li class="killerWordCountTitle">Killer word count:</li>
+                    <li class="killerWordCountOption">
+                        <form onchange="setKillerWordCount()" action="javascript:void(0);">
+                            <input class="owner inputTxt" value="5" placeholder="0"></input>
+                            <label class="guest">0</label>
+                        </form>
+                    </li>
+                    <li id="wordsTitle">Words:</li>
+                    <li class="box" id="dropMenu">
+                        <ol>
+                        </ol>
+                    </li>
+                    <li id="wordsOption">
+                        <div class="box owner" id="words" style="display: grid">
+                            <ul>
+                                
+                            </ul>
+                        </div>
+                        <textarea class="inputTxt owner" id="wordsField" placeholder="Words" onchange="wordsChange()" style="display: none"></textarea>
+                        <textarea class="inputTxt guest" id="wordsTxt" placeholder="Words" disabled></textarea>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Logo / title -->
+            <img id="logo" onclick="leaveRoom()" src="Front-end/assets/Codegames-large.png">
+
+            <!-- Name -->
+            <div id="name">
+                <p>Username:</p>
+                <input class="inputTxt" id="nameField" type="text" onchange="nameChange()" placeholder="Enter username">
+            </div>
+
+            <!-- Start game button -->
+            <button class="owner" id="start" style="display: none" onclick="startBtnPressed()">Start</button>
+
+            <!-- Leave button -->
+            <button id="leave" onclick="leaveRoom()">Leave</button>
+        </page>
+
+        <!-- Game -->
+        <page id="game">
+            <!-- Player list 
+            <div class="box playerlist" id="gamePlayers">
+                <h2>Players in Room</h2>
+                <ul id="teams">
+                    <li class="box">
+                        <h3>Spectators</h3>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            -->
+            <!-- Info -->
+            <div class="box" id="info">
+                <div id="backToLobbyBtn" class="btn" onclick="backToLobbyBtn()">
+                    To lobby
+                </div>
+                <div class="givenWord"></div>
+                <form onsubmit="endTurn()" action="javascript:void(0);">
+                    <input class="btn2 icon" type="image" alt="End turn" src="Front-end/assets/miscIcons/skip.png">
+                </form>
+            </div>
+            <!-- Board -->
+            <table class="box" id="board">
+            </table>
+            <!-- Word -->
+            <div class="box" id="word">
+                <form onsubmit="giveFormWord()" action="javascript:void(0);">
+                    <input class="inputTxt wordField" placeholder="Give word">
+                    <input class="inputTxt countField" placeholder="Word count">
+                    <input class="btn2 icon" type="image" alt="Give word" src="Front-end/assets/miscIcons/compass.png">
+                </form>
+            </div>
+        </page>
+        <!-- Wait -->
+        <page id="wait">
+            Wait
+        </page>
     </body>
 </html>

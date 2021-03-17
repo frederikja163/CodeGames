@@ -1,4 +1,17 @@
+### Version 2.8
+ - Fixed bug where teams can give words to each other.
+
+### Version 2.7
+ - Changed server IP-address
+ - Improved revealboard text color bug, so it won't happen as often
+ - Fixed bug where given word stays in next game
+
 ### Version 2.6
+ - Changed location of index and faq files
+ - Removed split-up packs
+ - Changed tile marking to pie color
+ - Fixed smarthome pack filename
+ - Changed team colors
 
 ### Version 2.5
  - Changed image path to local path
