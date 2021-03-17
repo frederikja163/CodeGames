@@ -85,7 +85,7 @@
 {
     margin: auto;
     margin-right: var(--space);
-    display: none;
+    transition: opacity var(--transTime);
 }
 
 #game > #board

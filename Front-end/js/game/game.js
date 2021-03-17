@@ -180,7 +180,6 @@ function wordGiven()
     let givenWordElem = document.querySelector("#game > #info > #givenWord");
     let wordElem = givenWordElem.querySelector("* > :first-child");
     let countElem = givenWordElem.querySelector("* > :last-child");
-    console.log("test");
 
     // Get element text.
     let word = SERVER.room.game.word;
@@ -280,12 +279,17 @@ function checkTurn()
 
 function showSkipBtn()
 {
-    document.querySelector("#info > form").style.display = "grid";
+    let formElem = document.querySelector("#info > form");
+    formElem.style.opacity = "1";
+    formElem.classList.remove("defaultCursorOnHover");
 }
 
 function hideSkipBtn()
 {
-    document.querySelector("#info > form").style.display = "none";
+    let formElem = document.querySelector("#info > form");
+    formElem.style.opacity = "0";
+    formElem.classList.add("defaultCursorOnHover");
+
 }
 
 function enableWordForm()

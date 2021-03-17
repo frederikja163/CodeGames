@@ -116,3 +116,13 @@ ul
     font-size: 40px;
     color: red;
 }
+
+.defaultCursorOnHover:hover
+{
+    cursor: default;
+}
+
+.defaultCursorOnHover *:hover
+{
+    cursor: default;
+}
