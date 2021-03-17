@@ -294,40 +294,43 @@ function teamChanged(pid)
     let playerElem = getPlayerElement(pid);
     let colors = getColorsForElem(teamElem.parentElement);
 
-    playerElem.children[1].style.color = colors.color;
-    playerElem.querySelectorAll(".btn2").forEach(elem => 
+    if (playerElem != undefined)
     {
-        elem.style.color = colors.backgroundColor;
-        elem.style.backgroundColor = colors.color;
-
-        let invertElem = elem.querySelector(".invertOnTeamChanged");
-
-        if (invertElem != null)
+        playerElem.children[1].style.color = colors.color;
+        playerElem.querySelectorAll(".btn2").forEach(elem => 
         {
-            invertElem.style.filter = colors.color === "var(--topColor)" ? "invert(0)" : "invert(1)";
-        }
-    });
+            elem.style.color = colors.backgroundColor;
+            elem.style.backgroundColor = colors.color;
 
-    //Hide all SM content on playerElem.
+            let invertElem = elem.querySelector(".invertOnTeamChanged");
 
-    //Owners and non-owners.
-    playerElem.querySelector(".smIcon").style.display = HIDDEN;
-    
-    //Owners only.
-    if (SERVER.pid == SERVER.room.players[0].pid)
-    {
-        if (player.team == 0)
+            if (invertElem != null)
+            {
+                invertElem.style.filter = colors.color === "var(--topColor)" ? "invert(0)" : "invert(1)";
+            }
+        });
+
+        //Hide all SM content on playerElem.
+
+        //Owners and non-owners.
+        playerElem.querySelector(".smIcon").style.display = HIDDEN;
+        
+        //Owners only.
+        if (SERVER.pid == SERVER.room.players[0].pid)
         {
-            playerElem.querySelector(".smBtn").style.display = HIDDEN;
-        }
-        else
-        {
-            playerElem.querySelector(".smBtn").style.display = 'initial';
+            if (player.team == 0)
+            {
+                playerElem.querySelector(".smBtn").style.display = HIDDEN;
+            }
+            else
+            {
+                playerElem.querySelector(".smBtn").style.display = 'initial';
+            }
+
         }
 
+        teamElem.insertBefore(playerElem, teamElem.children[SERVER.room.players.findIndex(p => p.pid == playerElem.querySelector(".pid").innerText)]);
     }
-
-    teamElem.insertBefore(playerElem, teamElem.children[SERVER.room.players.findIndex(p => p.pid == playerElem.querySelector(".pid").innerText)]);
 }
 
 function nameChanged(pid)
@@ -335,7 +338,10 @@ function nameChanged(pid)
     let player = SERVER.room.players.find(p => p.pid === pid);
     let playerElement = getPlayerElement(pid);
     
-    playerElement.children[1].innerText = player.name;
+    if (playerElement != undefined)
+    {
+        playerElement.children[1].innerText = player.name;
+    }
 }
 
 function spymasterChanged(pid, oldPid)
@@ -343,30 +349,33 @@ function spymasterChanged(pid, oldPid)
     let playerElem = getPlayerElement(pid);
     let oldPlayerElem = getPlayerElement(oldPid);
     
-    // Owners and non-owners
-    playerElem.querySelector(".smIcon").style.display = 'initial';
-
-    if (oldPlayerElem)
+    if (playerElem != undefined)
     {
-        oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;
-    }
-    else if (oldPid)
-    {
-        console.warn("Didn't find the player elem for " + pid);
-    }
-
-    // Owners only
-    if (SERVER.pid == SERVER.room.players[0].pid)
-    {
-        playerElem.querySelector(".smBtn").style.display = HIDDEN;
+        // Owners and non-owners
+        playerElem.querySelector(".smIcon").style.display = 'initial';
 
         if (oldPlayerElem)
         {
-            oldPlayerElem.querySelector(".smBtn").style.display = 'initial';
+            oldPlayerElem.querySelector(".smIcon").style.display = HIDDEN;
         }
         else if (oldPid)
         {
             console.warn("Didn't find the player elem for " + pid);
+        }
+
+        // Owners only
+        if (SERVER.pid == SERVER.room.players[0].pid)
+        {
+            playerElem.querySelector(".smBtn").style.display = HIDDEN;
+
+            if (oldPlayerElem)
+            {
+                oldPlayerElem.querySelector(".smBtn").style.display = 'initial';
+            }
+            else if (oldPid)
+            {
+                console.warn("Didn't find the player elem for " + pid);
+            }
         }
     }
 }
