@@ -63,12 +63,22 @@
     justify-content: center;
 }
 
-#game > #info > .givenWord
+#game > #info > #givenWord
 {
     grid-column: 2 / 3;
 
     margin: auto;
     font-size: 24px;
+}
+
+#game > #info > #givenWord > *
+{
+    padding: var(--space);
+    margin-left: var(--space);
+    margin-right: var(--space);
+    display: inline-block;
+    opacity: 0;
+    transition: opacity var(--transTime);
 }
 
 #game > #info > form

@@ -1,5 +1,6 @@
 ### Version 2.8
  - Fixed bug where teams can give words to each other.
+ - Added colors for given word and given word count.
 
 ### Version 2.7
  - Changed server IP-address
