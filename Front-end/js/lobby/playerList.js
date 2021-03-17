@@ -253,9 +253,13 @@ function playerJoined(pid)
 
 function playerLeft(pid, oldRoom)
 {
-    getPlayerElement(pid).remove();
+    let playerElem; getPlayerElement(pid);
+    if (playerElem)
+    {
+        playerElem.remove();
+    }
 
-    //Owner swap
+    // Owner swap.
     if (SERVER.pid === SERVER.room.players[0].pid && SERVER.pid != oldRoom.players[0].pid)
     {
         let players = document.querySelectorAll("#lobby #teams li ul li");
@@ -278,8 +282,8 @@ function playerLeft(pid, oldRoom)
 
     if (pid === oldRoom.players[0].pid)
     {
-        let playerElem = getPlayerElement(SERVER.room.players[0].pid);
-        playerElem.children[2].appendChild(createOwnerIconElem());
+        let ownerElem = getPlayerElement(SERVER.room.players[0].pid);
+        ownerElem.children[2].appendChild(createOwnerIconElem());
     }
 }
 

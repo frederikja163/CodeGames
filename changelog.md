@@ -1,8 +1,10 @@
 ### Version 2.8
- - Fixed bug where teams can give words to each other.
- - Added colors for given word and given word count.
- - Added fade to skip button.
  - Added confirmation before picking word.
+ - Added colors for given word and given word count.
+ - Added fade to skip button, given word and word count.
+ - Fixed bug where teams can give words to each other.
+ - Fixed bug if a player in wait or on spectator left the game.
+ - Fixed some client side errors.
 
 ### Version 2.7
  - Changed server IP-address
