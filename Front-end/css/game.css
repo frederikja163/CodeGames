@@ -74,8 +74,6 @@
 #game > #info > #givenWord > *
 {
     padding: var(--space);
-    margin-left: var(--space);
-    margin-right: var(--space);
     display: inline-block;
     opacity: 0;
     transition: opacity var(--transTime);
