@@ -63,7 +63,7 @@
     justify-content: center;
 }
 
-#game > #info > .givenWord
+#game > #info > #givenWord
 {
     grid-column: 2 / 3;
 
@@ -71,11 +71,19 @@
     font-size: 24px;
 }
 
+#game > #info > #givenWord > *
+{
+    padding: var(--space);
+    display: inline-block;
+    opacity: 0;
+    transition: opacity var(--transTime);
+}
+
 #game > #info > form
 {
     margin: auto;
     margin-right: var(--space);
-    display: none;
+    transition: opacity var(--transTime);
 }
 
 #game > #board

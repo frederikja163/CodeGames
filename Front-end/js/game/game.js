@@ -177,7 +177,41 @@ function getMarked(room, wordIndex) // Fix rækkefølge
 
 function wordGiven()
 {
-    document.querySelector("#game > #info > .givenWord").innerHTML = (SERVER.room.game.word === null ? "" : SERVER.room.game.word) + " " + String(SERVER.room.game.wordCount === null ? "" : SERVER.room.game.wordCount);
+    let givenWordElem = document.querySelector("#game > #info > #givenWord");
+    let wordElem = givenWordElem.querySelector("* > :first-child");
+    let countElem = givenWordElem.querySelector("* > :last-child");
+
+    // Get element text.
+    let word = SERVER.room.game.word;
+    let wordCount = String(SERVER.room.game.wordCount);
+    
+    // Get element colors.
+    let activeTeam = SERVER.room.game.activeTeam;
+    let color = teams[activeTeam + 1].normal;
+
+    // Update word element.
+    if (SERVER.room.game.word == null)
+    {
+        wordElem.style.opacity = "";
+    }
+    else
+    {
+        wordElem.style.opacity = "1";
+        wordElem.innerHTML = word;
+        wordElem.style.backgroundColor = color;
+    }
+
+    // Update count element.
+    if (SERVER.room.game.wordCount == null)
+    {
+        countElem.style.opacity = "";
+    }
+    else
+    {
+        countElem.style.opacity = "1";
+        countElem.innerHTML = wordCount;
+        countElem.style.backgroundColor = color;
+    }
 }
 
 function initializeWord()
@@ -245,12 +279,17 @@ function checkTurn()
 
 function showSkipBtn()
 {
-    document.querySelector("#info > form").style.display = "grid";
+    let formElem = document.querySelector("#info > form");
+    formElem.style.opacity = "1";
+    formElem.classList.remove("defaultCursorOnHover");
 }
 
 function hideSkipBtn()
 {
-    document.querySelector("#info > form").style.display = "none";
+    let formElem = document.querySelector("#info > form");
+    formElem.style.opacity = "0";
+    formElem.classList.add("defaultCursorOnHover");
+
 }
 
 function enableWordForm()
@@ -302,7 +341,7 @@ function resetRoom()
     document.querySelector("#board").innerHTML = "";
     document.querySelector("#board").style.removeProperty("gridRow");
 
-    document.querySelector(".givenWord").innerHTML = "";
+    document.querySelectorAll("#givenWord > *").forEach(e => e.innerHTML = "");
     
     swapToLobby();
     initializeTeams();

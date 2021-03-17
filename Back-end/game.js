@@ -71,7 +71,9 @@ class Game
 
     onGiveWord(client, word, wordCount)
     {
-        if (!this.isSpymastersTurn())
+        let playerInd = this.clients.findIndex(c => c.pid == client.pid);
+        let player = this.data.players[playerInd];
+        if (!this.isSpymastersTurn() || player.team != this.data.game.activeTeam)
         {
             return;
         }
@@ -111,7 +113,8 @@ class Game
     {
         let playerInd = this.clients.findIndex(c => c.pid == pid);
         let player = this.data.players[playerInd];
-        if (player.spymaster || !this.data.players.find(p => p.team === player.team && !p.spymaster && p.pid != pid))
+        if (player.team > 0 &&
+            (player.spymaster || !this.data.players.find(p => p.team === player.team && !p.spymaster && p.pid != pid)))
         {
             // Draw.
             this.endGame(0);
