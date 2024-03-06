@@ -1,1 +1,2 @@
+#!/bin/bash
 node Back-end/main.js rel
