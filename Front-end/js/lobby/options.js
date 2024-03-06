@@ -1,4 +1,5 @@
-const BASEURL = "http://codegames.ga/";
+// const BASEURL = "http://codegames.ga/";
+const BASEURL = "http://localhost:5500/";
 const PACKURL = BASEURL + "Front-end/assets/packs/";
 let languages = [];
 
