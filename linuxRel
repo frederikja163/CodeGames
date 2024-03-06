@@ -1,2 +1,3 @@
 #!/bin/bash
-node Back-end/main.js rel
+cd ~/libraries/code/CodeGames/Back-end/
+node main.js rel
