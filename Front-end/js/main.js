@@ -10,13 +10,11 @@ if (URLPARAMS.has("host"))
     {
         case "dev":
         case "development":
-            // SERVER.connect("77.33.11.44", 9997);
-            SERVER.connect("85.218.176.21", 9997);
+            SERVER.connect("rottehjem.duckdns.org", 9997);
             break;
         case "rel":
         case "release":
-            // SERVER.connect("77.33.11.44", 9999);
-            SERVER.connect("85.218.176.21", 9999);
+            SERVER.connect("rottehjem.duckdns.org", 9999);
             break;
         case "loc":
         case "local":
@@ -26,8 +24,7 @@ if (URLPARAMS.has("host"))
 }
 else
 {
-    // SERVER.connect("77.33.11.44", 9999);
-    SERVER.connect("85.218.176.21", 9999);
+    SERVER.connect("rottehjem.duckdns.org", 9999);
 }
 
 //TODO: Remove these

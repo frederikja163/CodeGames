@@ -1,5 +1,4 @@
-// const BASEURL = "http://codegames.ga/";
-const BASEURL = "http://85.218.176.21:8999/";
+const BASEURL = "http://rottehjem.duckdns.org:8999/";
 const PACKURL = BASEURL + "Front-end/assets/packs/";
 let languages = [];
 
